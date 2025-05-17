@@ -15,7 +15,7 @@ function realizarBusca() {
   }
 }
 
-// ===== Função: Alternar menu lateral =====
+// ===== Função: Alternar menu =====
 function alternarMenu() {
   submenu?.classList.toggle("ativo");
 }
