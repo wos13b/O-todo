@@ -141,7 +141,7 @@ body::-webkit-scrollbar {
 
 .Conteudo ul li {
   position: relative;
-  padding-left: 28px;
+  padding-left: 20px;
   margin-bottom: 10px;
   font-size: 1.05em;
   color: #f0f0f0;
@@ -152,24 +152,6 @@ body::-webkit-scrollbar {
   position: absolute;
   left: 0;
   color: #00d2ff;
-}
-
-.ul_2 {
-  margin-left: 30px;
-}
-
-.ul_2 li {
-  padding-left: 0.5em;
-  font-size: 0.95em;
-  color: #dddddd;
-  position: relative;
-}
-
-.ul_2 li::before {
-  content: "⚛︎";
-  position: absolute;
-  left: -20px;
-  color: #00819e;
 }
 
 /* ===== Ênfase em Palavras-Chave ===== */
