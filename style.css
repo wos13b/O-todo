@@ -35,24 +35,9 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* ===== Container principal ===== */
-.Home {
-  width: 100%;
-  min-height: 100vh;
-}
-
-/* ===== Container lateral + principal ===== */
-.content {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  gap: 40px;
-  padding: 50px 20px;
-  flex-wrap: wrap;
-}
-
 /* ===== Seção Main ===== */
 .Main {
+  height: 100%;
   font-family: Greek;
   margin-top: 60px;
   padding: 0px 20px;
@@ -118,7 +103,7 @@ body::-webkit-scrollbar {
   padding: 28px;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  max-width: 1140px;
+  max-width: 1120px;
   margin: 28px auto;
   font-family: Greek;
   color: #ffffff;
