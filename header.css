@@ -1,0 +1,198 @@
+@font-face {
+    font-family: Movie;
+    src: url('Font/Steudel.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+
+
+.header {
+    font-family: Movie;
+    font-size: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #3f3f3f;
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Menu de navegação */
+.header ul {
+    display: flex;
+    list-style: none;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    margin: 0 20px;
+
+}
+
+.header li a {
+    padding: 20px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+
+.header li a:hover {
+    background-color: #313131;
+    border-radius: 10px;
+    color: #b0b0b0;
+}
+.Log_perf {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-image: url('img/perfil.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #1f1f1f;
+    margin: auto 20px auto auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+/* Gradiente como pseudo-elemento */
+.Log_perf::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3f3f3f, #ff4c4c, #3f3f3f);
+    opacity: 0;
+    transition: opacity 0.8s;
+    z-index: 0;
+}
+
+/* Quando passar o mouse, ativa o gradiente */
+.Log_perf:hover::before {
+    opacity: 0.6; /* você pode ajustar a opacidade */
+}
+
+/* Coloca o conteúdo acima do gradiente */
+.Log_perf > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Escala no hover */
+.Log_perf:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+/* Botão do menu */
+.menu-toggle {
+    background: linear-gradient(145deg, #4a4a4a, #353535);
+    color: #ffffff;
+    height: 45px;
+    width: 45px;
+    font-size: 22px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto auto auto 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background: linear-gradient(145deg, #555555, #2e2e2e);
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Submenu com animação */
+.submenu {
+    font-family: Movie;
+    background-color: #444444;
+    padding: 10px;
+    margin-top: 80px;
+    border-radius: 5px;
+    position: fixed;
+    width: 200px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    visibility: hidden;
+}
+.submenu select {
+    font-family: Movie;
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    appearance: none; /* remove estilo nativo */
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Efeito visual semelhante ao hover dos links */
+.submenu select:hover {
+    background-color: #313131;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    color: #b0b0b0;
+}
+
+/* Estilo das opções dentro do select */
+.submenu select option {
+    background-color: #444444;
+    color: #fff;
+    font-family: Movie;
+    padding: 10px;
+}
+
+/* Opcional: ícone customizado para o dropdown (estilo avançado) */
+.submenu select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+.submenu.ativo {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    visibility: visible;
+}
+  
+.submenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.submenu li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    transition: background-color 0.3s;
+    border-radius: 10px;
+}
+
+.submenu li a:hover {
+    background-color: #313131;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    color: #b0b0b0;
+}

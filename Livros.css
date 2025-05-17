@@ -1,0 +1,58 @@
+
+.Box_libre{
+
+    text-align: center;
+    border-bottom:1px solid black;
+
+}
+.Libres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 38px;
+    justify-content: center;
+    align-items: center;
+}
+.Libres a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.livro {
+    width: 140px;
+    height: 200px;
+    background: linear-gradient(145deg, #4a4a4a, #2c2c2c);
+    border: 2px solid #252525;
+    border-radius: 6px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    padding: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.livro img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 10px auto;
+    display: block;
+}
+
+
+.livro:hover {
+    transform: scale(1.05);
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.7);
+}
+
+.livro h3 {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #f0f0f0;
+}
+
+.livro p {
+    font-size: 10px;
+    color: #cccccc;
+}

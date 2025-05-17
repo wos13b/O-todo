@@ -1,0 +1,136 @@
+/* ========================
+   ESTILO GERAL DO CONTAINER
+=========================== */
+.custom-details {
+  margin-bottom: 5px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: #2e2e2e;
+  max-width: 1100px;
+  overflow: hidden;
+  transition: background-color 0.3s;
+}
+
+.custom-details:hover {
+  background-color: #313131;
+}
+
+.custom-details span {
+  color: #00bcd4;
+  transition: color 0.8s;
+}
+
+.custom-details.open span {
+  color: #00bcd459;
+}
+
+.custom-details.open .details-content {
+  max-height: 500px;
+}
+
+
+/* ========================
+   BOTÃO DE SUMÁRIO
+=========================== */
+.summary-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2e2e2e;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  color: #e0e0e0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.summary-btn:hover {
+  background-color: #3f3f3f;
+}
+
+.summary_icon {
+  color: #00bcd4;
+  transition: 0.4s;
+}
+
+.summary_icon.ativo {
+  color: #00bcd459;
+}
+
+
+/* ========================
+   CONTEÚDO EXPANDIDO
+=========================== */
+.details-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+}
+
+.details-content p,
+.details-content ul,
+.details-content h3 {
+  margin: 8px 20px;
+  color: #ddd;
+}
+
+.details-content ul {
+  padding-left: 20px;
+}
+
+.details-content h3 {
+  color: #aaff66;
+  font-size: 16px;
+  margin-top: 16px;
+}
+
+
+/* ========================
+   TABELA DETALHADA
+=========================== */
+.custom-details table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+  background-color: #3a3a3a;
+  border: 1px solid #444;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.custom-details th,
+.custom-details td {
+  padding: 12px 16px;
+  text-align: left;
+  color: #eaeaea;
+  border-bottom: 1px solid #555;
+  font-size: 13px;
+}
+
+.custom-details th {
+  background-color: #4a4a4a;
+  color: #aaff66;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.85em;
+}
+
+.custom-details tr:hover {
+  background-color: #3f3f3f;
+}
+
+
+/* ========================
+   RESPONSIVIDADE BÁSICA
+=========================== */
+@media (max-width: 768px) {
+  .custom-details {
+    max-width: 100%;
+  }
+
+  .summary-btn {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
