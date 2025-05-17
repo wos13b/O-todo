@@ -102,7 +102,7 @@ body::-webkit-scrollbar {
 
 /* ===== Conteúdo Central ===== */
 .Conteudo {
-  background-color: #3f3f3f;
+  background-color: #3f3f3fe0;
   padding: 28px;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
