@@ -8,20 +8,33 @@
 
 
 .header {
-    font-family: Movie;
-    font-size: 20px;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #3f3f3f;
     padding: 20px 0;
+    
+    background-color: #3f3f3f;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     z-index: 1000;
+
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+
+    font-family: Movie, sans-serif;
+    font-size: 20px;
 }
+@media (max-width: 768px) {
+    .header {
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
 
 /* Menu de navegação */
 .header ul {
