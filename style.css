@@ -27,6 +27,7 @@ body::before {
   background:url(img/Background/fract_001.png);
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-position: center;
   z-index: -1;
 }
