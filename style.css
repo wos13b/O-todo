@@ -111,6 +111,16 @@ body::-webkit-scrollbar {
   transition: all 0.3s ease;
 }
 
+/* Estilo responsivo para telas menores que 425px */
+@media (max-width: 425px) {
+  .Conteudo {
+    padding: 16px;
+    margin: 16px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+}
+
 .Conteudo h1 {
   transition: color 1s;
   font-size: 2.5em;
