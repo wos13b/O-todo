@@ -128,38 +128,6 @@ body::-webkit-scrollbar {
   color: #dddddd;
 }
 
-/* Estilo responsivo para telas menores que 425px */
-@media (max-width: 425px) {
-  
-  .search-container {
-    width: 100%;
-    max-width: 220px;
-    margin: 20px auto;
-  }
-  .Conteudo {
-    padding: 16px;
-    margin: 16px;
-    font-size: 14px;
-    border-radius: 12px;
-    max-width: 500px;
-    margin: auto;
-  }
-  .Conteudo h1 {
-    font-size: 1.8em;
-    margin-bottom: 5px;
-  }
-  .Conteudo h2 {
-    font-size: 1.2em;
-    color: #b0b0b0;
-    margin-top: 10px;
-  }
-  .Conteudo p {
-    margin: 5px 0;
-    font-size: 0.6em;
-    color: #dddddd;
-  }
-}
-
 .Conteudo ul {
   list-style: none;
   padding-left: 0;
@@ -207,3 +175,36 @@ strong {
   cursor: pointer;
 }
 
+@media (max-width: 425px) {
+  
+  .search-container {
+    width: 100%;
+    max-width: 220px;
+    margin: 20px auto;
+  }
+  .Conteudo {
+    padding: 16px;
+    margin: 16px;
+    font-size: 14px;
+    border-radius: 12px;
+    max-width: 500px;
+    margin: auto;
+  }
+  .Conteudo h1 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+  }
+  .Conteudo h2 {
+    font-size: 1.2em;
+    color: #b0b0b0;
+    margin-top: 10px;
+  }
+  .Conteudo p {
+    margin: 5px 0;
+    font-size: 0.6em;
+    color: #dddddd;
+  }
+  .Conteudo ul li {
+    font-size: 0.8em;
+  }
+}
