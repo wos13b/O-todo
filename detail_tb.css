@@ -120,13 +120,15 @@
 /* ========================
    RESPONSIVIDADE BÁSICA
 =========================== */
-@media (max-width: 768px) {
-  .custom-details {
-    max-width: 100%;
-  }
+@media (max-width: 425px) {
+  .summary-btn span{
 
-  .summary-btn {
-    flex-direction: column;
-    align-items: flex-start;
+    font-size: 0.8em;
+
+  }
+  .custom-details{
+
+    max-width: 100%;
+
   }
 }
