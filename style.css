@@ -140,6 +140,8 @@ body::-webkit-scrollbar {
     margin: 16px;
     font-size: 14px;
     border-radius: 12px;
+    max-width: 500px;
+    margin: auto;
   }
   .Conteudo h1 {
     font-size: 1.8em;
