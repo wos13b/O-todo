@@ -101,6 +101,7 @@
     transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
     visibility: hidden;
+    z-index: 1000;
 
 }
 .Log_menu ul {
@@ -244,6 +245,7 @@
     .Log_menu{
 
         margin: 0;
+        width: 200px;
 
     }
     .Log_menu.ativo{
