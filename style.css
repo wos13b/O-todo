@@ -79,7 +79,7 @@ body::-webkit-scrollbar {
   transform: translateY(-50%);
   background-color: #3f3f3f;
   color: white;
-  padding: 5px 15px;
+  padding: 5px 8px;
   border-radius: 25px;
   border: 2px solid #5f5f5f;
   font-size: 14px;
@@ -130,6 +130,11 @@ body::-webkit-scrollbar {
 
 /* Estilo responsivo para telas menores que 425px */
 @media (max-width: 425px) {
+  .search-container {
+    width: 100%;
+    max-width: 220px;
+    margin: 20px auto;
+  }
   .Conteudo {
     padding: 16px;
     margin: 16px;
