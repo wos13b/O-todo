@@ -240,12 +240,14 @@
 
         width: 38px;
         height: 38px;
+        margin: auto 2px auto auto;
 
     }
     .Log_menu{
 
         margin: 0;
         width: 200px;
+        height: auto;
 
     }
     .Log_menu.ativo{
@@ -255,6 +257,7 @@
 
         width: 38px;
         height: 38px;
+        margin: auto auto auto 2px;
 
     }
     .header {
