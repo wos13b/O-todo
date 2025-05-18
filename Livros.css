@@ -58,3 +58,25 @@
     font-size: 10px;
     color: #cccccc;
 }
+@media (max-width: 425px) {
+
+    .Libres{
+
+        padding: 2px;
+
+    }
+    .livro {
+        width: 80px;
+        height: 80px;
+    }
+    .livro p {
+        font-size: 8px;
+    }
+    .livro img {
+        width: 20px;
+        height: 20px;
+        margin: 2px auto;
+    }
+
+
+}
