@@ -34,14 +34,20 @@ body::before {
   z-index: -1;
   pointer-events: none;
 }
-
+.Home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
 
 
 body::-webkit-scrollbar {
   display: none;
 }
-
-/* ===== Seção Main ===== */
 .Main {
   height: 100%;
   font-family: Greek;
@@ -186,6 +192,7 @@ strong {
   .Main{
 
     padding: 4px;
+    max-width: 420px;
 
   }
   .search-container {
