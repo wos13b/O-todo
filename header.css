@@ -20,15 +20,6 @@
     font-family: Movie, sans-serif;
     font-size: 20px;
 }
-@media (max-width: 768px) {
-    .header {
-        padding: 10px;
-        font-size: 16px;
-        align-items: flex-start;
-    }
-}
-
-
 .header ul {
     display: flex;
     list-style: none;
@@ -242,4 +233,33 @@
     background-color: #313131;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     color: #b0b0b0;
+}
+@media (max-width: 425px) {
+    .Log_perf{
+
+        width: 38px;
+        height: 38px;
+
+    }
+    .Log_menu{
+
+        margin: 0;
+
+    }
+    .Log_menu.ativo{
+        transform: translateY(-2px);
+    }
+    .menu-toggle{
+
+        width: 38px;
+        height: 38px;
+
+    }
+    .header {
+        padding: 10px;
+        font-size: 16px;
+        align-items: flex-start;
+    }
+
+  }
 }

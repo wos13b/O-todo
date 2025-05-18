@@ -130,6 +130,7 @@ body::-webkit-scrollbar {
 
 /* Estilo responsivo para telas menores que 425px */
 @media (max-width: 425px) {
+  
   .search-container {
     width: 100%;
     max-width: 220px;
