@@ -21,6 +21,7 @@
     display: flex;
     font-size: 20px;
     font-family: Movie, sans-serif;
+    z-index: 10;
 
 }
 .menu-toggle{
@@ -98,6 +99,7 @@
     .header{
 
         height: 8vh;
+        z-index: 10;
 
     }
     .nav_2 {

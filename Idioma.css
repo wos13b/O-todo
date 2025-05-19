@@ -29,3 +29,21 @@
     transform: scale(1.05);
     box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.7);
 }
+@media (max-width: 425px) {
+
+    .Band_pas{
+
+        width: 80px;
+        height: 50px;
+        padding: 2px;
+
+    }
+    .Band_pas img{
+
+        width: 46px;
+        height: 46px;
+        margin: auto;
+
+    }
+
+}
