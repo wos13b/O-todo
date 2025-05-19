@@ -100,14 +100,12 @@
         height: 8vh;
 
     }
-    @media (max-width: 750px){
     .nav_2 {
         position: absolute;
         top: 8vh;
-        right: 10px;
+        right: 0px;
         background-color: #3f3f3f;
         padding: 10px;
-        border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         z-index: 100;
 
@@ -122,9 +120,10 @@
     }
 
     .nav_2.ativo {
-        max-height: 500px; /* altura grande o suficiente pro conteúdo */
+        max-height: 500px;
         opacity: 1;
         transform: translateY(0);
+        z-index: 100;
     }
 
 

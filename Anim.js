@@ -1,8 +1,8 @@
 const perf_butt = document.querySelector(".Log_perf")
-const log_menu = document.querySelector(".Log_menu")
+const nav_2 = document.querySelector(".nav_2")
 
 function alternarMenu_perf() {
-  log_menu?.classList.toggle("ativo");
+  nav_2?.classList.toggle("ativo");
 }
 
 perf_butt?.addEventListener("click", alternarMenu_perf)

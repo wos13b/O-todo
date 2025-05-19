@@ -63,7 +63,7 @@
 
     .Libres{
 
-        padding: 8px 4px;
+        padding: 2px 4px;
 
     }
     .livro {
@@ -71,7 +71,7 @@
         height: 80px;
     }
     .livro h3 {
-        font-size: 8px;
+        font-size: 7px;
     }
     .livro p {
         font-size: 8px;
