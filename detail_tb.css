@@ -71,8 +71,9 @@
 
 .details-content p,
 .details-content ul,
-.details-content h3 {
-  margin: 8px 20px;
+.details-content h3,
+.details-content h4 {
+  margin: 8px 12px;
   color: #ddd;
 }
 
