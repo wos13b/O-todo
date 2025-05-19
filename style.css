@@ -162,6 +162,7 @@ strong {
   .Main{
 
     padding: 0px;
+    margin: 0;
 
   }
   .search-container {
@@ -172,6 +173,7 @@ strong {
   .Conteudo {
     padding: 16px;
     width: 100%;
+    margin: 0;
   }
   .Conteudo h1 {
     font-size: 1.2em;
