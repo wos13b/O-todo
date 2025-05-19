@@ -91,20 +91,44 @@ body::-webkit-scrollbar {
   padding-left: 0;
 }
 
+.Conteudo ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .Conteudo ul li {
   position: relative;
-  padding-left: 20px;
-  margin-bottom: 10px;
-  font-size: 1.05em;
+  padding-left: 28px;
+  margin-bottom: 14px;
+  font-size: 1.1em;
   color: #f0f0f0;
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+.Conteudo ul li:hover {
+  color: #ffffff;
 }
 
 .Conteudo ul li::before {
-  content: "♾︎";
+  content: "";
   position: absolute;
+  top: 0.6em;
   left: 0;
-  color: #00d2ff;
+  width: 10px;
+  height: 10px;
+  background-color: #00d2ff;
+  border-radius: 50%;
+  box-shadow: 0 0 4px #00d2ff;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
+
+.Conteudo ul li:hover::before {
+  transform: scale(1.3);
+  background-color: #00ffee;
+}
+
 
 /* ===== Ênfase em Palavras-Chave ===== */
 strong {

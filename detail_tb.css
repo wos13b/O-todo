@@ -51,12 +51,21 @@
 }
 
 .summary_icon {
+  transform: scale(1.2);
+  content: "♻︎";
   color: #00bcd4;
   transition: 0.4s;
 }
+.summary_icon::before {
+  content: "♻︎";
+  font-size: 1.2em;
+}
+
 
 .summary_icon.ativo {
+  transition: 0.8s;
   color: #00bcd459;
+  transform: scale(1);
 }
 
 
