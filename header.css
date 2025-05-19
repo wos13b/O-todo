@@ -1,9 +1,8 @@
-*{
-
+* {
     margin: 0;
     padding: 0;
-
 }
+
 @font-face {
     font-family: Movie;
     src: url('Font/Steudel.ttf') format('truetype');
@@ -16,19 +15,18 @@
     top: 0;
     width: 100%;
     height: 10vh;
-    background-color: #3f3f3fb2;
+    background-color: #1a1a1ad8;
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* Suporte para Safari */
+    -webkit-backdrop-filter: blur(10px);
     display: flex;
     font-size: 20px;
     font-family: Movie, sans-serif;
     z-index: 10;
 }
 
-.menu-toggle{
-
-    background: linear-gradient(145deg, #4a4a4a, #353535);
-    color: #ffffff;
+.menu-toggle {
+    background: linear-gradient(145deg, #222, #111);
+    color: #ff6f00;
     height: 40px;
     width: 40px;
     font-size: 20px;
@@ -39,25 +37,25 @@
     justify-content: center;
     align-items: center;
     margin: auto auto auto 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     transition: all 0.3s ease;
-
 }
-.menu-toggle:hover{
 
+.menu-toggle:hover {
     transform: scale(1.05);
-
+    background: linear-gradient(145deg, #333, #000);
 }
-.nav ,.nav_2 {
+
+.nav, .nav_2 {
     display: flex;
     gap: 10px;
     align-items: center;
     margin: auto;
 }
 
-.nav a,.nav_2 a {
+.nav a, .nav_2 a {
     padding: 10px 16px;
-    color: #ffffff;
+    color: #fffcf2;
     text-decoration: none;
     font-weight: bold;
     border-radius: 8px;
@@ -65,10 +63,11 @@
 }
 
 .nav a:hover, .nav_2 a:hover {
-    background-color: #313131;
+    background-color: #2c2c2c;
+    color: #ff6f00;
     border-radius: 10px;
-    color: #b0b0b0;
 }
+
 .nav li, .nav_2 li {
     list-style: none;
 }
@@ -82,34 +81,30 @@
     background-image: url(img/perfil.jpg);
     background-size: cover;
     background-position: center;
-    border: 2px solid #1f1f1f;
+    border: 2px solid #ff6f00;
     margin: auto 20px auto auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     transition: transform 0.2s ease;
 }
-.Log_perf:hover{
 
+.Log_perf:hover {
     transform: scale(1.05);
-
 }
 
-@media (max-width: 750px){
-
-
-    .header{
-
+@media (max-width: 750px) {
+    .header {
         height: 8vh;
         z-index: 10;
-
     }
+
     .nav_2 {
         position: absolute;
         top: 8vh;
-        right: 0px;
-        background-color: #3f3f3f;
+        right: 0;
+        background-color: #1a1a1a;
         padding: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
         z-index: 100;
 
         display: flex;
@@ -129,23 +124,17 @@
         z-index: 100;
     }
 
-
-    .menu-toggle{
-
+    .menu-toggle {
         height: 32px;
         width: 32px;
-
     }
-    .Log_perf{
 
+    .Log_perf {
         width: 32px;
         height: 32px;
-
     }
-
 }
-ul{
 
+ul {
     list-style: none;
-
 }
