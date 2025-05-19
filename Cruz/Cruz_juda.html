@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../detail_tb.css">
     <script src="../script.js" defer></script>
+    <script src="../Anim.js" defer></script>
     <title>Aouz</title>
 </head>
 
@@ -15,82 +16,72 @@
     <div class="Home">
         <div class="header">
             <button class="menu-toggle">☰</button>
-            <ul class="menu">
-                <li><a href="../index.html">Início</a></li>
-                <li><a href="../AOUZ.html">AOUZ</a></li>
+            <ul class="nav">
+                <li><a href="../index.html">Inicio</a></li>
                 <li><a href="../hack.html">Hacking</a></li>
-                <li><a href="../Fisica.html">Física</a></li>
-                <li><a href="../Cruz.html">Crenças/Teorias</a></li>
-                <li><a href="#">Biologia</a></li>
-                <li><a href="../Ling.html">Línguas</a></li>
+                <li><a href="../Fisica.html">Fisica</a></li>
+            </ul>
+            <ul class="nav_2">
+                <li><a href="../Cruz.html">Crenças/Mitos</a></li>
+                <li><a href="../AOUZ.html">AOUZ</a></li>
+                <li><a href="../Ling.html">Idiomas</a></li>
                 <li><a href="">Politica</a></li>
+                <li><a href="../log.html">Perfil</a></li>
             </ul>
-            <a href="log.html">
-                <div class="Log_perf"></div>
-            </a>
+            <div class="Log_perf">
+            </div>
         </div>
-
-        <div class="submenu hide">
-            <ul>
-                <li><a href="#">Nova Opção 1</a></li>
-                <li><a href="#">Nova Opção 2</a></li>
-                <li><a href="#">Nova Opção 3</a></li>
-                <li><a href="#">Nova Opção 4</a></li>
-            </ul>
-        </div>
-        <div class="content">
-            <div class="Main">
-                <div class="Conteudo">
-                    <h1>Judaismo</h1>
-                    <p>
-                        O judaísmo é uma religião monoteísta, com raízes históricas na Mesopotâmia 
-                        e no Levante, que define a crença, a filosofia e o modo de vida do povo judeu. 
-                        É a religião mais antiga entre as três principais religiões monoteístas (judaísmo, 
-                        cristianismo e islamismo). Acredita na existência de um único Deus, em um pacto 
-                        com Deus e na esperança de um futuro messiânico. 
-                    </p>
-                    <div class="custom-details">
-                        <div class="summary-btn">
-                            <span>Origem</span>
-                            <span class="summary_icon">@</span>
-                        </div>
-                        <div class="details-content">
-                            <p>
-                                A origem do judaísmo remonta à Antiguidade, sendo uma das religiões 
-                                monoteístas mais antigas do mundo ainda em prática. Abaixo está um 
-                                resumo da sua origem e desenvolvimento inicial:
-                            </p>
-                            <ul>
-                                <li>
-                                    Fundador simbólico: Abraão, considerado o 
-                                    "pai do povo hebreu", teria vivido por volta de 2000 a.C. 
-                                    na região da Mesopotâmia (atualmente sul do Iraque).
-                                </li>
-                                <li>
-                                    Aliança com Deus (YHWH): Segundo a tradição, 
-                                    Deus fez um pacto com Abraão prometendo-lhe uma terra 
-                                    (Canaã) e uma descendência numerosa.
-                                </li>
-                                <li>
-                                    Descendentes:
-                                    <ul>
-                                        <li>Isaac (filho de Abraão)</li>
-                                        <li>Jacó (filho de Isaac), também chamado de Israel, que teve 12 filhos — os ancestrais das 12 tribos de Israel.</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+        <div class="Main">
+            <div class="Conteudo">
+                <h1>Judaismo</h1>
+                <p>
+                    O judaísmo é uma religião monoteísta, com raízes históricas na Mesopotâmia 
+                    e no Levante, que define a crença, a filosofia e o modo de vida do povo judeu. 
+                    É a religião mais antiga entre as três principais religiões monoteístas (judaísmo, 
+                    cristianismo e islamismo). Acredita na existência de um único Deus, em um pacto 
+                    com Deus e na esperança de um futuro messiânico. 
+                </p>
+                <div class="custom-details">
+                    <div class="summary-btn">
+                        <span>Origem</span>
+                        <span class="summary_icon">@</span>
                     </div>
-                    <div class="custom-details">
-                        <div class="summary-btn">
-                            <span>Torá</span>
-                            <span class="summary_icon">@</span>
-                        </div>
-                        <div class="details-content">
-                            <p>
-                                A Torá (os cinco primeiros livros da Bíblia Hebraica) é o texto fundamental.
-                            </p>
-                        </div>
+                    <div class="details-content">
+                        <p>
+                            A origem do judaísmo remonta à Antiguidade, sendo uma das religiões 
+                            monoteístas mais antigas do mundo ainda em prática. Abaixo está um 
+                            resumo da sua origem e desenvolvimento inicial:
+                        </p>
+                        <ul>
+                            <li>
+                                Fundador simbólico: Abraão, considerado o 
+                                "pai do povo hebreu", teria vivido por volta de 2000 a.C. 
+                                na região da Mesopotâmia (atualmente sul do Iraque).
+                            </li>
+                            <li>
+                                Aliança com Deus (YHWH): Segundo a tradição, 
+                                Deus fez um pacto com Abraão prometendo-lhe uma terra 
+                                (Canaã) e uma descendência numerosa.
+                            </li>
+                            <li>
+                                Descendentes:
+                                <ul>
+                                    <li>Isaac (filho de Abraão)</li>
+                                    <li>Jacó (filho de Isaac), também chamado de Israel, que teve 12 filhos — os ancestrais das 12 tribos de Israel.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="custom-details">
+                    <div class="summary-btn">
+                        <span>Torá</span>
+                        <span class="summary_icon">@</span>
+                    </div>
+                    <div class="details-content">
+                        <p>
+                            A Torá (os cinco primeiros livros da Bíblia Hebraica) é o texto fundamental.
+                        </p>
                     </div>
                 </div>
             </div>
