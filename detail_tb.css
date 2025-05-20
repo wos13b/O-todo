@@ -84,6 +84,9 @@
 .details-content h4 {
   margin: 8px 12px;
   color: #ddd;
+  border: solid 1px #555;
+  padding: 8px;
+  border-radius: 4px;
 }
 
 .details-content h3 {
@@ -131,14 +134,26 @@
    RESPONSIVIDADE BÁSICA
 =========================== */
 @media (max-width: 425px) {
+  .custom-details{
+    max-width: 400px;
+  }
   .summary-btn span{
+
 
     font-size: 0.8em;
 
   }
-  .custom-details{
+  .custom-details table {
+    font-size: 14px;
+  }
+  .custom-details th{
 
-    max-width: 100%;
+    font-size: 8px;
+
+  }
+  .custom-details td{
+
+    font-size: 8px;
 
   }
 }
