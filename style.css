@@ -192,6 +192,10 @@ strong {
     color: #dddddd;
   }
   .Conteudo ul li {
-    font-size: 0.8em;
+    font-size: 1.2em;
+    margin: 8px;
+  }
+  .Conteudo ul li::before{
+    top: 5px;
   }
 }
