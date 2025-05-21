@@ -88,6 +88,12 @@
   padding: 8px;
   border-radius: 4px;
 }
+.details-content .mark {
+
+  margin: 8px 12px;
+  border-left: 2px solid #00d2ff;
+
+}
 
 .details-content h3 {
   color: #aaff66;
