@@ -83,7 +83,7 @@ body::-webkit-scrollbar {
 }
 .Conteudo p {
   margin: 10px 0;
-  font-size: 0.9em;
+  font-size: 1.2em;
   color: #dddddd;
 }
 
@@ -115,7 +115,7 @@ body::-webkit-scrollbar {
 .Conteudo ul li::before {
   content: "";
   position: absolute;
-  top: 0.6em;
+  top: 2px;
   left: 0;
   width: 10px;
   height: 10px;
@@ -192,10 +192,9 @@ strong {
     color: #dddddd;
   }
   .Conteudo ul li {
-    font-size: 1.2em;
-    margin: 8px;
+    font-size: 1em;
   }
   .Conteudo ul li::before{
-    top: 5px;
+    top: 3px;
   }
 }
