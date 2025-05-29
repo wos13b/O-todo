@@ -2,12 +2,12 @@
 const menuToggle = document.querySelector(".menu-toggle");
 const submenu = document.querySelector(".submenu");
 const inputCampo = document.getElementById("search_camp");
-const butt_clk = document.querySelector(".butt_clk");
 const languageSelector = document.getElementById("language-selector");
+const inputCampCode = document.querySelector(".Camp_code input");
 
 // ===== Função: Ação de busca =====
-function realizarBusca() {
-  const valor = inputCampo?.value.trim();
+function realizarBusca(input = inputCampo) {
+  const valor = input?.value.trim();
   if (valor) {
     window.location.href = `${valor}.html`;
   } else {
@@ -87,9 +87,22 @@ function trocarIdioma(lang) {
 }
 
 // ===== Eventos =====
-butt_clk?.addEventListener("click", realizarBusca);
 menuToggle?.addEventListener("click", alternarMenu);
 languageSelector?.addEventListener("change", () => trocarIdioma(languageSelector.value));
+
+// Evento de tecla para .Camp_code input
+inputCampCode?.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    realizarBusca(inputCampCode);
+  }
+});
+
+// Evento de tecla para o input original (search_camp)
+inputCampo?.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    realizarBusca(inputCampo);
+  }
+});
 
 // ===== Inicialização =====
 document.addEventListener("DOMContentLoaded", () => {

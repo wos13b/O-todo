@@ -157,6 +157,27 @@ strong {
   transform: scale(1.05);     /* Zoom suave ao passar o mouse */
   cursor: pointer;
 }
+.Camp_code{
+
+  margin-left: auto;
+  display: block; 
+  width: fit-content;
+
+}
+
+.Camp_code input{
+
+  font-family: Greek;
+  color: white;
+  background-color: transparent;
+  text-align: center;
+
+}
+.Camp_code input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 
 @media (max-width: 425px) {
   
