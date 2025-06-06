@@ -135,7 +135,7 @@ body::-webkit-scrollbar {
 strong {
   color: #00d2ff;
 }
-.mosaico {
+.mosaico, .mosaico_big {
   display: flex;
   flex-wrap: wrap;            /* Quebra linha se necessário */
   gap: 10px;                   /* Espaço entre as imagens */
