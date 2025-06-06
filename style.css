@@ -154,7 +154,7 @@ strong {
 }
 .mosaico_big img{
 
-  height: 200;
+  height: 200px;
   width: auto;
   object-fit: cover;
   border-radius: 8px;
