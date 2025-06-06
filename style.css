@@ -152,7 +152,7 @@ strong {
   box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Sombra suave */
   transition: transform 0.3s ease;
 }
-.mosaico img_big{
+.mosaico_big img{
 
   height: 200;
   width: auto;
