@@ -163,7 +163,7 @@ strong {
 
 }
 
-.mosaico img:hover {
+.mosaico img:hover, .mosaico_big:hover {
   transform: scale(1.05);     /* Zoom suave ao passar o mouse */
   cursor: pointer;
 }
