@@ -152,6 +152,12 @@ strong {
   box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Sombra suave */
   transition: transform 0.3s ease;
 }
+.mosaico img_big{
+
+  height: 200;
+  width: auto;
+
+}
 
 .mosaico img:hover {
   transform: scale(1.05);     /* Zoom suave ao passar o mouse */
