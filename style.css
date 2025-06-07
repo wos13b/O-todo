@@ -164,7 +164,7 @@ strong {
 }
 
 .mosaico img:hover, .mosaico_big img:hover {
-  transform: scale(1.05);     /* Zoom suave ao passar o mouse */
+  transform: scale(1.05);
   cursor: pointer;
 }
 .Camp_code{
