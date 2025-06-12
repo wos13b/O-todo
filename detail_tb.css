@@ -56,11 +56,11 @@
   color: #00bcd4;
   transition: 0.4s;
 }
+
 .summary_icon::before {
   content: "♻︎";
   font-size: 1.2em;
 }
-
 
 .summary_icon.ativo {
   transition: 0.8s;
@@ -88,11 +88,10 @@
   padding: 8px;
   border-radius: 4px;
 }
-.details-content .mark {
 
+.details-content .mark {
   margin: 8px 12px;
   border-left: 2px solid #00d2ff;
-
 }
 
 .details-content h3 {
@@ -108,14 +107,15 @@
 .custom-details table {
   width: 100%;
   margin: 20px 0;
-  border-collapse: collapse;
+  border-collapse: separate;  /* Mude aqui */
+  border-spacing: 0;          /* Adicione isto */
   background-color: #3a3a3a;
   border: 1px solid #444;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   table-layout: auto;
 }
 
-.custom-details th,
+
 .custom-details td {
   padding: 12px 16px;
   text-align: left;
@@ -123,8 +123,14 @@
   border-bottom: 1px solid #555;
   font-size: 13px;
 }
+.custom-details td:hover {
+  border: 1px solid yellow;
+  z-index: 1;
+  position: relative;
+}
 
 .custom-details th {
+  padding: 6px 8px;
   background-color: #4a4a4a;
   color: #aaff66;
   font-weight: bold;
@@ -132,8 +138,25 @@
   font-size: 0.85em;
 }
 
-.custom-details tr:hover {
-  background-color: #3f3f3f;
+
+/* ========================
+   ESTILO ESPECIAL - LINHA VERMELHA
+=========================== */
+.tb_maia_verm {
+  background-color: rgba(255, 0, 0, 0.500); 
+  transition: background-color 0.3s ease;
+}
+.tb_maia_white {
+  background-color: rgba(255, 255, 255, 0.500);
+  transition: background-color 0.3s ease;
+}
+.tb_maia_azul {
+  background-color: rgba(0, 0, 255, 0.500);
+  transition: background-color 0.3s ease;
+}
+.tb_maia_yell {
+  background-color: rgba(255, 255, 0, 0.500) ;
+  transition: background-color 0.3s ease;
 }
 
 
@@ -141,26 +164,20 @@
    RESPONSIVIDADE BÁSICA
 =========================== */
 @media (max-width: 425px) {
-  .custom-details{
+  .custom-details {
     max-width: 400px;
   }
-  .summary-btn span{
 
-
+  .summary-btn span {
     font-size: 0.8em;
-
   }
+
   .custom-details table {
     font-size: 14px;
   }
-  .custom-details th{
 
+  .custom-details th,
+  .custom-details td {
     font-size: 8px;
-
-  }
-  .custom-details td{
-
-    font-size: 8px;
-
   }
 }
