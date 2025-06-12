@@ -112,6 +112,7 @@
   background-color: #3a3a3a;
   border: 1px solid #444;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  table-layout: auto;
 }
 
 .custom-details th,
