@@ -1,6 +1,6 @@
-/* ========================
+/* =======================================
    ESTILO GERAL DO CONTAINER
-=========================== */
+========================================= */
 .custom-details {
   margin-bottom: 5px;
   border: 1px solid #555;
@@ -29,9 +29,9 @@
 }
 
 
-/* ========================
+/* =======================================
    BOTÃO DE SUMÁRIO
-=========================== */
+========================================= */
 .summary-btn {
   display: flex;
   justify-content: space-between;
@@ -69,9 +69,9 @@
 }
 
 
-/* ========================
+/* =======================================
    CONTEÚDO EXPANDIDO
-=========================== */
+========================================= */
 .details-content {
   max-height: 0;
   overflow: hidden;
@@ -84,7 +84,7 @@
 .details-content h4 {
   margin: 8px 12px;
   color: #ddd;
-  border: solid 1px #555;
+  border: 1px solid #555;
   padding: 8px;
   border-radius: 4px;
 }
@@ -101,14 +101,14 @@
 }
 
 
-/* ========================
+/* =======================================
    TABELA DETALHADA
-=========================== */
+========================================= */
 .custom-details table {
-  width: 100%;
-  margin: 20px 0;
-  border-collapse: separate;  /* Mude aqui */
-  border-spacing: 0;          /* Adicione isto */
+  width: 98%;
+  margin: 20px auto;            /* Centraliza a tabela */
+  border-collapse: separate;
+  border-spacing: 2px;
   background-color: #3a3a3a;
   border: 1px solid #444;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -116,13 +116,27 @@
 }
 
 
+.custom-details td,
+.custom-details th {
+  border-bottom: 1px solid #555;
+}
+
+
 .custom-details td {
   padding: 6px 8px;
-  text-align: left;
+  text-align: center;
+  vertical-align: middle;
   color: #eaeaea;
-  border-bottom: 1px solid #555;
   font-size: 13px;
 }
+
+.custom-details td img {
+  height: 40px;
+  width: 40px;
+  display: block;
+  margin: 0 auto;
+}
+
 .custom-details td:hover {
   border: 1px solid yellow;
   z-index: 1;
@@ -139,30 +153,33 @@
 }
 
 
-/* ========================
-   ESTILO ESPECIAL - LINHA VERMELHA
-=========================== */
+/* =======================================
+   ESTILOS ESPECIAIS POR COR DE LINHA
+========================================= */
 .tb_maia_verm {
-  background-color: rgba(255, 0, 0, 0.500); 
+  background-color: rgba(255, 0, 0, 0.5);
   transition: background-color 0.3s ease;
 }
+
 .tb_maia_white {
-  background-color: rgba(255, 255, 255, 0.500);
+  background-color: rgba(255, 255, 255, 0.5);
   transition: background-color 0.3s ease;
 }
+
 .tb_maia_azul {
-  background-color: rgba(0, 0, 255, 0.500);
+  background-color: rgba(0, 0, 255, 0.5);
   transition: background-color 0.3s ease;
 }
+
 .tb_maia_yell {
-  background-color: rgba(255, 255, 0, 0.500) ;
+  background-color: rgba(255, 255, 0, 0.5);
   transition: background-color 0.3s ease;
 }
 
 
-/* ========================
+/* =======================================
    RESPONSIVIDADE BÁSICA
-=========================== */
+========================================= */
 @media (max-width: 425px) {
   .custom-details {
     max-width: 400px;
