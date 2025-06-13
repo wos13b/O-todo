@@ -3,16 +3,19 @@
 ========================================= */
 .custom-details {
   margin-bottom: 5px;
-  border: 1px solid #555;
-  border-radius: 6px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #2b2b2b, #323232);
   background-color: #2e2e2e;
   max-width: 1100px;
   overflow: hidden;
-  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
 .custom-details:hover {
-  background-color: #313131;
+  background: linear-gradient(145deg, #343434, #3d3d3d);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.7);
 }
 
 .custom-details span {
@@ -36,36 +39,42 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2e2e2e;
-  padding: 8px 12px;
+  background-color: #2b2b2b;
+  padding: 10px 16px;
   cursor: pointer;
   border: none;
   text-align: left;
   color: #e0e0e0;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  border-radius: 6px;
 }
 
 .summary-btn:hover {
-  background-color: #3f3f3f;
+  background-color: #404040;
+  box-shadow: 0 0 8px #00cfff88;
 }
 
 .summary_icon {
-  transform: scale(1.2);
-  content: "♻︎";
-  color: #00bcd4;
-  transition: 0.4s;
+  font-size: 1.4em;
+  color: #00cfff;
+  transition: color 0.4s ease, transform 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .summary_icon::before {
   content: "♻︎";
-  font-size: 1.2em;
 }
 
 .summary_icon.ativo {
-  transition: 0.8s;
-  color: #00bcd459;
-  transform: scale(1);
+  color: #00cfff99;
+  transform: scale(0.8);
+  transition: color 0.8s ease, transform 0.8s ease;
 }
 
 
@@ -108,7 +117,7 @@
   width: 98%;
   margin: 20px auto;            /* Centraliza a tabela */
   border-collapse: separate;
-  border-spacing: 2px;
+  border-spacing: 3px;
   background-color: #3a3a3a;
   border: 1px solid #444;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -116,41 +125,155 @@
 }
 
 
-.custom-details td,
-.custom-details th {
-  border-bottom: 1px solid #555;
-}
-
-
+.custom-details th,
 .custom-details td {
-  padding: 6px 8px;
+  border-bottom: none;
+  padding: 10px 14px;
   text-align: center;
   vertical-align: middle;
-  color: #eaeaea;
-  font-size: 13px;
+  color: #eee;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-details th {
+  background-color: #3f7f00;
+  color: #e6ff99;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1.3em;
+  letter-spacing: 0.05em;
+  border-radius: 8px 8px 0 0;
+  box-shadow: inset 0 -2px 5px rgba(255,255,255,0.15);
 }
 
 .custom-details td img {
-  height: 40px;
-  width: 40px;
+  height: 44px;
+  width: 44px;
   display: block;
   margin: 0 auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
 .custom-details td:hover {
-  border: 1px solid yellow;
-  z-index: 1;
+  background-color: #555500cc;
+  border-radius: 6px;
+  color: #fff200;
+  cursor: pointer;
   position: relative;
+  z-index: 2;
 }
 
-.custom-details th {
-  padding: 12px 16px;
-  background-color: #4a4a4a;
-  color: #aaff66;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 1.6em;
+.Long {
+  display: flex;
+  flex-wrap: wrap;       /* Permite quebra de linha */
+  gap: 12px;
+  margin: 15px auto;
+  border: 2px solid #444;
+  width: 98%;
+  max-width: 1100px;
+  border-radius: 8px;
+  background-color: #373737;
+  box-shadow: inset 0 1px 3px #2a2a2a;
+  padding: 12px;
+  box-sizing: border-box;
+  align-items: center;
 }
+
+/* Inputs number lado a lado */
+.Long input[type=number] {
+  flex: 1 1 18%;          /* Flex-grow 1, base 18% para caber 5 lado a lado com gap */
+  min-width: 100px;       /* largura mínima para não ficar muito pequeno */
+  height: 56px;
+  padding: 0 12px;
+  font-size: 16px;
+  color: #e0e0e0;
+  background-color: #3a3a3a;
+  border: 2px solid #555;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.7);
+  transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  -moz-appearance: textfield;
+}
+
+/* Remove spinner arrows */
+.Long input[type=number]::-webkit-inner-spin-button,
+.Long input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Foco input number */
+.Long input[type=number]:focus {
+  outline: none;
+  border-color: #00cfff;
+  background-color: #424242;
+  box-shadow: 0 0 8px #00cfff88;
+  color: #ffffff;
+}
+
+.Long input[type=number]::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+/* .Grego fica em uma linha inteira embaixo */
+.Grego {
+  margin-top: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* centralizar horizontalmente */
+}
+.Grego input[type="date"] {
+  width: 200px;
+  height: 40px;
+  border-radius: 8px;
+  border: 2px solid #555;
+  background-color: #3a3a3a;
+  color: #e0e0e0;
+  padding: 0 12px;
+  font-size: 16px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.7);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+.Grego input[type="date"]:focus {
+  outline: none;
+  border-color: #00cfff;
+  background-color: #424242;
+  box-shadow: 0 0 8px #00cfff88;
+  color: #fff;
+}
+.Grego input[type="text"] {
+  width: 220px;
+  height: 48px;
+  border-radius: 8px;
+  border: 2px solid #555;
+  background-color: #3a3a3a;
+  color: #e0e0e0;
+  padding: 0 14px;
+  font-size: 18px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.7);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  text-align: center;
+}
+
+.Grego input[type="text"]:focus {
+  outline: none;
+  border-color: #00cfff;
+  background-color: #424242;
+  box-shadow: 0 0 8px #00cfff88;
+  color: #fff;
+}
+
+
+
+.Grego:focus-within {
+  border-color: #00cfff;
+  background-color: #424242;
+  box-shadow: 0 0 8px #00cfff88;
+}
+
 
 
 /* =======================================
