@@ -225,25 +225,6 @@
   display: flex;
   justify-content: center; /* centralizar horizontalmente */
 }
-.Grego input[type="date"] {
-  width: 200px;
-  height: 40px;
-  border-radius: 8px;
-  border: 2px solid #555;
-  background-color: #3a3a3a;
-  color: #e0e0e0;
-  padding: 0 12px;
-  font-size: 16px;
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.7);
-  transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-.Grego input[type="date"]:focus {
-  outline: none;
-  border-color: #00cfff;
-  background-color: #424242;
-  box-shadow: 0 0 8px #00cfff88;
-  color: #fff;
-}
 .Grego input[type="text"] {
   width: 220px;
   height: 48px;
@@ -264,14 +245,6 @@
   background-color: #424242;
   box-shadow: 0 0 8px #00cfff88;
   color: #fff;
-}
-
-
-
-.Grego:focus-within {
-  border-color: #00cfff;
-  background-color: #424242;
-  box-shadow: 0 0 8px #00cfff88;
 }
 
 
