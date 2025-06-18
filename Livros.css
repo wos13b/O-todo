@@ -3,7 +3,13 @@
 
     text-align: center;
     border:1px solid black;
+    border-radius: 8px;
     margin: 4px;
+
+}
+.Box_libre p{
+
+    margin: auto 8px;
 
 }
 .Libres {
