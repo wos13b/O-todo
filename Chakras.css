@@ -1,0 +1,40 @@
+.med_chakram {
+    background-image: url(img/Symb_hind/Chakras/med.png);
+    background-size: contain;
+    margin: auto;
+    width: 512px;
+    height: 512px;
+    display: flex;
+}
+
+.chakra {
+    margin: auto;
+}
+
+.chakra p {
+    margin: auto;
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+.chakra div {
+    display: flex;
+    margin-bottom: 28px;
+    text-align: center;
+    transition: 0.8s;
+}
+
+.chakra div:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.chakra div:hover p {
+    visibility: visible;
+}
+
+.chakra img {
+    height: 40px;
+    width: 40px;
+    transition: 0.8s;
+}
