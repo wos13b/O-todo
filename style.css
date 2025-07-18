@@ -89,13 +89,8 @@ body::-webkit-scrollbar {
 
 .Conteudo ul {
   list-style: none;
-  padding-left: 0;
-}
-
-.Conteudo ul {
-  list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 18px auto;
 }
 
 .Conteudo ul li {
@@ -113,7 +108,7 @@ body::-webkit-scrollbar {
 }
 
 .Conteudo ul li::before {
-  content: "";
+  content: "@";
   position: absolute;
   top: 2px;
   left: 0;
@@ -129,12 +124,34 @@ body::-webkit-scrollbar {
   transform: scale(1.3);
   background-color: #00ffee;
 }
+.Conteudo ul li.gld::before {
+  background-color: #FFD700;
+  box-shadow: 0 0 4px #FFD700;
+}
+.Conteudo ul li > strong{
+
+  font-weight: bold;
+  background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
 
 
 /* ===== Ênfase em Palavras-Chave ===== */
 strong {
   color: #00d2ff;
 }
+.Goldem {
+  font-weight: bold;
+  background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
 .mosaico, .mosaico_big {
   display: flex;
   flex-wrap: wrap;            /* Quebra linha se necessário */
