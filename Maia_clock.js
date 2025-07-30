@@ -4,7 +4,9 @@ const DIAS_TUN = 360;
 const DIAS_UINAL = 20;
 const DIAS_KIN = 1;
 
-const dataInicialMaia = new Date(-3113, 7, 11);
+// Base: 11 de agosto de -3113 (GMT correlation = 584283 dias)
+const CORRELACAO_GMT = 584283; // Dias julianos até a data zero maia
+const MS_POR_DIA = 86400000;
 
 function atualizarData() {
   const baktun = parseInt(document.getElementById('baktun').value) || 0;
@@ -13,13 +15,14 @@ function atualizarData() {
   const uinal = parseInt(document.getElementById('uinal').value) || 0;
   const kin = parseInt(document.getElementById('kin').value) || 0;
 
-  const totalDias = baktun * DIAS_BAKTUN + katun * DIAS_KATUN + tun * DIAS_TUN + uinal * DIAS_UINAL + kin * DIAS_KIN;
+  const totalDiasLongCount = baktun * DIAS_BAKTUN + katun * DIAS_KATUN + tun * DIAS_TUN + uinal * DIAS_UINAL + kin * DIAS_KIN;
+  const totalDiasDesdeDataGregorianaZero = CORRELACAO_GMT + totalDiasLongCount;
 
-  const resultadoData = new Date(dataInicialMaia.getTime() + totalDias * 24 * 60 * 60 * 1000);
+  const dataCalculada = new Date(totalDiasDesdeDataGregorianaZero * MS_POR_DIA);
 
-  const dia = resultadoData.getUTCDate().toString().padStart(2, '0');
-  const mes = (resultadoData.getUTCMonth() + 1).toString().padStart(2, '0');
-  const ano = resultadoData.getUTCFullYear();
+  const dia = dataCalculada.getUTCDate().toString().padStart(2, '0');
+  const mes = (dataCalculada.getUTCMonth() + 1).toString().padStart(2, '0');
+  const ano = dataCalculada.getUTCFullYear();
 
   document.getElementById('dataCalculada').value = `${dia}/${mes}/${ano}`;
 }
