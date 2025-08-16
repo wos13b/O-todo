@@ -12,49 +12,49 @@ let audioAtual = null;
 // Dados dos chakras
 const chakras = {
     sahasrara: {
-        nome: "Sahasrara",
+        nome: "sahasrara",
         localizacao: "Topo da cabeça",
         cor: "Violeta",
         elemento: "Consciência",
         funcao: "Conexão espiritual"
     },
     ajna: {
-        nome: "Ajna",
+        nome: "ajna",
         localizacao: "Entre as sobrancelhas",
         cor: "Índigo",
         elemento: "Intuição",
         funcao: "Percepção e intuição"
     },
     vishuddha: {
-        nome: "Vishuddha",
+        nome: "vishuddha",
         localizacao: "Garganta",
         cor: "Azul",
         elemento: "Éter",
         funcao: "Comunicação e expressão"
     },
     anahata: {
-        nome: "Anahata",
+        nome: "anahata",
         localizacao: "Peito",
         cor: "Verde",
         elemento: "Ar",
         funcao: "Amor e equilíbrio emocional"
     },
     manipura: {
-        nome: "Manipura",
+        nome: "manipura",
         localizacao: "Estômago",
         cor: "Amarelo",
         elemento: "Fogo",
         funcao: "Poder pessoal e energia"
     },
     svadhisthana: {
-        nome: "Svadhisthana",
+        nome: "svadhisthana",
         localizacao: "Abdômen inferior",
         cor: "Laranja",
         elemento: "Água",
         funcao: "Prazer e criatividade"
     },
     muladhara: {
-        nome: "Muladhara",
+        nome: "muladhara",
         localizacao: "Base da coluna",
         cor: "Vermelho",
         elemento: "Terra",
