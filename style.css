@@ -209,6 +209,50 @@ strong {
   outline: none;
   box-shadow: none;
 }
+.Painel {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* duas colunas iguais */
+  gap: 10px; /* espaço entre colunas */
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.P_info{
+
+  padding: 8px;
+  border: 1px solid black;
+  width: auto;
+
+}
+.P_info h3{
+
+  text-align:center ;
+
+}
+.Som_chakra{
+
+  margin: auto;
+
+}
+.Som_chakra img{
+
+  display: block;
+  margin: auto;
+  padding:4px ;
+  height: 40px;
+  width: auto;                /* Mantém proporção da imagem */
+  object-fit: cover;          /* Corta se necessário sem distorcer */
+  border-radius: 8px;         /* Canto arredondado opcional */
+  box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Sombra suave */
+  transition: transform 0.3s ease;
+
+}
+.Som_chakra img:hover{
+
+  transform: scale(1.05);
+  cursor: pointer;
+
+}
 
 
 @media (max-width: 425px) {
