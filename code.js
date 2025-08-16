@@ -94,6 +94,6 @@ somChakraBtn.addEventListener("click", () => {
     }
 
     // Toca o novo som
-    audioAtual = new Audio(`Som/${chakraSelecionado}.mp3`);
+    audioAtual = new Audio(`som/${chakraSelecionado}.mp3`);
     audioAtual.play();
 });
