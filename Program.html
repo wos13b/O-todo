@@ -27,16 +27,14 @@
                 <li><a href="">Politica</a></li>
                 <li><a href="log.html">Perfil</a></li>
             </ul>
-            <div class="Log_perf">
-            </div>
-
+            <div class="Log_perf"></div>
         </div>
+
         <div class="Main">
             <div class="Conteudo">
                 <h1>Introdução a Programação</h1>
-                <h2>
-                    O que é Programação?
-                </h2>
+
+                <h2>O que é Programação?</h2>
                 <p>
                     Programação é o processo de criar instruções para que um computador execute tarefas.
                     Essas instruções são escritas em uma linguagem de programação, 
@@ -45,26 +43,67 @@
                 <p>
                     De forma simples: é como ensinar o computador a seguir um conjunto de passos.
                 </p>
-                <h2>
-                    Por que aprender Programação?
-                </h2>
+
+                <h2>Por que aprender Programação?</h2>
                 <ul>
                     <li>Resolver problemas de forma automática.</li>
                     <li>Criar sites, aplicativos, jogos e sistemas.</li>
                     <li>Trabalhar em áreas como ciência de dados, inteligência artificial, segurança digital (como o pentest que você mencionou antes).</li>
                     <li>Estimular o raciocínio lógico.</li>
                 </ul>
+
                 <h2>Conceitos básicos</h2>
-                <div class="mosaico_big">
-                    <img src="img/mosaico/Model_osi.png" alt="">
+                <ol>
+                    <li>Algoritmo</li>
+                    <p>Uma sequência de passos para resolver um problema.</p>
+                    <p>Exemplo (fazer café)</p>
+                    <pre>
+                        1. Esquentar água
+                        2. Colocar pó no filtro
+                        3. Jogar água quente
+                        4. Servir   
+                    </pre>
+                </ol>
+
+                <h2>Exemplo prático em Python</h2>
+                <pre>
+                    print("Olá, mundo!")
+                    idade = 18
+                    if idade >= 18:
+                        print("Você é maior de idade")
+                    else:
+                        print("Você é menor de idade")
+                </pre>
+
+                <h2>Teste você mesmo (JavaScript no navegador)</h2>
+                <div class="code-box">
+                    <textarea class="editor">// Escreva código JS aqui
+                        let nome = "Wesley";
+                        console.log("Olá, " + nome);
+                    </textarea>
+                    <button class="run-btn" onclick="runCode(this)">▶ Executar</button>
+                    <div class="output"></div>
                 </div>
+
                 <h2>Tutorial inicial</h2>
                 <ul>
                     <li>Baixe o <a href="https://2.na.dl.wireshark.org/win64/Wireshark-4.4.6-x64.exe">Wireshark</a></li>
                 </ul>
             </div>
         </div>
-        
     </div>
+
+    <script>
+        function runCode(btn) {
+            const box = btn.parentElement;
+            const editor = box.querySelector(".editor").value;
+            const output = box.querySelector(".output");
+            try {
+                output.innerText = eval(editor);
+            } catch (e) {
+                output.innerText = "Erro: " + e.message;
+            }
+        }
+    </script>
 </body>
 </html>

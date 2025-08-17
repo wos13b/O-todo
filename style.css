@@ -7,7 +7,7 @@
 
 @font-face {
   font-family: 'Greek';
-  src: url('Font/Roman\ SD.ttf') format('truetype');
+  src: url('Font/Roman SD.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
@@ -34,6 +34,7 @@ body::before {
   z-index: -1;
   pointer-events: none;
 }
+
 .Home {
   display: flex;
   align-items: center;
@@ -41,10 +42,10 @@ body::before {
   box-sizing: border-box;
 }
 
-
 body::-webkit-scrollbar {
   display: none;
 }
+
 .Main {
   height: 100%;
   font-family: Greek;
@@ -55,6 +56,7 @@ body::-webkit-scrollbar {
   gap: 20px;
   align-items: center;
 }
+
 .Conteudo {
   background-color: #3f3f3fcb;
   backdrop-filter: blur(10px);
@@ -69,6 +71,7 @@ body::-webkit-scrollbar {
   transition: all 0.3s ease;
   font-size: 10px;
 }
+
 .Conteudo h1 {
   transition: color 1s;
   font-size: 2.5em;
@@ -76,11 +79,13 @@ body::-webkit-scrollbar {
   margin-bottom: 20px;
   text-align: center;
 }
+
 .Conteudo h2 {
   font-size: 1.8em;
   color: #b0b0b0;
   margin-top: 30px;
 }
+
 .Conteudo p {
   margin: 10px 0;
   font-size: 1.2em;
@@ -124,25 +129,25 @@ body::-webkit-scrollbar {
   transform: scale(1.3);
   background-color: #00ffee;
 }
+
 .Conteudo ul li.gld::before {
   background-color: #FFD700;
   box-shadow: 0 0 4px #FFD700;
 }
-.Conteudo ul li > strong{
 
+.Conteudo ul li > strong {
   font-weight: bold;
   background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
 }
-
 
 /* ===== Ênfase em Palavras-Chave ===== */
 strong {
   color: #00d2ff;
 }
+
 .Goldem {
   font-weight: bold;
   background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
@@ -151,122 +156,55 @@ strong {
   -webkit-text-fill-color: transparent;
 }
 
-
-.mosaico, .mosaico_big {
-  display: flex;
-  flex-wrap: wrap;            /* Quebra linha se necessário */
-  gap: 10px;                   /* Espaço entre as imagens */
-  justify-content: center;    /* Centraliza horizontalmente */
-  align-items: center;        /* Alinha verticalmente */
-  padding: 10px;
-}
-.White img{
-
-  background-color: rgba(255, 255, 255, 0.507);
-
-}
-
-.mosaico img {
-  height: 100px;
-  width: auto;                /* Mantém proporção da imagem */
-  object-fit: cover;          /* Corta se necessário sem distorcer */
-  border-radius: 8px;         /* Canto arredondado opcional */
-  box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Sombra suave */
-  transition: transform 0.3s ease;
-}
-.mosaico_big img{
-
-  height: 400px;
-  width: auto;
-  object-fit: cover;
+/* ===== Blocos de código e Editor ===== */
+pre {
+  background: #1e1e1e;
+  color: #dcdcdc;
+  padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease;
-
+  overflow-x: auto;
+  font-family: monospace;
 }
 
-.mosaico img:hover, .mosaico_big img:hover {
-  transform: scale(1.05);
-  cursor: pointer;
-}
-.Camp_code{
-
-  margin-left: auto;
-  display: block; 
-  width: fit-content;
-
+.code-box {
+  margin: 15px 0;
 }
 
-.Camp_code input{
-
-  font-family: Greek;
-  color: white;
-  background-color: transparent;
-  text-align: center;
-
-}
-.Camp_code input:focus {
-  outline: none;
-  box-shadow: none;
-}
-.Painel {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* duas colunas iguais */
-  gap: 10px; /* espaço entre colunas */
-  border: 1px solid black;
+.editor {
+  width: 100%;
+  min-height: 120px;
+  background: #111;
+  color: #0f0;
+  border: 1px solid #333;
+  border-radius: 8px;
   padding: 10px;
+  font-family: monospace;
 }
 
-.P_info{
-
-  padding: 8px;
-  border: 1px solid black;
-  width: auto;
-
-}
-.P_info h3{
-
-  text-align:center ;
-
-}
-.Som_chakra{
-
-  margin: auto;
-
-}
-.Som_chakra img{
-
-  display: block;
-  margin: auto;
-  padding:4px ;
-  height: 40px;
-  width: auto;                /* Mantém proporção da imagem */
-  object-fit: cover;          /* Corta se necessário sem distorcer */
-  border-radius: 8px;         /* Canto arredondado opcional */
-  box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Sombra suave */
-  transition: transform 0.3s ease;
-
-}
-.Som_chakra img:hover{
-
-  transform: scale(1.05);
+.run-btn {
+  margin-top: 5px;
+  background: #008cba;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-
 }
 
+.output {
+  background: #222;
+  color: #0f0;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 5px;
+  font-family: monospace;
+}
 
+/* ===== Responsividade ===== */
 @media (max-width: 425px) {
-  
-  .Main{
-
+  .Main {
     padding: 0px;
     margin: 0;
-
-  }
-  .search-container {
-    width: 100%;
-    max-width: 220px;
-    margin: 20px auto;
   }
   .Conteudo {
     padding: 16px;
@@ -291,7 +229,7 @@ strong {
   .Conteudo ul li {
     font-size: 1em;
   }
-  .Conteudo ul li::before{
+  .Conteudo ul li::before {
     top: 3px;
   }
 }
