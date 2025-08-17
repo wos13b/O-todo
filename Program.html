@@ -81,7 +81,6 @@
                         let nome = "Wesley";
                         console.log("Olá, " + nome);
                     </textarea>
-                    <button class="run-btn" onclick="runCode(this)">▶ Executar</button>
                     <div class="output"></div>
                 </div>
 
@@ -93,17 +92,5 @@
         </div>
     </div>
 
-    <script>
-        function runCode(btn) {
-            const box = btn.parentElement;
-            const editor = box.querySelector(".editor").value;
-            const output = box.querySelector(".output");
-            try {
-                output.innerText = eval(editor);
-            } catch (e) {
-                output.innerText = "Erro: " + e.message;
-            }
-        }
-    </script>
 </body>
 </html>
