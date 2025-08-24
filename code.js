@@ -25,7 +25,7 @@ const chakras = {
         cor: "Índigo",
         elemento: "Intuição",
         funcao: "Percepção e sabedoria interior",
-        equilibrio: "Meditação silenciosa, observação dos pensamentos, visualização índigo."
+        equilibrio: "Meditação silenciosa, contemplação e visualização índigo."
     },
     vishuddha: {
         nome: "Vishuddha (Laríngeo)",
@@ -41,7 +41,7 @@ const chakras = {
         cor: "Verde",
         elemento: "Ar",
         funcao: "Amor e equilíbrio emocional",
-        equilibrio: "Praticar gratidão, contato com a natureza, meditação no coração."
+        equilibrio: "Praticar gratidão, meditar no coração e contato com a natureza."
     },
     manipura: {
         nome: "Manipura (Plexo Solar)",
@@ -49,7 +49,7 @@ const chakras = {
         cor: "Amarelo",
         elemento: "Fogo",
         funcao: "Poder pessoal e energia",
-        equilibrio: "Respiração profunda, disciplina, metas claras, visualização do fogo interno."
+        equilibrio: "Respiração profunda, disciplina, metas claras e visualização do fogo interno."
     },
     svadhisthana: {
         nome: "Svadhisthana (Sacral)",
@@ -65,7 +65,7 @@ const chakras = {
         cor: "Vermelho",
         elemento: "Terra",
         funcao: "Segurança e sobrevivência",
-        equilibrio: "Exercícios físicos, contato com a terra, alimentação natural e meditação vermelha."
+        equilibrio: "Exercícios físicos, contato com a terra, alimentação natural e visualização vermelha."
     }
 };
 
@@ -77,10 +77,11 @@ function Alter_info(chakraId) {
     chakra_info_list[1].innerText = chakra.cor;
     chakra_info_list[2].innerText = chakra.elemento;
     chakra_info_list[3].innerText = chakra.funcao;
-    chakra_info_list[4].innerText = chakra.equilibrio; // <- equilíbrio adicionado
+    chakra_info_list[4].innerText = chakra.equilibrio; // 🔹 Novo campo preenchido
 
     chakraSelecionado = chakraId;
 }
+
 
 // Adiciona eventos aos elementos dos chakras
 Object.keys(chakras).forEach(id => {
