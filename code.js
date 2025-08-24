@@ -12,53 +12,60 @@ let audioAtual = null;
 // Dados dos chakras
 const chakras = {
     sahasrara: {
-        nome: "sahasrara",
+        nome: "Sahasrara (Coronário)",
         localizacao: "Topo da cabeça",
         cor: "Violeta",
         elemento: "Consciência",
-        funcao: "Conexão espiritual"
+        funcao: "Conexão espiritual",
+        equilibrio: "Meditação profunda, oração, filosofia e visualização de luz violeta."
     },
     ajna: {
-        nome: "ajna",
+        nome: "Ajna (Terceiro Olho)",
         localizacao: "Entre as sobrancelhas",
         cor: "Índigo",
         elemento: "Intuição",
-        funcao: "Percepção e intuição"
+        funcao: "Percepção e sabedoria interior",
+        equilibrio: "Meditação silenciosa, observação dos pensamentos, visualização índigo."
     },
     vishuddha: {
-        nome: "vishuddha",
+        nome: "Vishuddha (Laríngeo)",
         localizacao: "Garganta",
         cor: "Azul",
         elemento: "Éter",
-        funcao: "Comunicação e expressão"
+        funcao: "Comunicação e expressão",
+        equilibrio: "Cantar, entoar mantras, falar a verdade e beber bastante água."
     },
     anahata: {
-        nome: "anahata",
+        nome: "Anahata (Cardíaco)",
         localizacao: "Peito",
         cor: "Verde",
         elemento: "Ar",
-        funcao: "Amor e equilíbrio emocional"
+        funcao: "Amor e equilíbrio emocional",
+        equilibrio: "Praticar gratidão, contato com a natureza, meditação no coração."
     },
     manipura: {
-        nome: "manipura",
+        nome: "Manipura (Plexo Solar)",
         localizacao: "Estômago",
         cor: "Amarelo",
         elemento: "Fogo",
-        funcao: "Poder pessoal e energia"
+        funcao: "Poder pessoal e energia",
+        equilibrio: "Respiração profunda, disciplina, metas claras, visualização do fogo interno."
     },
     svadhisthana: {
-        nome: "svadhisthana",
+        nome: "Svadhisthana (Sacral)",
         localizacao: "Abdômen inferior",
         cor: "Laranja",
         elemento: "Água",
-        funcao: "Prazer e criatividade"
+        funcao: "Prazer e criatividade",
+        equilibrio: "Dança, criatividade, contato com a água e visualização laranja."
     },
     muladhara: {
-        nome: "muladhara",
+        nome: "Muladhara (Raiz)",
         localizacao: "Base da coluna",
         cor: "Vermelho",
         elemento: "Terra",
-        funcao: "Segurança e sobrevivência"
+        funcao: "Segurança e sobrevivência",
+        equilibrio: "Exercícios físicos, contato com a terra, alimentação natural e meditação vermelha."
     }
 };
 
@@ -70,6 +77,7 @@ function Alter_info(chakraId) {
     chakra_info_list[1].innerText = chakra.cor;
     chakra_info_list[2].innerText = chakra.elemento;
     chakra_info_list[3].innerText = chakra.funcao;
+    chakra_info_list[4].innerText = chakra.equilibrio; // <- equilíbrio adicionado
 
     chakraSelecionado = chakraId;
 }
