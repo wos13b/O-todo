@@ -155,6 +155,26 @@ strong {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.mosaico_tin{
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+
+}
+.mosaico_tin img{
+
+  height: 56px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+
+}
 
 .mosaico,
 .mosaico_big {
@@ -197,7 +217,9 @@ strong {
 }
 
 .mosaico img:hover,
-.mosaico_big img:hover {
+.mosaico_big img:hover, 
+.mosaico_tin img:hover
+{
   transform: scale(1.05);
   cursor: pointer;
 }
@@ -234,7 +256,7 @@ strong {
 
 .P_info {
   display: grid;
-  grid-template-rows: 0.5fr 4fr 1fr;
+  grid-template-rows: 0.1fr 0.4fr 0.4fr 0.2fr;
   padding: 8px;
   border: 1px solid black;
   border-radius: 8px;
