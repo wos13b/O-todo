@@ -232,6 +232,8 @@ strong {
 }
 
 .P_info {
+  display: grid;
+  grid-template-rows: 0.5fr 4fr 1fr;
   padding: 8px;
   border: 1px solid black;
   width: auto;
@@ -242,7 +244,7 @@ strong {
 }
 
 .Som_chakra {
-  margin: auto;
+  margin: auto auto 0px auto;
 }
 
 .Som_chakra img {
