@@ -95,7 +95,7 @@ body::-webkit-scrollbar {
 .Conteudo ul {
   list-style: none;
   padding: 0;
-  margin: 18px auto;
+  margin: 18px 0px;
 }
 
 .Conteudo ul li {
