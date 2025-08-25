@@ -14,50 +14,68 @@ const chakras = {
     sahasrara: {
         nome: "Sahasrara (Coronário)",
         localizacao: "Topo da cabeça",
-        cor: "Violeta",
+        cor: "Violeta ou Branco",
         elemento: "Consciência",
         funcao: "Conexão espiritual",
-        equilibrio: "Meditação profunda, oração, filosofia e visualização de luz violeta."
+        equilibrio: "Meditação profunda, oração, contemplação, silêncio.",
+        quandoEquilibrado: "Sabedoria, consciência expandida, conexão com o divino.",
+        quandoDesequilibrio: "Desconexão, apatia, materialismo excessivo.",
+        mantra: "OM"
     },
     ajna: {
         nome: "Ajna (Terceiro Olho)",
         localizacao: "Entre as sobrancelhas",
         cor: "Índigo",
-        elemento: "Intuição",
-        funcao: "Percepção e sabedoria interior",
-        equilibrio: "Meditação silenciosa, contemplação e visualização índigo."
+        elemento: "Luz",
+        funcao: "Intuição e percepção",
+        equilibrio: "Meditação silenciosa, visualização, exercícios de atenção plena.",
+        quandoEquilibrado: "Intuição aguçada, clareza mental, visão interior.",
+        quandoDesequilibrio: "Confusão, dificuldade de concentração, excesso de racionalidade.",
+        mantra: "OM"
     },
     vishuddha: {
         nome: "Vishuddha (Laríngeo)",
         localizacao: "Garganta",
-        cor: "Azul",
+        cor: "Azul Claro",
         elemento: "Éter",
         funcao: "Comunicação e expressão",
-        equilibrio: "Cantar, entoar mantras, falar a verdade e beber bastante água."
+        equilibrio: "Cantar, falar a verdade, escrever, beber bastante água.",
+        quandoEquilibrado: "Expressão clara, autenticidade, boa comunicação.",
+        quandoDesequilibrio: "Medo de se expressar, timidez, mentira, garganta irritada.",
+        mantra: "HAM"
     },
     anahata: {
         nome: "Anahata (Cardíaco)",
-        localizacao: "Peito",
+        localizacao: "Centro do peito",
         cor: "Verde",
         elemento: "Ar",
         funcao: "Amor e equilíbrio emocional",
-        equilibrio: "Praticar gratidão, meditar no coração e contato com a natureza."
+        equilibrio: "Praticar gratidão, compaixão, contato com a natureza.",
+        quandoEquilibrado: "Amor incondicional, empatia, equilíbrio emocional.",
+        quandoDesequilibrio: "Isolamento, ressentimento, frieza emocional.",
+        mantra: "YAM"
     },
     manipura: {
         nome: "Manipura (Plexo Solar)",
-        localizacao: "Estômago",
+        localizacao: "Região do estômago",
         cor: "Amarelo",
         elemento: "Fogo",
         funcao: "Poder pessoal e energia",
-        equilibrio: "Respiração profunda, disciplina, metas claras e visualização do fogo interno."
+        equilibrio: "Exercícios físicos, respiração profunda, disciplina.",
+        quandoEquilibrado: "Autoconfiança, energia, força de vontade.",
+        quandoDesequilibrio: "Raiva, medo, baixa autoestima, falta de direção.",
+        mantra: "RAM"
     },
     svadhisthana: {
         nome: "Svadhisthana (Sacral)",
-        localizacao: "Abdômen inferior",
+        localizacao: "Abaixo do umbigo",
         cor: "Laranja",
         elemento: "Água",
         funcao: "Prazer e criatividade",
-        equilibrio: "Dança, criatividade, contato com a água e visualização laranja."
+        equilibrio: "Dança, criatividade, contato com a água.",
+        quandoEquilibrado: "Criatividade, prazer saudável, flexibilidade emocional.",
+        quandoDesequilibrio: "Apego, vícios, bloqueio criativo.",
+        mantra: "VAM"
     },
     muladhara: {
         nome: "Muladhara (Raiz)",
@@ -65,7 +83,10 @@ const chakras = {
         cor: "Vermelho",
         elemento: "Terra",
         funcao: "Segurança e sobrevivência",
-        equilibrio: "Exercícios físicos, contato com a terra, alimentação natural e visualização vermelha."
+        equilibrio: "Caminhadas, contato com a natureza, práticas de enraizamento.",
+        quandoEquilibrado: "Segurança, presença, base sólida.",
+        quandoDesequilibrio: "Medo, instabilidade, sensação de abandono.",
+        mantra: "LAM"
     }
 };
 
@@ -73,15 +94,18 @@ const chakras = {
 function Alter_info(chakraId) {
     const chakra = chakras[chakraId];
     Title_chakras.innerText = chakra.nome;
+
     chakra_info_list[0].innerText = chakra.localizacao;
     chakra_info_list[1].innerText = chakra.cor;
     chakra_info_list[2].innerText = chakra.elemento;
     chakra_info_list[3].innerText = chakra.funcao;
-    chakra_info_list[4].innerText = chakra.equilibrio; // 🔹 Novo campo preenchido
+    chakra_info_list[4].innerText = chakra.equilibrio;
+    chakra_info_list[5].innerText = chakra.quandoEquilibrado;
+    chakra_info_list[6].innerText = chakra.quandoDesequilibrio;
+    chakra_info_list[7].innerText = chakra.mantra;
 
     chakraSelecionado = chakraId;
 }
-
 
 // Adiciona eventos aos elementos dos chakras
 Object.keys(chakras).forEach(id => {
