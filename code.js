@@ -2,6 +2,7 @@
 const Title_chakras = document.getElementById("Title_chakras");
 const chakra_info_list = document.getElementById("chakra_info_list").getElementsByTagName("span");
 const somChakraBtn = document.getElementById("btnSom");
+const mosaicoTin = document.getElementById("mosaico_tin");
 
 // Chakra atualmente selecionado
 let chakraSelecionado = null;
@@ -20,7 +21,14 @@ const chakras = {
         equilibrio: "Meditação profunda, oração, contemplação, silêncio.",
         quandoEquilibrado: "Sabedoria, consciência expandida, conexão com o divino.",
         quandoDesequilibrio: "Desconexão, apatia, materialismo excessivo.",
-        mantra: "OM"
+        mantra: "OM",
+        poses: [
+            "img/Posições/Sahasrara/Padmasana.png",
+            "img/Posições/Sahasrara/Savasana.png",
+            "img/Posições/Sahasrara/Sukhasana.png",
+            "img/Posições/Sahasrara/Tadasana.png",
+            "img/Posições/Sahasrara/Vajrasana.png"
+        ]
     },
     ajna: {
         nome: "Ajna (Terceiro Olho)",
@@ -31,7 +39,14 @@ const chakras = {
         equilibrio: "Meditação silenciosa, visualização, exercícios de atenção plena.",
         quandoEquilibrado: "Intuição aguçada, clareza mental, visão interior.",
         quandoDesequilibrio: "Confusão, dificuldade de concentração, excesso de racionalidade.",
-        mantra: "OM"
+        mantra: "OM",
+        poses: [
+            "img/Posições/Ajna/Balasana.png",
+            "img/Posições/Ajna/Dolphin.png",
+            "img/Posições/Ajna/Sukhasana.png",
+            "img/Posições/Ajna/ChildPose.png",
+            "img/Posições/Ajna/ForwardBend.png"
+        ]
     },
     vishuddha: {
         nome: "Vishuddha (Laríngeo)",
@@ -42,7 +57,14 @@ const chakras = {
         equilibrio: "Cantar, falar a verdade, escrever, beber bastante água.",
         quandoEquilibrado: "Expressão clara, autenticidade, boa comunicação.",
         quandoDesequilibrio: "Medo de se expressar, timidez, mentira, garganta irritada.",
-        mantra: "HAM"
+        mantra: "HAM",
+        poses: [
+            "img/Posições/Vishuddha/Matsyasana.png",
+            "img/Posições/Vishuddha/Halasana.png",
+            "img/Posições/Vishuddha/ShoulderStand.png",
+            "img/Posições/Vishuddha/Ustrasana.png",
+            "img/Posições/Vishuddha/Sukhasana.png"
+        ]
     },
     anahata: {
         nome: "Anahata (Cardíaco)",
@@ -53,7 +75,14 @@ const chakras = {
         equilibrio: "Praticar gratidão, compaixão, contato com a natureza.",
         quandoEquilibrado: "Amor incondicional, empatia, equilíbrio emocional.",
         quandoDesequilibrio: "Isolamento, ressentimento, frieza emocional.",
-        mantra: "YAM"
+        mantra: "YAM",
+        poses: [
+            "img/Posições/Anahata/Bhujangasana.png",
+            "img/Posições/Anahata/Ustrasana.png",
+            "img/Posições/Anahata/Dhanurasana.png",
+            "img/Posições/Anahata/Matsyasana.png",
+            "img/Posições/Anahata/SetuBandhasana.png"
+        ]
     },
     manipura: {
         nome: "Manipura (Plexo Solar)",
@@ -64,7 +93,14 @@ const chakras = {
         equilibrio: "Exercícios físicos, respiração profunda, disciplina.",
         quandoEquilibrado: "Autoconfiança, energia, força de vontade.",
         quandoDesequilibrio: "Raiva, medo, baixa autoestima, falta de direção.",
-        mantra: "RAM"
+        mantra: "RAM",
+        poses: [
+            "img/Posições/Manipura/Navasana.png",
+            "img/Posições/Manipura/Utkatasana.png",
+            "img/Posições/Manipura/ArdhaMatsyendrasana.png",
+            "img/Posições/Manipura/Phalakasana.png",
+            "img/Posições/Manipura/Dhanurasana.png"
+        ]
     },
     svadhisthana: {
         nome: "Svadhisthana (Sacral)",
@@ -75,7 +111,14 @@ const chakras = {
         equilibrio: "Dança, criatividade, contato com a água.",
         quandoEquilibrado: "Criatividade, prazer saudável, flexibilidade emocional.",
         quandoDesequilibrio: "Apego, vícios, bloqueio criativo.",
-        mantra: "VAM"
+        mantra: "VAM",
+        poses: [
+            "img/Posições/Svadhisthana/BaddhaKonasana.png",
+            "img/Posições/Svadhisthana/UpavisthaKonasana.png",
+            "img/Posições/Svadhisthana/EkaPadaRajakapotasana.png",
+            "img/Posições/Svadhisthana/AnandaBalasana.png",
+            "img/Posições/Svadhisthana/Malasana.png"
+        ]
     },
     muladhara: {
         nome: "Muladhara (Raiz)",
@@ -86,7 +129,14 @@ const chakras = {
         equilibrio: "Caminhadas, contato com a natureza, práticas de enraizamento.",
         quandoEquilibrado: "Segurança, presença, base sólida.",
         quandoDesequilibrio: "Medo, instabilidade, sensação de abandono.",
-        mantra: "LAM"
+        mantra: "LAM",
+        poses: [
+            "img/Posições/Muladhara/Balasana.png",
+            "img/Posições/Muladhara/Malasana.png",
+            "img/Posições/Muladhara/Padmasana.png",
+            "img/Posições/Muladhara/Tadasana.png",
+            "img/Posições/Muladhara/Utkatsana.png"
+        ]
     }
 };
 
@@ -103,6 +153,9 @@ function Alter_info(chakraId) {
     chakra_info_list[5].innerText = chakra.quandoEquilibrado;
     chakra_info_list[6].innerText = chakra.quandoDesequilibrio;
     chakra_info_list[7].innerText = chakra.mantra;
+
+    // Atualiza as imagens de poses
+    mosaicoTin.innerHTML = chakra.poses.map(img => `<img src="${img}" alt="">`).join("");
 
     chakraSelecionado = chakraId;
 }
