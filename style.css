@@ -245,6 +245,7 @@ strong {
 .Painel {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   /* duas colunas iguais */
   gap: 10px;
   /* espaço entre colunas */
@@ -256,6 +257,9 @@ strong {
 
 .P_info {
   display: grid;
+  grid-column-start: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
   grid-template-rows: 0.1fr 0.4fr 0.4fr 0.2fr;
   padding: 8px;
   border: 1px solid black;
