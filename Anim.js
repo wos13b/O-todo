@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
             img.src = imagens[index];
             img.style.opacity = 1; // fade in
             index = (index + 1) % imagens.length;
-        }, 200); // tempo do fade-out antes de trocar
+        }, 400); // tempo do fade-out antes de trocar
     }
 
     // Carrega a primeira imagem
