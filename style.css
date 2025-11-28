@@ -302,14 +302,17 @@ strong {
 }
 
 .slideshow {
-  width: 100px;
-  height: 100px;
-  border-radius: 15px;
-  transition: opacity 0.8s ease;
+    width: 100%;
+    transition: opacity 0.25s ease; /* controla o fade */
+    opacity: 1;
 }
+
+/* efeito glitch */
 .glitch {
-    animation: glitchAnim 120ms steps(2) 3;
+    filter: hue-rotate(30deg) contrast(160%) saturate(180%) brightness(140%);
+    transform: translate(calc(-1px + 2px * var(--x)), calc(-1px + 2px * var(--y)));
 }
+
 
 @keyframes glitchAnim {
     0% { transform: translate(0, 0); filter: hue-rotate(0deg) contrast(100%); }
