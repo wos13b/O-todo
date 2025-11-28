@@ -302,7 +302,8 @@ strong {
 }
 
 .slideshow {
-    width: 100%;
+    width: 140px;
+    height: 140px;
     transition: opacity 0.25s ease; /* controla o fade */
     opacity: 1;
 }
