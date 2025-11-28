@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
             img.classList.remove("glitch");
             img.src = imagens[index];
             index = (index + 1) % imagens.length;
-        }, 40);
+        }, 10);
     }
 
     // Carrega a primeira imagem
