@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ---------------------------
     // Opção B: gerar nomes automaticamente
     // ---------------------------
-    const totalImagens = 11; 
+    const totalImagens = 20; 
     const imagens = [];
 
     for (let i = 1; i <= totalImagens; i++) {
