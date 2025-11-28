@@ -1,11 +1,11 @@
-const perf_butt = document.querySelector(".Log_perf")
-const nav_2 = document.querySelector(".nav_2")
+const perf_butt = document.querySelector(".Log_perf");
+const nav_2 = document.querySelector(".nav_2");
 
 function alternarMenu_perf() {
   nav_2?.classList.toggle("ativo");
 }
 
-perf_butt?.addEventListener("click", alternarMenu_perf)
+perf_butt?.addEventListener("click", alternarMenu_perf);
 
 document.addEventListener("DOMContentLoaded", () => {
     const meditationDiv = document.querySelector(".Meditation");
@@ -36,11 +36,17 @@ document.addEventListener("DOMContentLoaded", () => {
           img.classList.remove("glitch");
           img.src = imagens[index];
           index = (index + 1) % imagens.length;
-      }, 150); // tempo da animação
+      }, 150);
     }
 
-
-
+    // carrega a primeira imagem
     trocarImagem();
-    setInterval(trocarImagem, 3000); // troca a cada 3s
+
+    // troca só quando apertar espaço
+    document.addEventListener("keydown", (event) => {
+        if (event.code === "Space") {
+            event.preventDefault(); // impede scroll
+            trocarImagem();
+        }
+    });
 });
