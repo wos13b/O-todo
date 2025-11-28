@@ -296,6 +296,32 @@ strong {
   cursor: pointer;
 }
 
+.Meditation {
+  display: flex;
+  justify-content: center;
+}
+
+.slideshow {
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+  transition: opacity 0.8s ease;
+}
+.glitch {
+    animation: glitchAnim 120ms steps(2) 3;
+}
+
+@keyframes glitchAnim {
+    0% { transform: translate(0, 0); filter: hue-rotate(0deg) contrast(100%); }
+    20% { transform: translate(2px, -2px); filter: hue-rotate(45deg) contrast(150%); }
+    40% { transform: translate(-2px, 2px); filter: hue-rotate(-45deg) contrast(200%); }
+    60% { transform: translate(3px, -1px); filter: hue-rotate(90deg) contrast(120%); }
+    80% { transform: translate(-3px, 1px); filter: hue-rotate(-90deg) contrast(180%); }
+    100% { transform: translate(0, 0); filter: hue-rotate(0deg) contrast(100%); }
+}
+
+
+
 @media (max-width: 425px) {
   .Main {
     padding: 0px;
