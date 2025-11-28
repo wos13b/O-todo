@@ -8,7 +8,7 @@ function alternarMenu_perf() {
 
 perf_butt?.addEventListener("click", alternarMenu_perf);
 
-// Slideshow com glitch + troca por espaço
+// Slideshow com glitch + fade + troca por espaço
 document.addEventListener("DOMContentLoaded", () => {
     const meditationDiv = document.querySelector(".Meditation");
 
@@ -30,15 +30,21 @@ document.addEventListener("DOMContentLoaded", () => {
     img.classList.add("slideshow");
     meditationDiv.appendChild(img);
 
-    // Função para trocar com glitch
+    // Função para trocar imagem com glitch + fade
     function trocarImagem() {
         img.classList.add("glitch");
+        img.style.opacity = 0;       // fade out
 
         setTimeout(() => {
-            img.classList.remove("glitch");
             img.src = imagens[index];
+            img.classList.remove("glitch");
+
+            setTimeout(() => {
+                img.style.opacity = 1;   // fade in
+            }, 30);
+
             index = (index + 1) % imagens.length;
-        }, 10);
+        }, 80); // tempo do glitch
     }
 
     // Carrega a primeira imagem
