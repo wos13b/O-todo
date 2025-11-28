@@ -1,3 +1,4 @@
+// Menu
 const perf_butt = document.querySelector(".Log_perf");
 const nav_2 = document.querySelector(".nav_2");
 
@@ -7,45 +8,46 @@ function alternarMenu_perf() {
 
 perf_butt?.addEventListener("click", alternarMenu_perf);
 
+// Slideshow com glitch + troca por espaço
 document.addEventListener("DOMContentLoaded", () => {
     const meditationDiv = document.querySelector(".Meditation");
 
-    const imagens = [
-        "img/Meditação/Meditação_001.png",
-        "img/Meditação/Meditação_002.png",
-        "img/Meditação/Meditação_003.png",
-        "img/Meditação/Meditação_004.png",
-        "img/Meditação/Meditação_005.png",
-        "img/Meditação/Meditação_006.png",
-        "img/Meditação/Meditação_007.png",
-        "img/Meditação/Meditação_008.png",
-        "img/Meditação/Meditação_009.png",
-        "img/Meditação/Meditação_010.png"
-    ];
+    // ---------------------------
+    // Opção B: gerar nomes automaticamente
+    // ---------------------------
+    const totalImagens = 11; 
+    const imagens = [];
+
+    for (let i = 1; i <= totalImagens; i++) {
+        const numero = String(i).padStart(3, "0"); 
+        imagens.push(`img/Meditação/Meditação_${numero}.png`);
+    }
 
     let index = 0;
 
+    // Cria a imagem exibida
     const img = document.createElement("img");
     img.classList.add("slideshow");
     meditationDiv.appendChild(img);
 
+    // Função para trocar com glitch
     function trocarImagem() {
-      img.classList.add("glitch");
+        img.classList.add("glitch");
 
-      setTimeout(() => {
-          img.classList.remove("glitch");
-          img.src = imagens[index];
-          index = (index + 1) % imagens.length;
-      }, 40);
+        setTimeout(() => {
+            img.classList.remove("glitch");
+            img.src = imagens[index];
+            index = (index + 1) % imagens.length;
+        }, 40);
     }
 
-    // carrega a primeira imagem
+    // Carrega a primeira imagem
     trocarImagem();
 
-    // troca só quando apertar espaço
+    // Troca quando apertar espaço
     document.addEventListener("keydown", (event) => {
         if (event.code === "Space") {
-            event.preventDefault(); // impede scroll
+            event.preventDefault();
             trocarImagem();
         }
     });
