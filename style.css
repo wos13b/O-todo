@@ -308,12 +308,6 @@ strong {
   opacity: 1;
 }
 
-/* efeito glitch */
-.glitch {
-  filter: hue-rotate(30deg) contrast(160%) saturate(180%) brightness(140%);
-  transform: translate(calc(-1px + 2px * var(--x)), calc(-1px + 2px * var(--y)));
-}
-
 
 @media (max-width: 425px) {
   .Main {
