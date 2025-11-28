@@ -8,7 +8,7 @@ function alternarMenu_perf() {
 
 perf_butt?.addEventListener("click", alternarMenu_perf);
 
-// Slideshow com fade + troca por espaço
+// Slideshow com fade sincronizado com carregamento
 document.addEventListener("DOMContentLoaded", () => {
     const meditationDiv = document.querySelector(".Meditation");
 
@@ -26,21 +26,26 @@ document.addEventListener("DOMContentLoaded", () => {
     img.classList.add("slideshow");
     meditationDiv.appendChild(img);
 
-    // Troca com fade
+    // Função de troca com fade e preload
     function trocarImagem() {
         img.style.opacity = 0; // fade out
 
-        setTimeout(() => {
-            img.src = imagens[index];
-            img.style.opacity = 1; // fade in
-            index = (index + 1) % imagens.length;
-        }, 400); // tempo do fade-out antes de trocar
+        const novoSrc = imagens[index];
+        const preload = new Image();
+        preload.src = novoSrc;
+
+        preload.onload = () => {
+            img.src = novoSrc;
+            img.style.opacity = 1; // fade in somente depois que carregou
+        };
+
+        index = (index + 1) % imagens.length;
     }
 
-    // Carrega a primeira imagem
+    // Carrega a primeira imagem quando disponível
     trocarImagem();
 
-    // Troca quando apertar espaço
+    // Troca ao apertar espaço
     document.addEventListener("keydown", (event) => {
         if (event.code === "Space") {
             event.preventDefault();
