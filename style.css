@@ -302,16 +302,16 @@ strong {
 }
 
 .slideshow {
-    width: 140px;
-    height: 140px;
-    transition: opacity 0.25s ease; /* controla o fade */
-    opacity: 1;
+  width: 140px;
+  height: 140px;
+  transition: opacity 0.20s ease; /* controla o fade */
+  opacity: 1;
 }
 
 /* efeito glitch */
 .glitch {
-    filter: hue-rotate(30deg) contrast(160%) saturate(180%) brightness(140%);
-    transform: translate(calc(-1px + 2px * var(--x)), calc(-1px + 2px * var(--y)));
+  filter: hue-rotate(30deg) contrast(160%) saturate(180%) brightness(140%);
+  transform: translate(calc(-1px + 2px * var(--x)), calc(-1px + 2px * var(--y)));
 }
 
 
