@@ -197,6 +197,7 @@ strong {
 .mosaico img {
   height: 90px;
   width: auto;
+  padding: 4px;
   /* Mantém proporção da imagem */
   object-fit: cover;
   /* Corta se necessário sem distorcer */
