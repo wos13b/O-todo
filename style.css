@@ -195,7 +195,7 @@ strong {
 }
 
 .mosaico img {
-  height: 100px;
+  height: 90px;
   width: auto;
   /* Mantém proporção da imagem */
   object-fit: cover;
