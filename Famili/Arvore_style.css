@@ -1,0 +1,100 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #0f172a, #020617);
+}
+
+@font-face {
+    font-family: Movie;
+    src: url('../Font/Steudel.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+/* TOOLBAR */
+#toolbar {
+    position: fixed;
+    top: 68px;
+    left: 15px;
+    z-index: 10;
+    background: #1a1a1a69;
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+button {
+    font-family: Movie;
+    font-size: large;
+    margin: 4px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    color: #e2e8f0;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #22c55e;
+    color: black;
+}
+
+/* CAMADAS */
+#lines {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#canvas {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* BLOCO */
+.box {
+    position: absolute;
+    width: 170px;
+    min-height: 90px;
+    padding: 12px;
+
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(8px);
+
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+
+    color: #e2e8f0;
+    cursor: grab;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.box strong {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.box p {
+    margin: 0;
+}
+
+.selected {
+    border: 2px solid #22c55e;
+    box-shadow: 0 0 15px #22c55e88;
+}
+
+line {
+    stroke: #22c55e;
+    stroke-width: 2;
+    filter: drop-shadow(0 0 6px #22c55e);
+}
