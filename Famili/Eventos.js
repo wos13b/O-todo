@@ -15,9 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const diasSemana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
+    // 🔹 Banco de eventos (pode evoluir pra localStorage depois)
+    const eventos = {
+    "01-15": {
+        imagem: "https://picsum.photos/100"
+    },
+    "01-10": {
+        imagem: "https://picsum.photos/100?random=2"
+    },
+    "01-05": {
+        imagem: "https://picsum.photos/100?random=3"
+    }
+};
+
     for (let mes = 0; mes < 12; mes++) {
 
-        
         const mesDiv = document.createElement("div");
         mesDiv.classList.add("mes");
 
@@ -31,12 +43,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const grid = document.createElement("div");
         grid.classList.add("grid");
 
-        // Dias da semana
+        // 🔹 Cabeçalho (dias da semana)
         diasSemana.forEach(dia => {
             const el = document.createElement("div");
-            el.textContent = dia;
-            el.style.fontWeight = "bold";
-            el.style.background = "#000";
+            el.classList.add("dia-semana");
+
+            const label = document.createElement("div");
+            label.textContent = dia;
+
+            el.appendChild(label);
             grid.appendChild(el);
         });
 
@@ -50,15 +65,71 @@ document.addEventListener("DOMContentLoaded", () => {
             grid.appendChild(vazio);
         }
 
-        // Dias
+        // 🔹 Dias do mês
         for (let dia = 1; dia <= totalDias; dia++) {
+
             const el = document.createElement("div");
-            el.textContent = dia;
+
+            // Número do dia
+            const numero = document.createElement("div");
+            numero.classList.add("numero-dia");
+            numero.textContent = dia;
+
+            // Conteúdo (imagem etc)
+            const conteudo = document.createElement("div");
+            conteudo.classList.add("conteudo-dia");
+
+            el.appendChild(numero);
+            el.appendChild(conteudo);
 
             // Destacar hoje
             if (mes === mesAtual && dia === diaAtual) {
                 el.classList.add("hoje");
             }
+
+            // 🔑 Identificador da data
+            const dataKey = `${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+
+            // 🔹 Se já existir evento, renderiza imagem
+            if (eventos[dataKey]) {
+                const img = document.createElement("img");
+                img.src = eventos[dataKey].imagem;
+                conteudo.appendChild(img);
+            }
+
+            // 🔹 Clique para adicionar imagem
+            el.addEventListener("click", () => {
+
+                const input = document.createElement("input");
+                input.type = "file";
+                input.accept = "image/*";
+
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    const reader = new FileReader();
+
+                    reader.onload = () => {
+
+                        const img = document.createElement("img");
+                        img.src = reader.result;
+
+                        // limpa conteúdo anterior
+                        conteudo.innerHTML = "";
+                        conteudo.appendChild(img);
+
+                        // salva no "banco"
+                        eventos[dataKey] = {
+                            imagem: reader.result
+                        };
+                    };
+
+                    reader.readAsDataURL(file);
+                };
+
+                input.click();
+            });
 
             grid.appendChild(el);
         }

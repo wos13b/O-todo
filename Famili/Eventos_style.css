@@ -28,12 +28,38 @@
 
 /* TODOS os dias */
 .grid div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     padding: 8px;
     text-align: center;
     border: 1px solid #333;
     background-color: #1a1a1a;
     color: #eee;
     transition: 0.2s;
+}
+
+.numero-dia {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.conteudo-dia {
+    width: 100%;
+    height: 60px; /* 👈 essencial */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.conteudo-dia img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
 /* Hover */
@@ -44,10 +70,13 @@
 }
 
 /* Cabeçalho (dias da semana) */
-.grid div.header {
+.grid div.dia-semana {
     font-weight: bold;
     background-color: #000;
     color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Dia atual */
