@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../header.css">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="Arvore_style.css">
+    <link rel="stylesheet" href="Eventos_style.css">
     <script src="../script.js" defer></script>
     <script src="../Anim.js" defer></script>
-    <script src="app.js" defer></script>
+    <script src="Eventos.js" defer></script>
     <link rel="shortcut icon" href="ico/Logo.png" type="image/x-icon">
-    <title>Arvore</title>
+    <title>Eventos</title>
 </head>
 <body>
     
@@ -35,17 +35,11 @@
 
     <div class="Main">
 
-        <div id="toolbar">
-            <button onclick="CanvasApp.createBox()">Novo</button>
-            <button onclick="CanvasApp.connectMode()">Conectar</button>
-            <button onclick="CanvasApp.toggleAutoLayout()">Auto Layout</button>
-            <button onclick="CanvasApp.deleteSelected()">Remover</button>
-            <button onclick="CanvasApp.save()">Salvar</button>
-            <button onclick="CanvasApp.load()">Carregar</button>
+        <div class="Calendario" id="calendario">
+            <div id="mes-atual"></div>
+            <div id="dias-semana"></div>
+            <div id="dias"></div>
         </div>
-
-        <svg id="lines"></svg>
-        <div id="canvas"></div>
 
     </div>
 </body>
