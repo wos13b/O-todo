@@ -17,14 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 🔹 Banco de eventos (pode evoluir pra localStorage depois)
     const eventos = {
-    "01-15": {
-        imagem: "https://picsum.photos/100"
-    },
-    "01-10": {
-        imagem: "https://picsum.photos/100?random=2"
-    },
+    
     "01-05": {
-        imagem: "https://picsum.photos/100?random=3"
+        imagem: "../img/Adriano.png"
+    },
+    "02-28": {
+        imagem: "../img/Monica.png"
     }
 };
 
