@@ -145,6 +145,7 @@ body::-webkit-scrollbar {
 
 /* ===== Ênfase em Palavras-Chave ===== */
 strong {
+  font-size: large;
   color: #00d2ff;
 }
 

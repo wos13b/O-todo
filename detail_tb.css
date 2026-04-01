@@ -93,6 +93,35 @@
   border-radius: 4px;
 }
 
+.details-content .Pr{
+
+  margin: 8px 12px;
+  border: 2px solid #555;
+  border-radius: 4px;
+
+}
+
+.details-content .Pr p{
+
+  border: none;
+
+}
+
+#pergunta {
+
+  font-family: 'Courier New', Courier, monospace;
+  font-size: large;
+  color: rgb(255, 181, 181);
+
+}
+
+#resposta {
+
+  font-family: 'Courier New', Courier, monospace;
+  color: #8deaff;
+
+}
+
 .details-content .mark {
   margin: 8px 12px;
   border-left: 2px solid #00d2ff;

@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     "02-28": {
         imagem: "../img/Monica.png"
+    },
+    "03-27": {
+        imagem: "../img/Helena.jpeg"
     }
 };
 
