@@ -85,7 +85,7 @@
 
 #Vermelho ul li,
 #Vermelho p,
-#Vermelho strong
+#Vermelho .summary_icon
 {
 
   color: #ff6e6e;
@@ -94,7 +94,7 @@
 
 #Laranja ul li,
 #Laranja p,
-#Laranja strong
+#Laranja .summary_icon
 {
 
   color: #ffc75f;
@@ -103,7 +103,7 @@
 
 #Amarelo ul li,
 #Amarelo p,
-#Amarelo strong
+#Amarelo .summary_icon
 {
 
   color: #ffff80;
