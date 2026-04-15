@@ -1,0 +1,191 @@
+/* =========================
+   VARIÁVEIS (controle global)
+========================= */
+:root {
+    --bg-main: #1e1e1e;
+    --bg-soft: #2a2a2a;
+    --border: #3a3a3a;
+
+    --ativa: #ff4d4d;
+    --passiva: #4da6ff;
+    --neutra: #4dff88;
+
+    --text-main: #e6e6e6;
+    --text-soft: #bfbfbf;
+}
+
+/* =========================
+   TABELA GERAL
+========================= */
+table {
+    width: 100%;
+    max-width: 1100px;
+    margin: 30px auto;
+
+    border-collapse: collapse;
+    font-family: 'Segoe UI', sans-serif;
+
+    background: rgba(40, 40, 40, 0.6);
+    backdrop-filter: blur(8px);
+
+    border-radius: 14px;
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+
+    box-shadow: 
+        0 10px 30px rgba(0,0,0,0.6),
+        inset 0 0 20px rgba(255,255,255,0.02)
+    ;
+}
+
+table img{
+
+    height: 30px;
+    width: 30px;
+
+}
+
+/* =========================
+   CABEÇALHO
+========================= */
+table thead th {
+    background: linear-gradient(90deg, #111, #1c1c1c);
+    font-size: 1.3em;
+    padding: 18px;
+
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    border-bottom: 1px solid var(--border);
+
+    color: #ffffff;
+}
+
+/* =========================
+   LINHA DE CATEGORIA
+========================= */
+.categoria td {
+    background: #222;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 1px;
+
+    color: #999;
+}
+
+/* =========================
+   CÉLULAS BASE
+========================= */
+table td {
+    padding: 16px;
+    text-align: center;
+
+    border: 1px solid var(--border);
+
+    transition: all 0.25s ease;
+
+    font-size: 0.9em;
+    color: var(--text-soft);
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* =========================
+   EFEITO DE LUZ NO HOVER
+========================= */
+table td::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+table td:hover::before {
+    opacity: 1;
+}
+
+/* =========================
+   HOVER (ELEVAÇÃO)
+========================= */
+table td:hover {
+    cursor: pointer;
+    z-index: 2;
+
+    background: #383838;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+/* =========================
+   ARQUÉTIPOS (NOME)
+========================= */
+.arquetipos td {
+    font-weight: bold;
+    font-size: 1.05em;
+    letter-spacing: 0.5px;
+}
+
+/* =========================
+   DESCRIÇÃO
+========================= */
+.descricao td {
+    font-size: 0.9em;
+    color: #aaa;
+    font-style: italic;
+}
+
+/* =========================
+   CORES POR TIPO
+========================= */
+.ativa {
+    background: linear-gradient(145deg, rgba(255,77,77,0.12), transparent);
+    border-bottom: 2px solid var(--ativa);
+}
+
+.passiva {
+    background: linear-gradient(145deg, rgba(77,166,255,0.12), transparent);
+    border-bottom: 2px solid var(--passiva);
+}
+
+.neutra {
+    background: linear-gradient(145deg, rgba(77,255,136,0.12), transparent);
+    border-bottom: 2px solid var(--neutra);
+}
+
+/* =========================
+   GLOW NO HOVER POR TIPO
+========================= */
+.ativa:hover {
+    box-shadow: 0 0 12px rgba(255,77,77,0.6);
+}
+
+.passiva:hover {
+    box-shadow: 0 0 12px rgba(77,166,255,0.6);
+}
+
+.neutra:hover {
+    box-shadow: 0 0 12px rgba(77,255,136,0.6);
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 768px) {
+
+    table {
+        font-size: 0.75em;
+    }
+
+    table td {
+        padding: 10px;
+    }
+
+    table thead th {
+        font-size: 1em;
+    }
+}

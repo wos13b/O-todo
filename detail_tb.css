@@ -83,6 +83,12 @@
   transition: max-height 0.5s ease, padding 0.3s ease;
 }
 
+.details-content ul li a{
+
+  text-decoration: none;
+
+}
+
 #Vermelho ul li,
 #Vermelho p,
 #Vermelho .summary_icon

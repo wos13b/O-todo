@@ -1,40 +1,40 @@
-.med_chakram {
-    background-image: url(img/Symb_hind/Chakras/med.png);
-    background-size: contain;
-    margin: auto;
+.Roda_existencial {
+    position: relative;
     width: 400px;
     height: 400px;
-    display: flex;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 50px auto;
+    border: 2px solid #fff;
 }
 
-.chakra {
-    margin: auto;
+.setor {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0% 0%;
 }
 
-.chakra p {
-    margin: auto;
-    visibility: hidden;
+.bola {
+    border: 2px solid rgba(255,255,255,0.6);
+    box-shadow: 0 0 10px rgba(0,150,255,0.5);
     transition: 0.3s;
 }
 
-.chakra div {
-    display: flex;
-    margin-bottom: 20px;
-    text-align: center;
-    transition: 0.8s;
+.bola:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 20px rgba(0,150,255,0.9);
 }
 
-.chakra div:hover {
-    transform: scale(1.2);
-    cursor: pointer;
-}
-
-.chakra div:hover p {
-    visibility: visible;
-}
-
-.chakra img {
-    height: 34px;
-    width: 34px;
-    transition: 0.8s;
+.Painel_roda {
+  display: grid;
+  /* duas colunas iguais */
+  gap: 10px;
+  /* espaço entre colunas */
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px auto;
 }

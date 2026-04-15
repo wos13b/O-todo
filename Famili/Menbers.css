@@ -1,0 +1,89 @@
+.Perfs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 38px;
+    justify-content: center;
+}
+
+.Perfs a{
+
+    text-decoration: none;
+
+}
+
+/* CARD */
+.Perf {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto auto;
+
+    width: 320px;
+    height: 200px;
+
+    background: linear-gradient(145deg, #4a4a4a, #2c2c2c);
+    border: 2px solid #252525;
+    border-radius: 6px;
+
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    padding: 8px;
+
+    transition: 0.3s;
+}
+
+/* IMAGEM */
+.img_perfil {
+    grid-column: 1;
+    grid-row: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_perfil img {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+/* INFO */
+.Info_perfil {
+    grid-column: 2;
+    grid-row: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Info_perfil p {
+    font-size: 9px;
+    margin: 2px 0;
+}
+
+/* LINHA INFERIOR */
+.Extra {
+    grid-column: 1 / 3;
+    grid-row: 2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #252525;
+    border-radius: 6px;
+}
+
+.signo {
+    width: 20px;
+    height: 20px;
+    margin: auto 2px;
+}
+
+/* HOVER */
+.Perf:hover {
+    transform: scale(1.02);
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.7);
+}
