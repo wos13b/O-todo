@@ -21,15 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (roda) {
 
         const imagensSetores = [
-            "img/Cerebro.png",
-            "img/Coração.png",
-            "img/Genero.png"
+            "img/Silhueta/Orgãos/Cerebro.png",
+            "img/Silhueta/Orgãos/Coração.png",
+            "img/Silhueta/Orgãos/Genero.png"
         ];
 
         // 🔥 imagens que vão alternar
         const imagensGenero = [
-            "img/Feminino.png",
-            "img/Masculino.png"
+            "img/Silhueta/Objetos/Escudo.png",
+            "img/Silhueta/Objetos/Espada.png"
         ];
 
         const totalSetores = imagensSetores.length;

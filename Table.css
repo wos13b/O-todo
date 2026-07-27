@@ -10,8 +10,8 @@
     --passiva: #4da6ff;
     --neutra: #4dff88;
 
-    --text-main: #e6e6e6;
-    --text-soft: #bfbfbf;
+    --text-main: #f2f2f2;
+    --text-soft: #cfcfcf;
 }
 
 /* =========================
@@ -20,73 +20,80 @@
 table {
     width: 100%;
     max-width: 1100px;
-    margin: 30px auto;
+    margin: 40px auto;
 
-    border-collapse: collapse;
     font-family: 'Segoe UI', sans-serif;
 
-    background: rgba(40, 40, 40, 0.6);
-    backdrop-filter: blur(8px);
+    background: rgba(20, 20, 20, 0.75);
+    backdrop-filter: blur(10px);
 
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
 
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,255,255,0.05);
 
     box-shadow: 
-        0 10px 30px rgba(0,0,0,0.6),
-        inset 0 0 20px rgba(255,255,255,0.02)
-    ;
+        0 20px 40px rgba(0,0,0,0.8),
+        inset 0 0 30px rgba(255,255,255,0.02);
 }
 
-table img{
+.table_p{
 
-    height: 30px;
-    width: 30px;
+    color: #5f5a5a;
 
+}
+
+/* =========================
+   IMAGENS (SÍMBOLOS)
+========================= */
+table img {
+    height: 28px;
+    width: 28px;
+    filter: brightness(1.3) contrast(1.1);
+    opacity: 0.9;
 }
 
 /* =========================
    CABEÇALHO
 ========================= */
 table thead th {
-    background: linear-gradient(90deg, #111, #1c1c1c);
-    font-size: 1.3em;
-    padding: 18px;
+    background: linear-gradient(90deg, #0d0d0d, #1a1a1a);
+    font-size: 1.2em;
+    padding: 20px;
 
     letter-spacing: 3px;
     text-transform: uppercase;
 
     border-bottom: 1px solid var(--border);
 
-    color: #ffffff;
+    text-shadow: 0 0 6px rgba(255,255,255,0.2);
+
 }
 
 /* =========================
    LINHA DE CATEGORIA
 ========================= */
 .categoria td {
-    background: #222;
+    background: #1a1a1a;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 0.85em;
-    letter-spacing: 1px;
+    font-size: 0.8em;
+    letter-spacing: 1.5px;
 
-    color: #999;
 }
 
 /* =========================
    CÉLULAS BASE
 ========================= */
 table td {
-    padding: 16px;
+    padding: 18px;
     text-align: center;
 
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,255,255,0.05);
 
     transition: all 0.25s ease;
 
-    font-size: 0.9em;
+    font-size: 0.95em;
     color: var(--text-soft);
 
     position: relative;
@@ -94,13 +101,13 @@ table td {
 }
 
 /* =========================
-   EFEITO DE LUZ NO HOVER
+   EFEITO DE LUZ (SUAVE)
 ========================= */
 table td::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 70%);
+    background: radial-gradient(circle at center, rgba(255,255,255,0.06), transparent 70%);
     opacity: 0;
     transition: opacity 0.3s;
 }
@@ -110,66 +117,69 @@ table td:hover::before {
 }
 
 /* =========================
-   HOVER (ELEVAÇÃO)
+   HOVER (ELEVAÇÃO SUAVE)
 ========================= */
 table td:hover {
     cursor: pointer;
     z-index: 2;
 
-    background: #383838;
+    background: #2f2f2f;
 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
 }
 
 /* =========================
-   ARQUÉTIPOS (NOME)
+   ARQUÉTIPOS
 ========================= */
 .arquetipos td {
     font-weight: bold;
-    font-size: 1.05em;
+    font-size: 1.1em;
     letter-spacing: 0.5px;
+    color: var(--text-main);
 }
 
 /* =========================
    DESCRIÇÃO
 ========================= */
 .descricao td {
-    font-size: 0.9em;
-    color: #aaa;
+    font-size: 0.85em;
+    color: #999;
     font-style: italic;
 }
 
 /* =========================
-   CORES POR TIPO
+   CORES POR TIPO (MAIS SUAVE)
 ========================= */
 .ativa {
-    background: linear-gradient(145deg, rgba(255,77,77,0.12), transparent);
-    border-bottom: 2px solid var(--ativa);
+    background: linear-gradient(145deg, rgba(255,77,77,0.08), transparent);
+    border-bottom: 2px solid rgba(255,77,77,0.6);
 }
 
 .passiva {
-    background: linear-gradient(145deg, rgba(77,166,255,0.12), transparent);
-    border-bottom: 2px solid var(--passiva);
+    background: linear-gradient(145deg, rgba(77,166,255,0.08), transparent);
+    border-bottom: 2px solid rgba(77,166,255,0.6);
 }
 
 .neutra {
-    background: linear-gradient(145deg, rgba(77,255,136,0.12), transparent);
-    border-bottom: 2px solid var(--neutra);
+    background: linear-gradient(145deg, rgba(77,255,136,0.08), transparent);
+    border-bottom: 2px solid rgba(77,255,136,0.6);
 }
 
 /* =========================
-   GLOW NO HOVER POR TIPO
+   GLOW MAIS CONTROLADO
 ========================= */
 .ativa:hover {
-    box-shadow: 0 0 12px rgba(255,77,77,0.6);
+    box-shadow: 0 0 10px rgba(255,77,77,0.4);
 }
 
 .passiva:hover {
-    box-shadow: 0 0 12px rgba(77,166,255,0.6);
+    box-shadow: 0 0 10px rgba(77,166,255,0.4);
 }
 
 .neutra:hover {
-    box-shadow: 0 0 12px rgba(77,255,136,0.6);
+    box-shadow: 0 0 10px rgba(77,255,136,0.4);
 }
 
 /* =========================
@@ -186,6 +196,11 @@ table td:hover {
     }
 
     table thead th {
-        font-size: 1em;
+        font-size: 0.9em;
+    }
+
+    table img {
+        width: 22px;
+        height: 22px;
     }
 }

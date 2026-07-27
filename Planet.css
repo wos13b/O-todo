@@ -1,0 +1,103 @@
+.Painel_Domo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 440px;
+}
+
+/* grupo dos dois planetas */
+.Planet_Group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 40px; /* espaço entre eles */
+}
+
+/* estilo base das esferas */
+.Planet {
+    animation: brilho 3s ease-in-out infinite;
+    display: flex;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+
+    transition: transform 0.3s ease;
+
+    box-shadow: inset -20px -20px 40px rgba(0,0,0,0.5),
+                inset 20px 20px 40px rgba(255,255,255,0.2);
+}
+
+@keyframes brilho {
+    0% {
+        box-shadow: inset -20px -20px 40px rgba(0,0,0,0.5),
+                    inset 20px 20px 40px rgba(255,255,255,0.2),
+                    0 0 10px rgba(255,255,255,0.1);
+    }
+    50% {
+        box-shadow: inset -20px -20px 40px rgba(0,0,0,0.5),
+                    inset 20px 20px 40px rgba(255,255,255,0.2),
+                    0 0 25px rgba(255,255,255,0.3);
+    }
+    100% {
+        box-shadow: inset -20px -20px 40px rgba(0,0,0,0.5),
+                    inset 20px 20px 40px rgba(255,255,255,0.2),
+                    0 0 10px rgba(255,255,255,0.1);
+    }
+}
+
+.Planet:hover {
+    cursor: pointer;
+    transform: scale(1.04);
+    border: 1px solid white;
+}
+
+.Title {
+
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    border-radius: 4px;
+    width: 80px;
+    background-color: rgba(180, 180, 180, 0.767);
+    text-align: center;
+
+}
+
+.Title p {
+
+    color: black;
+
+}
+
+
+/* lado 1 */
+.lado1 {
+    background-image: url("img/Symb/Cosmo/Symb_world/America.png");
+}
+
+/* lado 2 */
+.lado2 {
+    background-image: url("img/Symb/Cosmo/Symb_world/Antartida.png");
+}
+
+/* lado 3 */
+.lado3 {
+    background-image: url("img/Symb/Cosmo/Symb_world/Asia.png");
+}
+
+/* lado 4 */
+.lado4 {
+    background-image: url("img/Symb/Cosmo/Symb_world/Europa.png");
+}
+
+/* lado 5 */
+.lado5 {
+    background-image: url("img/Symb/Cosmo/Symb_world/Oceania.png");
+}
+
+/* lado 6 */
+.lado6 {
+    background-image: url("img/Symb/Cosmo/Symb_world/África.png");
+}
