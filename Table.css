@@ -10,6 +10,7 @@
     --Lrj: #ffa500;
     --Ama: #ffff00;
     --Vrd: #008000;
+    --Azl: #0000ff;
     --passiva: #4da6ff;
     --neutra: #4dff88;
 
@@ -156,20 +157,24 @@ table td:hover {
    CORES POR TIPO (MAIS SUAVE)
 ========================= */
 .Vrm {
-    background: linear-gradient(145deg, rgb(102, 0, 0), transparent);
+    background: linear-gradient(145deg, rgba(102, 0, 0, 0.582), transparent);
     border-bottom: 2px solid rgb(102, 0, 0);
 }
 .Lrj {
-    background: linear-gradient(145deg, rgb(255, 165, 0), transparent);
+    background: linear-gradient(145deg, rgba(255, 166, 0, 0.521), transparent);
     border-bottom: 2px solid rgb(255, 165, 0);
 }
 .Ama {
-    background: linear-gradient(145deg, rgb(255, 255, 0), transparent);
+    background: linear-gradient(145deg, rgba(255, 255, 0, 0.466), transparent);
     border-bottom: 2px solid rgb(255, 255, 0);
 }
 .Vrd {
-    background: linear-gradient(145deg, rgb(0, 128, 0), transparent);
+    background: linear-gradient(145deg, rgba(0, 128, 0, 0.479), transparent);
     border-bottom: 2px solid rgb(0, 128, 0);
+}
+.Azl {
+    background: linear-gradient(145deg, rgba(0, 0, 255, 0.486), transparent);
+    border-bottom: 2px solid rgb(0, 0, 255);
 }
 
 .neutra {
