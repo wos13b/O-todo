@@ -8,6 +8,7 @@
 
     --Vrm: #ff4d4d;
     --Lrj: #ffa500;
+    --Ama: #ffff00;
     --passiva: #4da6ff;
     --neutra: #4dff88;
 
@@ -161,7 +162,10 @@ table td:hover {
     background: linear-gradient(145deg, rgba(255,77,77,0.08), transparent);
     border-bottom: 2px solid rgb(255, 165, 0.6);
 }
-
+.Ama {
+    background: linear-gradient(145deg, rgba(255,77,77,0.08), transparent);
+    border-bottom: 2px solid rgb(255, 255, 0.6);
+}
 .passiva {
     background: linear-gradient(145deg, rgba(77,166,255,0.08), transparent);
     border-bottom: 2px solid rgba(77,166,255,0.6);
