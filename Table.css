@@ -6,7 +6,7 @@
     --bg-soft: #2a2a2a;
     --border: #3a3a3a;
 
-    --ativa: #ff4d4d;
+    --Vrm: #ff4d4d;
     --passiva: #4da6ff;
     --neutra: #4dff88;
 
@@ -24,7 +24,7 @@ table {
 
     font-family: 'Segoe UI', sans-serif;
 
-    background: rgba(20, 20, 20, 0.75);
+    background: linear-gradient(90deg, #0d0d0d, #fff);
     backdrop-filter: blur(10px);
 
     border-radius: 16px;
@@ -152,9 +152,9 @@ table td:hover {
 /* =========================
    CORES POR TIPO (MAIS SUAVE)
 ========================= */
-.ativa {
+.Vrm {
     background: linear-gradient(145deg, rgba(255,77,77,0.08), transparent);
-    border-bottom: 2px solid rgba(255,77,77,0.6);
+    border-bottom: 2px solid rgba(129, 0, 0, 0.6);
 }
 
 .passiva {
