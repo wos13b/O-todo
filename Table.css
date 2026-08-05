@@ -181,10 +181,13 @@ table td:hover {
     background: linear-gradient(145deg, rgba(76, 0, 130, 0.514), transparent);
     border-bottom: 2px solid rgb(75, 0, 130);
 }
-
-.neutra {
-    background: linear-gradient(145deg, rgba(77,255,136,0.08), transparent);
-    border-bottom: 2px solid rgba(77,255,136,0.6);
+.Vio {
+    background: linear-gradient(145deg, rgba(144, 0, 255, 0.5), transparent);
+    border-bottom: 2px solid rgb(143, 0, 255);
+}
+.Bra {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.493), transparent);
+    border-bottom: 2px solid rgb(255, 255, 255)
 }
 
 /* =========================
