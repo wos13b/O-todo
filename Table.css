@@ -169,8 +169,8 @@ table td:hover {
     border-bottom: 2px solid rgb(255, 255, 0);
 }
 .Vrd {
-    background: linear-gradient(145deg, rgba(0, 128, 0, 0.479), transparent);
-    border-bottom: 2px solid rgb(0, 128, 0);
+    background: linear-gradient(145deg, rgba(0, 255, 0, 0.486), transparent);
+    border-bottom: 2px solid rgb(0, 255, 0);
 }
 .Azl {
     background: linear-gradient(145deg, rgba(0, 0, 255, 0.486), transparent);
