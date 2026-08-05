@@ -11,6 +11,7 @@
     --Ama: #ffff00;
     --Vrd: #008000;
     --Azl: #0000ff;
+    --Ind: #4B0082;
     --passiva: #4da6ff;
     --neutra: #4dff88;
 
@@ -173,8 +174,12 @@ table td:hover {
     border-bottom: 2px solid rgb(0, 255, 0);
 }
 .Azl {
-    background: linear-gradient(145deg, rgba(0, 0, 255, 0.486), transparent);
+    background: linear-gradient(145deg, rgba(0, 0, 255, 0.507), transparent);
     border-bottom: 2px solid rgb(0, 0, 255);
+}
+.Ind {
+    background: linear-gradient(145deg, rgba(76, 0, 130, 0.514), transparent);
+    border-bottom: 2px solid rgb(75, 0, 130);
 }
 
 .neutra {
