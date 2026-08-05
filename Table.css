@@ -26,7 +26,7 @@ table {
 
     font-family: 'Segoe UI', sans-serif;
 
-    background: linear-gradient(90deg, #050505, #383838);
+    background: linear-gradient(90deg, #050505, #292929);
     backdrop-filter: blur(10px);
 
     border-radius: 16px;
@@ -156,15 +156,15 @@ table td:hover {
 ========================= */
 .Vrm {
     background: linear-gradient(145deg, rgba(255,77,77,0.08), transparent);
-    border-bottom: 2px solid rgba(129, 0, 0, 0.6);
+    border-bottom: 2px solid rgb(102, 0, 0);
 }
 .Lrj {
     background: linear-gradient(145deg, rgba(255,77,77,0.08), transparent);
-    border-bottom: 2px solid rgb(255, 165, 0.6);
+    border-bottom: 2px solid rgb(255, 165, 0);
 }
 .Ama {
     background: linear-gradient(145deg, rgba(255,77,77,0.08), transparent);
-    border-bottom: 2px solid rgb(255, 255, 0.6);
+    border-bottom: 2px solid rgb(255, 255, 0);
 }
 .passiva {
     background: linear-gradient(145deg, rgba(77,166,255,0.08), transparent);
