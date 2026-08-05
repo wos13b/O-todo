@@ -128,7 +128,6 @@ table td:hover {
     cursor: pointer;
     z-index: 2;
 
-    background: #2f2f2f;
 
     transform: translateY(-2px);
 
