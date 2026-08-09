@@ -159,15 +159,15 @@ table td:hover {
    CORES POR TIPO (MAIS SUAVE)
 ========================= */
 .Vrm {
-    background: linear-gradient(90deg, to right rgba(255, 0, 0, 0.527), rgba(255, 128, 0, 0.507), transparent);
+    background: linear-gradient(90deg, rgb(255, 0, 0), rgb(255, 128, 0), transparent);
     border-bottom: 2px solid rgb(255, 0, 0);
 }
 .Lrj {
-    background: linear-gradient(90deg, rgba(255, 128, 0, 0.507), rgba(255, 255, 0, 0.541), transparent);
+    background: linear-gradient(90deg, rgb(255, 128, 0), rgb(255, 255, 0), transparent);
     border-bottom: 2px solid rgb(255, 127, 0);
 }
 .Ama {
-    background: linear-gradient(90deg, rgba(255, 255, 0, 0.541), rgba(0, 255, 0, 0.486), transparent);
+    background: linear-gradient(90deg, rgb(255, 255, 0), rgb(0, 255, 0), transparent);
     border-bottom: 2px solid rgb(255, 255, 0);
 }
 .Vrd {
