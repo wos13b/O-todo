@@ -171,11 +171,11 @@ table td:hover {
     border-bottom: 2px solid rgb(255, 255, 0);
 }
 .Vrd {
-    background: linear-gradient(270deg, rgb(0, 255, 0), rgb(0, 0, 255), transparent);
+    background: linear-gradient(270deg, rgb(0, 255, 0), transparent);
     border-bottom: 2px solid rgb(0, 255, 0);
 }
 .Azl {
-    background: linear-gradient(270deg, rgb(0, 0, 255), rgb(76, 0, 130), transparent);
+    background: linear-gradient(270deg, rgb(0, 0, 255), transparent);
     border-bottom: 2px solid rgb(0, 0, 255);
 }
 .Ind {
