@@ -179,19 +179,19 @@ table td:hover {
     border-bottom: 2px solid rgb(0, 0, 255);
 }
 .Ind {
-    background: linear-gradient(270deg, rgb(76, 0, 130), transparent);
+    background: rgb(76, 0, 130), transparent;
     border-bottom: 2px solid rgb(75, 0, 130);
 }
 .Vio {
-    background: linear-gradient(90deg, rgb(144, 0, 255), transparent);
+    background: rgb(144, 0, 255), transparent;
     border-bottom: 2px solid rgb(143, 0, 255);
 }
 .Brc {
-    background: linear-gradient(90deg, rgb(255, 255, 255), transparent);
+    background: rgb(255, 255, 255), transparent;
     border-bottom: 2px solid rgb(255, 255, 255);
 }
 .Prt {
-    background: linear-gradient(270deg, rgb(0, 0, 0), transparent);
+    background: rgb(0, 0, 0), transparent;
     border-bottom: 2px solid rgb(0, 0, 0);
 }
 
