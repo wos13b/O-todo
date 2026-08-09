@@ -163,15 +163,15 @@ table td:hover {
     border-bottom: 2px solid rgb(255, 0, 0);
 }
 .Lrj {
-    background: linear-gradient(90deg, rgba(255, 128, 0, 0.507), transparent);
+    background: linear-gradient(90deg, rgba(255, 128, 0, 0.507), rgba(255, 255, 0, 0.541), transparent);
     border-bottom: 2px solid rgb(255, 127, 0);
 }
 .Ama {
-    background: linear-gradient(90deg, rgba(255, 255, 0, 0.541), transparent);
+    background: linear-gradient(90deg, rgba(255, 255, 0, 0.541), rgba(0, 255, 0, 0.486), transparent);
     border-bottom: 2px solid rgb(255, 255, 0);
 }
 .Vrd {
-    background: linear-gradient(145deg, rgba(0, 255, 0, 0.486), transparent);
+    background: linear-gradient(90deg, rgba(0, 255, 0, 0.486), transparent);
     border-bottom: 2px solid rgb(0, 255, 0);
 }
 .Azl {
