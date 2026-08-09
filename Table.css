@@ -171,19 +171,19 @@ table td:hover {
     border-bottom: 2px solid rgb(255, 255, 0);
 }
 .Vrd {
-    background: linear-gradient(90deg, rgba(0, 255, 0, 0.486), transparent);
+    background: linear-gradient(90deg, rgb(0, 255, 0), rgb(0, 0, 255), transparent);
     border-bottom: 2px solid rgb(0, 255, 0);
 }
 .Azl {
-    background: linear-gradient(90deg, rgba(0, 0, 255, 0.507), transparent);
+    background: linear-gradient(90deg, rgb(0, 0, 255), rgb(76, 0, 130), transparent);
     border-bottom: 2px solid rgb(0, 0, 255);
 }
 .Ind {
-    background: linear-gradient(90deg, rgba(76, 0, 130, 0.514), transparent);
+    background: linear-gradient(90deg, rgb(76, 0, 130), transparent);
     border-bottom: 2px solid rgb(75, 0, 130);
 }
 .Vio {
-    background: linear-gradient(90deg, rgba(144, 0, 255, 0.5), transparent);
+    background: linear-gradient(90deg, rgb(144, 0, 255), transparent);
     border-bottom: 2px solid rgb(143, 0, 255);
 }
 .Brc {
