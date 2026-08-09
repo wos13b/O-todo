@@ -6,6 +6,7 @@
     --bg-soft: #2a2a2a;
     --border: #3a3a3a;
 
+    --Brc: #fff;
     --Vrm: #ff4d4d;
     --Lrj: #ffa500;
     --Ama: #ffff00;
@@ -183,6 +184,10 @@ table td:hover {
 .Vio {
     background: linear-gradient(145deg, rgba(144, 0, 255, 0.5), transparent);
     border-bottom: 2px solid rgb(143, 0, 255);
+}
+.Brc {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.525), transparent);
+    border-bottom: 2px solid rgb(255, 255, 255);
 }
 
 /* =========================
