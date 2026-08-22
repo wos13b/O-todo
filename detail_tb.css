@@ -115,7 +115,12 @@
   color: #ffff80;
 
 }
+.details-content h2{
 
+  margin: 8px 12px;
+  padding: 8px;
+
+}
 .details-content p,
 .details-content ul,
 .details-content h3,
