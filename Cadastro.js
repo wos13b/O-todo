@@ -17,23 +17,71 @@ const supabaseClient = supabase.createClient(
 
 const formulario = document.querySelector(".form-cadastro");
 
+
+// =========================================================
+// ENVIO DO FORMULÁRIO
+// =========================================================
+
 formulario.addEventListener("submit", async function (event) {
 
     event.preventDefault();
 
-    const nome = document.querySelector("#nome").value.trim();
-    const email = document.querySelector("#email").value.trim();
-    const senha = document.querySelector("#senha").value;
-    const confirmarSenha = document.querySelector("#confirmar-senha").value;
+
+    // =====================================================
+    // DADOS DO USUÁRIO
+    // =====================================================
+
+    const nome = document
+        .querySelector("#nome")
+        .value
+        .trim();
+
+    const nickname = document
+        .querySelector("#nickname")
+        .value
+        .trim();
+
+    const email = document
+        .querySelector("#email")
+        .value
+        .trim();
+
+    const dataNascimento = document
+        .querySelector("#data-nascimento")
+        .value;
+
+    const senha = document
+        .querySelector("#senha")
+        .value;
+
+    const confirmarSenha = document
+        .querySelector("#confirmar-senha")
+        .value;
 
 
     // =====================================================
-    // VERIFICAR SENHAS
+    // VALIDAÇÕES
     // =====================================================
 
     if (senha !== confirmarSenha) {
 
         alert("As senhas não coincidem.");
+
+        return;
+    }
+
+
+    if (senha.length < 8) {
+
+        alert("A senha deve possuir pelo menos 8 caracteres.");
+
+        return;
+    }
+
+
+    if (nickname.length < 3) {
+
+        alert("O nickname deve possuir pelo menos 3 caracteres.");
 
         return;
     }
@@ -52,7 +100,13 @@ formulario.addEventListener("submit", async function (event) {
         options: {
 
             data: {
-                nome: nome
+
+                nome: nome,
+
+                nickname: nickname,
+
+                data_nascimento: dataNascimento
+
             }
 
         }
@@ -61,29 +115,44 @@ formulario.addEventListener("submit", async function (event) {
 
 
     // =====================================================
-    // ERRO
+    // TRATAMENTO DE ERRO
     // =====================================================
 
     if (error) {
 
-        console.error(error);
+        console.error(
+            "Erro ao criar usuário:",
+            error
+        );
 
-        alert("Erro ao criar usuário:\n\n" + error.message);
+        alert(
+            "Erro ao criar usuário:\n\n" +
+            error.message
+        );
 
         return;
     }
 
 
     // =====================================================
-    // SUCESSO
+    // CADASTRO REALIZADO
     // =====================================================
 
-    console.log("Usuário criado:", data);
+    console.log(
+        "Usuário criado:",
+        data.user
+    );
+
 
     alert(
         "Cadastro realizado com sucesso!\n\n" +
         "Verifique seu e-mail para confirmar a conta."
     );
+
+
+    // =====================================================
+    // LIMPAR FORMULÁRIO
+    // =====================================================
 
     formulario.reset();
 

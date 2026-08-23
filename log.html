@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Users_info.css">
+
+    <script src="Anim.js" defer></script>
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- LOGIN -->
+    <script src="Login.js" defer></script>
+
+    <title>Login</title>
+
+</head>
+
+
+<body>
+
+    <div class="header">
+
+        <button class="menu-toggle">
+            ☰
+        </button>
+
+
+        <ul class="nav">
+
+            <li>
+                <a href="index.html">
+                    Inicio
+                </a>
+            </li>
+
+            <li>
+                <a href="Program.html">
+                    Program
+                </a>
+            </li>
+
+            <li>
+                <a href="Fisica.html">
+                    Fisica
+                </a>
+            </li>
+
+        </ul>
+
+
+        <ul class="nav_2">
+
+            <li><a href="Cruz.html">Fonte Divina</a></li>
+            <li><a href="Pl.html">Plano existencial</a></li>
+            <li><a href="Idiom.html">Idiomas</a></li>
+
+            <li>
+                <a href="Padrão.html">
+                    Padrões universais
+                </a>
+            </li>
+
+            <li id="nav-perfil">
+                <a href="#">
+                    Perfil
+                </a>
+            </li>
+
+            <li id="nav-login">
+                <a href="Login.html">
+                    Login
+                </a>
+            </li>
+
+            <li id="nav-cadastro">
+                <a href="Cdstr.html">
+                    Cadastro
+                </a>
+            </li>
+
+        </ul>
+
+
+        <div class="Log_perf"></div>
+
+    </div>
+
+    <main class="login-container">
+
+        <h2>
+            Login
+        </h2>
+
+
+        <p class="cadastro-descricao">
+            Entre na sua conta.
+        </p>
+
+
+        <form
+            class="form-login"
+            id="form-login"
+        >
+
+
+            <!-- E-MAIL -->
+
+            <section class="grupo-login">
+
+                <div class="campo-login">
+
+                    <input
+                        placeholder="E-mail"
+                        type="email"
+                        id="email"
+                        name="email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+            </section>
+
+
+
+            <!-- SENHA -->
+
+            <section class="grupo-login">
+
+                <div class="campo-login">
+
+                    <input
+                        placeholder="Senha"
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+            </section>
+
+
+
+            <!-- LEMBRAR -->
+
+            <div class="lembrar-login">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="lembrar"
+                    >
+
+                    Lembrar de mim
+
+                </label>
+
+            </div>
+
+
+
+            <!-- BOTÃO -->
+
+            <button type="submit">
+                Entrar
+            </button>
+
+
+        </form>
+
+
+
+        <!-- LINKS -->
+
+        <div class="links-login">
+
+            <a href="Recuperar.html">
+                Esqueci minha senha
+            </a>
+
+            <span>•</span>
+
+            <a href="Cdstr.html">
+                Criar uma conta
+            </a>
+
+        </div>
+
+
+    </main>
+
+
+</body>
+
+</html>

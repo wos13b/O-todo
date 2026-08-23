@@ -1,52 +1,262 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="Log.css">
+    <link rel="stylesheet" href="Users_info.css">
+
     <script src="Anim.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="Cadastro.js" defer></script>
+
     <title>Cadastro</title>
 </head>
+
 <body>
+
+    <!-- HEADER -->
     <div class="header">
+
         <button class="menu-toggle">☰</button>
+
         <ul class="nav">
             <li><a href="index.html">Inicio</a></li>
             <li><a href="Program.html">Program</a></li>
             <li><a href="Fisica.html">Fisica</a></li>
         </ul>
+
         <ul class="nav_2">
             <li><a href="Cruz.html">Fonte Divina</a></li>
-            <li><a href="AOUZ.html">Ego</a></li>
-            <li><a href="Ling.html">Idiomas</a></li>
-            <li><a href="">Politica</a></li>
-            <li><a href="log.html">Perfil</a></li>
+            <li><a href="Pl.html">Plano existencial</a></li>
+            <li><a href="Idiom.html">Idiomas</a></li>
+            <li><a href="Padrão.html">Padrões universais</a></li>
+            <li><a href="">Perfil</a></li>
+            <li><a href="log.html">Login</a></li>
+            <li><a href="#">Cadastro</a></li>
         </ul>
-        <div class="Log_perf">
-        </div>
+
+        <div class="Log_perf"></div>
+
     </div>
-        <div class="cadastro-container">
-            <h2>Cadastro de Usuário</h2>
-            <form class="form-cadastro" action="#" method="POST">
-                <label for="nome">Nome completo</label>
-                <input type="text" id="nome" name="nome" required>
 
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" required>
 
-                <label for="senha">Senha</label>
-                <input type="password" id="senha" name="senha" required>
+    <!-- CADASTRO -->
+    <main class="cadastro-container">
 
-                <label for="confirmar-senha">Confirmar Senha</label>
-                <input type="password" id="confirmar-senha" name="confirmar-senha" required>
+        <h2>Cadastro de Usuário</h2>
 
-                <button type="submit">Cadastrar</button>
-            </form>
-        </div>
-    </div>
+        <p class="cadastro-descricao">
+            Crie sua conta para acessar seu perfil e interagir com o sistema.
+        </p>
+
+
+        <form class="form-cadastro" id="form-cadastro">
+
+
+            <!-- =========================
+                 IDENTIDADE
+                 ========================= -->
+
+            <section class="grupo-cadastro">
+
+                <h3>Identidade</h3>
+
+                <div class="dados-nome">
+
+                    <div class="campo-nome">
+
+                        <label for="nome">
+                            Nome
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nome"
+                            name="nome"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo-nickname">
+
+                        <label for="nickname">
+                            Nickname
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nickname"
+                            name="nickname"
+                            autocomplete="username"
+                            maxlength="20"
+                            required
+                        >
+
+                        <small>
+                            Será o nome exibido no seu perfil.
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 CONTATO
+                 ========================= -->
+
+            <section class="grupo-cadastro">
+
+                <h3>Contato</h3>
+
+                <div class="campo">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 SEGURANÇA
+                 ========================= -->
+
+            <section class="grupo-cadastro">
+
+                <h3>Segurança</h3>
+
+                <div class="dados-senha">
+
+                    <div class="campo-senha">
+
+                        <label for="senha">
+                            Senha
+                        </label>
+
+                        <input
+                            type="password"
+                            id="senha"
+                            name="senha"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo-confirmacao">
+
+                        <label for="confirmar-senha">
+                            Confirmar senha
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirmar-senha"
+                            name="confirmar-senha"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <small class="dica-senha">
+                    A senha deve possuir pelo menos 8 caracteres.
+                </small>
+
+            </section>
+
+
+
+            <!-- =========================
+                 PERFIL
+                 ========================= -->
+
+            <section class="grupo-cadastro">
+
+                <h3>Perfil</h3>
+
+                <div class="campo">
+
+                    <label for="data-nascimento">
+                        Data de nascimento
+                    </label>
+
+                    <input
+                        type="date"
+                        id="data-nascimento"
+                        name="data-nascimento"
+                    >
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =========================
+                 TERMOS
+                 ========================= -->
+
+            <div class="termos">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="termos"
+                        name="termos"
+                        required
+                    >
+
+                    <span>
+                        Concordo com os termos de uso.
+                    </span>
+
+                </label>
+
+            </div>
+
+
+
+            <!-- BOTÃO -->
+
+            <button type="submit">
+                Cadastrar
+            </button>
+
+
+        </form>
+
+    </main>
+
 </body>
+
 </html>
