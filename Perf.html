@@ -41,12 +41,21 @@
 
                 <div class="Perfil_cabecalho">
 
-                    <div class="Perfil_imagem">
+                    <div class="Perfil_imagem" id="perfil-imagem-container">
+
                         <img
                             id="perfil-imagem"
                             src="img/Logo.png"
                             alt="Imagem de perfil"
                         >
+
+                        <input
+                            type="file"
+                            id="input-foto-perfil"
+                            accept="image/png, image/jpeg, image/webp"
+                            hidden
+                        >
+
                     </div>
 
                     <div class="Perfil_dados">
