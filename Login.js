@@ -69,16 +69,29 @@ formulario.addEventListener(
         if (error) {
 
             console.error(
-                "Erro ao realizar login:",
+                "Erro ao criar usuário:",
                 error
             );
 
 
+            if (
+                error.message.includes("rate limit") ||
+                error.message.includes("rate_limit")
+            ) {
+
+                alert(
+                    "O limite de envio de e-mails foi atingido.\n\n" +
+                    "Aguarde um pouco antes de tentar novamente."
+                );
+
+                return;
+            }
+
+
             alert(
-                "Não foi possível entrar.\n\n" +
+                "Erro ao criar usuário:\n\n" +
                 error.message
             );
-
 
             return;
         }
