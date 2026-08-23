@@ -39,6 +39,18 @@ const supabaseClient =
 
 
 // =========================================================
+// CONSTANTES DO PERFIL
+// =========================================================
+
+const NOME_BUCKET =
+  "avatars";
+
+const TAMANHO_MAXIMO_IMAGEM =
+  5 * 1024 * 1024;
+
+
+
+// =========================================================
 // VERIFICAR SESSÃO DO USUÁRIO
 // =========================================================
 
@@ -79,7 +91,8 @@ async function verificarSessao() {
 
     if (cadastro) {
 
-      cadastro.style.display = "none";
+      cadastro.style.display =
+        "none";
 
     }
 
@@ -90,7 +103,8 @@ async function verificarSessao() {
 
     if (login) {
 
-      login.style.display = "none";
+      login.style.display =
+        "none";
 
     }
 
@@ -115,7 +129,8 @@ async function verificarSessao() {
 
     if (cadastro) {
 
-      cadastro.style.display = "";
+      cadastro.style.display =
+        "";
 
     }
 
@@ -126,7 +141,8 @@ async function verificarSessao() {
 
     if (login) {
 
-      login.style.display = "";
+      login.style.display =
+        "";
 
     }
 
@@ -158,7 +174,7 @@ async function carregarPerfil() {
   if (!session) {
 
     console.log(
-      "Nenhum usuário logado."
+      "Perfil: nenhum usuário logado."
     );
 
     return;
@@ -190,23 +206,23 @@ async function carregarPerfil() {
   // =======================================================
 
   const nome =
-    metadata.nome || "Usuário";
+    metadata.nome ||
+    "Usuário";
 
 
   const nickname =
-    metadata.nickname || "nickname";
+    metadata.nickname ||
+    "nickname";
 
 
   const dataNascimento =
-    metadata.data_nascimento || "---";
+    metadata.data_nascimento ||
+    "---";
 
 
 
   // =======================================================
   // IMAGEM DO PERFIL
-  //
-  // Por enquanto usamos uma imagem padrão.
-  // Depois podemos colocar o upload da imagem aqui.
   // =======================================================
 
   const imagemPerfil =
@@ -244,6 +260,11 @@ async function carregarPerfil() {
     user.id
   );
 
+  console.log(
+    "Imagem:",
+    imagemPerfil
+  );
+
 
 
   // =======================================================
@@ -276,7 +297,7 @@ async function carregarPerfil() {
 
 
   // =======================================================
-  // IMAGEM
+  // IMAGEM GRANDE
   // =======================================================
 
   if (perfilImagem) {
@@ -431,48 +452,605 @@ async function carregarPerfil() {
   // LOG_PERF
   // =======================================================
 
+  atualizarLogPerfil(
+    imagemPerfil
+  );
+
+}
+
+
+
+// =========================================================
+// ATUALIZAR LOG_PERF
+// =========================================================
+
+function atualizarLogPerfil(
+  imagem
+) {
+
   const logPerf =
     document.querySelector(
       ".Log_perf"
     );
 
 
-  if (logPerf) {
+  if (!logPerf) {
 
-    // -----------------------------------------------
-    // Limpar conteúdo
-    // -----------------------------------------------
+    return;
 
-    logPerf.innerHTML = "";
+  }
 
 
-    // -----------------------------------------------
-    // Criar imagem
-    // -----------------------------------------------
+  // -----------------------------------------------
+  // Limpar
+  // -----------------------------------------------
 
-    const img =
-      document.createElement(
-        "img"
+  logPerf.innerHTML =
+    "";
+
+
+  // -----------------------------------------------
+  // Criar imagem
+  // -----------------------------------------------
+
+  const img =
+    document.createElement(
+      "img"
+    );
+
+
+  img.src =
+    imagem;
+
+
+  img.alt =
+    "Perfil";
+
+
+  // -----------------------------------------------
+  // Adicionar
+  // -----------------------------------------------
+
+  logPerf.appendChild(
+    img
+  );
+
+}
+
+
+
+// =========================================================
+// ABRIR SELETOR DE FOTO
+// =========================================================
+
+function abrirSeletorFoto() {
+
+  const input =
+    document.getElementById(
+      "input-foto-perfil"
+    );
+
+
+  if (!input) {
+
+    console.error(
+      "Input de foto não encontrado."
+    );
+
+    return;
+
+  }
+
+
+  input.click();
+
+}
+
+
+
+// =========================================================
+// VALIDAR IMAGEM
+// =========================================================
+
+function validarImagem(
+  arquivo
+) {
+
+  // =======================================================
+  // VERIFICAR TIPO
+  // =======================================================
+
+  const tiposPermitidos = [
+
+    "image/jpeg",
+
+    "image/png",
+
+    "image/webp"
+
+  ];
+
+
+  if (
+    !tiposPermitidos.includes(
+      arquivo.type
+    )
+  ) {
+
+    alert(
+      "Formato inválido.\n\n" +
+      "Escolha uma imagem JPG, PNG ou WebP."
+    );
+
+    return false;
+
+  }
+
+
+
+  // =======================================================
+  // VERIFICAR TAMANHO
+  // =======================================================
+
+  if (
+    arquivo.size >
+    TAMANHO_MAXIMO_IMAGEM
+  ) {
+
+    alert(
+      "A imagem é muito grande.\n\n" +
+      "O tamanho máximo é de 5 MB."
+    );
+
+    return false;
+
+  }
+
+
+  return true;
+
+}
+
+
+
+// =========================================================
+// OBTER EXTENSÃO
+// =========================================================
+
+function obterExtensao(
+  arquivo
+) {
+
+  const partes =
+    arquivo.name.split(".");
+
+
+  if (
+    partes.length < 2
+  ) {
+
+    return "jpg";
+
+  }
+
+
+  return partes
+    .pop()
+    .toLowerCase();
+
+}
+
+
+
+// =========================================================
+// ENVIAR FOTO DE PERFIL
+// =========================================================
+
+async function enviarFotoPerfil(
+  event
+) {
+
+  const input =
+    event.target;
+
+
+  const arquivo =
+    input.files[0];
+
+
+  // =======================================================
+  // NENHUM ARQUIVO
+  // =======================================================
+
+  if (!arquivo) {
+
+    return;
+
+  }
+
+
+
+  // =======================================================
+  // VALIDAR
+  // =======================================================
+
+  if (
+    !validarImagem(
+      arquivo
+    )
+  ) {
+
+    input.value =
+      "";
+
+    return;
+
+  }
+
+
+
+  // =======================================================
+  // PEGAR SESSÃO
+  // =======================================================
+
+  const {
+    data: { session }
+  } = await supabaseClient.auth.getSession();
+
+
+  if (!session) {
+
+    alert(
+      "Você precisa estar logado para alterar sua foto."
+    );
+
+    input.value =
+      "";
+
+    return;
+
+  }
+
+
+
+  // =======================================================
+  // USUÁRIO
+  // =======================================================
+
+  const user =
+    session.user;
+
+
+  console.log(
+    "Enviando foto para:",
+    user.id
+  );
+
+
+
+  // =======================================================
+  // EXTENSÃO
+  // =======================================================
+
+  const extensao =
+    obterExtensao(
+      arquivo
+    );
+
+
+
+  // =======================================================
+  // CAMINHO DO ARQUIVO
+  // =======================================================
+
+  const caminho =
+    `perfis/${user.id}.${extensao}`;
+
+
+
+  // =======================================================
+  // MOSTRAR CARREGAMENTO
+  // =======================================================
+
+  const imagem =
+    document.getElementById(
+      "perfil-imagem"
+    );
+
+
+  const imagemAnterior =
+    imagem?.src;
+
+
+  if (imagem) {
+
+    imagem.style.opacity =
+      "0.5";
+
+  }
+
+
+
+  try {
+
+    // =====================================================
+    // VERIFICAR IMAGEM ANTIGA
+    // =====================================================
+
+    const metadata =
+      user.user_metadata || {};
+
+
+    const imagemAntiga =
+      metadata.avatar_url;
+
+
+
+    // =====================================================
+    // ENVIAR PARA STORAGE
+    // =====================================================
+
+    const {
+      error: uploadError
+    } =
+      await supabaseClient
+        .storage
+        .from(
+          NOME_BUCKET
+        )
+        .upload(
+
+          caminho,
+
+          arquivo,
+
+          {
+
+            upsert: true,
+
+            contentType:
+              arquivo.type,
+
+            cacheControl:
+              "3600"
+
+          }
+
+        );
+
+
+
+    // =====================================================
+    // ERRO NO UPLOAD
+    // =====================================================
+
+    if (uploadError) {
+
+      throw uploadError;
+
+    }
+
+
+
+    // =====================================================
+    // PEGAR URL PÚBLICA
+    // =====================================================
+
+    const {
+      data: publicData
+    } =
+      supabaseClient
+        .storage
+        .from(
+          NOME_BUCKET
+        )
+        .getPublicUrl(
+          caminho
+        );
+
+
+    const urlImagem =
+      publicData.publicUrl;
+
+
+
+    // =====================================================
+    // ADICIONAR CACHE-BUSTER
+    //
+    // Evita que o navegador continue mostrando
+    // uma versão antiga da imagem.
+    // =====================================================
+
+    const urlAtualizada =
+      urlImagem +
+      "?t=" +
+      Date.now();
+
+
+
+    // =====================================================
+    // SALVAR URL NO USER_METADATA
+    // =====================================================
+
+    const {
+      data: updateData,
+
+      error: updateError
+
+    } =
+      await supabaseClient
+        .auth
+        .updateUser({
+
+          data: {
+
+            avatar_url:
+              urlImagem
+
+          }
+
+        });
+
+
+
+    // =====================================================
+    // ERRO AO SALVAR
+    // =====================================================
+
+    if (updateError) {
+
+      throw updateError;
+
+    }
+
+
+
+    // =====================================================
+    // ATUALIZAR IMAGEM GRANDE
+    // =====================================================
+
+    if (imagem) {
+
+      imagem.src =
+        urlAtualizada;
+
+      imagem.style.opacity =
+        "1";
+
+    }
+
+
+
+    // =====================================================
+    // ATUALIZAR LOG_PERF
+    // =====================================================
+
+    atualizarLogPerfil(
+      urlAtualizada
+    );
+
+
+
+    // =====================================================
+    // ATUALIZAR CACHE DA SESSÃO
+    // =====================================================
+
+    if (
+      updateData &&
+      updateData.user
+    ) {
+
+      console.log(
+        "Perfil atualizado:",
+        updateData.user
       );
 
-
-    img.src =
-      imagemPerfil;
+    }
 
 
-    img.alt =
-      "Perfil";
+
+    // =====================================================
+    // REMOVER IMAGEM ANTIGA
+    //
+    // Somente se ela estiver dentro do nosso bucket.
+    // =====================================================
+
+    if (
+      imagemAntiga &&
+      imagemAntiga.includes(
+        `/storage/v1/object/public/${NOME_BUCKET}/`
+      )
+    ) {
+
+      try {
+
+        const parteCaminho =
+          imagemAntiga.split(
+            `/storage/v1/object/public/${NOME_BUCKET}/`
+          )[1];
 
 
-    // -----------------------------------------------
-    // Adicionar imagem
-    // -----------------------------------------------
+        if (parteCaminho) {
 
-    logPerf.appendChild(
-      img
+          await supabaseClient
+            .storage
+            .from(
+              NOME_BUCKET
+            )
+            .remove([
+              parteCaminho
+            ]);
+
+        }
+
+      }
+
+      catch (erroRemocao) {
+
+        console.warn(
+          "Não foi possível remover a imagem antiga:",
+          erroRemocao
+        );
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // SUCESSO
+    // =====================================================
+
+    console.log(
+      "Foto de perfil atualizada."
+    );
+
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Erro ao alterar foto:",
+      error
+    );
+
+
+    // =====================================================
+    // RESTAURAR IMAGEM ANTERIOR
+    // =====================================================
+
+    if (imagem) {
+
+      imagem.src =
+        imagemAnterior;
+
+      imagem.style.opacity =
+        "1";
+
+    }
+
+
+    // =====================================================
+    // MENSAGEM
+    // =====================================================
+
+    alert(
+      "Não foi possível alterar a foto.\n\n" +
+      error.message
     );
 
   }
+
+
+
+  // =======================================================
+  // LIMPAR INPUT
+  // =======================================================
+
+  input.value =
+    "";
 
 }
 
@@ -592,7 +1170,6 @@ function configurarAnimacoesDetails() {
       ".custom-details"
     )
     .forEach(details => {
-
 
       const summaryBtn =
         details.querySelector(
@@ -741,7 +1318,6 @@ function trocarIdioma(
         )
         .forEach(el => {
 
-
           const chave =
             el.getAttribute(
               "data-i18n"
@@ -863,6 +1439,48 @@ inputCampo?.addEventListener(
 
 
 // =========================================================
+// EVENTO:
+// CLICAR NA IMAGEM DO PERFIL
+// =========================================================
+
+const perfilImagemContainer =
+  document.getElementById(
+    "perfil-imagem-container"
+  );
+
+
+perfilImagemContainer?.addEventListener(
+
+  "click",
+
+  abrirSeletorFoto
+
+);
+
+
+
+// =========================================================
+// EVENTO:
+// ESCOLHER FOTO
+// =========================================================
+
+const inputFotoPerfil =
+  document.getElementById(
+    "input-foto-perfil"
+  );
+
+
+inputFotoPerfil?.addEventListener(
+
+  "change",
+
+  enviarFotoPerfil
+
+);
+
+
+
+// =========================================================
 // INICIALIZAÇÃO
 // =========================================================
 
@@ -872,34 +1490,30 @@ document.addEventListener(
 
   () => {
 
-
-    // ===================================================
+    // ===============================================
     // ANIMAÇÕES
-    // ===================================================
+    // ===============================================
 
     configurarAnimacoesDetails();
 
 
-
-    // ===================================================
+    // ===============================================
     // VERIFICAR LOGIN
-    // ===================================================
+    // ===============================================
 
     verificarSessao();
 
 
-
-    // ===================================================
+    // ===============================================
     // CARREGAR PERFIL
-    // ===================================================
+    // ===============================================
 
     carregarPerfil();
 
 
-
-    // ===================================================
+    // ===============================================
     // IDIOMA
-    // ===================================================
+    // ===============================================
 
     const idiomaSalvo =
       localStorage.getItem(
