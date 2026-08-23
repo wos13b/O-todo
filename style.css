@@ -309,6 +309,284 @@ strong {
   opacity: 1;
 }
 
+/* =========================================================
+   ÁREA DO PERFIL
+   ========================================================= */
+
+.Perfil_area {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   CABEÇALHO DO PERFIL
+   ========================================================= */
+
+.Perfil_cabecalho {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+
+    padding: 25px;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    border-radius: 16px;
+
+    background-color: rgba(20, 20, 20, 0.35);
+
+    backdrop-filter: blur(8px);
+
+}
+
+
+/* =========================================================
+   IMAGEM GRANDE
+   ========================================================= */
+
+.Perfil_imagem {
+
+    width: 180px;
+    height: 180px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    padding: 6px;
+
+    background: rgba(0, 210, 255, 0.15);
+
+    border: 2px solid rgba(0, 210, 255, 0.5);
+
+    box-shadow:
+        0 0 15px rgba(0, 210, 255, 0.25);
+
+    overflow: hidden;
+
+}
+
+
+.Perfil_imagem img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    display: block;
+
+    transition:
+        transform 0.4s ease,
+        filter 0.4s ease;
+
+}
+
+
+.Perfil_imagem img:hover {
+
+    transform: scale(1.06);
+
+    filter: brightness(1.15);
+
+}
+
+
+/* =========================================================
+   DADOS PRINCIPAIS
+   ========================================================= */
+
+.Perfil_dados {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+}
+
+
+.Perfil_dados h1 {
+
+    margin: 0;
+
+    font-size: 2.2em;
+
+    color: #e0e0e0;
+
+}
+
+
+.Perfil_dados p {
+
+    margin: 0;
+
+    font-size: 1.1em;
+
+}
+
+
+#perfil-nickname {
+
+    color: #00d2ff;
+
+}
+
+
+#perfil-email {
+
+    color: #aaa;
+
+}
+
+
+/* =========================================================
+   INFORMAÇÕES
+   ========================================================= */
+
+.Perfil_info {
+
+    margin-top: 20px;
+
+    padding: 25px;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    border-radius: 16px;
+
+    background-color: rgba(20, 20, 20, 0.35);
+
+    backdrop-filter: blur(8px);
+
+}
+
+
+.Perfil_info h2 {
+
+    margin-top: 0;
+
+    margin-bottom: 20px;
+
+    color: #b0b0b0;
+
+}
+
+
+.Perfil_info p {
+
+    margin: 12px 0;
+
+    font-size: 1.1em;
+
+}
+
+
+.Perfil_info strong {
+
+    color: #00d2ff;
+
+}
+
+
+/* =========================================================
+   LOG_PERF DO HEADER
+   ========================================================= */
+
+.Log_perf {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 45px;
+    height: 45px;
+
+    margin-left: 15px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+}
+
+
+.Log_perf img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
+
+}
+
+
+.Log_perf img:hover {
+
+    transform: scale(1.08);
+
+    filter: brightness(1.2);
+
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .Perfil_cabecalho {
+
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 20px;
+
+    }
+
+
+    .Perfil_imagem {
+
+        width: 140px;
+        height: 140px;
+
+    }
+
+
+    .Perfil_dados h1 {
+
+        font-size: 1.8em;
+
+    }
+
+
+    .Perfil_info {
+
+        padding: 18px;
+
+    }
+
+}
+
 @media (max-width: 425px) {
   .Main {
     padding: 0px;

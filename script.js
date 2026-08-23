@@ -60,7 +60,6 @@ async function verificarSessao() {
     document.querySelector("#nav-login");
 
 
-
   // =======================================================
   // USUÁRIO LOGADO
   // =======================================================
@@ -73,7 +72,9 @@ async function verificarSessao() {
     );
 
 
+    // -----------------------------------------------
     // Ocultar Cadastro
+    // -----------------------------------------------
 
     if (cadastro) {
 
@@ -82,7 +83,9 @@ async function verificarSessao() {
     }
 
 
+    // -----------------------------------------------
     // Ocultar Login
+    // -----------------------------------------------
 
     if (login) {
 
@@ -91,7 +94,6 @@ async function verificarSessao() {
     }
 
   }
-
 
 
   // =======================================================
@@ -105,7 +107,9 @@ async function verificarSessao() {
     );
 
 
+    // -----------------------------------------------
     // Mostrar Cadastro
+    // -----------------------------------------------
 
     if (cadastro) {
 
@@ -114,7 +118,9 @@ async function verificarSessao() {
     }
 
 
+    // -----------------------------------------------
     // Mostrar Login
+    // -----------------------------------------------
 
     if (login) {
 
@@ -129,10 +135,297 @@ async function verificarSessao() {
 
 
 // =========================================================
+// CARREGAR PERFIL DO USUÁRIO
+// =========================================================
+
+async function carregarPerfil() {
+
+  // =======================================================
+  // PEGAR SESSÃO
+  // =======================================================
+
+  const {
+    data: { session }
+  } = await supabaseClient.auth.getSession();
+
+
+  // =======================================================
+  // USUÁRIO NÃO LOGADO
+  // =======================================================
+
+  if (!session) {
+
+    console.log(
+      "Perfil: nenhum usuário logado."
+    );
+
+    return;
+
+  }
+
+
+  // =======================================================
+  // OBJETO DO USUÁRIO
+  // =======================================================
+
+  const user =
+    session.user;
+
+
+  console.log(
+    "Dados do perfil:",
+    user
+  );
+
+
+  // =======================================================
+  // METADADOS
+  // =======================================================
+
+  const metadata =
+    user.user_metadata || {};
+
+
+  // =======================================================
+  // NOME
+  // =======================================================
+
+  const nome =
+    metadata.nome ||
+    metadata.name ||
+    "Usuário";
+
+
+  // =======================================================
+  // NICKNAME
+  // =======================================================
+
+  const nickname =
+    metadata.nickname ||
+    metadata.user_name ||
+    metadata.username ||
+    "nickname";
+
+
+  // =======================================================
+  // IMAGEM
+  // =======================================================
+
+  const imagem =
+    metadata.avatar_url ||
+    metadata.picture ||
+    "img/Logo.png";
+
+
+
+  // =======================================================
+  // ELEMENTOS DA ÁREA GRANDE DO PERFIL
+  // =======================================================
+
+  const perfilImagem =
+    document.getElementById(
+      "perfil-imagem"
+    );
+
+  const perfilNome =
+    document.getElementById(
+      "perfil-nome"
+    );
+
+  const perfilNickname =
+    document.getElementById(
+      "perfil-nickname"
+    );
+
+  const perfilEmail =
+    document.getElementById(
+      "perfil-email"
+    );
+
+
+
+  // =======================================================
+  // IMAGEM GRANDE
+  // =======================================================
+
+  if (perfilImagem) {
+
+    perfilImagem.src =
+      imagem;
+
+  }
+
+
+
+  // =======================================================
+  // NOME
+  // =======================================================
+
+  if (perfilNome) {
+
+    perfilNome.textContent =
+      nome;
+
+  }
+
+
+
+  // =======================================================
+  // NICKNAME
+  // =======================================================
+
+  if (perfilNickname) {
+
+    perfilNickname.textContent =
+      "@" + nickname;
+
+  }
+
+
+
+  // =======================================================
+  // EMAIL
+  // =======================================================
+
+  if (perfilEmail) {
+
+    perfilEmail.textContent =
+      user.email || "";
+
+  }
+
+
+
+  // =======================================================
+  // INFORMAÇÕES DO PERFIL
+  // =======================================================
+
+  const infoNome =
+    document.getElementById(
+      "info-nome"
+    );
+
+  const infoNickname =
+    document.getElementById(
+      "info-nickname"
+    );
+
+  const infoEmail =
+    document.getElementById(
+      "info-email"
+    );
+
+  const infoId =
+    document.getElementById(
+      "info-id"
+    );
+
+
+
+  // =======================================================
+  // INFORMAÇÃO: NOME
+  // =======================================================
+
+  if (infoNome) {
+
+    infoNome.textContent =
+      nome;
+
+  }
+
+
+
+  // =======================================================
+  // INFORMAÇÃO: NICKNAME
+  // =======================================================
+
+  if (infoNickname) {
+
+    infoNickname.textContent =
+      "@" + nickname;
+
+  }
+
+
+
+  // =======================================================
+  // INFORMAÇÃO: EMAIL
+  // =======================================================
+
+  if (infoEmail) {
+
+    infoEmail.textContent =
+      user.email || "---";
+
+  }
+
+
+
+  // =======================================================
+  // INFORMAÇÃO: ID
+  // =======================================================
+
+  if (infoId) {
+
+    infoId.textContent =
+      user.id;
+
+  }
+
+
+
+  // =======================================================
+  // LOG_PERF
+  // =======================================================
+
+  const logPerf =
+    document.querySelector(
+      ".Log_perf"
+    );
+
+
+  if (logPerf) {
+
+    // Limpa o conteúdo atual
+
+    logPerf.innerHTML = "";
+
+
+    // Cria imagem
+
+    const img =
+      document.createElement(
+        "img"
+      );
+
+
+    img.src =
+      imagem;
+
+
+    img.alt =
+      "Perfil";
+
+
+    // Coloca a imagem dentro do Log_perf
+
+    logPerf.appendChild(
+      img
+    );
+
+  }
+
+}
+
+
+
+// =========================================================
 // FUNÇÃO: AÇÃO DE BUSCA
 // =========================================================
 
-function realizarBusca(input = inputCampo) {
+function realizarBusca(
+  input = inputCampo
+) {
 
   const valor =
     input?.value.trim();
@@ -176,13 +469,16 @@ function alternarMenu() {
 // ABRE O CONTEÚDO COM ANIMAÇÃO
 // =========================================================
 
-function abrirConteudo(content) {
+function abrirConteudo(
+  content
+) {
 
   content.style.maxHeight =
     content.scrollHeight + "px";
 
 
   content.addEventListener(
+
     "transitionend",
 
     () => {
@@ -193,6 +489,7 @@ function abrirConteudo(content) {
     },
 
     { once: true }
+
   );
 
 }
@@ -204,7 +501,9 @@ function abrirConteudo(content) {
 // FECHA O CONTEÚDO COM ANIMAÇÃO
 // =========================================================
 
-function fecharConteudo(content) {
+function fecharConteudo(
+  content
+) {
 
   content.style.maxHeight =
     content.scrollHeight + "px";
@@ -230,7 +529,9 @@ function fecharConteudo(content) {
 function configurarAnimacoesDetails() {
 
   document
-    .querySelectorAll(".custom-details")
+    .querySelectorAll(
+      ".custom-details"
+    )
     .forEach(details => {
 
       const summaryBtn =
@@ -251,22 +552,30 @@ function configurarAnimacoesDetails() {
         );
 
 
-      if (!summaryBtn || !content) {
+      if (
+        !summaryBtn ||
+        !content
+      ) {
 
         return;
 
       }
 
 
-      // Conteúdo começa fechado
+      // =================================================
+      // CONTEÚDO COMEÇA FECHADO
+      // =================================================
 
       content.style.maxHeight =
         "0";
 
 
-      // Clique
+      // =================================================
+      // CLIQUE
+      // =================================================
 
       summaryBtn.addEventListener(
+
         "click",
 
         () => {
@@ -337,7 +646,9 @@ function configurarAnimacoesDetails() {
 // TROCAR IDIOMA DA PÁGINA
 // =========================================================
 
-function trocarIdioma(lang) {
+function trocarIdioma(
+  lang
+) {
 
   fetch(
     `json/${lang}.json`
@@ -403,21 +714,25 @@ function trocarIdioma(lang) {
 
 
 // =========================================================
-// EVENTOS
+// EVENTO: MENU
 // =========================================================
 
-// Menu
-
 menuToggle?.addEventListener(
+
   "click",
+
   alternarMenu
+
 );
 
 
 
-// Idioma
+// =========================================================
+// EVENTO: IDIOMA
+// =========================================================
 
 languageSelector?.addEventListener(
+
   "change",
 
   () => {
@@ -427,6 +742,7 @@ languageSelector?.addEventListener(
     );
 
   }
+
 );
 
 
@@ -437,6 +753,7 @@ languageSelector?.addEventListener(
 // =========================================================
 
 inputCampCode?.addEventListener(
+
   "keydown",
 
   e => {
@@ -450,6 +767,7 @@ inputCampCode?.addEventListener(
     }
 
   }
+
 );
 
 
@@ -460,6 +778,7 @@ inputCampCode?.addEventListener(
 // =========================================================
 
 inputCampo?.addEventListener(
+
   "keydown",
 
   e => {
@@ -473,6 +792,7 @@ inputCampo?.addEventListener(
     }
 
   }
+
 );
 
 
@@ -482,27 +802,36 @@ inputCampo?.addEventListener(
 // =========================================================
 
 document.addEventListener(
+
   "DOMContentLoaded",
 
   () => {
 
-    // ===============================================
+
+    // ===================================================
     // ANIMAÇÕES
-    // ===============================================
+    // ===================================================
 
     configurarAnimacoesDetails();
 
 
-    // ===============================================
+    // ===================================================
     // VERIFICAR LOGIN
-    // ===============================================
+    // ===================================================
 
     verificarSessao();
 
 
-    // ===============================================
+    // ===================================================
+    // CARREGAR PERFIL
+    // ===================================================
+
+    carregarPerfil();
+
+
+    // ===================================================
     // IDIOMA
-    // ===============================================
+    // ===================================================
 
     const idiomaSalvo =
       localStorage.getItem(
@@ -523,4 +852,5 @@ document.addEventListener(
     );
 
   }
+
 );
