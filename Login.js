@@ -2,7 +2,8 @@
 // SUPABASE
 // =========================================================
 
-const SUPABASE_URL = "https://aqaaclqbeguloxqjfgtn.supabase.co";
+const SUPABASE_URL =
+    "https://aqaaclqbeguloxqjfgtn.supabase.co";
 
 const SUPABASE_KEY =
     "sb_publishable_w8dDCx7t5s5eiBCv3IjE7Q_UnBb0hJJ";
@@ -16,7 +17,7 @@ const supabaseClient = supabase.createClient(
 
 
 // =========================================================
-// FORMULÁRIO
+// FORMULÁRIO DE LOGIN
 // =========================================================
 
 const formulario = document.querySelector("#form-login");
@@ -32,7 +33,7 @@ formulario.addEventListener(
 
 
         // =================================================
-        // DADOS
+        // DADOS DO FORMULÁRIO
         // =================================================
 
         const email = document
@@ -63,16 +64,20 @@ formulario.addEventListener(
 
 
         // =================================================
-        // ERRO
+        // TRATAMENTO DE ERRO
         // =================================================
 
         if (error) {
 
             console.error(
-                "Erro ao criar usuário:",
+                "Erro ao fazer login:",
                 error
             );
 
+
+            // ---------------------------------------------
+            // LIMITE DE TENTATIVAS
+            // ---------------------------------------------
 
             if (
                 error.message.includes("rate limit") ||
@@ -80,7 +85,7 @@ formulario.addEventListener(
             ) {
 
                 alert(
-                    "O limite de envio de e-mails foi atingido.\n\n" +
+                    "O limite de tentativas foi atingido.\n\n" +
                     "Aguarde um pouco antes de tentar novamente."
                 );
 
@@ -88,8 +93,34 @@ formulario.addEventListener(
             }
 
 
+
+            // ---------------------------------------------
+            // E-MAIL NÃO CONFIRMADO
+            // ---------------------------------------------
+
+            if (
+                error.message.includes(
+                    "Email not confirmed"
+                )
+            ) {
+
+                alert(
+                    "Seu e-mail ainda não foi confirmado.\n\n" +
+                    "Verifique sua caixa de entrada " +
+                    "e clique no link de confirmação."
+                );
+
+                return;
+            }
+
+
+
+            // ---------------------------------------------
+            // OUTROS ERROS
+            // ---------------------------------------------
+
             alert(
-                "Erro ao criar usuário:\n\n" +
+                "Erro ao fazer login:\n\n" +
                 error.message
             );
 
@@ -107,20 +138,7 @@ formulario.addEventListener(
             data.user
         );
 
-        // =========================================================
-        // ATUALIZAR MENU
-        // =========================================================
 
-        const cadastro = document.querySelector("#nav-cadastro");
-        const login = document.querySelector("#nav-login");
-
-        if (cadastro) {
-            cadastro.style.display = "none";
-        }
-
-        if (login) {
-            login.style.display = "none";
-        }
 
         // =================================================
         // REDIRECIONAR
