@@ -60,6 +60,7 @@ async function verificarSessao() {
     document.querySelector("#nav-login");
 
 
+
   // =======================================================
   // USUÁRIO LOGADO
   // =======================================================
@@ -94,6 +95,7 @@ async function verificarSessao() {
     }
 
   }
+
 
 
   // =======================================================
@@ -135,7 +137,7 @@ async function verificarSessao() {
 
 
 // =========================================================
-// CARREGAR PERFIL DO USUÁRIO
+// CARREGAR PERFIL
 // =========================================================
 
 async function carregarPerfil() {
@@ -150,13 +152,13 @@ async function carregarPerfil() {
 
 
   // =======================================================
-  // USUÁRIO NÃO LOGADO
+  // SE NÃO ESTIVER LOGADO
   // =======================================================
 
   if (!session) {
 
     console.log(
-      "Perfil: nenhum usuário logado."
+      "Nenhum usuário logado."
     );
 
     return;
@@ -164,18 +166,14 @@ async function carregarPerfil() {
   }
 
 
+
   // =======================================================
-  // OBJETO DO USUÁRIO
+  // USUÁRIO
   // =======================================================
 
   const user =
     session.user;
 
-
-  console.log(
-    "Dados do perfil:",
-    user
-  );
 
 
   // =======================================================
@@ -186,40 +184,70 @@ async function carregarPerfil() {
     user.user_metadata || {};
 
 
+
   // =======================================================
-  // NOME
+  // DADOS DO PERFIL
   // =======================================================
 
   const nome =
-    metadata.nome ||
-    metadata.name ||
-    "Usuário";
+    metadata.nome || "Usuário";
 
-
-  // =======================================================
-  // NICKNAME
-  // =======================================================
 
   const nickname =
-    metadata.nickname ||
-    metadata.user_name ||
-    metadata.username ||
-    "nickname";
+    metadata.nickname || "nickname";
+
+
+  const dataNascimento =
+    metadata.data_nascimento || "---";
+
 
 
   // =======================================================
-  // IMAGEM
+  // IMAGEM DO PERFIL
+  //
+  // Por enquanto usamos uma imagem padrão.
+  // Depois podemos colocar o upload da imagem aqui.
   // =======================================================
 
-  const imagem =
+  const imagemPerfil =
     metadata.avatar_url ||
-    metadata.picture ||
     "img/Logo.png";
 
 
 
   // =======================================================
-  // ELEMENTOS DA ÁREA GRANDE DO PERFIL
+  // CONSOLE
+  // =======================================================
+
+  console.log(
+    "Nome:",
+    nome
+  );
+
+  console.log(
+    "Nickname:",
+    nickname
+  );
+
+  console.log(
+    "Data de nascimento:",
+    dataNascimento
+  );
+
+  console.log(
+    "Email:",
+    user.email
+  );
+
+  console.log(
+    "ID:",
+    user.id
+  );
+
+
+
+  // =======================================================
+  // PERFIL GRANDE
   // =======================================================
 
   const perfilImagem =
@@ -227,15 +255,18 @@ async function carregarPerfil() {
       "perfil-imagem"
     );
 
+
   const perfilNome =
     document.getElementById(
       "perfil-nome"
     );
 
+
   const perfilNickname =
     document.getElementById(
       "perfil-nickname"
     );
+
 
   const perfilEmail =
     document.getElementById(
@@ -245,13 +276,13 @@ async function carregarPerfil() {
 
 
   // =======================================================
-  // IMAGEM GRANDE
+  // IMAGEM
   // =======================================================
 
   if (perfilImagem) {
 
     perfilImagem.src =
-      imagem;
+      imagemPerfil;
 
   }
 
@@ -290,7 +321,7 @@ async function carregarPerfil() {
   if (perfilEmail) {
 
     perfilEmail.textContent =
-      user.email || "";
+      user.email || "---";
 
   }
 
@@ -305,15 +336,18 @@ async function carregarPerfil() {
       "info-nome"
     );
 
+
   const infoNickname =
     document.getElementById(
       "info-nickname"
     );
 
+
   const infoEmail =
     document.getElementById(
       "info-email"
     );
+
 
   const infoId =
     document.getElementById(
@@ -321,9 +355,15 @@ async function carregarPerfil() {
     );
 
 
+  const infoNascimento =
+    document.getElementById(
+      "info-nascimento"
+    );
+
+
 
   // =======================================================
-  // INFORMAÇÃO: NOME
+  // NOME
   // =======================================================
 
   if (infoNome) {
@@ -336,7 +376,7 @@ async function carregarPerfil() {
 
 
   // =======================================================
-  // INFORMAÇÃO: NICKNAME
+  // NICKNAME
   // =======================================================
 
   if (infoNickname) {
@@ -349,7 +389,7 @@ async function carregarPerfil() {
 
 
   // =======================================================
-  // INFORMAÇÃO: EMAIL
+  // EMAIL
   // =======================================================
 
   if (infoEmail) {
@@ -362,13 +402,26 @@ async function carregarPerfil() {
 
 
   // =======================================================
-  // INFORMAÇÃO: ID
+  // ID
   // =======================================================
 
   if (infoId) {
 
     infoId.textContent =
       user.id;
+
+  }
+
+
+
+  // =======================================================
+  // DATA DE NASCIMENTO
+  // =======================================================
+
+  if (infoNascimento) {
+
+    infoNascimento.textContent =
+      dataNascimento;
 
   }
 
@@ -386,12 +439,16 @@ async function carregarPerfil() {
 
   if (logPerf) {
 
-    // Limpa o conteúdo atual
+    // -----------------------------------------------
+    // Limpar conteúdo
+    // -----------------------------------------------
 
     logPerf.innerHTML = "";
 
 
-    // Cria imagem
+    // -----------------------------------------------
+    // Criar imagem
+    // -----------------------------------------------
 
     const img =
       document.createElement(
@@ -400,14 +457,16 @@ async function carregarPerfil() {
 
 
     img.src =
-      imagem;
+      imagemPerfil;
 
 
     img.alt =
       "Perfil";
 
 
-    // Coloca a imagem dentro do Log_perf
+    // -----------------------------------------------
+    // Adicionar imagem
+    // -----------------------------------------------
 
     logPerf.appendChild(
       img
@@ -534,6 +593,7 @@ function configurarAnimacoesDetails() {
     )
     .forEach(details => {
 
+
       const summaryBtn =
         details.querySelector(
           ".summary-btn"
@@ -562,12 +622,14 @@ function configurarAnimacoesDetails() {
       }
 
 
+
       // =================================================
       // CONTEÚDO COMEÇA FECHADO
       // =================================================
 
       content.style.maxHeight =
         "0";
+
 
 
       // =================================================
@@ -584,6 +646,7 @@ function configurarAnimacoesDetails() {
             details.classList.contains(
               "open"
             );
+
 
 
           // =============================================
@@ -607,6 +670,7 @@ function configurarAnimacoesDetails() {
             );
 
           }
+
 
 
           // =============================================
@@ -676,6 +740,7 @@ function trocarIdioma(
           "[data-i18n]"
         )
         .forEach(el => {
+
 
           const chave =
             el.getAttribute(
@@ -815,6 +880,7 @@ document.addEventListener(
     configurarAnimacoesDetails();
 
 
+
     // ===================================================
     // VERIFICAR LOGIN
     // ===================================================
@@ -822,11 +888,13 @@ document.addEventListener(
     verificarSessao();
 
 
+
     // ===================================================
     // CARREGAR PERFIL
     // ===================================================
 
     carregarPerfil();
+
 
 
     // ===================================================
