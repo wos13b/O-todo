@@ -1,62 +1,102 @@
-<div class="Conteudo">
-
-    <div class="Perfil_area">
-
-        <div class="Perfil_cabecalho">
-
-            <div class="Perfil_imagem">
-                <img
-                    id="perfil-imagem"
-                    src="img/Logo.png"
-                    alt="Imagem de perfil"
-                >
-            </div>
-
-            <div class="Perfil_dados">
-
-                <h1 id="perfil-nome">
-                    Usuário
-                </h1>
-
-                <p id="perfil-nickname">
-                    @nickname
-                </p>
-
-                <p id="perfil-email">
-                    email@email.com
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="Perfil_info">
-
-            <h2>Informações do perfil</h2>
-
-            <p>
-                <strong>Nome:</strong>
-                <span id="info-nome">---</span>
-            </p>
-
-            <p>
-                <strong>Nickname:</strong>
-                <span id="info-nickname">---</span>
-            </p>
-
-            <p>
-                <strong>E-mail:</strong>
-                <span id="info-email">---</span>
-            </p>
-
-            <p>
-                <strong>ID:</strong>
-                <span id="info-id">---</span>
-            </p>
-
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js" defer></script>
+    <script src="Anim.js" defer></script>
+    <link rel="shortcut icon" href="ico/Logo.png" type="image/x-icon">
+    <title>Perfil</title>
+</head>
+<body>
+    
+    <div class="header">
+        <button class="menu-toggle">☰</button>
+        <ul class="nav">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Elemental.html">Fisica/Quimica</a></li>
+        </ul>
+        <ul class="nav_2">
+            <li><a href="Cruz.html">Fonte Divina</a></li>
+            <li><a href="Pl.html">Plano existencial</a></li>
+            <li><a href="Idiom.html">Idiomas</a></li>
+            <li><a href="Padrão.html">Padrões universais</a></li>
+            <li id="nav-perfil"><a href="#">Perfil</a></li>
+            <li id="nav-login"><a href="log.html">Login</a></li>
+            <li id="nav-cadastro"><a href="Cdstr.html">Cadastro</a></li>
+        </ul>
+        <div class="Log_perf">
         </div>
 
     </div>
 
-</div>
+    <div class="Main">
+
+        <div class="Conteudo">
+
+            <div class="Perfil_area">
+
+                <div class="Perfil_cabecalho">
+
+                    <div class="Perfil_imagem">
+                        <img
+                            id="perfil-imagem"
+                            src="img/Logo.png"
+                            alt="Imagem de perfil"
+                        >
+                    </div>
+
+                    <div class="Perfil_dados">
+
+                        <h1 id="perfil-nome">
+                            Usuário
+                        </h1>
+
+                        <p id="perfil-nickname">
+                            @nickname
+                        </p>
+
+                        <p id="perfil-email">
+                            email@email.com
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="Perfil_info">
+
+                    <h2>Informações do perfil</h2>
+
+                    <p>
+                        <strong>Nome:</strong>
+                        <span id="info-nome">---</span>
+                    </p>
+
+                    <p>
+                        <strong>Nickname:</strong>
+                        <span id="info-nickname">---</span>
+                    </p>
+
+                    <p>
+                        <strong>E-mail:</strong>
+                        <span id="info-email">---</span>
+                    </p>
+
+                    <p>
+                        <strong>ID:</strong>
+                        <span id="info-id">---</span>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
