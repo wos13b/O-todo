@@ -141,6 +141,32 @@ formulario.addEventListener(
 
 
         // =================================================
+        // OCULTAR LINKS DO MENU
+        // =================================================
+
+        const cadastro =
+            document.querySelector("#nav-cadastro");
+
+        const login =
+            document.querySelector("#nav-login");
+
+
+        if (cadastro) {
+
+            cadastro.style.display = "none";
+
+        }
+
+
+        if (login) {
+
+            login.style.display = "none";
+
+        }
+
+
+
+        // =================================================
         // REDIRECIONAR
         // =================================================
 
