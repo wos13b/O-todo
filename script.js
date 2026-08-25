@@ -36,15 +36,10 @@ const supabaseClient =
 
 
 // =========================================================
-// VERIFICAR SESSÃO DO USUÁRIO
+// ATUALIZAR MENU DE AUTENTICAÇÃO
 // =========================================================
 
-async function verificarSessao() {
-
-    const {
-        data: { session }
-    } = await supabaseClient.auth.getSession();
-
+function atualizarMenuAuth(session) {
 
     // =======================================================
     // ELEMENTOS DO MENU
@@ -55,6 +50,9 @@ async function verificarSessao() {
 
     const login =
         document.querySelector("#nav-login");
+
+    const perfil =
+        document.querySelector("#nav-perfil");
 
 
     // =======================================================
@@ -88,6 +86,17 @@ async function verificarSessao() {
 
             login.style.display =
                 "none";
+        }
+
+
+        // ---------------------------------------------------
+        // MOSTRAR PERFIL
+        // ---------------------------------------------------
+
+        if (perfil) {
+
+            perfil.style.display =
+                "";
         }
 
     }
@@ -124,8 +133,103 @@ async function verificarSessao() {
             login.style.display =
                 "";
         }
+
+
+        // ---------------------------------------------------
+        // OCULTAR PERFIL
+        // ---------------------------------------------------
+
+        if (perfil) {
+
+            perfil.style.display =
+                "none";
+        }
+
     }
+
 }
+
+
+// =========================================================
+// VERIFICAR SESSÃO ATUAL
+// =========================================================
+
+async function verificarSessao() {
+
+    try {
+
+        const {
+            data: { session },
+            error
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        // ---------------------------------------------------
+        // VERIFICAR ERRO
+        // ---------------------------------------------------
+
+        if (error) {
+
+            console.error(
+                "Erro ao verificar sessão:",
+                error
+            );
+
+            return;
+        }
+
+
+        // ---------------------------------------------------
+        // ATUALIZAR MENU
+        // ---------------------------------------------------
+
+        atualizarMenuAuth(session);
+
+    }
+
+    catch (erro) {
+
+        console.error(
+            "Erro na verificação da sessão:",
+            erro
+        );
+
+    }
+
+}
+
+
+// =========================================================
+// OBSERVAR ALTERAÇÕES DE AUTENTICAÇÃO
+// =========================================================
+//
+// Esta parte é importante.
+//
+// Quando o usuário:
+// - faz login
+// - faz logout
+// - recupera uma sessão
+// - muda o estado da autenticação
+//
+// o menu será atualizado automaticamente.
+//
+
+supabaseClient.auth.onAuthStateChange(
+
+    (event, session) => {
+
+        console.log(
+            "Evento de autenticação:",
+            event
+        );
+
+
+        atualizarMenuAuth(session);
+
+    }
+
+);
 
 
 // =========================================================
@@ -152,7 +256,9 @@ function realizarBusca(
         alert(
             "Campo vazio"
         );
+
     }
+
 }
 
 
@@ -165,6 +271,7 @@ function alternarMenu() {
     submenu?.classList.toggle(
         "ativo"
     );
+
 }
 
 
@@ -195,6 +302,7 @@ function abrirConteudo(
         { once: true }
 
     );
+
 }
 
 
@@ -217,6 +325,7 @@ function fecharConteudo(
             "0";
 
     });
+
 }
 
 
@@ -250,9 +359,9 @@ function configurarAnimacoesDetails() {
                 );
 
 
-            // ------------------------------------------------
+            // =================================================
             // VERIFICAR ELEMENTOS
-            // ------------------------------------------------
+            // =================================================
 
             if (
                 !summaryBtn ||
@@ -260,6 +369,7 @@ function configurarAnimacoesDetails() {
             ) {
 
                 return;
+
             }
 
 
@@ -329,6 +439,7 @@ function configurarAnimacoesDetails() {
                         summaryIcon?.classList.add(
                             "ativo"
                         );
+
                     }
 
                 }
@@ -336,6 +447,7 @@ function configurarAnimacoesDetails() {
             );
 
         });
+
 }
 
 
@@ -359,6 +471,7 @@ function trocarIdioma(
                 throw new Error(
                     "Arquivo de idioma não encontrado"
                 );
+
             }
 
 
@@ -384,6 +497,7 @@ function trocarIdioma(
 
                         el.textContent =
                             data[chave];
+
                     }
 
                 });
@@ -404,6 +518,7 @@ function trocarIdioma(
             );
 
         });
+
 }
 
 
@@ -525,6 +640,7 @@ document.addEventListener(
 
             languageSelector.value =
                 idiomaSalvo;
+
         }
 
 
