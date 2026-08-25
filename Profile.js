@@ -6,23 +6,6 @@
 
 
 // =========================================================
-// SUPABASE
-// =========================================================
-
-const SUPABASE_URL =
-    "https://aqaaclqbeguloxqjfgtn.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_w8dDCx7t5s5eiBCv3IjE7Q_UnBb0hJJ";
-
-const supabaseClient =
-    supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-// =========================================================
 // CONSTANTES DO PERFIL
 // =========================================================
 
@@ -307,17 +290,9 @@ function atualizarLogPerfil(
     }
 
 
-    // =====================================================
-    // LIMPAR
-    // =====================================================
-
     logPerf.innerHTML =
         "";
 
-
-    // =====================================================
-    // CRIAR IMAGEM
-    // =====================================================
 
     const img =
         document.createElement(
@@ -331,10 +306,6 @@ function atualizarLogPerfil(
     img.alt =
         "Perfil";
 
-
-    // =====================================================
-    // ADICIONAR
-    // =====================================================
 
     logPerf.appendChild(
         img
@@ -385,10 +356,6 @@ function validarImagem(
     ];
 
 
-    // =====================================================
-    // TIPO
-    // =====================================================
-
     if (
         !tiposPermitidos.includes(
             arquivo.type
@@ -403,10 +370,6 @@ function validarImagem(
         return false;
     }
 
-
-    // =====================================================
-    // TAMANHO
-    // =====================================================
 
     if (
         arquivo.size >
@@ -467,10 +430,6 @@ async function enviarFotoPerfil(
         input.files[0];
 
 
-    // =====================================================
-    // NENHUM ARQUIVO
-    // =====================================================
-
     if (!arquivo) {
 
         return;
@@ -516,10 +475,6 @@ async function enviarFotoPerfil(
     }
 
 
-    // =====================================================
-    // USUÁRIO
-    // =====================================================
-
     const user =
         session.user;
 
@@ -541,19 +496,7 @@ async function enviarFotoPerfil(
 
 
     // =====================================================
-    // CAMINHO ÚNICO DA FOTO
-    // =====================================================
-    //
-    // O ID do usuário continua sendo o início do nome.
-    //
-    // O timestamp evita conflito quando o usuário
-    // troca uma foto pela segunda vez.
-    //
-    // Exemplo:
-    //
-    // perfis/
-    // └── ID_DO_USUARIO.1756059123456.jpg
-    //
+    // CAMINHO DA FOTO
     // =====================================================
 
     const caminho =
@@ -611,25 +554,14 @@ async function enviarFotoPerfil(
                     caminho,
                     arquivo,
                     {
-
-                        // Não usamos upsert.
-                        //
-                        // Cada nova foto possui um nome
-                        // único através do timestamp.
-
                         contentType:
                             arquivo.type,
 
                         cacheControl:
                             "3600"
-
                     }
                 );
 
-
-        // =================================================
-        // ERRO NO UPLOAD
-        // =================================================
 
         if (uploadError) {
 
@@ -669,7 +601,7 @@ async function enviarFotoPerfil(
 
 
         // =================================================
-        // SALVAR URL NO USER_METADATA
+        // SALVAR NO USER_METADATA
         // =================================================
 
         const {
@@ -689,10 +621,6 @@ async function enviarFotoPerfil(
 
                 });
 
-
-        // =================================================
-        // ERRO AO SALVAR
-        // =================================================
 
         if (updateError) {
 
@@ -724,7 +652,7 @@ async function enviarFotoPerfil(
 
 
         // =================================================
-        // CACHE DA SESSÃO
+        // CONSOLE
         // =================================================
 
         if (
@@ -782,10 +710,6 @@ async function enviarFotoPerfil(
         }
 
 
-        // =================================================
-        // SUCESSO
-        // =================================================
-
         console.log(
             "Foto de perfil atualizada."
         );
@@ -801,10 +725,6 @@ async function enviarFotoPerfil(
         );
 
 
-        // =================================================
-        // RESTAURAR IMAGEM ANTERIOR
-        // =================================================
-
         if (imagem) {
 
             imagem.src =
@@ -815,10 +735,6 @@ async function enviarFotoPerfil(
         }
 
 
-        // =================================================
-        // MENSAGEM DE ERRO
-        // =================================================
-
         alert(
             "Não foi possível alterar a foto.\n\n" +
             error.message
@@ -826,17 +742,13 @@ async function enviarFotoPerfil(
     }
 
 
-    // =====================================================
-    // LIMPAR INPUT
-    // =====================================================
-
     input.value =
         "";
 }
 
 
 // =========================================================
-// EVENTO: CLICAR NA IMAGEM
+// CONFIGURAR PERFIL
 // =========================================================
 
 function configurarPerfil() {
@@ -847,15 +759,14 @@ function configurarPerfil() {
         );
 
 
-    perfilImagemContainer?.addEventListener(
-        "click",
-        abrirSeletorFoto
-    );
+    if (perfilImagemContainer) {
 
+        perfilImagemContainer.addEventListener(
+            "click",
+            abrirSeletorFoto
+        );
+    }
 
-    // =====================================================
-    // EVENTO: ESCOLHER FOTO
-    // =====================================================
 
     const inputFotoPerfil =
         document.getElementById(
@@ -863,15 +774,18 @@ function configurarPerfil() {
         );
 
 
-    inputFotoPerfil?.addEventListener(
-        "change",
-        enviarFotoPerfil
-    );
+    if (inputFotoPerfil) {
+
+        inputFotoPerfil.addEventListener(
+            "change",
+            enviarFotoPerfil
+        );
+    }
 }
 
 
 // =========================================================
-// INICIALIZAÇÃO DO PERFIL
+// INICIALIZAÇÃO
 // =========================================================
 
 document.addEventListener(
