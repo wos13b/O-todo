@@ -9,194 +9,239 @@ const SUPABASE_KEY =
     "sb_publishable_w8dDCx7t5s5eiBCv3IjE7Q_UnBb0hJJ";
 
 
-const supabaseClient = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
-
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
 // =========================================================
 // FORMULÁRIO
 // =========================================================
 
-const formulario = document.querySelector(".form-cadastro");
-
+const formulario =
+    document.querySelector(".form-cadastro");
 
 
 // =========================================================
-// ENVIO DO FORMULÁRIO
+// VERIFICAR SE O FORMULÁRIO EXISTE
 // =========================================================
 
-formulario.addEventListener(
-    "submit",
-    async function (event) {
-
-        event.preventDefault();
+if (formulario) {
 
 
+    // =========================================================
+    // ENVIO DO FORMULÁRIO
+    // =========================================================
 
-        // =================================================
-        // DADOS DO USUÁRIO
-        // =================================================
+    formulario.addEventListener(
+        "submit",
+        async function (event) {
 
-        const nome = document
-            .querySelector("#nome")
-            .value
-            .trim();
-
-
-        const nickname = document
-            .querySelector("#nickname")
-            .value
-            .trim();
+            event.preventDefault();
 
 
-        const email = document
-            .querySelector("#email")
-            .value
-            .trim();
+            // =================================================
+            // DADOS DO USUÁRIO
+            // =================================================
+
+            const nome =
+                document
+                    .querySelector("#nome")
+                    .value
+                    .trim();
 
 
-        const dataNascimento = document
-            .querySelector("#data-nascimento")
-            .value;
+            const nickname =
+                document
+                    .querySelector("#nickname")
+                    .value
+                    .trim();
 
 
-        const senha = document
-            .querySelector("#senha")
-            .value;
+            const email =
+                document
+                    .querySelector("#email")
+                    .value
+                    .trim();
 
 
-        const confirmarSenha = document
-            .querySelector("#confirmar-senha")
-            .value;
+            const dataNascimento =
+                document
+                    .querySelector("#data-nascimento")
+                    .value;
 
 
-
-        // =================================================
-        // VALIDAÇÕES
-        // =================================================
-
-        if (senha !== confirmarSenha) {
-
-            alert(
-                "As senhas não coincidem."
-            );
-
-            return;
-        }
+            const senha =
+                document
+                    .querySelector("#senha")
+                    .value;
 
 
-
-        if (senha.length < 8) {
-
-            alert(
-                "A senha deve possuir pelo menos 8 caracteres."
-            );
-
-            return;
-        }
+            const confirmarSenha =
+                document
+                    .querySelector("#confirmar-senha")
+                    .value;
 
 
+            // =================================================
+            // VALIDAÇÕES
+            // =================================================
 
-        if (nickname.length < 3) {
+            if (senha !== confirmarSenha) {
 
-            alert(
-                "O nickname deve possuir pelo menos 3 caracteres."
-            );
+                alert(
+                    "As senhas não coincidem."
+                );
 
-            return;
-        }
-
-
-
-        // =================================================
-        // CRIAR USUÁRIO
-        // =================================================
-
-        const { data, error } =
-            await supabaseClient.auth.signUp({
-
-                email: email,
-
-                password: senha,
-
-                options: {
-
-                    // -------------------------------------
-                    // REDIRECIONAMENTO APÓS CONFIRMAÇÃO
-                    // -------------------------------------
-
-                    emailRedirectTo:
-                        "http://localhost:3000/login.html",
+                return;
+            }
 
 
-                    // -------------------------------------
-                    // DADOS ADICIONAIS DO USUÁRIO
-                    // -------------------------------------
+            if (senha.length < 8) {
 
-                    data: {
+                alert(
+                    "A senha deve possuir pelo menos 8 caracteres."
+                );
 
-                        nome: nome,
+                return;
+            }
 
-                        nickname: nickname,
 
-                        data_nascimento: dataNascimento
+            if (nickname.length < 3) {
+
+                alert(
+                    "O nickname deve possuir pelo menos 3 caracteres."
+                );
+
+                return;
+            }
+
+
+            // =================================================
+            // CRIAR USUÁRIO
+            // =================================================
+
+            const { data, error } =
+                await supabaseClient.auth.signUp({
+
+                    email: email,
+
+                    password: senha,
+
+                    options: {
+
+                        // -------------------------------------
+                        // REDIRECIONAMENTO APÓS CONFIRMAÇÃO
+                        // -------------------------------------
+
+                        emailRedirectTo:
+                            "http://localhost:3000/login.html",
+
+
+                        // -------------------------------------
+                        // DADOS ADICIONAIS
+                        // -------------------------------------
+
+                        data: {
+
+                            nome: nome,
+
+                            nickname: nickname,
+
+                            data_nascimento:
+                                dataNascimento
+
+                        }
 
                     }
 
-                }
-
-            });
+                });
 
 
+            // =================================================
+            // TRATAMENTO DE ERRO
+            // =================================================
 
-        // =================================================
-        // TRATAMENTO DE ERRO
-        // =================================================
+            if (error) {
 
-        if (error) {
+                console.error(
+                    "Erro ao criar usuário:",
+                    error
+                );
 
-            console.error(
-                "Erro ao criar usuário:",
-                error
+
+                alert(
+                    "Erro ao criar usuário:\n\n" +
+                    error.message
+                );
+
+                return;
+            }
+
+
+            // =================================================
+            // VERIFICAR RESULTADO
+            // =================================================
+
+            console.log(
+                "Usuário criado:",
+                data.user
             );
 
+
+            console.log(
+                "Sessão após cadastro:",
+                data.session
+            );
+
+
+            // =================================================
+            // CADASTRO COM SESSÃO
+            // =================================================
+
+            if (data.session) {
+
+                alert(
+                    "Cadastro realizado com sucesso!"
+                );
+
+
+                // ---------------------------------------------
+                // O script.js receberá automaticamente
+                // o evento de autenticação.
+                // ---------------------------------------------
+
+                window.location.href =
+                    "index.html";
+
+                return;
+            }
+
+
+            // =================================================
+            // CADASTRO SEM SESSÃO
+            // =================================================
+            //
+            // Isso normalmente ocorre quando é necessária
+            // a confirmação do e-mail.
+            //
 
             alert(
-                "Erro ao criar usuário:\n\n" +
-                error.message
+                "Cadastro realizado com sucesso!\n\n" +
+                "Enviamos um link de confirmação para seu e-mail.\n\n" +
+                "Confirme sua conta antes de fazer login."
             );
 
-            return;
+
+            // =================================================
+            // LIMPAR FORMULÁRIO
+            // =================================================
+
+            formulario.reset();
+
         }
+    );
 
-
-
-        // =================================================
-        // CADASTRO REALIZADO
-        // =================================================
-
-        console.log(
-            "Usuário criado:",
-            data.user
-        );
-
-
-
-        alert(
-            "Cadastro realizado com sucesso!\n\n" +
-            "Verifique seu e-mail para confirmar a conta."
-        );
-
-
-
-        // =================================================
-        // LIMPAR FORMULÁRIO
-        // =================================================
-
-        formulario.reset();
-
-    }
-);
+}
