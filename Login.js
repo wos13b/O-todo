@@ -9,168 +9,166 @@ const SUPABASE_KEY =
     "sb_publishable_w8dDCx7t5s5eiBCv3IjE7Q_UnBb0hJJ";
 
 
-const supabaseClient = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
-
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
 // =========================================================
 // FORMULÁRIO DE LOGIN
 // =========================================================
 
-const formulario = document.querySelector("#form-login");
+const formulario =
+    document.querySelector("#form-login");
 
 
+// =========================================================
+// VERIFICAR SE O FORMULÁRIO EXISTE
+// =========================================================
 
-formulario.addEventListener(
-    "submit",
-    async function (event) {
+if (formulario) {
 
-        event.preventDefault();
+    formulario.addEventListener(
+        "submit",
+        async function (event) {
 
-
-
-        // =================================================
-        // DADOS DO FORMULÁRIO
-        // =================================================
-
-        const email = document
-            .querySelector("#email")
-            .value
-            .trim();
+            event.preventDefault();
 
 
-        const senha = document
-            .querySelector("#senha")
-            .value;
+            // =================================================
+            // DADOS DO FORMULÁRIO
+            // =================================================
+
+            const email =
+                document
+                    .querySelector("#email")
+                    .value
+                    .trim();
 
 
-
-        // =================================================
-        // LOGIN
-        // =================================================
-
-        const { data, error } =
-            await supabaseClient.auth.signInWithPassword({
-
-                email: email,
-
-                password: senha
-
-            });
+            const senha =
+                document
+                    .querySelector("#senha")
+                    .value;
 
 
+            // =================================================
+            // LOGIN
+            // =================================================
 
-        // =================================================
-        // TRATAMENTO DE ERRO
-        // =================================================
+            const { data, error } =
+                await supabaseClient.auth.signInWithPassword({
 
-        if (error) {
+                    email: email,
 
-            console.error(
-                "Erro ao fazer login:",
-                error
-            );
+                    password: senha
+
+                });
 
 
-            // ---------------------------------------------
-            // LIMITE DE TENTATIVAS
-            // ---------------------------------------------
+            // =================================================
+            // TRATAMENTO DE ERRO
+            // =================================================
 
-            if (
-                error.message.includes("rate limit") ||
-                error.message.includes("rate_limit")
-            ) {
+            if (error) {
+
+                console.error(
+                    "Erro ao fazer login:",
+                    error
+                );
+
+
+                // ---------------------------------------------
+                // LIMITE DE TENTATIVAS
+                // ---------------------------------------------
+
+                if (
+                    error.message.includes("rate limit") ||
+                    error.message.includes("rate_limit")
+                ) {
+
+                    alert(
+                        "O limite de tentativas foi atingido.\n\n" +
+                        "Aguarde um pouco antes de tentar novamente."
+                    );
+
+                    return;
+                }
+
+
+                // ---------------------------------------------
+                // E-MAIL NÃO CONFIRMADO
+                // ---------------------------------------------
+
+                if (
+                    error.message.includes(
+                        "Email not confirmed"
+                    )
+                ) {
+
+                    alert(
+                        "Seu e-mail ainda não foi confirmado.\n\n" +
+                        "Verifique sua caixa de entrada " +
+                        "e clique no link de confirmação."
+                    );
+
+                    return;
+                }
+
+
+                // ---------------------------------------------
+                // OUTROS ERROS
+                // ---------------------------------------------
 
                 alert(
-                    "O limite de tentativas foi atingido.\n\n" +
-                    "Aguarde um pouco antes de tentar novamente."
+                    "Erro ao fazer login:\n\n" +
+                    error.message
                 );
 
                 return;
             }
 
 
+            // =================================================
+            // LOGIN REALIZADO
+            // =================================================
 
-            // ---------------------------------------------
-            // E-MAIL NÃO CONFIRMADO
-            // ---------------------------------------------
-
-            if (
-                error.message.includes(
-                    "Email not confirmed"
-                )
-            ) {
-
-                alert(
-                    "Seu e-mail ainda não foi confirmado.\n\n" +
-                    "Verifique sua caixa de entrada " +
-                    "e clique no link de confirmação."
-                );
-
-                return;
-            }
-
-
-
-            // ---------------------------------------------
-            // OUTROS ERROS
-            // ---------------------------------------------
-
-            alert(
-                "Erro ao fazer login:\n\n" +
-                error.message
+            console.log(
+                "Login realizado:",
+                data.user
             );
 
-            return;
-        }
+
+            console.log(
+                "Sessão criada:",
+                data.session
+            );
 
 
-
-        // =================================================
-        // LOGIN REALIZADO
-        // =================================================
-
-        console.log(
-            "Login realizado:",
-            data.user
-        );
-
-
-
-        // =================================================
-        // OCULTAR LINKS DO MENU
-        // =================================================
-
-        const cadastro =
-            document.querySelector("#nav-cadastro");
-
-        const login =
-            document.querySelector("#nav-login");
+            // =================================================
+            // NÃO É MAIS NECESSÁRIO ESCONDER O MENU AQUI
+            // =================================================
+            //
+            // O script.js já possui:
+            //
+            // supabaseClient.auth.onAuthStateChange(...)
+            //
+            // Portanto, quando o login acontecer,
+            // o menu será atualizado automaticamente.
+            //
+            // =================================================
 
 
-        if (cadastro) {
+            // =================================================
+            // REDIRECIONAR
+            // =================================================
 
-            cadastro.style.display = "none";
+            window.location.href =
+                "index.html";
 
         }
+    );
 
-
-        if (login) {
-
-            login.style.display = "none";
-
-        }
-
-
-
-        // =================================================
-        // REDIRECIONAR
-        // =================================================
-
-        window.location.href = "index.html";
-
-    }
-);
+}
