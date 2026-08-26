@@ -9,8 +9,7 @@
 // CONSTANTES DO PERFIL
 // =========================================================
 
-const NOME_BUCKET =
-    "avatars";
+const NOME_BUCKET = "avatars";
 
 const TAMANHO_MAXIMO_IMAGEM =
     5 * 1024 * 1024;
@@ -53,9 +52,11 @@ async function carregarPerfil() {
         metadata.nome ||
         "Usuário";
 
+
     const nickname =
         metadata.nickname ||
         "nickname";
+
 
     const dataNascimento =
         metadata.data_nascimento ||
@@ -80,25 +81,30 @@ async function carregarPerfil() {
         nome
     );
 
+
     console.log(
         "Nickname:",
         nickname
     );
+
 
     console.log(
         "Data de nascimento:",
         dataNascimento
     );
 
+
     console.log(
         "Email:",
         user.email
     );
 
+
     console.log(
         "ID:",
         user.id
     );
+
 
     console.log(
         "Imagem:",
@@ -115,15 +121,18 @@ async function carregarPerfil() {
             "perfil-imagem"
         );
 
+
     const perfilNome =
         document.getElementById(
             "perfil-nome"
         );
 
+
     const perfilNickname =
         document.getElementById(
             "perfil-nickname"
         );
+
 
     const perfilEmail =
         document.getElementById(
@@ -184,20 +193,24 @@ async function carregarPerfil() {
             "info-nome"
         );
 
+
     const infoNickname =
         document.getElementById(
             "info-nickname"
         );
+
 
     const infoEmail =
         document.getElementById(
             "info-email"
         );
 
+
     const infoId =
         document.getElementById(
             "info-id"
         );
+
 
     const infoNascimento =
         document.getElementById(
@@ -302,6 +315,7 @@ function atualizarLogPerfil(
 
     img.src =
         imagem;
+
 
     img.alt =
         "Perfil";
@@ -425,6 +439,7 @@ async function enviarFotoPerfil(
 
     const input =
         event.target;
+
 
     const arquivo =
         input.files[0];
@@ -748,10 +763,449 @@ async function enviarFotoPerfil(
 
 
 // =========================================================
+// EDITAR PERFIL
+// =========================================================
+
+async function editarPerfil() {
+
+    const {
+        data: { session }
+    } = await supabaseClient.auth.getSession();
+
+
+    if (!session) {
+
+        alert(
+            "Você precisa estar logado para editar o perfil."
+        );
+
+        return;
+    }
+
+
+    const user =
+        session.user;
+
+
+    const metadata =
+        user.user_metadata || {};
+
+
+    // =====================================================
+    // VALORES ATUAIS
+    // =====================================================
+
+    const nomeAtual =
+        metadata.nome || "";
+
+
+    const nicknameAtual =
+        metadata.nickname || "";
+
+
+    const nascimentoAtual =
+        metadata.data_nascimento || "";
+
+
+    // =====================================================
+    // ELEMENTOS
+    // =====================================================
+
+    const infoNome =
+        document.getElementById(
+            "info-nome"
+        );
+
+
+    const infoNickname =
+        document.getElementById(
+            "info-nickname"
+        );
+
+
+    const infoNascimento =
+        document.getElementById(
+            "info-nascimento"
+        );
+
+
+    // =====================================================
+    // CRIAR CAMPOS
+    // =====================================================
+
+    if (infoNome) {
+
+        infoNome.innerHTML = `
+            <input
+                type="text"
+                id="editar-nome"
+                value="${escapeHtml(nomeAtual)}"
+                placeholder="Digite seu nome"
+            >
+        `;
+    }
+
+
+    if (infoNickname) {
+
+        infoNickname.innerHTML = `
+            <input
+                type="text"
+                id="editar-nickname"
+                value="${escapeHtml(nicknameAtual)}"
+                placeholder="Digite seu nickname"
+            >
+        `;
+    }
+
+
+    if (infoNascimento) {
+
+        infoNascimento.innerHTML = `
+            <input
+                type="date"
+                id="editar-nascimento"
+                value="${escapeHtml(nascimentoAtual)}"
+            >
+        `;
+    }
+
+
+    // =====================================================
+    // CRIAR BOTÕES
+    // =====================================================
+
+    const areaEdicao =
+        document.getElementById(
+            "area-edicao-perfil"
+        );
+
+
+    if (areaEdicao) {
+
+        areaEdicao.innerHTML = `
+
+            <button
+                type="button"
+                id="btn-salvar-perfil"
+            >
+                Salvar
+            </button>
+
+            <button
+                type="button"
+                id="btn-cancelar-perfil"
+            >
+                Cancelar
+            </button>
+
+        `;
+
+
+        document
+            .getElementById(
+                "btn-salvar-perfil"
+            )
+            ?.addEventListener(
+                "click",
+                salvarPerfil
+            );
+
+
+        document
+            .getElementById(
+                "btn-cancelar-perfil"
+            )
+            ?.addEventListener(
+                "click",
+                cancelarEdicaoPerfil
+            );
+    }
+
+
+    // =====================================================
+    // DESABILITAR BOTÃO EDITAR
+    // =====================================================
+
+    const btnEditar =
+        document.getElementById(
+            "btn-editar-perfil"
+        );
+
+
+    if (btnEditar) {
+
+        btnEditar.style.display =
+            "none";
+    }
+}
+
+
+// =========================================================
+// ESCAPAR HTML
+// =========================================================
+
+function escapeHtml(
+    texto
+) {
+
+    return String(texto)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+
+// =========================================================
+// SALVAR PERFIL
+// =========================================================
+
+async function salvarPerfil() {
+
+    const {
+        data: { session }
+    } = await supabaseClient.auth.getSession();
+
+
+    if (!session) {
+
+        alert(
+            "Você precisa estar logado."
+        );
+
+        return;
+    }
+
+
+    // =====================================================
+    // PEGAR VALORES
+    // =====================================================
+
+    const campoNome =
+        document.getElementById(
+            "editar-nome"
+        );
+
+
+    const campoNickname =
+        document.getElementById(
+            "editar-nickname"
+        );
+
+
+    const campoNascimento =
+        document.getElementById(
+            "editar-nascimento"
+        );
+
+
+    const nome =
+        campoNome?.value.trim();
+
+
+    const nickname =
+        campoNickname?.value.trim();
+
+
+    const dataNascimento =
+        campoNascimento?.value;
+
+
+    // =====================================================
+    // VALIDAR
+    // =====================================================
+
+    if (!nome) {
+
+        alert(
+            "Digite seu nome."
+        );
+
+        return;
+    }
+
+
+    if (!nickname) {
+
+        alert(
+            "Digite seu nickname."
+        );
+
+        return;
+    }
+
+
+    // =====================================================
+    // DESABILITAR BOTÃO
+    // =====================================================
+
+    const btnSalvar =
+        document.getElementById(
+            "btn-salvar-perfil"
+        );
+
+
+    if (btnSalvar) {
+
+        btnSalvar.disabled =
+            true;
+
+        btnSalvar.textContent =
+            "Salvando...";
+    }
+
+
+    try {
+
+        // =================================================
+        // ATUALIZAR SUPABASE
+        // =================================================
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .auth
+                .updateUser({
+
+                    data: {
+
+                        nome:
+                            nome,
+
+                        nickname:
+                            nickname,
+
+                        data_nascimento:
+                            dataNascimento
+
+                    }
+
+                });
+
+
+        if (error) {
+
+            throw error;
+        }
+
+
+        console.log(
+            "Dados do perfil atualizados:",
+            data.user
+        );
+
+
+        // =================================================
+        // RECARREGAR PERFIL
+        // =================================================
+
+        await carregarPerfil();
+
+
+        // =================================================
+        // REMOVER CAMPOS DE EDIÇÃO
+        // =================================================
+
+        cancelarEdicaoPerfil();
+
+
+        alert(
+            "Perfil atualizado com sucesso!"
+        );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Erro ao salvar perfil:",
+            error
+        );
+
+
+        alert(
+            "Não foi possível salvar o perfil.\n\n" +
+            error.message
+        );
+
+
+        if (btnSalvar) {
+
+            btnSalvar.disabled =
+                false;
+
+            btnSalvar.textContent =
+                "Salvar";
+        }
+    }
+}
+
+
+// =========================================================
+// CANCELAR EDIÇÃO
+// =========================================================
+
+function cancelarEdicaoPerfil() {
+
+    carregarPerfil();
+
+
+    const areaEdicao =
+        document.getElementById(
+            "area-edicao-perfil"
+        );
+
+
+    if (areaEdicao) {
+
+        areaEdicao.innerHTML =
+            "";
+    }
+
+
+    const btnEditar =
+        document.getElementById(
+            "btn-editar-perfil"
+        );
+
+
+    if (btnEditar) {
+
+        btnEditar.style.display =
+            "";
+    }
+}
+
+
+// =========================================================
 // CONFIGURAR PERFIL
 // =========================================================
 
 function configurarPerfil() {
+
+    // =====================================================
+    // IMAGEM DO PERFIL
+    // =====================================================
 
     const perfilImagemContainer =
         document.getElementById(
@@ -768,6 +1222,10 @@ function configurarPerfil() {
     }
 
 
+    // =====================================================
+    // INPUT DA FOTO
+    // =====================================================
+
     const inputFotoPerfil =
         document.getElementById(
             "input-foto-perfil"
@@ -779,6 +1237,25 @@ function configurarPerfil() {
         inputFotoPerfil.addEventListener(
             "change",
             enviarFotoPerfil
+        );
+    }
+
+
+    // =====================================================
+    // BOTÃO EDITAR PERFIL
+    // =====================================================
+
+    const btnEditar =
+        document.getElementById(
+            "btn-editar-perfil"
+        );
+
+
+    if (btnEditar) {
+
+        btnEditar.addEventListener(
+            "click",
+            editarPerfil
         );
     }
 }
