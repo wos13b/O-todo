@@ -830,114 +830,151 @@ async function editarPerfil() {
 
 
     // =====================================================
-    // CRIAR CAMPOS
+    // VERIFICAR SE JÁ ESTÁ EDITANDO
+    // =====================================================
+
+    if (
+        document.getElementById(
+            "editar-nome"
+        )
+    ) {
+
+        return;
+    }
+
+
+    // =====================================================
+    // NOME
     // =====================================================
 
     if (infoNome) {
 
         infoNome.innerHTML = `
+
             <input
                 type="text"
                 id="editar-nome"
                 value="${escapeHtml(nomeAtual)}"
                 placeholder="Digite seu nome"
             >
+
         `;
     }
 
 
+    // =====================================================
+    // NICKNAME
+    // =====================================================
+
     if (infoNickname) {
 
         infoNickname.innerHTML = `
+
             <input
                 type="text"
                 id="editar-nickname"
                 value="${escapeHtml(nicknameAtual)}"
                 placeholder="Digite seu nickname"
             >
+
         `;
     }
 
 
+    // =====================================================
+    // DATA DE NASCIMENTO
+    // =====================================================
+
     if (infoNascimento) {
 
         infoNascimento.innerHTML = `
+
             <input
                 type="date"
                 id="editar-nascimento"
                 value="${escapeHtml(nascimentoAtual)}"
             >
+
         `;
     }
 
 
     // =====================================================
-    // CRIAR BOTÕES
+    // EMAIL E ID CONTINUAM SOMENTE LEITURA
     // =====================================================
 
-    const areaEdicao =
+    // Nada é alterado aqui.
+    // O e-mail e o ID permanecem protegidos.
+
+
+    // =====================================================
+    // ALTERAR BOTÃO EDITAR
+    // =====================================================
+
+    const botaoEditar =
         document.getElementById(
-            "area-edicao-perfil"
+            "editar-perfil"
         );
 
 
-    if (areaEdicao) {
+    if (botaoEditar) {
 
-        areaEdicao.innerHTML = `
-
-            <button
-                type="button"
-                id="btn-salvar-perfil"
-            >
-                Salvar
-            </button>
-
-            <button
-                type="button"
-                id="btn-cancelar-perfil"
-            >
-                Cancelar
-            </button>
-
-        `;
+        botaoEditar.textContent =
+            "Salvar";
 
 
-        document
-            .getElementById(
-                "btn-salvar-perfil"
-            )
-            ?.addEventListener(
-                "click",
-                salvarPerfil
-            );
-
-
-        document
-            .getElementById(
-                "btn-cancelar-perfil"
-            )
-            ?.addEventListener(
-                "click",
-                cancelarEdicaoPerfil
-            );
+        botaoEditar.onclick =
+            salvarPerfil;
     }
 
 
     // =====================================================
-    // DESABILITAR BOTÃO EDITAR
+    // CRIAR BOTÃO CANCELAR
     // =====================================================
 
-    const btnEditar =
+    let botaoCancelar =
         document.getElementById(
-            "btn-editar-perfil"
+            "cancelar-edicao"
         );
 
 
-    if (btnEditar) {
+    if (!botaoCancelar) {
 
-        btnEditar.style.display =
-            "none";
+        botaoCancelar =
+            document.createElement(
+                "button"
+            );
+
+
+        botaoCancelar.type =
+            "button";
+
+
+        botaoCancelar.id =
+            "cancelar-edicao";
+
+
+        botaoCancelar.textContent =
+            "Cancelar";
+
+
+        const titulo =
+            document.querySelector(
+                ".Perfil_info_titulo"
+            );
+
+
+        if (titulo) {
+
+            titulo.appendChild(
+                botaoCancelar
+            );
+        }
     }
+
+
+    botaoCancelar.onclick =
+        cancelarEdicaoPerfil;
 }
 
 
@@ -995,7 +1032,7 @@ async function salvarPerfil() {
 
 
     // =====================================================
-    // PEGAR VALORES
+    // CAMPOS
     // =====================================================
 
     const campoNome =
@@ -1016,6 +1053,10 @@ async function salvarPerfil() {
         );
 
 
+    // =====================================================
+    // VALORES
+    // =====================================================
+
     const nome =
         campoNome?.value.trim();
 
@@ -1029,7 +1070,7 @@ async function salvarPerfil() {
 
 
     // =====================================================
-    // VALIDAR
+    // VALIDAÇÃO
     // =====================================================
 
     if (!nome) {
@@ -1053,21 +1094,21 @@ async function salvarPerfil() {
 
 
     // =====================================================
-    // DESABILITAR BOTÃO
+    // BOTÃO
     // =====================================================
 
-    const btnSalvar =
+    const botaoEditar =
         document.getElementById(
-            "btn-salvar-perfil"
+            "editar-perfil"
         );
 
 
-    if (btnSalvar) {
+    if (botaoEditar) {
 
-        btnSalvar.disabled =
+        botaoEditar.disabled =
             true;
 
-        btnSalvar.textContent =
+        botaoEditar.textContent =
             "Salvando...";
     }
 
@@ -1109,23 +1150,23 @@ async function salvarPerfil() {
 
 
         console.log(
-            "Dados do perfil atualizados:",
+            "Perfil atualizado:",
             data.user
         );
 
 
         // =================================================
-        // RECARREGAR PERFIL
+        // ATUALIZAR PÁGINA
         // =================================================
 
         await carregarPerfil();
 
 
         // =================================================
-        // REMOVER CAMPOS DE EDIÇÃO
+        // ENCERRAR EDIÇÃO
         // =================================================
 
-        cancelarEdicaoPerfil();
+        removerModoEdicao();
 
 
         alert(
@@ -1149,12 +1190,12 @@ async function salvarPerfil() {
         );
 
 
-        if (btnSalvar) {
+        if (botaoEditar) {
 
-            btnSalvar.disabled =
+            botaoEditar.disabled =
                 false;
 
-            btnSalvar.textContent =
+            botaoEditar.textContent =
                 "Salvar";
         }
     }
@@ -1169,30 +1210,52 @@ function cancelarEdicaoPerfil() {
 
     carregarPerfil();
 
+    removerModoEdicao();
+}
 
-    const areaEdicao =
+
+// =========================================================
+// REMOVER MODO DE EDIÇÃO
+// =========================================================
+
+function removerModoEdicao() {
+
+    const botaoEditar =
         document.getElementById(
-            "area-edicao-perfil"
+            "editar-perfil"
         );
 
 
-    if (areaEdicao) {
+    const botaoCancelar =
+        document.getElementById(
+            "cancelar-edicao"
+        );
 
-        areaEdicao.innerHTML =
-            "";
+
+    // =====================================================
+    // REMOVER BOTÃO CANCELAR
+    // =====================================================
+
+    if (botaoCancelar) {
+
+        botaoCancelar.remove();
     }
 
 
-    const btnEditar =
-        document.getElementById(
-            "btn-editar-perfil"
-        );
+    // =====================================================
+    // RESTAURAR BOTÃO EDITAR
+    // =====================================================
 
+    if (botaoEditar) {
 
-    if (btnEditar) {
+        botaoEditar.disabled =
+            false;
 
-        btnEditar.style.display =
-            "";
+        botaoEditar.textContent =
+            "Editar perfil";
+
+        botaoEditar.onclick =
+            editarPerfil;
     }
 }
 
@@ -1242,18 +1305,18 @@ function configurarPerfil() {
 
 
     // =====================================================
-    // BOTÃO EDITAR PERFIL
+    // BOTÃO EDITAR
     // =====================================================
 
-    const btnEditar =
+    const botaoEditar =
         document.getElementById(
-            "btn-editar-perfil"
+            "editar-perfil"
         );
 
 
-    if (btnEditar) {
+    if (botaoEditar) {
 
-        btnEditar.addEventListener(
+        botaoEditar.addEventListener(
             "click",
             editarPerfil
         );
