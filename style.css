@@ -829,7 +829,7 @@ strong {
    BOTÃO EDITAR PERFIL
    ========================================================= */
 
-#editar-perfil {
+#editar-perfil, #cancelar-edicao {
     font-family: Greek, sans-serif;
 
     font-size: 14px;
@@ -858,7 +858,7 @@ strong {
 }
 
 
-#editar-perfil:hover {
+#editar-perfil:hover, #cancelar-edicao:hover {
     background:
         rgba(0, 210, 255, 0.18);
 
