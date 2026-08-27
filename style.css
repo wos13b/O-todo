@@ -695,47 +695,6 @@ strong {
     filter: brightness(1.15);
 }
 
-
-/* =========================================================
-   SOBREPOSIÇÃO "ALTERAR FOTO"
-   ========================================================= */
-
-.Perfil_imagem::after {
-    content: "Alterar foto";
-
-    position: absolute;
-
-    left: 0;
-
-    bottom: 0;
-
-    width: 100%;
-
-    padding: 8px 0;
-
-    text-align: center;
-
-    font-family: Greek;
-
-    font-size: 10px;
-
-    color: white;
-
-    background-color:
-        rgba(0, 0, 0, 0.65);
-
-    opacity: 0;
-
-    transition:
-        opacity 0.3s ease;
-}
-
-
-.Perfil_imagem:hover::after {
-    opacity: 1;
-}
-
-
 /* =========================================================
    DADOS PRINCIPAIS DO PERFIL
    ========================================================= */
