@@ -31,7 +31,7 @@ table {
 
     font-family: 'Segoe UI', sans-serif;
 
-    background: linear-gradient(90deg, #050505, #424242);
+    background: linear-gradient(180deg, #050505, #424242);
     backdrop-filter: blur(10px);
 
     border-radius: 16px;
