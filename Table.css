@@ -150,8 +150,8 @@ table td:hover {
    DESCRIÇÃO
 ========================= */
 .descricao td {
-    font-size: 0.85em;
-    color: #999;
+    font-size: 0.96em;
+    color: #b8b8b8;
     font-style: italic;
 }
 
