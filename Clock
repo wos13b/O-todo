@@ -455,7 +455,7 @@ function posicionarDiasCirculares() {
         Math.min(
             largura,
             altura
-        ) * 0.39;
+        ) * 0.36;
 
 
     elementos.forEach(
