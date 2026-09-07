@@ -1,0 +1,1225 @@
+/* =========================================================
+   CALENDÁRIO 13 × 28
+   =========================================================
+
+   13 meses
+   28 dias por mês
+   364 dias
+
+   Início:
+   01/01/2026
+
+   ========================================================= */
+
+
+/* =========================================================
+   CONFIGURAÇÕES
+========================================================= */
+
+const TOTAL_MESES = 13;
+
+const DIAS_POR_MES = 28;
+
+const DIAS_REGULARES =
+    TOTAL_MESES * DIAS_POR_MES;
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+let anoAtual = 2026;
+
+let mesAtual = 1;
+
+
+/* =========================================================
+   NOMES DOS MESES
+========================================================= */
+
+const nomesMeses = [
+
+    "Uno",
+    "Dat",
+    "Triv",
+    "Quadro",
+    "Quinta",
+    "Sexto",
+    "Sevei",
+    "Octo",
+    "Nono",
+    "Dez",
+    "Onze",
+    "Doze",
+    "Treze"
+
+];
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const daysContainer =
+    document.getElementById("days");
+
+const monthName =
+    document.getElementById("monthName");
+
+const yearDisplay =
+    document.getElementById("yearDisplay");
+
+const selectedDate =
+    document.getElementById("selectedDate");
+
+const gregorianDate =
+    document.getElementById("gregorianDate");
+
+const dayOfYear =
+    document.getElementById("dayOfYear");
+
+const extraDays =
+    document.getElementById("extraDays");
+
+
+/*
+   Elementos do centro do calendário.
+*/
+
+const centerMonth =
+    document.getElementById("centerMonth");
+
+const centerYear =
+    document.getElementById("centerYear");
+
+
+/* =========================================================
+   ANO BISSEXTO
+========================================================= */
+
+function ehBissexto(ano) {
+
+    return (
+
+        ano % 400 === 0 ||
+
+        (
+            ano % 4 === 0 &&
+            ano % 100 !== 0
+        )
+
+    );
+
+}
+
+
+/* =========================================================
+   DIAS DO ANO
+========================================================= */
+
+function quantidadeDiasNoAno(ano) {
+
+    if (ehBissexto(ano)) {
+
+        return 366;
+
+    }
+
+    return 365;
+
+}
+
+
+/* =========================================================
+   REDUÇÃO NUMEROLÓGICA
+=========================================================
+
+   Exemplos:
+
+   1  → 1
+   2  → 2
+   ...
+   9  → 9
+
+   10 → 1 + 0 = 1
+   11 → 1 + 1 = 2
+   12 → 1 + 2 = 3
+   13 → 1 + 3 = 4
+
+   28 → 2 + 8 = 10
+      → 1 + 0 = 1
+
+========================================================= */
+
+function reduzirNumero(numero) {
+
+    while (numero >= 10) {
+
+        numero = String(numero)
+            .split("")
+            .reduce(
+
+                function (soma, digito) {
+
+                    return soma +
+                        Number(digito);
+
+                },
+
+                0
+
+            );
+
+    }
+
+    return numero;
+
+}
+
+
+/* =========================================================
+   CALENDÁRIO → GREGORIANO
+=========================================================
+
+   Mês 1 dia 1
+   = 01/01
+
+   Mês 1 dia 28
+   = 28/01
+
+   Mês 2 dia 1
+   = 29/01
+
+   ...
+
+   Mês 13 dia 28
+   = 30/12
+
+========================================================= */
+
+function obterDataGregoriana(
+    ano,
+    mes,
+    dia
+) {
+
+    const numeroDoDia =
+
+        (
+            (mes - 1) *
+            DIAS_POR_MES
+        )
+
+        +
+
+        dia;
+
+
+    const data =
+        new Date(
+            ano,
+            0,
+            numeroDoDia
+        );
+
+
+    return data;
+
+}
+
+
+/* =========================================================
+   FORMATAR DATA
+========================================================= */
+
+function formatarData(data) {
+
+    return data.toLocaleDateString(
+        "pt-BR",
+        {
+            weekday: "long",
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   VERIFICAR SE É HOJE
+========================================================= */
+
+function ehHoje(data) {
+
+    const hoje = new Date();
+
+
+    return (
+
+        data.getFullYear() ===
+        hoje.getFullYear()
+
+        &&
+
+        data.getMonth() ===
+        hoje.getMonth()
+
+        &&
+
+        data.getDate() ===
+        hoje.getDate()
+
+    );
+
+}
+
+
+/* =========================================================
+   CRIAR UM DIA
+========================================================= */
+
+function criarDia(
+    ano,
+    mes,
+    dia
+) {
+
+    const elemento =
+        document.createElement("div");
+
+
+    elemento.classList.add(
+        "day"
+    );
+
+
+    /* =====================================================
+       NÚMERO ORIGINAL
+    ===================================================== */
+
+    const numero =
+        document.createElement("div");
+
+
+    numero.classList.add(
+        "day-number"
+    );
+
+
+    /*
+       Número original +
+       número reduzido.
+    */
+
+    numero.innerHTML = `
+
+        <span class="numero-original">
+            ${dia}
+        </span>
+
+        <span class="numero-reduzido">
+            ${reduzirNumero(dia)}
+        </span>
+
+    `;
+
+
+    /* =====================================================
+       DATA GREGORIANA
+    ===================================================== */
+
+    const data =
+        obterDataGregoriana(
+            ano,
+            mes,
+            dia
+        );
+
+
+    const gregoriano =
+        document.createElement("div");
+
+
+    gregoriano.classList.add(
+        "day-gregorian"
+    );
+
+
+    gregoriano.textContent =
+        data.toLocaleDateString(
+            "pt-BR"
+        );
+
+
+    /* =====================================================
+       ADICIONAR ELEMENTOS
+    ===================================================== */
+
+    elemento.appendChild(
+        numero
+    );
+
+
+    elemento.appendChild(
+        gregoriano
+    );
+
+
+    /* =====================================================
+       VERIFICAR HOJE
+    ===================================================== */
+
+    if (ehHoje(data)) {
+
+        elemento.classList.add(
+            "today"
+        );
+
+    }
+
+
+    /* =====================================================
+       CLIQUE
+    ===================================================== */
+
+    elemento.addEventListener(
+        "click",
+        function () {
+
+            selecionarDia(
+
+                ano,
+                mes,
+                dia,
+                data,
+                elemento
+
+            );
+
+        }
+    );
+
+
+    return elemento;
+
+}
+
+
+/* =========================================================
+   POSICIONAR OS 28 DIAS EM CÍRCULO
+========================================================= */
+
+function posicionarDiasCirculares() {
+
+    const elementos =
+        daysContainer.querySelectorAll(
+            ".day"
+        );
+
+
+    const total =
+        elementos.length;
+
+
+    if (!total) {
+
+        return;
+
+    }
+
+
+    /*
+       Obtém o tamanho real do calendário.
+
+       Isso permite que o círculo seja
+       responsivo.
+    */
+
+    const largura =
+        daysContainer.clientWidth;
+
+    const altura =
+        daysContainer.clientHeight;
+
+
+    /*
+       Raio do círculo dos dias.
+
+       0.39 significa aproximadamente
+       39% do tamanho disponível.
+    */
+
+    const raio =
+        Math.min(
+            largura,
+            altura
+        ) * 0.39;
+
+
+    elementos.forEach(
+        function (
+            elemento,
+            indice
+        ) {
+
+            /*
+               Divide os 360 graus igualmente
+               entre os 28 dias.
+
+               Começamos no topo:
+               -90 graus.
+            */
+
+            const angulo =
+                (indice / total)
+                * Math.PI
+                * 2
+                - Math.PI / 2;
+
+
+            /*
+               Coordenada X.
+            */
+
+            const x =
+                Math.cos(angulo)
+                * raio;
+
+
+            /*
+               Coordenada Y.
+            */
+
+            const y =
+                Math.sin(angulo)
+                * raio;
+
+
+            /*
+               Posiciona o dia em relação
+               ao centro do calendário.
+            */
+
+            elemento.style.transform =
+                `translate(${x}px, ${y}px)`;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   POSICIONAR OS DIAS DA SEMANA
+========================================================= */
+
+function posicionarDiasDaSemana() {
+
+    const elementos =
+        document.querySelectorAll(
+            ".weekdays div"
+        );
+
+
+    const total =
+        elementos.length;
+
+
+    if (!total) {
+
+        return;
+
+    }
+
+
+    /*
+       O anel dos dias da semana fica
+       mais próximo do centro.
+    */
+
+    const largura =
+        daysContainer.clientWidth;
+
+    const altura =
+        daysContainer.clientHeight;
+
+
+    const raio =
+        Math.min(
+            largura,
+            altura
+        ) * 0.25;
+
+
+    elementos.forEach(
+        function (
+            elemento,
+            indice
+        ) {
+
+            const angulo =
+                (indice / total)
+                * Math.PI
+                * 2
+                - Math.PI / 2;
+
+
+            const x =
+                Math.cos(angulo)
+                * raio;
+
+
+            const y =
+                Math.sin(angulo)
+                * raio;
+
+
+            elemento.style.transform =
+                `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   POSICIONAR CALENDÁRIO CIRCULAR
+========================================================= */
+
+function posicionarCalendarioCircular() {
+
+    posicionarDiasCirculares();
+
+    posicionarDiasDaSemana();
+
+}
+
+
+/* =========================================================
+   REDIMENSIONAMENTO
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    function () {
+
+        posicionarCalendarioCircular();
+
+    }
+);
+
+
+/* =========================================================
+   RENDERIZAR OS 28 DIAS
+========================================================= */
+
+function renderizarDias() {
+
+    /*
+       Limpar calendário.
+    */
+
+    daysContainer.innerHTML = "";
+
+
+    /*
+       Criar exatamente 28 dias.
+    */
+
+    for (
+
+        let dia = 1;
+
+        dia <= DIAS_POR_MES;
+
+        dia++
+
+    ) {
+
+        const elemento =
+            criarDia(
+
+                anoAtual,
+                mesAtual,
+                dia
+
+            );
+
+
+        daysContainer.appendChild(
+            elemento
+        );
+
+    }
+
+
+    /*
+       Espera o navegador calcular
+       o tamanho do calendário antes
+       de posicionar os elementos.
+    */
+
+    requestAnimationFrame(
+        function () {
+
+            posicionarCalendarioCircular();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RENDERIZAR CALENDÁRIO COMPLETO
+========================================================= */
+
+function renderizarCalendario() {
+
+    /*
+       Título.
+    */
+
+    monthName.textContent =
+        nomesMeses[
+            mesAtual - 1
+        ];
+
+
+    yearDisplay.textContent =
+        anoAtual;
+
+
+    /*
+       Atualizar o centro.
+    */
+
+    if (centerMonth) {
+
+        centerMonth.textContent =
+            nomesMeses[
+                mesAtual - 1
+            ];
+
+    }
+
+
+    if (centerYear) {
+
+        centerYear.textContent =
+            anoAtual;
+
+    }
+
+
+    /*
+       Dias.
+    */
+
+    renderizarDias();
+
+
+    /*
+       Dias extras.
+    */
+
+    renderizarDiasExtras();
+
+}
+
+
+/* =========================================================
+   SELECIONAR DIA
+========================================================= */
+
+function selecionarDia(
+    ano,
+    mes,
+    dia,
+    data,
+    elemento
+) {
+
+    /*
+       Remover seleção anterior.
+    */
+
+    document
+        .querySelectorAll(".day")
+        .forEach(
+
+            function (diaElemento) {
+
+                diaElemento.classList.remove(
+                    "selected"
+                );
+
+            }
+
+        );
+
+
+    /*
+       Marcar selecionado.
+    */
+
+    elemento.classList.add(
+        "selected"
+    );
+
+
+    /*
+       Número reduzido.
+    */
+
+    const numeroReduzido =
+        reduzirNumero(dia);
+
+
+    /*
+       Mostrar informações.
+    */
+
+    selectedDate.textContent =
+
+        `${nomesMeses[mes - 1]} — Dia ${dia} → ${numeroReduzido}`;
+
+
+    /*
+       Data gregoriana.
+    */
+
+    gregorianDate.textContent =
+
+        `Data gregoriana: ${formatarData(data)}`;
+
+
+    /*
+       Número do dia no ano.
+    */
+
+    const numeroDoDia =
+
+        (
+            (mes - 1) *
+            DIAS_POR_MES
+        )
+
+        +
+
+        dia;
+
+
+    dayOfYear.textContent =
+
+        `Dia ${numeroDoDia} de ${quantidadeDiasNoAno(ano)}`;
+
+}
+
+
+/* =========================================================
+   DIAS EXTRAS
+========================================================= */
+
+function renderizarDiasExtras() {
+
+    extraDays.innerHTML = "";
+
+
+    const totalDias =
+        quantidadeDiasNoAno(
+            anoAtual
+        );
+
+
+    const quantidadeExtras =
+        totalDias -
+        DIAS_REGULARES;
+
+
+    for (
+
+        let i = 1;
+
+        i <= quantidadeExtras;
+
+        i++
+
+    ) {
+
+        /*
+           O dia extra vem depois
+           dos 364 dias normais.
+        */
+
+        const data =
+            new Date(
+
+                anoAtual,
+                0,
+                DIAS_REGULARES + i
+
+            );
+
+
+        const elemento =
+            document.createElement("div");
+
+
+        elemento.classList.add(
+            "extra-day"
+        );
+
+
+        elemento.textContent =
+
+            `Dia Extra ${i} — ` +
+
+            data.toLocaleDateString(
+                "pt-BR"
+            );
+
+
+        elemento.addEventListener(
+            "click",
+            function () {
+
+                selectedDate.textContent =
+                    `Dia Extra ${i}`;
+
+
+                gregorianDate.textContent =
+                    `Data gregoriana: ${formatarData(data)}`;
+
+
+                dayOfYear.textContent =
+
+                    `Dia ${DIAS_REGULARES + i} de ${totalDias}`;
+
+            }
+        );
+
+
+        extraDays.appendChild(
+            elemento
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   MUDAR MÊS
+========================================================= */
+
+function mudarMes(valor) {
+
+    mesAtual += valor;
+
+
+    /*
+       Passou do mês 13.
+    */
+
+    if (mesAtual > 13) {
+
+        mesAtual = 1;
+
+        anoAtual++;
+
+    }
+
+
+    /*
+       Voltou antes do mês 1.
+    */
+
+    if (mesAtual < 1) {
+
+        mesAtual = 13;
+
+        anoAtual--;
+
+    }
+
+
+    renderizarCalendario();
+
+}
+
+
+/* =========================================================
+   MUDAR ANO
+========================================================= */
+
+function mudarAno(valor) {
+
+    anoAtual += valor;
+
+    renderizarCalendario();
+
+}
+
+
+/* =========================================================
+   IR PARA HOJE
+========================================================= */
+
+function irParaHoje() {
+
+    const hoje = new Date();
+
+
+    anoAtual =
+        hoje.getFullYear();
+
+
+    /*
+       Início do ano.
+    */
+
+    const inicioDoAno =
+        new Date(
+
+            anoAtual,
+            0,
+            1
+
+        );
+
+
+    /*
+       Diferença em dias.
+    */
+
+    const diferenca =
+        Math.floor(
+
+            (
+                hoje -
+                inicioDoAno
+            )
+
+            /
+
+            (
+                1000 *
+                60 *
+                60 *
+                24
+            )
+
+        );
+
+
+    /*
+       Número do dia do ano.
+    */
+
+    const numeroDoDia =
+        diferenca + 1;
+
+
+    /*
+       Dias normais.
+    */
+
+    if (
+
+        numeroDoDia <=
+        DIAS_REGULARES
+
+    ) {
+
+        mesAtual =
+
+            Math.floor(
+
+                (
+                    numeroDoDia - 1
+                )
+
+                /
+
+                DIAS_POR_MES
+
+            )
+
+            + 1;
+
+    }
+
+
+    else {
+
+        /*
+           Dia extra.
+        */
+
+        mesAtual = 13;
+
+    }
+
+
+    /*
+       Renderizar.
+    */
+
+    renderizarCalendario();
+
+
+    /*
+       Selecionar o dia atual.
+    */
+
+    if (
+
+        numeroDoDia <=
+        DIAS_REGULARES
+
+    ) {
+
+        const dia =
+
+            (
+                (
+                    numeroDoDia - 1
+                )
+
+                %
+
+                DIAS_POR_MES
+
+            )
+
+            + 1;
+
+
+        const elementos =
+            document.querySelectorAll(
+                ".day"
+            );
+
+
+        if (
+            elementos[dia - 1]
+        ) {
+
+            const data =
+                obterDataGregoriana(
+
+                    anoAtual,
+                    mesAtual,
+                    dia
+
+                );
+
+
+            selecionarDia(
+
+                anoAtual,
+                mesAtual,
+                dia,
+                data,
+                elementos[dia - 1]
+
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   BOTÃO MÊS ANTERIOR
+========================================================= */
+
+document
+    .getElementById("prevMonth")
+    .addEventListener(
+        "click",
+        function () {
+
+            mudarMes(-1);
+
+        }
+    );
+
+
+/* =========================================================
+   BOTÃO MÊS PRÓXIMO
+========================================================= */
+
+document
+    .getElementById("nextMonth")
+    .addEventListener(
+        "click",
+        function () {
+
+            mudarMes(1);
+
+        }
+    );
+
+
+/* =========================================================
+   BOTÃO ANO ANTERIOR
+========================================================= */
+
+document
+    .getElementById("prevYear")
+    .addEventListener(
+        "click",
+        function () {
+
+            mudarAno(-1);
+
+        }
+    );
+
+
+/* =========================================================
+   BOTÃO ANO PRÓXIMO
+========================================================= */
+
+document
+    .getElementById("nextYear")
+    .addEventListener(
+        "click",
+        function () {
+
+            mudarAno(1);
+
+        }
+    );
+
+
+/* =========================================================
+   BOTÃO HOJE
+========================================================= */
+
+document
+    .getElementById("todayButton")
+    .addEventListener(
+        "click",
+        function () {
+
+            irParaHoje();
+
+        }
+    );
+
+
+/* =========================================================
+   INICIAR
+========================================================= */
+
+renderizarCalendario();
+
+irParaHoje();
