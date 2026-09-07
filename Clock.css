@@ -115,7 +115,7 @@ body {
    ÁREA PRINCIPAL
 ================================ */
 
-main {
+.Main_clock {
 
     width: min(900px, 95%);
 
