@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="Table.css">
     <link rel="stylesheet" href="Livros.css">
+    <link rel="stylesheet" href="Clock.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js" defer></script>
     <script src="Profile.js" defer></script>
@@ -55,6 +56,62 @@
                 <button id="nextMonth" class="nav-button">›</button>
 
                 <button id="nextYear" class="nav-button">»</button>
+            </div>
+            <div class="Main_clock">
+                <section class="calendar">
+
+                    <div class="calendar-center">
+                        <div id="centerMonth">Uno</div>
+                        <div id="centerYear">2026</div>
+                    </div>
+
+                    <div class="weekdays">
+
+                        <div>T. VERM</div>
+                        <div>T. LARA</div>
+                        <div>T. AMAR</div>
+                        <div>T. VERD</div>
+                        <div>T. AZUL</div>
+                        <div>T. INDI</div>
+                        <div>T. VIOL</div>
+
+                    </div>
+
+
+                    <div id="days" class="days"></div>
+
+                </section>
+
+
+                <section class="info">
+
+                    <h2 id="selectedDate">
+                        Selecione um dia
+                    </h2>
+
+                    <p id="gregorianDate">
+                        —
+                    </p>
+
+                    <p id="dayOfYear">
+                        —
+                    </p>
+
+                </section>
+
+
+                <button id="todayButton" class="today-button">
+                    Hoje
+                </button>
+
+
+                <section class="extra">
+
+                    <h2>Dias Extras</h2>
+
+                    <div id="extraDays"></div>
+
+                </section>
             </div>
             <h1>Potencial infinito</h1>
 

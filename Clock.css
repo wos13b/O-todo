@@ -1,0 +1,606 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #292929,
+            #101010
+        );
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+/* ================================
+   CABEÇALHO
+================================ */
+
+.header {
+
+    width: 100%;
+
+    padding: 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 10px;
+
+    border-bottom: 1px solid #444;
+
+}
+
+
+.titulo {
+
+    width: 180px;
+
+    text-align: center;
+
+}
+
+
+.titulo h1 {
+
+    font-size: 26px;
+
+}
+
+
+.titulo span {
+
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 18px;
+
+    opacity: 0.6;
+
+}
+
+
+.nav-button {
+
+    width: 45px;
+
+    height: 45px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #333;
+
+    color: white;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+}
+
+
+.nav-button:hover {
+
+    background: #555;
+
+    transform: scale(1.08);
+
+}
+
+
+/* ================================
+   ÁREA PRINCIPAL
+================================ */
+
+main {
+
+    width: min(900px, 95%);
+
+    margin: 30px auto;
+
+}
+
+
+/* ================================
+   CALENDÁRIO
+================================ */
+
+.calendar {
+
+    width: 100%;
+
+    overflow: hidden;
+
+    border: 1px solid #444;
+
+    border-radius: 15px;
+
+    background: #1b1b1b;
+
+}
+
+
+/* ================================
+   CALENDÁRIO CIRCULAR
+================================ */
+
+.calendar {
+    width: min(760px, 90vw);
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    position: relative;
+    overflow: visible;
+    border: none;
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            circle at center,
+            #292929 0%,
+            #1b1b1b 38%,
+            #111 70%,
+            #080808 100%
+        );
+    box-shadow:
+        0 0 0 1px #444,
+        0 0 35px rgba(0, 0, 0, 0.7),
+        inset 0 0 30px rgba(255, 255, 255, 0.04);
+}
+
+/* Anel externo */
+.calendar::before {
+    content: "";
+    position: absolute;
+    inset: 4%;
+    border: 1px solid #444;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Anel interno */
+.calendar::after {
+    content: "";
+    position: absolute;
+    inset: 22%;
+    border: 1px solid #333;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+
+/* ================================
+   CENTRO
+================================ */
+
+.calendar-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 25%;
+    aspect-ratio: 1 / 1;
+
+    border: 1px solid #555;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #303030,
+            #171717 70%
+        );
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    z-index: 5;
+
+    box-shadow:
+        0 0 20px rgba(0, 0, 0, 0.7),
+        inset 0 0 15px rgba(255, 255, 255, 0.04);
+}
+
+.calendar-center #centerMonth {
+    font-size: clamp(18px, 3vw, 30px);
+    font-weight: bold;
+}
+
+.calendar-center #centerYear {
+    margin-top: 5px;
+    font-size: clamp(13px, 2vw, 18px);
+    opacity: 0.55;
+}
+
+
+/* ================================
+   DIAS DA SEMANA
+================================ */
+
+.weekdays {
+    position: absolute;
+    inset: 0;
+    display: block;
+    pointer-events: none;
+    background: none;
+    z-index: 2;
+}
+
+.weekdays div {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 80px;
+
+    transform-origin: center;
+
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+
+    color: #aaa;
+
+    /*
+       Os dias da semana ficam em um
+       segundo anel, entre o centro
+       e os 28 dias.
+    */
+}
+
+/* ================================
+   GRID DOS 28 DIAS
+================================ */
+
+.days {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+
+    border-radius: 50%;
+
+    z-index: 3;
+}
+
+
+/* ================================
+   CADA DIA
+================================ */
+
+.day {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: clamp(55px, 8vw, 72px);
+    height: clamp(55px, 8vw, 72px);
+
+    margin-left: calc(clamp(55px, 8vw, 72px) / -2);
+    margin-top: calc(clamp(55px, 8vw, 72px) / -2);
+
+    padding: 0;
+
+    border: 1px solid #444;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #414141,
+            #222 65%,
+            #111 100%
+        );
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+
+    box-sizing: border-box;
+}
+
+.day:hover {
+    background:
+        radial-gradient(
+            circle,
+            #555,
+            #292929
+        );
+
+    box-shadow:
+        0 0 12px rgba(255, 255, 255, 0.15);
+
+    z-index: 10;
+}
+
+
+/* Número */
+
+.day-number {
+    font-size: clamp(15px, 2.4vw, 21px);
+    font-weight: bold;
+    line-height: 1;
+}
+
+.numero-original {
+    color: #d0d0d0;
+}
+
+.numero-reduzido {
+    color: #ff4a4a;
+    margin: 3px 0 0;
+    font-size: 0.65em;
+}
+
+
+/* Data gregoriana */
+
+.day-gregorian {
+    position: static;
+
+    margin-top: 4px;
+
+    font-size: clamp(7px, 1vw, 10px);
+
+    opacity: 0.45;
+}
+
+
+/* Hoje */
+
+.day.today {
+    background:
+        radial-gradient(
+            circle,
+            #555,
+            #292929
+        );
+
+    box-shadow:
+        0 0 0 2px white,
+        0 0 15px rgba(255, 255, 255, 0.25);
+}
+
+
+/* Selecionado */
+
+.day.selected {
+    background:
+        radial-gradient(
+            circle,
+            #666,
+            #333
+        );
+
+    box-shadow:
+        0 0 0 2px #aaa,
+        0 0 18px rgba(255, 255, 255, 0.2);
+
+    z-index: 11;
+}
+
+
+/* ================================
+   INFORMAÇÕES
+================================ */
+
+.info {
+
+    margin-top: 20px;
+
+    padding: 20px;
+
+    border: 1px solid #444;
+
+    border-radius: 12px;
+
+    background: #1b1b1b;
+
+}
+
+
+.info h2 {
+
+    margin-bottom: 10px;
+
+}
+
+
+.info p {
+
+    margin-top: 6px;
+
+    opacity: 0.7;
+
+}
+
+
+/* ================================
+   BOTÃO HOJE
+================================ */
+
+.today-button {
+
+    display: block;
+
+    margin: 20px auto;
+
+    padding: 12px 25px;
+
+    border: none;
+
+    border-radius: 25px;
+
+    background: white;
+
+    color: black;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.today-button:hover {
+
+    transform: scale(1.05);
+
+}
+
+
+/* ================================
+   DIAS EXTRAS
+================================ */
+
+.extra {
+
+    margin-top: 25px;
+
+    padding: 20px;
+
+    border: 1px solid #444;
+
+    border-radius: 12px;
+
+    background: #1b1b1b;
+
+}
+
+
+.extra h2 {
+
+    margin-bottom: 15px;
+
+}
+
+
+.extra-day {
+
+    padding: 12px;
+
+    margin-top: 8px;
+
+    border-radius: 8px;
+
+    background: #292929;
+
+    cursor: pointer;
+
+}
+
+
+.extra-day:hover {
+
+    background: #3a3a3a;
+
+}
+
+
+/* ================================
+   RODAPÉ
+================================ */
+
+footer {
+
+    margin-top: auto;
+
+    padding: 20px;
+
+    text-align: center;
+
+    opacity: 0.5;
+
+    border-top: 1px solid #333;
+
+}
+
+
+/* ================================
+   CELULAR
+================================ */
+
+@media (max-width: 600px) {
+
+    .header {
+        gap: 5px;
+    }
+
+    .titulo {
+        width: 130px;
+    }
+
+    .titulo h1 {
+        font-size: 20px;
+    }
+
+    .calendar {
+        width: 94vw;
+    }
+
+    .calendar-center {
+        width: 28%;
+    }
+
+    .weekdays div {
+        width: 50px;
+        font-size: 7px;
+    }
+
+    .day {
+        width: 48px;
+        height: 48px;
+
+        margin-left: -24px;
+        margin-top: -24px;
+    }
+
+    .day-number {
+        font-size: 15px;
+    }
+
+    .day-gregorian {
+        font-size: 6px;
+        margin-top: 3px;
+    }
+
+}
+
