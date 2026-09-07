@@ -1,13 +1,13 @@
 /* =========================================================
-   CALENDÁRIO 13 × 28
+   CALENDÁRIO 14 MESES — 13 × 27 + 14º MÊS
    =========================================================
 
-   13 meses
-   28 dias por mês
-   364 dias
+   13 meses de 27 dias
+   14º mês de 14 dias
+   14º mês de 15 dias em ano bissexto
 
-   Início:
-   01/01/2026
+   365 dias em ano comum
+   366 dias em ano bissexto
 
    ========================================================= */
 
@@ -16,12 +16,16 @@
    CONFIGURAÇÕES
 ========================================================= */
 
-const TOTAL_MESES = 13;
+const TOTAL_MESES = 14;
 
-const DIAS_POR_MES = 28;
+const MESES_REGULARES = 13;
+
+const DIAS_POR_MES = 27;
 
 const DIAS_REGULARES =
-    TOTAL_MESES * DIAS_POR_MES;
+    MESES_REGULARES * DIAS_POR_MES;
+
+const DIAS_MES_FINAL = 14;
 
 
 /* =========================================================
@@ -51,7 +55,8 @@ const nomesMeses = [
     "Dez",
     "Onze",
     "Doze",
-    "Treze"
+    "Treze",
+    "Catorze"
 
 ];
 
@@ -131,6 +136,33 @@ function quantidadeDiasNoAno(ano) {
 
 
 /* =========================================================
+   DIAS DO 14º MÊS
+========================================================= */
+
+function quantidadeDiasMes(mes, ano) {
+
+    /*
+       Os primeiros 13 meses possuem 27 dias.
+
+       O 14º mês possui:
+       - 14 dias em ano comum
+       - 15 dias em ano bissexto
+    */
+
+    if (mes === TOTAL_MESES) {
+
+        return ehBissexto(ano)
+            ? 15
+            : 14;
+
+    }
+
+    return DIAS_POR_MES;
+
+}
+
+
+/* =========================================================
    REDUÇÃO NUMEROLÓGICA
 =========================================================
 
@@ -146,8 +178,7 @@ function quantidadeDiasNoAno(ano) {
    12 → 1 + 2 = 3
    13 → 1 + 3 = 4
 
-   28 → 2 + 8 = 10
-      → 1 + 0 = 1
+   27 → 2 + 7 = 9
 
 ========================================================= */
 
@@ -179,22 +210,6 @@ function reduzirNumero(numero) {
 
 /* =========================================================
    CALENDÁRIO → GREGORIANO
-=========================================================
-
-   Mês 1 dia 1
-   = 01/01
-
-   Mês 1 dia 28
-   = 28/01
-
-   Mês 2 dia 1
-   = 29/01
-
-   ...
-
-   Mês 13 dia 28
-   = 30/12
-
 ========================================================= */
 
 function obterDataGregoriana(
@@ -203,17 +218,59 @@ function obterDataGregoriana(
     dia
 ) {
 
-    const numeroDoDia =
+    /*
+       Calcula o número do dia dentro
+       do calendário de 365/366 dias.
 
-        (
-            (mes - 1) *
-            DIAS_POR_MES
-        )
+       Meses 1–13:
+       27 dias cada.
 
-        +
+       Mês 14:
+       começa no dia 352.
+    */
 
-        dia;
+    let numeroDoDia = 0;
 
+
+    /*
+       Meses anteriores.
+    */
+
+    if (mes <= MESES_REGULARES) {
+
+        numeroDoDia =
+            (
+                (mes - 1) *
+                DIAS_POR_MES
+            )
+            +
+            dia;
+
+    }
+
+    else {
+
+        /*
+           O mês 14 começa depois dos
+           351 dias dos primeiros meses.
+        */
+
+        numeroDoDia =
+            DIAS_REGULARES +
+            dia;
+
+    }
+
+
+    /*
+       Criar a data gregoriana.
+
+       O Date usa:
+       1º de janeiro como dia 1.
+
+       Para chegar ao dia correto,
+       usamos numeroDoDia - 1.
+    */
 
     const data =
         new Date(
@@ -295,9 +352,9 @@ function criarDia(
     );
 
 
-    /* =====================================================
-       NÚMERO ORIGINAL
-    ===================================================== */
+    /*
+       Número original.
+    */
 
     const numero =
         document.createElement("div");
@@ -326,9 +383,9 @@ function criarDia(
     `;
 
 
-    /* =====================================================
-       DATA GREGORIANA
-    ===================================================== */
+    /*
+       Data gregoriana.
+    */
 
     const data =
         obterDataGregoriana(
@@ -353,9 +410,9 @@ function criarDia(
         );
 
 
-    /* =====================================================
-       ADICIONAR ELEMENTOS
-    ===================================================== */
+    /*
+       Adicionar elementos.
+    */
 
     elemento.appendChild(
         numero
@@ -367,9 +424,9 @@ function criarDia(
     );
 
 
-    /* =====================================================
-       VERIFICAR HOJE
-    ===================================================== */
+    /*
+       Verificar hoje.
+    */
 
     if (ehHoje(data)) {
 
@@ -380,9 +437,9 @@ function criarDia(
     }
 
 
-    /* =====================================================
-       CLIQUE
-    ===================================================== */
+    /*
+       Clique.
+    */
 
     elemento.addEventListener(
         "click",
@@ -408,7 +465,7 @@ function criarDia(
 
 
 /* =========================================================
-   POSICIONAR OS 28 DIAS EM CÍRCULO
+   POSICIONAR OS DIAS EM CÍRCULO
 ========================================================= */
 
 function posicionarDiasCirculares() {
@@ -445,10 +502,7 @@ function posicionarDiasCirculares() {
 
 
     /*
-       Raio do círculo dos dias.
-
-       0.39 significa aproximadamente
-       39% do tamanho disponível.
+       Raio do círculo.
     */
 
     const raio =
@@ -466,10 +520,16 @@ function posicionarDiasCirculares() {
 
             /*
                Divide os 360 graus igualmente
-               entre os 28 dias.
+               entre os dias existentes.
 
-               Começamos no topo:
-               -90 graus.
+               27 dias:
+               360 / 27
+
+               14 dias:
+               360 / 14
+
+               15 dias:
+               360 / 15
             */
 
             const angulo =
@@ -498,8 +558,7 @@ function posicionarDiasCirculares() {
 
 
             /*
-               Posiciona o dia em relação
-               ao centro do calendário.
+               Posiciona o dia.
             */
 
             elemento.style.transform =
@@ -613,7 +672,7 @@ window.addEventListener(
 
 
 /* =========================================================
-   RENDERIZAR OS 28 DIAS
+   RENDERIZAR OS DIAS DO MÊS
 ========================================================= */
 
 function renderizarDias() {
@@ -626,14 +685,26 @@ function renderizarDias() {
 
 
     /*
-       Criar exatamente 28 dias.
+       Descobrir quantos dias possui
+       o mês atual.
+    */
+
+    const quantidadeDias =
+        quantidadeDiasMes(
+            mesAtual,
+            anoAtual
+        );
+
+
+    /*
+       Criar os dias.
     */
 
     for (
 
         let dia = 1;
 
-        dia <= DIAS_POR_MES;
+        dia <= quantidadeDias;
 
         dia++
 
@@ -657,9 +728,8 @@ function renderizarDias() {
 
 
     /*
-       Espera o navegador calcular
-       o tamanho do calendário antes
-       de posicionar os elementos.
+       Esperar o navegador calcular
+       o tamanho do calendário.
     */
 
     requestAnimationFrame(
@@ -723,7 +793,11 @@ function renderizarCalendario() {
 
 
     /*
-       Dias extras.
+       Não precisamos mais de
+       "Dias Extras" separados.
+
+       O antigo campo é mantido
+       vazio para não quebrar o HTML.
     */
 
     renderizarDiasExtras();
@@ -802,15 +876,10 @@ function selecionarDia(
     */
 
     const numeroDoDia =
-
-        (
-            (mes - 1) *
-            DIAS_POR_MES
-        )
-
-        +
-
-        dia;
+        obterNumeroDoDia(
+            mes,
+            dia
+        );
 
 
     dayOfYear.textContent =
@@ -821,93 +890,68 @@ function selecionarDia(
 
 
 /* =========================================================
+   OBTER NÚMERO DO DIA NO ANO
+========================================================= */
+
+function obterNumeroDoDia(
+    mes,
+    dia
+) {
+
+    /*
+       Meses 1–13.
+    */
+
+    if (mes <= MESES_REGULARES) {
+
+        return (
+
+            (mes - 1) *
+            DIAS_POR_MES
+
+        ) + dia;
+
+    }
+
+
+    /*
+       Mês 14.
+    */
+
+    return (
+
+        DIAS_REGULARES +
+        dia
+
+    );
+
+}
+
+
+/* =========================================================
    DIAS EXTRAS
 ========================================================= */
 
 function renderizarDiasExtras() {
 
-    extraDays.innerHTML = "";
+    /*
+       O sistema antigo possuía uma área
+       separada para Dias Extras.
 
+       Agora os dias 365/366 pertencem
+       ao 14º mês.
 
-    const totalDias =
-        quantidadeDiasNoAno(
-            anoAtual
-        );
+       Portanto deixamos essa área vazia.
+    */
 
+    if (!extraDays) {
 
-    const quantidadeExtras =
-        totalDias -
-        DIAS_REGULARES;
-
-
-    for (
-
-        let i = 1;
-
-        i <= quantidadeExtras;
-
-        i++
-
-    ) {
-
-        /*
-           O dia extra vem depois
-           dos 364 dias normais.
-        */
-
-        const data =
-            new Date(
-
-                anoAtual,
-                0,
-                DIAS_REGULARES + i
-
-            );
-
-
-        const elemento =
-            document.createElement("div");
-
-
-        elemento.classList.add(
-            "extra-day"
-        );
-
-
-        elemento.textContent =
-
-            `Dia Extra ${i} — ` +
-
-            data.toLocaleDateString(
-                "pt-BR"
-            );
-
-
-        elemento.addEventListener(
-            "click",
-            function () {
-
-                selectedDate.textContent =
-                    `Dia Extra ${i}`;
-
-
-                gregorianDate.textContent =
-                    `Data gregoriana: ${formatarData(data)}`;
-
-
-                dayOfYear.textContent =
-
-                    `Dia ${DIAS_REGULARES + i} de ${totalDias}`;
-
-            }
-        );
-
-
-        extraDays.appendChild(
-            elemento
-        );
+        return;
 
     }
+
+
+    extraDays.innerHTML = "";
 
 }
 
@@ -922,10 +966,10 @@ function mudarMes(valor) {
 
 
     /*
-       Passou do mês 13.
+       Passou do mês 14.
     */
 
-    if (mesAtual > 13) {
+    if (mesAtual > TOTAL_MESES) {
 
         mesAtual = 1;
 
@@ -940,7 +984,7 @@ function mudarMes(valor) {
 
     if (mesAtual < 1) {
 
-        mesAtual = 13;
+        mesAtual = TOTAL_MESES;
 
         anoAtual--;
 
@@ -974,12 +1018,17 @@ function irParaHoje() {
     const hoje = new Date();
 
 
+    /*
+       Ano atual.
+    */
+
     anoAtual =
         hoje.getFullYear();
 
 
     /*
-       Início do ano.
+       Número do dia gregoriano
+       dentro do ano.
     */
 
     const inicioDoAno =
@@ -991,10 +1040,6 @@ function irParaHoje() {
 
         );
 
-
-    /*
-       Diferença em dias.
-    */
 
     const diferenca =
         Math.floor(
@@ -1018,6 +1063,8 @@ function irParaHoje() {
 
     /*
        Número do dia do ano.
+
+       1 = 1º de janeiro
     */
 
     const numeroDoDia =
@@ -1025,15 +1072,19 @@ function irParaHoje() {
 
 
     /*
-       Dias normais.
+       Descobrir o mês do calendário.
     */
 
     if (
-
         numeroDoDia <=
         DIAS_REGULARES
-
     ) {
+
+        /*
+           Meses 1–13.
+
+           Cada um possui 27 dias.
+        */
 
         mesAtual =
 
@@ -1053,14 +1104,14 @@ function irParaHoje() {
 
     }
 
-
     else {
 
         /*
-           Dia extra.
+           Dias 352 em diante
+           pertencem ao mês 14.
         */
 
-        mesAtual = 13;
+        mesAtual = TOTAL_MESES;
 
     }
 
@@ -1076,14 +1127,19 @@ function irParaHoje() {
        Selecionar o dia atual.
     */
 
-    if (
+    let dia;
 
+
+    if (
         numeroDoDia <=
         DIAS_REGULARES
-
     ) {
 
-        const dia =
+        /*
+           Dia dentro dos meses 1–13.
+        */
+
+        dia =
 
             (
                 (
@@ -1098,38 +1154,66 @@ function irParaHoje() {
 
             + 1;
 
+    }
 
-        const elementos =
-            document.querySelectorAll(
-                ".day"
-            );
+    else {
+
+        /*
+           Dia dentro do mês 14.
+
+           352 → dia 1
+           353 → dia 2
+           ...
+           365 → dia 14
+           366 → dia 15
+        */
+
+        dia =
+            numeroDoDia -
+            DIAS_REGULARES;
+
+    }
 
 
-        if (
-            elementos[dia - 1]
-        ) {
+    /*
+       Localizar elemento.
+    */
 
-            const data =
-                obterDataGregoriana(
-
-                    anoAtual,
-                    mesAtual,
-                    dia
-
-                );
+    const elementos =
+        document.querySelectorAll(
+            ".day"
+        );
 
 
-            selecionarDia(
+    /*
+       O índice começa em zero.
+    */
+
+    const indice =
+        dia - 1;
+
+
+    if (elementos[indice]) {
+
+        const data =
+            obterDataGregoriana(
 
                 anoAtual,
                 mesAtual,
-                dia,
-                data,
-                elementos[dia - 1]
+                dia
 
             );
 
-        }
+
+        selecionarDia(
+
+            anoAtual,
+            mesAtual,
+            dia,
+            data,
+            elementos[indice]
+
+        );
 
     }
 
