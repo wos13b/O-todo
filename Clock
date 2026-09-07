@@ -113,19 +113,19 @@ let mesAtual = 1;
 const nomesMeses = [
 
     "Uno",
-    "Dat",
-    "Triv",
-    "Quadro",
+    "Duo",
+    "Tri",
+    "Quadra",
     "Quinta",
     "Sexto",
     "Sevei",
     "Octo",
     "Nono",
     "Dez",
-    "Onze",
-    "Doze",
-    "Treze",
-    "Catorze"
+    "Unz",
+    "Doz",
+    "Trez",
+    "Cato"
 
 ];
 

@@ -121,7 +121,7 @@
 ================================ */
 
 .calendar {
-    width: min(760px, 90vw);
+    width: min(620px, 90vw);
     aspect-ratio: 1 / 1;
     margin: 0 auto;
     position: relative;
@@ -274,8 +274,8 @@
     left: 50%;
     top: 50%;
 
-    width: clamp(55px, 8vw, 72px);
-    height: clamp(55px, 8vw, 72px);
+    width: clamp(55px, 8vw, 50px);
+    height: clamp(55px, 8vw, 50px);
 
     margin-left: calc(clamp(55px, 8vw, 72px) / -2);
     margin-top: calc(clamp(55px, 8vw, 72px) / -2);
@@ -351,7 +351,7 @@
 
     margin-top: 4px;
 
-    font-size: clamp(7px, 1vw, 10px);
+    font-size: clamp(7px, 1vw, 6px);
 
     opacity: 0.45;
 }
