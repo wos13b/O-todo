@@ -189,7 +189,7 @@ body::-webkit-scrollbar {
     font-size: 1.2em;
 }
 
-.Conteudo > .Mov{
+.Conteudo .Mov{
 
     font: Movie;
 
