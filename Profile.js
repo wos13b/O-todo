@@ -1206,10 +1206,12 @@ async function salvarPerfil() {
 // CANCELAR EDIÇÃO
 // =========================================================
 
-function cancelarEdicaoPerfil() {
+async function cancelarEdicaoPerfil() {
 
-    carregarPerfil();
+    // Recarrega os dados originais do Supabase
+    await carregarPerfil();
 
+    // Volta o botão para "Editar perfil"
     removerModoEdicao();
 }
 
@@ -1258,7 +1260,6 @@ function removerModoEdicao() {
             editarPerfil;
     }
 }
-
 
 // =========================================================
 // CONFIGURAR PERFIL
@@ -1316,13 +1317,16 @@ function configurarPerfil() {
 
     if (botaoEditar) {
 
-        botaoEditar.addEventListener(
-            "click",
-            editarPerfil
-        );
+        // IMPORTANTE:
+        // Usamos somente onclick.
+        // Não usamos addEventListener aqui,
+        // pois o onclick é alterado entre
+        // EDITAR e SALVAR.
+
+        botaoEditar.onclick =
+            editarPerfil;
     }
 }
-
 
 // =========================================================
 // INICIALIZAÇÃO
