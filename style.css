@@ -292,7 +292,7 @@ body::-webkit-scrollbar {
    ========================================================= */
 
 strong {
-    font-size: large;
+    font-size: medium;
 
     color: #00d2ff;
 }
