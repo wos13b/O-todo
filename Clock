@@ -146,6 +146,10 @@ const yearDisplay =
     document.getElementById("yearDisplay");
 
 
+const yearNumerology =
+    document.getElementById("yearNumerology");
+
+
 const selectedDate =
     document.getElementById("selectedDate");
 
@@ -1217,7 +1221,14 @@ function renderizarCalendario() {
     */
 
     yearDisplay.textContent =
-        anoAtual;
+    anoAtual;
+
+    if (yearNumerology) {
+
+        yearNumerology.textContent =
+            reduzirNumero(anoAtual);
+
+    }
 
 
     /*
