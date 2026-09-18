@@ -20,15 +20,6 @@
     font-style: normal;
 }
 
-@font-face {
-    font-family: Movie;
-    src: url('Font/Steudel.ttf') format('truetype');
-    font-weight: 900;
-    font-style: normal;
-}
-
-
-
 /* =========================================================
    BODY
    ========================================================= */
@@ -187,12 +178,6 @@ body::-webkit-scrollbar {
     margin: 10px 0;
 
     font-size: 1.2em;
-}
-
-.Conteudo .Mov{
-
-    font-family: Movie;
-
 }
 
 
