@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Acervo — Biblioteca Digital</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         CABEÇALHO
+    ========================== -->
+
+    <header class="header">
+
+        <div class="logo">
+            <span class="logo-symbol">✦</span>
+            <span>ACERVO</span>
+        </div>
+
+        <nav class="nav">
+            <button onclick="mostrarPagina('inicio')">
+                Início
+            </button>
+
+            <button onclick="mostrarPagina('catalogo')">
+                Obras
+            </button>
+
+            <button onclick="mostrarPagina('autores')">
+                Autores
+            </button>
+
+            <button onclick="mostrarPagina('sobre')">
+                Sobre
+            </button>
+        </nav>
+
+        <button
+            class="theme-button"
+            onclick="alternarTema()"
+            title="Alternar tema"
+        >
+            ☾
+        </button>
+
+    </header>
+
+
+    <!-- =========================
+         CONTEÚDO PRINCIPAL
+    ========================== -->
+
+    <main>
+
+
+        <!-- =========================
+             PÁGINA INICIAL
+        ========================== -->
+
+        <section id="pagina-inicio" class="pagina">
+
+            <div class="hero">
+
+                <div class="hero-content">
+
+                    <div class="hero-symbol">
+                        ✦
+                    </div>
+
+                    <h1>
+                        O conhecimento<br>
+                        <span>preservado.</span>
+                    </h1>
+
+                    <p>
+                        Um acervo digital dedicado à literatura,
+                        filosofia, poesia, história e às grandes
+                        obras do pensamento humano.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <button
+                            class="button-primary"
+                            onclick="mostrarPagina('catalogo')"
+                        >
+                            Explorar o acervo
+                        </button>
+
+                        <button
+                            class="button-secondary"
+                            onclick="mostrarPagina('autores')"
+                        >
+                            Conhecer autores
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Destaques -->
+
+            <section class="section">
+
+                <div class="section-header">
+
+                    <div>
+                        <span class="section-label">
+                            COLEÇÃO
+                        </span>
+
+                        <h2>
+                            Obras em destaque
+                        </h2>
+                    </div>
+
+                    <button
+                        class="text-button"
+                        onclick="mostrarPagina('catalogo')"
+                    >
+                        Ver todo o acervo →
+                    </button>
+
+                </div>
+
+                <div
+                    id="obras-destaque"
+                    class="books-grid"
+                ></div>
+
+            </section>
+
+
+            <!-- Categorias -->
+
+            <section class="section">
+
+                <span class="section-label">
+                    EXPLORAR
+                </span>
+
+                <h2>
+                    Categorias
+                </h2>
+
+                <div class="categories">
+
+                    <button onclick="filtrarCategoria('Literatura')">
+                        <span>📖</span>
+                        Literatura
+                    </button>
+
+                    <button onclick="filtrarCategoria('Filosofia')">
+                        <span>◈</span>
+                        Filosofia
+                    </button>
+
+                    <button onclick="filtrarCategoria('Poesia')">
+                        <span>✒</span>
+                        Poesia
+                    </button>
+
+                    <button onclick="filtrarCategoria('Mitologia')">
+                        <span>♜</span>
+                        Mitologia
+                    </button>
+
+                    <button onclick="filtrarCategoria('História')">
+                        <span>⌛</span>
+                        História
+                    </button>
+
+                    <button onclick="filtrarCategoria('Ciência')">
+                        <span>✧</span>
+                        Ciência
+                    </button>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- =========================
+             CATÁLOGO
+        ========================== -->
+
+        <section
+            id="pagina-catalogo"
+            class="pagina hidden"
+        >
+
+            <div class="page-title">
+
+                <span class="section-label">
+                    BIBLIOTECA
+                </span>
+
+                <h1>
+                    Catálogo
+                </h1>
+
+                <p>
+                    Explore as obras disponíveis no acervo.
+                </p>
+
+            </div>
+
+
+            <!-- Busca -->
+
+            <div class="search-container">
+
+                <span class="search-icon">
+                    🔎
+                </span>
+
+                <input
+                    type="text"
+                    id="campo-busca"
+                    placeholder="Pesquisar por título, autor ou palavra-chave..."
+                    oninput="pesquisarObras()"
+                >
+
+            </div>
+
+
+            <!-- Filtros -->
+
+            <div class="filters">
+
+                <button
+                    class="filter active"
+                    onclick="filtrarCategoria('Todos')"
+                >
+                    Todos
+                </button>
+
+                <button
+                    class="filter"
+                    onclick="filtrarCategoria('Literatura')"
+                >
+                    Literatura
+                </button>
+
+                <button
+                    class="filter"
+                    onclick="filtrarCategoria('Filosofia')"
+                >
+                    Filosofia
+                </button>
+
+                <button
+                    class="filter"
+                    onclick="filtrarCategoria('Poesia')"
+                >
+                    Poesia
+                </button>
+
+                <button
+                    class="filter"
+                    onclick="filtrarCategoria('Mitologia')"
+                >
+                    Mitologia
+                </button>
+
+                <button
+                    class="filter"
+                    onclick="filtrarCategoria('História')"
+                >
+                    História
+                </button>
+
+                <button
+                    class="filter"
+                    onclick="filtrarCategoria('Ciência')"
+                >
+                    Ciência
+                </button>
+
+            </div>
+
+
+            <div
+                id="catalogo-obras"
+                class="books-grid"
+            ></div>
+
+        </section>
+
+
+        <!-- =========================
+             AUTORES
+        ========================== -->
+
+        <section
+            id="pagina-autores"
+            class="pagina hidden"
+        >
+
+            <div class="page-title">
+
+                <span class="section-label">
+                    PESSOAS
+                </span>
+
+                <h1>
+                    Autores
+                </h1>
+
+                <p>
+                    Conheça os autores presentes no acervo.
+                </p>
+
+            </div>
+
+            <div
+                id="lista-autores"
+                class="authors-grid"
+            ></div>
+
+        </section>
+
+
+        <!-- =========================
+             SOBRE
+        ========================== -->
+
+        <section
+            id="pagina-sobre"
+            class="pagina hidden"
+        >
+
+            <div class="page-title">
+
+                <span class="section-label">
+                    O PROJETO
+                </span>
+
+                <h1>
+                    Sobre o Acervo
+                </h1>
+
+            </div>
+
+            <div class="about-content">
+
+                <p>
+                    O Acervo é uma biblioteca digital criada para
+                    organizar e apresentar obras literárias e
+                    intelectuais de diferentes épocas e tradições.
+                </p>
+
+                <p>
+                    A proposta é construir uma biblioteca onde
+                    diferentes autores, ideias, períodos históricos
+                    e tradições possam ser explorados em conjunto.
+                </p>
+
+                <div class="about-box">
+
+                    <span>✦</span>
+
+                    <div>
+
+                        <h3>
+                            Conhecer é preservar.
+                        </h3>
+
+                        <p>
+                            Cada obra representa uma parte da
+                            história intelectual da humanidade.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             DETALHES DA OBRA
+        ========================== -->
+
+        <section
+            id="pagina-obra"
+            class="pagina hidden"
+        >
+
+            <button
+                class="back-button"
+                onclick="mostrarPagina('catalogo')"
+            >
+                ← Voltar ao catálogo
+            </button>
+
+            <div id="detalhes-obra"></div>
+
+        </section>
+
+
+        <!-- =========================
+             LEITOR
+        ========================== -->
+
+        <section
+            id="pagina-leitor"
+            class="pagina hidden"
+        >
+
+            <div class="reader-toolbar">
+
+                <button
+                    onclick="voltarDaLeitura()"
+                >
+                    ← Voltar
+                </button>
+
+                <div id="reader-title">
+                    Leitura
+                </div>
+
+                <div class="reader-controls">
+
+                    <button onclick="alterarFonte(-1)">
+                        A-
+                    </button>
+
+                    <button onclick="alterarFonte(1)">
+                        A+
+                    </button>
+
+                    <button onclick="alternarModoLeitura()">
+                        ☾
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <article
+                id="texto-leitura"
+                class="reader"
+            ></article>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         RODAPÉ
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-logo">
+            ✦ ACERVO
+        </div>
+
+        <p>
+            Biblioteca Digital
+        </p>
+
+        <p class="copyright">
+            Projeto experimental — HTML, CSS e JavaScript
+        </p>
+
+    </footer>
+
+    <script src="Livros.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
