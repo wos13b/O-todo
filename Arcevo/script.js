@@ -308,6 +308,10 @@ function abrirObra(id) {
    LEITURA
 ===================================================== */
 
+/* =====================================================
+   LEITURA (Com Iframe)
+===================================================== */
+
 function iniciarLeitura(id) {
 
     const obra =
@@ -330,21 +334,18 @@ function iniciarLeitura(id) {
         );
 
     if (obra.texto && obra.texto.endsWith('.html')) {
-        fetch(obra.texto)
-            .then(response => response.text())
-            .then(html => {
-                leitor.innerHTML = html;
-                leitor.style.fontSize = `${fonteAtual}px`;
-                mostrarPagina("leitor");
-            })
-            .catch(error => {
-                leitor.innerHTML = `<h1>${obra.titulo}</h1><p>Não foi possível carregar o texto da obra.</p>`;
-                leitor.style.fontSize = `${fonteAtual}px`;
-                mostrarPagina("leitor");
-            });
+        // Se for um arquivo HTML, definimos o atributo src para carregar o arquivo e seus estilos normalmente
+        leitor.src = obra.texto;
+        
+        // Aguarda o iframe carregar para aplicar o tamanho da fonte inicial
+        leitor.onload = function() {
+            aplicarFonteIframe(leitor, fonteAtual);
+        };
+
+        mostrarPagina("leitor");
     } else {
-        leitor.innerHTML = obra.texto || `<p>Texto indisponível.</p>`;
-        leitor.style.fontSize = `${fonteAtual}px`;
+        // Caso seja texto puro (fallback), convertemos o iframe temporariamente ou tratamos a string
+        leitor.srcdoc = obra.texto || `<p>Texto indisponível.</p>`;
         mostrarPagina("leitor");
     }
 
@@ -352,28 +353,7 @@ function iniciarLeitura(id) {
 
 
 /* =====================================================
-   VOLTAR DA LEITURA
-===================================================== */
-
-function voltarDaLeitura() {
-
-    if (obraAtual) {
-
-        abrirObra(
-            obraAtual.id
-        );
-
-    } else {
-
-        mostrarPagina("catalogo");
-
-    }
-
-}
-
-
-/* =====================================================
-   TAMANHO DA FONTE
+   TAMANHO DA FONTE (Adaptado para Iframe)
 ===================================================== */
 
 function alterarFonte(valor) {
@@ -397,9 +377,20 @@ function alterarFonte(valor) {
             "texto-leitura"
         );
 
-    leitor.style.fontSize =
-        `${fonteAtual}px`;
+    aplicarFonteIframe(leitor, fonteAtual);
 
+}
+
+// Função auxiliar para manipular o DOM interno do iframe com segurança
+function aplicarFonteIframe(iframe, tamanho) {
+    try {
+        const docIframe = iframe.contentDocument || iframe.contentWindow.document;
+        if (docIframe && docIframe.body) {
+            docIframe.body.style.fontSize = `${tamanho}px`;
+        }
+    } catch (e) {
+        console.error("Não foi possível alterar a fonte dentro do iframe devido a restrições de origem (CORS).", e);
+    }
 }
 
 
