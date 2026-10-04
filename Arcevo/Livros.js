@@ -386,5 +386,17 @@ const obras = [
         capa: "Livros/livro-102/capa.png",
         texto: "Livros/livro-102/texto.html",
         destaque: false
+    },
+
+    {
+        id: 103,
+        titulo: "O Banquete e Apologia a Sócrates - Platão",
+        autor: "Platão",
+        categoria: "Filosofia",
+        periodo: "Idade Moderna",
+        ano: "2022",
+        capa: "Livros/livro-103/capa.png",
+        texto: "Livros/livro-103/texto.html",
+        destaque: false
     }
 ];
