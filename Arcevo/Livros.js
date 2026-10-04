@@ -383,7 +383,7 @@ const obras = [
         categoria: "Ocultismo",
         periodo: "Idade Moderna",
         ano: "2024",
-        capa: "Livros/livro-101/capa.png",
+        capa: "Livros/livro-102/capa.png",
         texto: "",
         destaque: false
     }
