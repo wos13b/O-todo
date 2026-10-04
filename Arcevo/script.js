@@ -303,7 +303,7 @@ function abrirObra(id) {
 
 
 /* =====================================================
-   LEITURA (Com Iframe)
+   ABRIR HTML DIRETO DO LIVRO
 ===================================================== */
 
 function iniciarLeitura(id) {
@@ -317,17 +317,11 @@ function iniciarLeitura(id) {
 
     obraAtual = obra;
 
-    const leitor =
-        document.getElementById(
-            "texto-leitura"
-        );
-
     if (obra.texto && obra.texto.endsWith('.html')) {
-        leitor.src = obra.texto;
-        mostrarPagina("leitor");
+        // Abre o ficheiro HTML do livro diretamente numa nova aba
+        window.open(obra.texto, '_blank');
     } else {
-        leitor.srcdoc = obra.texto || `<p>Texto indisponível.</p>`;
-        mostrarPagina("leitor");
+        alert("O ficheiro HTML desta obra não está disponível.");
     }
 
 }
