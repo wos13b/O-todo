@@ -265,12 +265,12 @@ const obras = [
     },
     {
         id: 25,
-        titulo: "Memórias de Javé",
+        titulo: "As Memórias de Javé",
         autor: "Jan Val Ellam",
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2017",
-        capa: "livros/livro-025/capa.png",
+        capa: "Livros/livro-025/capa.png",
         texto: "",
         destaque: false
     },
@@ -281,7 +281,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2017",
-        capa: "livros/livro-026/capa.png",
+        capa: "Livros/livro-026/capa.png",
         texto: "",
         destaque: false
     },
