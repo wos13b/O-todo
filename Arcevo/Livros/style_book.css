@@ -81,7 +81,7 @@ h1.livro-title {
     user-select: none;
 }
 
-/* List styling mimicking vintage book index */
+/* Sumário List Structure */
 .sumario-list {
     list-style: none;
     padding: 0;
@@ -90,29 +90,50 @@ h1.livro-title {
 
 .sumario-list li {
     font-family: 'IM Fell English', serif;
-    font-size: 1.25rem;
-    padding: 0.75rem 0;
-    border-bottom: 1px dotted #c9b68d;
+    font-size: 1.05rem;
+    padding: 0.5rem 0;
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-end;
     color: #382512;
     cursor: pointer;
-    transition: color 0.2s ease, padding-left 0.2s ease;
+    position: relative;
+    gap: 10px;
 }
 
 .sumario-list li:hover {
     color: #7a521a;
-    padding-left: 6px;
 }
 
-/* Adding dummy page numbers for classic look */
-.sumario-list li::after {
-    content: attr(data-page);
+/* Linha pontilhada de ponta a ponta por trás do texto */
+.sumario-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 35px;
+    bottom: 8px;
+    border-bottom: 1px dotted #b89753;
+    z-index: 1;
+}
+
+/* Título alinhado à esquerda cobrindo os pontos */
+.sumario-list .titulo-capitulo {
+    display: inline-block;
+    position: relative;
+    padding-right: 6px;
+    z-index: 2;
+    text-align: left;
+}
+
+/* Número da página fixo e alinhado à direita cobrindo os pontos */
+.sumario-list .numero-pagina {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: #6c5332;
+    padding-left: 6px;
+    z-index: 2;
+    white-space: nowrap;
 }
 
 /* Footer page number */
