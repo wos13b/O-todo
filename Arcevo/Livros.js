@@ -237,7 +237,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2016",
-        capa: "livros/livro-022/capa.png",
+        capa: "Livros/livro-022/capa.png",
         texto: "",
         destaque: false
     },
@@ -248,7 +248,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2016",
-        capa: "livros/livro-023/capa.png",
+        capa: "Livros/livro-023/capa.png",
         texto: "",
         destaque: false
     },
@@ -259,7 +259,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2016",
-        capa: "livros/livro-024/capa.png",
+        capa: "Livros/livro-024/capa.png",
         texto: "",
         destaque: false
     },
