@@ -17,7 +17,7 @@ const obras = [
         categoria: "Poesia",
         periodo: "Idade Média",
         ano: "1997",
-        capa: "livros/livro-002/capa.png",
+        capa: "Livros/livro-002/capa.png",
         texto: "livros/livro-002/texto.html",
         destaque: false
     },
@@ -28,7 +28,7 @@ const obras = [
         categoria: "Literatura",
         periodo: "Idade Moderna",
         ano: "1998",
-        capa: "livros/livro-003/capa.png",
+        capa: "Livros/livro-003/capa.png",
         texto: "livros/livro-003/texto.html",
         destaque: false
     },
@@ -39,7 +39,7 @@ const obras = [
         categoria: "Literatura",
         periodo: "Idade Moderna",
         ano: "1999",
-        capa: "livros/livro-004/capa.png",
+        capa: "Livros/livro-004/capa.png",
         texto: "",
         destaque: false
     },
@@ -50,7 +50,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2000",
-        capa: "livros/livro-005/capa.png",
+        capa: "Livros/livro-005/capa.png",
         texto: "",
         destaque: false
     },
@@ -61,7 +61,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2001",
-        capa: "livros/livro-006/capa.png",
+        capa: "Livros/livro-006/capa.png",
         texto: "",
         destaque: false
     },
@@ -72,7 +72,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2025",
-        capa: "livros/livro-007/capa.png",
+        capa: "Livros/livro-007/capa.png",
         texto: "",
         destaque: false
     },
@@ -83,7 +83,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2001",
-        capa: "livros/livro-008/capa.png",
+        capa: "Livros/livro-008/capa.png",
         texto: "",
         destaque: false
     },
@@ -94,7 +94,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2002",
-        capa: "livros/livro-009/capa.png",
+        capa: "Livros/livro-009/capa.png",
         texto: "",
         destaque: false
     },
@@ -105,7 +105,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2004",
-        capa: "livros/livro-010/capa.png",
+        capa: "Livros/livro-010/capa.png",
         texto: "",
         destaque: false
     },
@@ -116,7 +116,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2005",
-        capa: "livros/livro-011/capa.png",
+        capa: "Livros/livro-011/capa.png",
         texto: "",
         destaque: false
     },
@@ -127,7 +127,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2006",
-        capa: "livros/livro-012/capa.png",
+        capa: "Livros/livro-012/capa.png",
         texto: "",
         destaque: false
     },
@@ -138,7 +138,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2007",
-        capa: "livros/livro-013/capa.png",
+        capa: "Livros/livro-013/capa.png",
         texto: "",
         destaque: false
     },
@@ -149,7 +149,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2009",
-        capa: "livros/livro-014/capa.png",
+        capa: "Livros/livro-014/capa.png",
         texto: "",
         destaque: false
     },
@@ -160,7 +160,7 @@ const obras = [
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2010",
-        capa: "livros/livro-015/capa.png",
+        capa: "Livros/livro-015/capa.png",
         texto: "",
         destaque: false
     },
