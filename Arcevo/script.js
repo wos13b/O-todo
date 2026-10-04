@@ -9,8 +9,6 @@
 
 let categoriaAtual = "Todos";
 
-let fonteAtual = 20;
-
 let obraAtual = null;
 
 
@@ -305,10 +303,6 @@ function abrirObra(id) {
 
 
 /* =====================================================
-   LEITURA
-===================================================== */
-
-/* =====================================================
    LEITURA (Com Iframe)
 ===================================================== */
 
@@ -323,86 +317,18 @@ function iniciarLeitura(id) {
 
     obraAtual = obra;
 
-    document.getElementById(
-        "reader-title"
-    ).textContent =
-        obra.titulo;
-
     const leitor =
         document.getElementById(
             "texto-leitura"
         );
 
     if (obra.texto && obra.texto.endsWith('.html')) {
-        // Se for um arquivo HTML, definimos o atributo src para carregar o arquivo e seus estilos normalmente
         leitor.src = obra.texto;
-        
-        // Aguarda o iframe carregar para aplicar o tamanho da fonte inicial
-        leitor.onload = function() {
-            aplicarFonteIframe(leitor, fonteAtual);
-        };
-
         mostrarPagina("leitor");
     } else {
-        // Caso seja texto puro (fallback), convertemos o iframe temporariamente ou tratamos a string
         leitor.srcdoc = obra.texto || `<p>Texto indisponível.</p>`;
         mostrarPagina("leitor");
     }
-
-}
-
-
-/* =====================================================
-   TAMANHO DA FONTE (Adaptado para Iframe)
-===================================================== */
-
-function alterarFonte(valor) {
-
-    fonteAtual += valor;
-
-    if (fonteAtual < 14) {
-
-        fonteAtual = 14;
-
-    }
-
-    if (fonteAtual > 32) {
-
-        fonteAtual = 32;
-
-    }
-
-    const leitor =
-        document.getElementById(
-            "texto-leitura"
-        );
-
-    aplicarFonteIframe(leitor, fonteAtual);
-
-}
-
-// Função auxiliar para manipular o DOM interno do iframe com segurança
-function aplicarFonteIframe(iframe, tamanho) {
-    try {
-        const docIframe = iframe.contentDocument || iframe.contentWindow.document;
-        if (docIframe && docIframe.body) {
-            docIframe.body.style.fontSize = `${tamanho}px`;
-        }
-    } catch (e) {
-        console.error("Não foi possível alterar a fonte dentro do iframe devido a restrições de origem (CORS).", e);
-    }
-}
-
-
-/* =====================================================
-   MODO DE LEITURA
-===================================================== */
-
-function alternarModoLeitura() {
-
-    document.body.classList.toggle(
-        "reader-dark"
-    );
 
 }
 
@@ -552,7 +478,6 @@ function carregarAutores() {
             "lista-autores"
         );
 
-    // Mapeia os autores únicos presentes na lista de obras
     const autoresUnicos = {};
     
     obras.forEach(obra => {

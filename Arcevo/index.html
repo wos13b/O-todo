@@ -419,41 +419,7 @@
              LEITOR
         ========================== -->
 
-        <section
-            id="pagina-leitor"
-            class="pagina hidden"
-        >
-
-            <div class="reader-toolbar">
-
-                <button
-                    onclick="voltarDaLeitura()"
-                >
-                    ← Voltar
-                </button>
-
-                <div id="reader-title">
-                    Leitura
-                </div>
-
-                <div class="reader-controls">
-
-                    <button onclick="alterarFonte(-1)">
-                        A-
-                    </button>
-
-                    <button onclick="alterarFonte(1)">
-                        A+
-                    </button>
-
-                    <button onclick="alternarModoLeitura()">
-                        ☾
-                    </button>
-
-                </div>
-
-            </div>
-
+        <section id="pagina-leitor" class="pagina hidden">
 
             <!-- Agora (alterado para iframe) -->
             <iframe id="texto-leitura" style="width: 100%; height: 80vh; border: none;"></iframe>
