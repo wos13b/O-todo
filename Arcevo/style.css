@@ -93,7 +93,7 @@ body {
     z-index: 100;
 
     background:
-        rgba(12,10,18,0.85);
+        #1a1a1ad8;
 
     backdrop-filter:
         blur(18px);
