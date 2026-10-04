@@ -169,6 +169,30 @@ const obras = [
     },
 
     {
+        id: 15,
+        titulo:"O drama cósmico de javé",
+        autor: "Jan Val Ellam",
+        categoria:"Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2010",
+        capa:"livros/livro-015/capa.png",
+        texto:"",
+        destaque: false
+    },
+
+    {
+        id: 16,
+        titulo:"O Drama Espiritual de javé",
+        autor: "Jan Val Ellam",
+        categoria:"Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2011",
+        capa:"livros/livro-016/capa.png",
+        texto:"",
+        destaque: false
+    },
+
+    {
         id: 32,
         titulo:"O Quarto Logos",
         autor: "Jan Val Ellam",
