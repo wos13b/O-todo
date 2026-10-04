@@ -384,7 +384,7 @@ const obras = [
         periodo: "Idade Moderna",
         ano: "2024",
         capa: "Livros/livro-102/capa.png",
-        texto: "",
+        texto: "Livros/livro-102/texto.html",
         destaque: false
     }
 ];
