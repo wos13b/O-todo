@@ -1,3 +1,11 @@
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
 body {
     background-color: #2c1d11;
     background-image: radial-gradient(circle, #3d2719 0%, #1a100a 100%);
