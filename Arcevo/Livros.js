@@ -351,6 +351,7 @@ const obras = [
         texto: "",
         destaque: true
     },
+
     {
         id: 57,
         titulo: "O Funeral da Evidência: Problemas no Paraiso",
@@ -361,5 +362,17 @@ const obras = [
         capa: "Livros/livro-057/capa.png",
         texto: "",
         destaque: true
+    },
+
+    {
+        id: 101,
+        titulo: "Bhagavad Gita",
+        autor: "Carlos Eduardo Gonzales Barbosa",
+        categoria: "Literatura",
+        periodo: "Idade Moderna",
+        ano: "2018",
+        capa: "Livros/livro-101/capa.png",
+        texto: "",
+        destaque: false
     }
 ];
