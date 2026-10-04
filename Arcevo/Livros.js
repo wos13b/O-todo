@@ -374,5 +374,17 @@ const obras = [
         capa: "Livros/livro-101/capa.png",
         texto: "",
         destaque: false
+    },
+
+    {
+        id: 102,
+        titulo: "A clavícula de Salomão",
+        autor: "Samuel Liddell MacGregor Mathers",
+        categoria: "Ocultismo",
+        periodo: "Idade Moderna",
+        ano: "2024",
+        capa: "Livros/livro-101/capa.png",
+        texto: "",
+        destaque: false
     }
 ];
