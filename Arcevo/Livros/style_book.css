@@ -19,10 +19,21 @@ body {
     padding: 20px;
 }
 
-/* Book container simulation */
+/* Book container simulation (agora serve apenas como suporte geral) */
 .book-container {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
     width: 100%;
-    max-width: 750px;
+    max-width: 1400px; /* Aumentado para comportar duas páginas lado a lado */
+    box-sizing: border-box;
+}
+
+/* Cada página agora possui sua própria borda, fundo e sombra individual */
+.book-page {
+    width: 100%;
+    max-width: 650px;
     background-color: #f4ecd8;
     background-image: 
         radial-gradient(circle at center, rgba(244, 236, 216, 0) 0%, rgba(210, 195, 165, 0.4) 100%),
@@ -35,8 +46,8 @@ body {
     border-radius: 3px;
 }
 
-/* Inner decorative border line */
-.book-container::before {
+/* Borda interna decorativa aplicada individualmente a cada página */
+.book-page::before {
     content: '';
     position: absolute;
     top: 12px;
