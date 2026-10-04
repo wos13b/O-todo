@@ -1,8 +1,7 @@
 const obras = [
-
     {
         id: 1,
-        titulo: "Reintegração Cósmica:Anjos Decaidos",
+        titulo: "Reintegração Cósmica: Anjos Decaidos",
         autor: "Jan Val Ellam",
         categoria: "Filosofia",
         periodo: "Antiguidade",
@@ -11,7 +10,6 @@ const obras = [
         texto: "livros/livro-001/texto.html",
         destaque: false
     },
-
     {
         id: 2,
         titulo: "Caminhos Espirituais",
@@ -23,7 +21,6 @@ const obras = [
         texto: "livros/livro-002/texto.html",
         destaque: false
     },
-
     {
         id: 3,
         titulo: "Carma e Compromisso: Filhos das Estrelas",
@@ -35,185 +32,334 @@ const obras = [
         texto: "livros/livro-003/texto.html",
         destaque: false
     },
-
     {
         id: 4,
-        titulo:"Recado Cósmico: As revelações de jesus",
+        titulo: "Recado Cósmico: As revelações de Jesus",
         autor: "Jan Val Ellam",
-        categoria:"literatura",
+        categoria: "Literatura",
         periodo: "Idade Moderna",
         ano: "1999",
-        capa:"livros/livro-004/capa.png",
-        texto:"",
+        capa: "livros/livro-004/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
         id: 5,
-        titulo:"Nos Bastidores da Luz I",
+        titulo: "Nos Bastidores da Luz I",
         autor: "Jan Val Ellam",
-        categoria:"Espiritualidade",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2000",
-        capa:"livros/livro-005/capa.png",
-        texto:"",
+        capa: "livros/livro-005/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
         id: 6,
-        titulo:"O Sorriso do Mestre: Opusculo",
+        titulo: "O Sorriso do Mestre: Opusculo",
         autor: "Jan Val Ellam",
-        categoria:"Espiritualidade",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2001",
-        capa:"livros/livro-006/capa.png",
-        texto:"",
+        capa: "livros/livro-006/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
         id: 7,
-        titulo:"Muito Além do Horizonte: A ligação entre Kardec, Ramatis e Rochester, 2ª.ed.",
+        titulo: "Muito Além do Horizonte: A ligação entre Kardec, Ramatis e Rochester, 2ª.ed.",
         autor: "Jan Val Ellam",
-        categoria:"Espiritualidade",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2025",
-        capa:"livros/livro-007/capa.png",
-        texto:"",
+        capa: "livros/livro-007/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
         id: 8,
-        titulo:"Nos Céus da Grécia",
+        titulo: "Nos Céus da Grécia",
         autor: "Jan Val Ellam",
-        categoria:"Espiritualidade",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2001",
-        capa:"livros/livro-008/capa.png",
-        texto:"",
+        capa: "livros/livro-008/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
         id: 9,
-        titulo:"Jesus e o Enigma da Transfiguração",
+        titulo: "Jesus e o Enigma da Transfiguração",
         autor: "Jan Val Ellam",
-        categoria:"Espiritualidade",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2002",
-        capa:"livros/livro-009/capa.png",
-        texto:"",
+        capa: "livros/livro-009/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
         id: 10,
-        titulo:"Fator Extraterrestre",
+        titulo: "Fator Extraterrestre",
         autor: "Jan Val Ellam",
-        categoria:"Espiritualidade",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2004",
-        capa:"livros/livro-010/capa.png",
-        texto:"",
+        capa: "livros/livro-010/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
         id: 11,
-        titulo:"A Sétima Trombeta do Apocalipse: A Volta de Jesus",
+        titulo: "A Sétima Trombeta do Apocalipse: A Volta de Jesus",
         autor: "Jan Val Ellam",
-        categoria:"Espiritualidade",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2005",
-        capa:"livros/livro-011/capa.png",
-        texto:"",
+        capa: "livros/livro-011/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
         id: 12,
-        titulo:"Nos Bastidores da Luz II",
+        titulo: "Nos Bastidores da Luz II",
         autor: "Jan Val Ellam",
-        categoria:"Espiritualidade",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2006",
-        capa:"livros/livro-012/capa.png",
-        texto:"",
+        capa: "livros/livro-012/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
         id: 13,
-        titulo:"O Testamento de Jesus",
+        titulo: "O Testamento de Jesus",
         autor: "Jan Val Ellam",
-        categoria:"Espiritualidade",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2007",
-        capa:"livros/livro-013/capa.png",
-        texto:"",
+        capa: "livros/livro-013/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
         id: 14,
-        titulo:"Jesus e o Druida da Montanha: Aos 20 anos entre os Celtas",
+        titulo: "Jesus e o Druida da Montanha: Aos 20 anos entre os Celtas",
         autor: "Jan Val Ellam",
-        categoria:"Espiritualidade",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2009",
-        capa:"livros/livro-014/capa.png",
-        texto:"",
+        capa: "livros/livro-014/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
         id: 15,
-        titulo:"O drama cósmico de javé",
+        titulo: "O Drama Cósmico de Javé",
         autor: "Jan Val Ellam",
-        categoria:"Espiritualidade",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2010",
-        capa:"livros/livro-015/capa.png",
-        texto:"",
+        capa: "livros/livro-015/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
         id: 16,
-        titulo:"O Drama Espiritual de javé",
+        titulo: "O Drama Espiritual de Javé",
         autor: "Jan Val Ellam",
-        categoria:"Espiritualidade",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2011",
-        capa:"livros/livro-016/capa.png",
-        texto:"",
+        capa: "Livros/livro-016/capa.png",
+        texto: "",
         destaque: false
     },
-
     {
-        id: 32,
-        titulo:"O Quarto Logos",
+        id: 17,
+        titulo: "O Drama Terreno de Javé",
         autor: "Jan Val Ellam",
-        categoria:"literatura",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2012",
+        capa: "Livros/livro-017/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 18,
+        titulo: "Crônicas de um Novo Tempo",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2012",
+        capa: "Livros/livro-018/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 19,
+        titulo: "Favor Divino: O Contexto Problemático que Envolve a Vida Terrena",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2013",
+        capa: "Livros/livro-019/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 20,
+        titulo: "Cartas a Javé",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2014",
+        capa: "Livros/livro-020/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 21,
+        titulo: "O Sorriso de Pandora",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2015",
+        capa: "Livros/livro-021/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 22,
+        titulo: "O Big Data do Criador",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2016",
+        capa: "livros/livro-022/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 23,
+        titulo: "Terra Atlantis I: O Sinal de Land's End",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2016",
+        capa: "livros/livro-023/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 24,
+        titulo: "Homoafetividade: O Segredo do Éden",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2016",
+        capa: "livros/livro-024/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 25,
+        titulo: "Memórias de Javé",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2017",
+        capa: "livros/livro-025/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 26,
+        titulo: "O Guardião do Éden",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2017",
+        capa: "livros/livro-026/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 27,
+        titulo: "Inquisição Trimurtiana: Tempo de Apostasia",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2017",
+        capa: "livros/livro-027/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 28,
+        titulo: "Terra Atlantis II: A Frota Norte",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2017",
+        capa: "livros/livro-028/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 29,
+        titulo: "Nos Bastidores da Luz III",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
         periodo: "Idade Moderna",
         ano: "2018",
-        capa:"Livros/livro-032/capa.png",
-        texto:"",
+        capa: "Livros/livro-029/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 30,
+        titulo: "Inquisição Filosófica",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2018",
+        capa: "Livros/livro-030/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 31,
+        titulo: "O Dharma e as Castas Hindus",
+        autor: "Jan Val Ellam",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2018",
+        capa: "Livros/livro-031/capa.png",
+        texto: "",
+        destaque: false
+    },
+    {
+        id: 32,
+        titulo: "O Quarto Logos",
+        autor: "Jan Val Ellam",
+        categoria: "Literatura",
+        periodo: "Idade Moderna",
+        ano: "2018",
+        capa: "Livros/livro-032/capa.png",
+        texto: "",
         destaque: true
     },
-
     {
         id: 57,
-        titulo:"O Funeral da Evidência: Problemas no Paraiso",
+        titulo: "O Funeral da Evidência: Problemas no Paraiso",
         autor: "Jan Val Ellam",
-        categoria:"literatura",
+        categoria: "Literatura",
         periodo: "Idade Moderna",
         ano: "2026",
-        capa:"Livros/livro-057/capa.png",
-        texto:"",
+        capa: "Livros/livro-057/capa.png",
+        texto: "",
         destaque: true
     }
-
 ];
