@@ -65,6 +65,20 @@ body::before {
     pointer-events: none;
 }
 
+/* =========================================================
+   FUNDO MATRIX DINÂMICO
+   ========================================================= */
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2; /* Fica abaixo do fundo atual (body::before) ou ajuste conforme preferir */
+    pointer-events: none;
+    background-color: #1a1a1a; /* Um fundo escuro base caso queira remover o cinza sólido */
+}
+
 
 /* =========================================================
    HOME

@@ -203,17 +203,6 @@ async function verificarSessao() {
 // =========================================================
 // OBSERVAR ALTERAÇÕES DE AUTENTICAÇÃO
 // =========================================================
-//
-// Esta parte é importante.
-//
-// Quando o usuário:
-// - faz login
-// - faz logout
-// - recupera uma sessão
-// - muda o estado da autenticação
-//
-// o menu será atualizado automaticamente.
-//
 
 supabaseClient.auth.onAuthStateChange(
 
@@ -230,6 +219,65 @@ supabaseClient.auth.onAuthStateChange(
     }
 
 );
+
+
+// =========================================================
+// FUNÇÃO: EFEITO DE FUNDO MATRIX
+// =========================================================
+
+function iniciarFundoMatrix() {
+    const canvas = document.getElementById('matrix-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Caracteres utilizados na chuva (misturando números, letras e símbolos clássicos)
+    const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ';
+    const fontSize = 16;
+    let columns = Math.floor(canvas.width / fontSize);
+
+    let drops = [];
+    for (let i = 0; i < columns; i++) {
+        drops[i] = 1;
+    }
+
+    function drawMatrix() {
+        // Rastro escuro com transparência combinando com o tema (#2c2c2c)
+        ctx.fillStyle = 'rgba(44, 44, 44, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Cor do texto baseada na paleta do site (#ccffcc)
+        ctx.fillStyle = '#ccffcc';
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = characters.charAt(Math.floor(Math.random() * characters.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+
+    setInterval(drawMatrix, 33);
+
+    window.addEventListener('resize', () => {
+        columns = Math.floor(canvas.width / fontSize);
+        drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+    });
+}
 
 
 // =========================================================
@@ -276,8 +324,7 @@ function alternarMenu() {
 
 
 // =========================================================
-// FUNÇÃO AUXILIAR:
-// ABRE O CONTEÚDO COM ANIMAÇÃO
+// FUNÇÃO AUXILIAR: ABRIR CONTEÚDO COM ANIMAÇÃO
 // =========================================================
 
 function abrirConteudo(
@@ -307,8 +354,7 @@ function abrirConteudo(
 
 
 // =========================================================
-// FUNÇÃO AUXILIAR:
-// FECHA O CONTEÚDO COM ANIMAÇÃO
+// FUNÇÃO AUXILIAR: FECHAR CONTEÚDO COM ANIMAÇÃO
 // =========================================================
 
 function fecharConteudo(
@@ -330,9 +376,7 @@ function fecharConteudo(
 
 
 // =========================================================
-// FUNÇÃO:
-// CONTROLAR ANIMAÇÃO DOS <details>
-// PERSONALIZADOS
+// FUNÇÃO: CONTROLAR ANIMAÇÃO DOS <details>
 // =========================================================
 
 function configurarAnimacoesDetails() {
@@ -359,10 +403,6 @@ function configurarAnimacoesDetails() {
                 );
 
 
-            // =================================================
-            // VERIFICAR ELEMENTOS
-            // =================================================
-
             if (
                 !summaryBtn ||
                 !content
@@ -373,17 +413,9 @@ function configurarAnimacoesDetails() {
             }
 
 
-            // =================================================
-            // CONTEÚDO COMEÇA FECHADO
-            // =================================================
-
             content.style.maxHeight =
                 "0";
 
-
-            // =================================================
-            // CLIQUE
-            // =================================================
 
             summaryBtn.addEventListener(
 
@@ -396,10 +428,6 @@ function configurarAnimacoesDetails() {
                             "open"
                         );
 
-
-                    // =========================================
-                    // FECHAR
-                    // =========================================
 
                     if (isOpen) {
 
@@ -418,11 +446,6 @@ function configurarAnimacoesDetails() {
                         );
 
                     }
-
-
-                    // =========================================
-                    // ABRIR
-                    // =========================================
 
                     else {
 
@@ -452,8 +475,7 @@ function configurarAnimacoesDetails() {
 
 
 // =========================================================
-// FUNÇÃO:
-// TROCAR IDIOMA DA PÁGINA
+// FUNÇÃO: TROCAR IDIOMA DA PÁGINA
 // =========================================================
 
 function trocarIdioma(
@@ -555,8 +577,7 @@ languageSelector?.addEventListener(
 
 
 // =========================================================
-// EVENTO DE TECLA:
-// .Camp_code INPUT
+// EVENTO DE TECLA: .Camp_code INPUT
 // =========================================================
 
 inputCampCode?.addEventListener(
@@ -579,8 +600,7 @@ inputCampCode?.addEventListener(
 
 
 // =========================================================
-// EVENTO DE TECLA:
-// INPUT ORIGINAL search_camp
+// EVENTO DE TECLA: INPUT ORIGINAL search_camp
 // =========================================================
 
 inputCampo?.addEventListener(
@@ -611,6 +631,13 @@ document.addEventListener(
     "DOMContentLoaded",
 
     () => {
+
+        // ===============================================
+        // INICIALIZAR EFEITO MATRIX NO FUNDO
+        // ===============================================
+
+        iniciarFundoMatrix();
+
 
         // ===============================================
         // ANIMAÇÕES
