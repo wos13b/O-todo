@@ -570,6 +570,10 @@ function ehHoje(
    CRIAR UM DIA
 ========================================================= */
 
+/* =========================================================
+   CRIAR UM DIA
+========================================================= */
+
 function criarDia(
     ano,
     mes,
@@ -621,38 +625,6 @@ function criarDia(
 
 
     /*
-       Data gregoriana.
-    */
-
-    const data =
-        obterDataGregoriana(
-
-            ano,
-            mes,
-            dia
-
-        );
-
-
-    const gregoriano =
-        document.createElement(
-            "div"
-        );
-
-
-    gregoriano.classList.add(
-        "day-gregorian"
-    );
-
-
-    gregoriano.textContent =
-
-        data.toLocaleDateString(
-            "pt-BR"
-        );
-
-
-    /*
        Semana.
     */
 
@@ -674,14 +646,6 @@ function criarDia(
         );
 
 
-    /*
-       Guardar essas informações
-       no elemento.
-
-       Isso também pode ser usado
-       pelo CSS futuramente.
-    */
-
     elemento.dataset.semana =
         semana;
 
@@ -699,9 +663,18 @@ function criarDia(
     );
 
 
-    elemento.appendChild(
-        gregoriano
-    );
+    /*
+       Obter data gregoriana para verificação e eventos.
+    */
+
+    const data =
+        obterDataGregoriana(
+
+            ano,
+            mes,
+            dia
+
+        );
 
 
     /*

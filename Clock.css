@@ -244,7 +244,7 @@ body {
 
 /* Número do dia */
 .day-number {
-    font-size: clamp(9px, 2.2vw, 13px);
+    font-size: clamp(10px, 2.5vw, 14px);
     font-weight: bold;
     line-height: 1;
 }
@@ -257,14 +257,6 @@ body {
     color: #ff4a4a;
     margin: 1px 0 0;
     font-size: 0.5em;
-}
-
-/* Data gregoriana */
-.day-gregorian {
-    position: static;
-    margin-top: 0px;
-    font-size: clamp(4px, 1vw, 7.5px);
-    opacity: 0.45;
 }
 
 /* Hoje */
