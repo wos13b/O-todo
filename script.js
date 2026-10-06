@@ -239,7 +239,28 @@ function iniciarFundoMatrix() {
     window.addEventListener('resize', resizeCanvas);
 
     // Conjunto expandido abrangendo vários idiomas e símbolos universais
-    const rawCharacters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩअआइईउऊऋॠऌॡएऐओऔअंअःकखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसह';
+    const rawCharacters = '0123456789' +
+        // Alfabeto Latino (Maiúsculo e Minúsculo) + Acentuação Básica
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÀÁÂÃÇÉÊÍÓÔÕÚÑ' +
+        // Grego (Maiúsculo e Minúsculo)
+        'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω' +
+        // Cirílico (Russo/Básico)
+        'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюя' +
+        // Devanagari (Hindi/Sânscrito)
+        'अआइईउऊऋॠऌॡएऐओऔअंअःकखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसह' +
+        // Hebraico (Básico)
+        'אבגדהוזחטיכלמנסעפצקרשת' +
+        // Árabe (Formas isoladas básicas)
+        'ابتثجحخدذرزسشصضطظعغفقكلمنهوي' +
+        // Símbolos Astronômicos (Sol, Lua, Planetas)
+        '☉☽☿♀♁♂♃♄♅♆♇' +
+        // setas
+        '←↑→↓↔↕↖↗↘↙⇎⇕⇐⇑⇒⇓⇔⇕' +
+        // Símbolos Matemáticos e Úteis
+        '±×÷≠≈≤≥∞∑∏∫∂√' +
+        // Setas
+        '←↑→↓↔↕↖↗↘↙'
+    ;
     
     // Converte a string em um array seguro para lidar com caracteres complexos/multibyte
     const characters = Array.from(rawCharacters);
