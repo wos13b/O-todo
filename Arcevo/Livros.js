@@ -398,5 +398,16 @@ const obras = [
         capa: "Livros/livro-103/capa.png",
         texto: "Livros/livro-103/texto.html",
         destaque: false
+    },
+    {
+        id: 500,
+        titulo: "Mapa kamalistico",
+        autor: "Taynara/Hadasa",
+        categoria: "Espiritualidade",
+        periodo: "Idade Moderna",
+        ano: "2026",
+        capa: "Livros/livro-500/capa.png",
+        texto: "Livros/livro-500/texto.html",
+        destaque: false
     }
 ];
