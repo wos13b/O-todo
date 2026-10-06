@@ -956,7 +956,7 @@ function atualizarDiasDaSemana() {
 
 
 /* =========================================================
-   POSICIONAR AS SEMANAS EM CÍRCULO
+   POSICIONAR AS SEMANAS EM CÍRCULO (No centro das fatias)
 ========================================================= */
 
 function posicionarDiasDaSemana() {
@@ -992,9 +992,6 @@ function posicionarDiasDaSemana() {
 
     /*
        Raio do círculo interno.
-
-       Ele fica mais próximo
-       do centro.
     */
 
     const raio =
@@ -1005,7 +1002,7 @@ function posicionarDiasDaSemana() {
 
 
     /*
-       Posicionar as semanas.
+       Posicionar as semanas no centro de cada fatia.
     */
 
     elementos.forEach(
@@ -1014,6 +1011,14 @@ function posicionarDiasDaSemana() {
             elemento,
             indice
         ) {
+
+            /*
+               Calculamos o ângulo base de cada item e adicionamos
+               metade da largura de uma fatia ((Math.PI * 2) / total) / 2
+               para que o número fique exatamente no centro da fatia de pizza.
+            */
+
+            const anguloFatia = (Math.PI * 2) / total;
 
             const angulo =
 
@@ -1026,6 +1031,10 @@ function posicionarDiasDaSemana() {
 
                 Math.PI *
                 2
+
+                +
+
+                (anguloFatia / 2) // <-- Desfasamento para o centro da fatia
 
                 -
 

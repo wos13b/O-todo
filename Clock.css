@@ -165,6 +165,51 @@ body {
 }
 
 /* ================================
+   FATIAS DE PIZZA (Divisórias Radiais)
+================================ */
+
+.calendar::before {
+    content: "";
+    position: absolute;
+    inset: 5%;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1; /* Fica abaixo dos dias */
+    
+    /* Divisão em 3 fatias iguais de 120 graus (para os meses regulares de 3 semanas) */
+    background: conic-gradient(
+        from 0deg at 50% 50%,
+        rgba(255, 255, 255, 0.02) 0deg,
+        rgba(255, 255, 255, 0.02) 118deg,
+        rgba(0, 0, 0, 0.4) 118deg,
+        rgba(0, 0, 0, 0.4) 120deg,
+        
+        rgba(255, 255, 255, 0.05) 120deg,
+        rgba(255, 255, 255, 0.05) 238deg,
+        rgba(0, 0, 0, 0.4) 238deg,
+        rgba(0, 0, 0, 0.4) 240deg,
+        
+        rgba(255, 255, 255, 0.08) 240deg,
+        rgba(255, 255, 255, 0.08) 358deg,
+        rgba(0, 0, 0, 0.4) 358deg,
+        rgba(0, 0, 0, 0.4) 360deg
+    );
+    border: 1px solid #444;
+}
+
+/* Ajuste do anel interno para ocultar as linhas no centro */
+.calendar::after {
+    content: "";
+    position: absolute;
+    inset: 24%;
+    border: 1px solid #333;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 4;
+    background: #111;
+}
+
+/* ================================
    DIAS DA SEMANA
 ================================ */
 .weekdays {
