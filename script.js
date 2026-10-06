@@ -222,7 +222,7 @@ supabaseClient.auth.onAuthStateChange(
 
 
 // =========================================================
-// FUNÇÃO: EFEITO DE FUNDO MATRIX
+// FUNÇÃO: EFEITO DE FUNDO MATRIX (EXPANDIDO)
 // =========================================================
 
 function iniciarFundoMatrix() {
@@ -238,8 +238,12 @@ function iniciarFundoMatrix() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Caracteres utilizados na chuva (misturando números, letras e símbolos clássicos)
-    const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ';
+    // Conjunto expandido abrangendo vários idiomas e símbolos universais
+    const rawCharacters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩअआइईउऊऋॠऌॡएऐओऔअंअःकखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसह';
+    
+    // Converte a string em um array seguro para lidar com caracteres complexos/multibyte
+    const characters = Array.from(rawCharacters);
+
     const fontSize = 16;
     let columns = Math.floor(canvas.width / fontSize);
 
@@ -258,7 +262,7 @@ function iniciarFundoMatrix() {
         ctx.font = fontSize + 'px monospace';
 
         for (let i = 0; i < drops.length; i++) {
-            const text = characters.charAt(Math.floor(Math.random() * characters.length));
+            const text = characters[Math.floor(Math.random() * characters.length)];
             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
             if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {

@@ -112,20 +112,20 @@ let mesAtual = 1;
 
 const nomesMeses = [
 
-    "Uno",
-    "Duo",
-    "Tri",
-    "Quadra",
-    "Quinta",
-    "Sexto",
-    "Sevei",
-    "Octo",
-    "Nono",
-    "Dez",
-    "Unz",
-    "Doz",
-    "Trez",
-    "Ponte"
+    "Surya",
+    "Soma",
+    "Mangala",
+    "Budha",
+    "Guru",
+    "Shukra",
+    "Shani",
+    "Rahu",
+    "Ketu",
+    "Akasha",
+    "Prithvi",
+    "Dhruva",
+    "Nexus",
+    "Sandhi"
 
 ];
 

@@ -6,342 +6,344 @@
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="Livros.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="Profile.js" defer></script>
     <script src="script.js" defer></script>
     <script src="Anim.js" defer></script>
     <link rel="shortcut icon" href="ico/Logo.png" type="image/x-icon">
     <title>Crenças</title>
 </head>
 <body>
-    <div class="Home">
-        
-        <div class="header">
-            <button class="menu-toggle">☰</button>
-            <ul class="nav">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="Program.html">Program</a></li>
-                <li><a href="Fisica.html">Fisica</a></li>
-            </ul>
-            <ul class="nav_2">
-                <li><a href="Cruz.html">Fonte Divina</a></li>
-                <li><a href="EU.html">Ego</a></li>
-                <li><a href="Ling.html">Idiomas</a></li>
-                <li><a href="Padrão.html">Padrões universais</a></li>
-                <li><a href="log.html">Perfil</a></li>
-            </ul>
-            <div class="Log_perf">
-            </div>
+    
+    <canvas id="matrix-canvas"></canvas>
+    
+    <div class="header">
+        <button class="menu-toggle">☰</button>
+        <ul class="nav">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Program.html">Program</a></li>
+            <li><a href="Fisica.html">Fisica</a></li>
+        </ul>
+        <ul class="nav_2">
+            <li><a href="Cruz.html">Fonte Divina</a></li>
+            <li><a href="EU.html">Ego</a></li>
+            <li><a href="Ling.html">Idiomas</a></li>
+            <li><a href="Padrão.html">Padrões universais</a></li>
+            <li><a href="log.html">Perfil</a></li>
+        </ul>
+        <div class="Log_perf">
         </div>
-
     </div>
-        <div class="content">
-            <div class="Main">
-                <div class="Conteudo">
-                    <div class="Box_libre">
-                        <h1>O cosmo e a alquimia</h1>
-                        <p>
-                            O Sistema Solar é o conjunto formado pelo Sol, os planetas, luas, asteroides, 
-                            cometas, meteoroides e outros corpos que orbitam a nossa estrela, ligados pela 
-                            força da gravidade.
-                            Ele está localizado em um dos braços da galáxia Via Láctea, 
-                            mais especificamente no Braço de Órion.
-                        </p>
-                        <div class="Libres">
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Fogo</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Alquim_fogo.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Agua</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Alquim_agua.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Ar</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Alquim_ar.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Terra</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Alquim_terra.png" alt="">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="Libres">
-                            <a href="Sol/Sol.html">
-                                <div class="livro">
-                                    <h3>Sol</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Sol.png" alt="">
-                                </div>
-                            </a>
-                            <a href="Sol/Mercurio/Mercurio.html">
-                                <div class="livro">
-                                    <h3>Mercurio</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Mercurio.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Venus</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Venus.png" alt="">
-                                </div>
-                            </a>
-                            <a href="Sol/Terra/Cont/Cont.html">
-                                <div class="livro">
-                                    <h3>Terra</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Terra.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Marte</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Marte.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Júpiter</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Jupiter.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Saturno</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Saturno.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Urano</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Urano.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Netuno</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Netuno.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Plutão</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Plutão.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Ceres</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Ceres.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Eris</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Eris.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Haumea</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Haumea.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Makemake</h3>
-                                    <img src="img/Silhueta/Symb/Cosmo/Makemake.png" alt="">
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="Box_libre">
-                        <h1>Reinos da vida</h1>
-                        <p>
-                            Os reinos da vida são categorias biológicas usadas para classificar todos os 
-                            seres vivos com base em suas características estruturais, funcionais e genéticas. 
-                            Ao longo do tempo, diferentes sistemas de classificação foram propostos, 
-                            mas o mais aceito atualmente é o sistema de seis reinos, que se baseia 
-                            principalmente na análise genética e molecular.
-                        </p>
-                        <div class="Libres">
-                            <a href="5_reinos/Monera.html">
-                                <div class="livro">
-                                    <h3>Monera</h3>
-                                    <img src="img/Symb_rein/monera.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Arqueas</h3>
-                                    <img src="img/Symb_rein/monera.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Protista</h3>
-                                    <img src="img/Symb_rein/monera.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Fungi</h3>
-                                    <img src="img/Symb_rein/fungi.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Plantae</h3>
-                                    <img src="img/Symb_rein/planta.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Animalia</h3>
-                                    <img src="img/Symb_rein/animal.png" alt="">
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="Box_libre">
-                        <h1>Religiões</h1>
-                        <p>
-                            Religião é um sistema de crenças, valores e práticas que busca conectar o ser 
-                            humano com o sagrado, o divino ou o transcendente.
-                        </p>
-                        <div class="Libres">
-                            <a href="Sol/Terra/Cruz/Cruz_crist.html">
-                                <div class="livro">
-                                    <h3>Cristianismo</h3>
-                                    <img src="img/Symb_reli/Symb_cato.png" alt="">
-                                </div>
-                            </a>
-                            <a href="Cruz/Cruz_juda.html">
-                                <div class="livro">
-                                    <h3>Judaismo</h3>
-                                    <img src="img/Symb_reli/Symb_judai.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Islamismo</h3>
-                                    <img src="img/Symb_reli/Symb_islam.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Hinduismo</h3>
-                                    <img src="img/Symb_reli/Symb_hind.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Bahá'í</h3>
-                                    <img src="img/Symb_reli/Symb_Bahá'í.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Zoroastrismo</h3>
-                                    <img src="img/Symb_reli/Symb_zoroatri.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Budismo</h3>
-                                    <img src="img/Symb_reli/Symb_bud.png" alt="">
-                                </div>
-                            </a>
-                            <a href="">
-                                <div class="livro">
-                                    <h3>Candomblé</h3>
-                                    <img src="img/Symb_reli/Symb_cand.png" alt="">
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="livro">
-                                    <h3>Sikhismo</h3>
-                                    <img src="img/Symb_reli/Symb_shik.png" alt="Símbolo Sikhismo">
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="livro">
-                                    <h3>Jainismo</h3>
-                                    <img src="img/Symb_reli/Symb_jai.png" alt="Símbolo Jainismo">
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="livro">
-                                    <h3>Taoismo</h3>
-                                    <img src="img/Symb_reli/Symb_taoi.png" alt="Símbolo Taoismo">
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="livro">
-                                    <h3>Xintoísmo</h3>
-                                    <img src="img/Symb_reli/Symb_xint.png" alt="Símbolo Xintoísmo">
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="livro">
-                                    <h3>Espiritismo</h3>
-                                    <img src="img/Symb_reli/Symb_espi.png" alt="Símbolo Espiritismo">
-                                </div>
-                            </a>
-                        </div>
 
-                    </div>
-                    <div class="Box_libre">
-                        <h1>Teorias/Mitos</h1>
-                        <div class="Libres">
-                            <a href="Sol/Terra/Cruz/Cruz_aouz.html">
-                                <div class="livro">
-                                    <h3>AOUZ</h3>
-                                    <img src="img/Symb_reli/Symb_cicl.png" alt="">
-                                </div>
-                            </a>
+    <div class="content">
+        <div class="Main">
+            <div class="Conteudo">
+                
+                <div class="Box_libre">
+                    <h1>O cosmo e a alquimia</h1>
+                    <p>
+                        O Sistema Solar é o conjunto formado pelo Sol, os planetas, luas, asteroides, 
+                        cometas, meteoroides e outros corpos que orbitam a nossa estrela, ligados pela 
+                        força da gravidade.
+                        Ele está localizado em um dos braços da galáxia Via Láctea, 
+                        mais especificamente no Braço de Órion.
+                    </p>
+                    <div class="Libres">
+                        <a href="">
                             <div class="livro">
-                                <h3>Gnose</h3>
-                                <img src="img/Symb_reli/Symb_gnoses.png" alt="">
+                                <h3>Fogo</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Alquim_fogo.png" alt="">
                             </div>
+                        </a>
+                        <a href="">
                             <div class="livro">
-                                <h3>Hiperbóreo</h3>
+                                <h3>Agua</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Alquim_agua.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Ar</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Alquim_ar.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Terra</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Alquim_terra.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="Libres">
+                        <a href="Sol/Sol.html">
+                            <div class="livro">
+                                <h3>Sol</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Sol.png" alt="">
+                            </div>
+                        </a>
+                        <a href="Sol/Mercurio/Mercurio.html">
+                            <div class="livro">
+                                <h3>Mercurio</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Mercurio.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Venus</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Venus.png" alt="">
+                            </div>
+                        </a>
+                        <a href="Sol/Terra/Cont/Cont.html">
+                            <div class="livro">
+                                <h3>Terra</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Terra.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Marte</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Marte.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Júpiter</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Jupiter.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Saturno</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Saturno.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Urano</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Urano.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Netuno</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Netuno.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Plutão</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Plutão.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Ceres</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Ceres.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Eris</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Eris.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Haumea</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Haumea.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Makemake</h3>
+                                <img src="img/Silhueta/Symb/Cosmo/Makemake.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="Box_libre">
+                    <h1>Reinos da vida</h1>
+                    <p>
+                        Os reinos da vida são categorias biológicas usadas para classificar todos os 
+                        seres vivos com base em suas características estruturais, funcionais e genéticas. 
+                    </p>
+                    <div class="Libres">
+                        <a href="5_reinos/Monera.html">
+                            <div class="livro">
+                                <h3>Monera</h3>
+                                <img src="" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Arqueas</h3>
+                                <img src="" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Protista</h3>
+                                <img src="img/Symb_rein/monera.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Fungi</h3>
+                                <img src="img/Symb_rein/fungi.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Plantae</h3>
+                                <img src="img/Symb_rein/planta.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Animalia</h3>
+                                <img src="img/Symb_rein/animal.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="Box_libre">
+                    <h1>Religiões</h1>
+                    <p>
+                        Religião é um sistema de crenças, valores e práticas que busca conectar o ser 
+                        humano com o sagrado, o divino ou o transcendente.
+                    </p>
+                    <div class="Libres">
+                        <a href="Sol/Terra/Cruz/Cruz_crist.html">
+                            <div class="livro">
+                                <h3>Cristianismo</h3>
+                                <img src="img/Symb_reli/Symb_cato.png" alt="">
+                            </div>
+                        </a>
+                        <a href="Cruz/Cruz_juda.html">
+                            <div class="livro">
+                                <h3>Judaismo</h3>
+                                <img src="img/Symb_reli/Symb_judai.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Islamismo</h3>
+                                <img src="img/Symb_reli/Symb_islam.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Hinduismo</h3>
+                                <img src="img/Symb_reli/Symb_hind.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Bahá'í</h3>
+                                <img src="img/Symb_reli/Symb_Bahá'í.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Zoroastrismo</h3>
+                                <img src="img/Symb_reli/Symb_zoroatri.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Budismo</h3>
+                                <img src="img/Symb_reli/Symb_bud.png" alt="">
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="livro">
+                                <h3>Candomblé</h3>
+                                <img src="img/Symb_reli/Symb_cand.png" alt="">
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="livro">
+                                <h3>Sikhismo</h3>
+                                <img src="img/Symb_reli/Symb_shik.png" alt="">
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="livro">
+                                <h3>Jainismo</h3>
+                                <img src="img/Symb_reli/Symb_jai.png" alt="">
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="livro">
+                                <h3>Taoismo</h3>
+                                <img src="img/Symb_reli/Symb_taoi.png" alt="">
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="livro">
+                                <h3>Xintoísmo</h3>
+                                <img src="img/Symb_reli/Symb_xint.png" alt="">
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="livro">
+                                <h3>Espiritismo</h3>
+                                <img src="img/Symb_reli/Symb_espi.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="Box_libre">
+                    <h1>Teorias/Mitos</h1>
+                    <div class="Libres">
+                        <a href="Sol/Terra/Cruz/Cruz_aouz.html">
+                            <div class="livro">
+                                <h3>AOUZ</h3>
                                 <img src="img/Symb_reli/Symb_cicl.png" alt="">
                             </div>
-                            <div class="livro">
-                                <h3>Hermetismo</h3>
-                                <img src="img/Symb_reli/Symb_herm.png" alt="">
-                            </div>
-                            <div class="livro">
-                                <h3>Teosofia</h3>
-                                <img src="img/Symb_reli/Symb_teosof.png" alt="">
-                            </div>
-                            <div class="livro">
-                                <h3>Alquimia</h3>
-                                <img src="img/Symb_reli/Symb_alquim.png" alt="">
-                            </div>
-                            <div class="livro">
-                                <h3>Nórdica</h3>
-                                <img src="img/Symb_reli/Symb_triquet.png" alt="">
-                            </div>
-                            <div class="livro">
-                                <h3>Atlântida</h3>
-                            </div>
-                            <div class="livro">
-                                <h3>Agartha</h3>
-                            </div>
-                            <div class="livro">
-                                <h3>Cicada 3301</h3>
-                            </div>
-                            <div class="livro">
-                                <h3>Enochiano</h3>
-                            </div>
+                        </a>
+                        <div class="livro">
+                            <h3>Gnose</h3>
+                            <img src="img/Symb_reli/Symb_gnoses.png" alt="">
+                        </div>
+                        <div class="livro">
+                            <h3>Hiperbóreo</h3>
+                            <img src="img/Symb_reli/Symb_cicl.png" alt="">
+                        </div>
+                        <div class="livro">
+                            <h3>Hermetismo</h3>
+                            <img src="img/Symb_reli/Symb_herm.png" alt="">
+                        </div>
+                        <div class="livro">
+                            <h3>Teosofia</h3>
+                            <img src="img/Symb_reli/Symb_teosof.png" alt="">
+                        </div>
+                        <div class="livro">
+                            <h3>Alquimia</h3>
+                            <img src="img/Symb_reli/Symb_alquim.png" alt="">
+                        </div>
+                        <div class="livro">
+                            <h3>Nórdica</h3>
+                            <img src="img/Symb_reli/Symb_triquet.png" alt="">
+                        </div>
+                        <div class="livro">
+                            <h3>Atlântida</h3>
+                        </div>
+                        <div class="livro">
+                            <h3>Agartha</h3>
+                        </div>
+                        <div class="livro">
+                            <h3>Cicada 3301</h3>
+                        </div>
+                        <div class="livro">
+                            <h3>Enochiano</h3>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
