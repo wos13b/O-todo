@@ -1028,7 +1028,7 @@ function posicionarDiasDaSemana() {
         Math.min(
             largura,
             altura
-        ) * 0.25;
+        ) * 0.28;
 
 
     /*
@@ -1789,7 +1789,7 @@ function irParaHoje() {
         }
 
 
-        return;
+        return; // <-- Correção aplicada: interrompe a execução para evitar conflito com os dias regulares
 
     }
 
