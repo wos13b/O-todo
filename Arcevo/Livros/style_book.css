@@ -1,5 +1,5 @@
 /* =========================================================
-   SCROLLBAR
+   SCROLLBAR E TEMA DARK/CINZA
    ========================================================= */
 
 body::-webkit-scrollbar {
@@ -7,46 +7,46 @@ body::-webkit-scrollbar {
 }
 
 body {
-    background-color: #2c1d11;
-    background-image: radial-gradient(circle, #3d2719 0%, #1a100a 100%);
+    background-color: #121214;
+    background-image: radial-gradient(circle, #1f1f24 0%, #0d0d0f 100%);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Playfair Display', serif;
-    color: #2b1d0c;
+    color: #d1d1d6;
     margin: 0;
     padding: 20px;
 }
 
-/* Book container simulation (agora serve apenas como suporte geral) */
+/* Book container simulation */
 .book-container {
     display: flex;
     gap: 40px;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
-    max-width: 1400px; /* Aumentado para comportar duas páginas lado a lado */
+    max-width: 1400px;
     box-sizing: border-box;
 }
 
-/* Cada página agora possui sua própria borda, fundo e sombra individual */
+/* Página individual com tom de pergaminho envelhecido escuro / cinza chumbo */
 .book-page {
     width: 100%;
     max-width: 650px;
-    background-color: #f4ecd8;
+    background-color: #1c1c1e;
     background-image: 
-        radial-gradient(circle at center, rgba(244, 236, 216, 0) 0%, rgba(210, 195, 165, 0.4) 100%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
-    border: 2px solid #b89753;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 80px rgba(139, 107, 53, 0.2);
+        radial-gradient(circle at center, rgba(28, 28, 30, 0) 0%, rgba(10, 10, 12, 0.6) 100%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
+    border: 2px solid #5a5a66;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), inset 0 0 90px rgba(0, 0, 0, 0.7);
     padding: 60px 50px;
     position: relative;
     box-sizing: border-box;
     border-radius: 3px;
 }
 
-/* Borda interna decorativa aplicada individualmente a cada página */
+/* Borda interna decorativa */
 .book-page::before {
     content: '';
     position: absolute;
@@ -54,21 +54,21 @@ body {
     left: 12px;
     right: 12px;
     bottom: 12px;
-    border: 1px solid #c8ab6e;
+    border: 1px solid #484852;
     pointer-events: none;
 }
 
-/* Classic typography headers */
+/* Títulos clássicos em tons prateados/claros */
 h1.sumario-title {
     font-family: 'Cinzel', serif;
     font-weight: 700;
     letter-spacing: 0.15em;
     text-align: center;
-    color: #3b2611;
+    color: #e5e5ea;
     font-size: 2.2rem;
     margin-bottom: 2rem;
     text-transform: uppercase;
-    text-shadow: 1px 1px 1px rgba(255,255,255,0.4);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
 }
 
 h1.livro-title {
@@ -76,20 +76,21 @@ h1.livro-title {
     font-weight: 600;
     letter-spacing: 0.1em;
     text-align: center;
-    color: #4a3219;
+    color: #aeaeb2;
     font-size: 1.6rem;
     margin-top: 3.5rem;
     margin-bottom: 1rem;
     text-transform: uppercase;
 }
 
-/* Ornate divider ornament */
+/* Ornamentos em tom metálico cinza/prata envelhecido */
 .ornament {
     text-align: center;
-    color: #9c7c38;
+    color: #8e8e93;
     font-size: 1.5rem;
     margin: 1.5rem 0;
     user-select: none;
+    text-shadow: 0 0 5px rgba(0,0,0,0.8);
 }
 
 /* Sumário List Structure */
@@ -106,28 +107,28 @@ h1.livro-title {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    color: #382512;
+    color: #d1d1d6;
     cursor: pointer;
     position: relative;
     gap: 10px;
 }
 
 .sumario-list li:hover {
-    color: #7a521a;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255,255,255,0.3);
 }
 
-/* Linha pontilhada de ponta a ponta por trás do texto */
+/* Linha pontilhada escura */
 .sumario-list li::before {
     content: "";
     position: absolute;
     left: 0;
     right: 35px;
     bottom: 8px;
-    border-bottom: 1px dotted #b89753;
+    border-bottom: 1px dotted #484852;
     z-index: 1;
 }
 
-/* Título alinhado à esquerda cobrindo os pontos */
 .sumario-list .titulo-capitulo {
     display: inline-block;
     position: relative;
@@ -136,15 +137,46 @@ h1.livro-title {
     text-align: left;
 }
 
-/* Número da página fixo e alinhado à direita cobrindo os pontos */
 .sumario-list .numero-pagina {
     font-family: 'Playfair Display', serif;
     font-style: italic;
     font-size: 1.05rem;
-    color: #6c5332;
+    color: #8e8e93;
     padding-left: 6px;
     z-index: 2;
     white-space: nowrap;
+}
+
+/* =========================================================
+   ESTILIZAÇÃO DAS PÁGINAS DE CONTEÚDO (NOTAS E TEXTOS)
+   ========================================================= */
+
+.book-page h1:not(.sumario-title):not(.livro-title) {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+    color: #e5e5ea;
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+}
+
+.book-page p {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #c7c7cc;
+    text-align: justify;
+    text-indent: 2rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0;
+}
+
+.book-page p em {
+    font-style: italic;
+    color: #aeaeb2;
 }
 
 /* Footer page number */
@@ -153,6 +185,6 @@ h1.livro-title {
     font-family: 'Playfair Display', serif;
     font-style: italic;
     font-size: 0.95rem;
-    color: #785e3a;
+    color: #636366;
     margin-top: 4rem;
 }
