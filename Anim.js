@@ -12,6 +12,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     perf_butt?.addEventListener("click", alternarMenu_perf);
 
+    // ===============================
+    // 🔹 MENU TOGGLE PRINCIPAL
+    // ===============================
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navPrincipal = document.querySelector(".kalk"); 
+
+    function alternarMenuPrincipal() {
+        navPrincipal?.classList.toggle("ativo");
+    }
+
+    menuToggle?.addEventListener("click", alternarMenuPrincipal);
+
 
     // ===============================
     // 🔹 RODA EXISTENCIAL

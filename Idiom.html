@@ -6,16 +6,23 @@
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="Idioma.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="Profile.js" defer></script>
     <script src="script.js" defer></script>
     <script src="Anim.js" defer></script>
     <link rel="shortcut icon" href="ico/Logo.png" type="image/x-icon">
     <title>O todo</title>
 </head>
 <body>
+    <canvas id="matrix-canvas"></canvas>
     <div class="header">
         <button class="menu-toggle">☰</button>
+        <ul class="kalk">
+            <li><a href="Idiom.html">Idioma</a></li>
+            <li><a href="">Perfis</a></li>
+        </ul>
         <ul class="nav">
-            <li><a href="index.html">Inicio</a></li>
+            <li><a href="index.html" data-i18n="menu_inicio">Inicio</a></li>
             <li><a href="Program.html">Program</a></li>
             <li><a href="Elemental.html">Fisica/Quimica</a></li>
         </ul>
@@ -33,56 +40,36 @@
         <div class="Main">
             <div class="Conteudo">
                 <div class="Band">
-                    <a href="Ling/Ling_pt-br.html">
-                        <div class="Band_pas">
-                            <img src="img/Band/brasil.png" alt="Bandeira do Brasil">
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="Band_pas">
-                            <img src="img/Band/china.png" alt="">
-                        </div>
-                    </a>
-                    <a href="Ling/Ling_eng.html">
-                        <div class="Band_pas">
-                            <img src="img/Band/estados-unidos.png" alt="">
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="Band_pas">
-                            <img src="img/Band/franca.png" alt="">
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="Band_pas">
-                            <img src="img/Band/Arábia.png" alt="">
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="Band_pas">
-                            <img src="img/Band/Canadá.png" alt="">
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="Band_pas">
-                            <img src="img/Band/Japão.png" alt="">
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="Band_pas">
-                            <img src="img/Band/India.png" alt="">
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="Band_pas">
-                            <img src="img/Band/Israel.png" alt="">
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="Band_pas">
-                            <img src="img/Band/Alemanha.png" alt="">
-                        </div>
-                    </a>
+                    <div class="Band_pas" data-lang="pt-br">
+                        <img src="img/Band/brasil.png" alt="Bandeira do Brasil">
+                    </div>
+                    <div class="Band_pas" data-lang="zh">
+                        <img src="img/Band/china.png" alt="China">
+                    </div>
+                    <div class="Band_pas" data-lang="en">
+                        <img src="img/Band/estados-unidos.png" alt="Estados Unidos">
+                    </div>
+                    <div class="Band_pas" data-lang="fr">
+                        <img src="img/Band/franca.png" alt="França">
+                    </div>
+                    <div class="Band_pas" data-lang="ar">
+                        <img src="img/Band/Arábia.png" alt="Arábia Saudita">
+                    </div>
+                    <div class="Band_pas" data-lang="ca">
+                        <img src="img/Band/Canadá.png" alt="Canadá">
+                    </div>
+                    <div class="Band_pas" data-lang="ja">
+                        <img src="img/Band/Japão.png" alt="Japão">
+                    </div>
+                    <div class="Band_pas" data-lang="hi">
+                        <img src="img/Band/India.png" alt="Índia">
+                    </div>
+                    <div class="Band_pas" data-lang="he">
+                        <img src="img/Band/Israel.png" alt="Israel">
+                    </div>
+                    <div class="Band_pas" data-lang="de">
+                        <img src="img/Band/Alemanha.png" alt="Alemanha">
+                    </div>
                 </div>
                 
             </div>

@@ -625,6 +625,26 @@ inputCampo?.addEventListener(
 
 );
 
+// =========================================================
+// EVENTO: CLIQUE NAS BANDEIRAS DE IDIOMA
+// =========================================================
+
+document.querySelectorAll(".Band_pas").forEach(bandeira => {
+    bandeira.addEventListener("click", () => {
+        const lang = bandeira.getAttribute("data-lang");
+        
+        if (lang) {
+            trocarIdioma(lang);
+            
+            // Opcional: Feedback visual ou redirecionamento após trocar
+            console.log(`Idioma alterado para: ${lang}`);
+            
+            // Se quiser redirecionar para a página inicial após escolher o idioma:
+            // window.location.href = "index.html";
+        }
+    });
+});
+
 
 // =========================================================
 // INICIALIZAÇÃO
