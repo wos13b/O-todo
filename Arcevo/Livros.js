@@ -401,7 +401,7 @@ const obras = [
     },
     {
         id: 500,
-        titulo: "Mapa kamalistico",
+        titulo: "Mapa kabalistico",
         autor: "Taynara/Hadasa",
         categoria: "Espiritualidade",
         periodo: "Idade Moderna",
