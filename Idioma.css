@@ -33,6 +33,12 @@
 }
 @media (max-width: 425px) {
 
+    .Band{
+
+        margin-top: 20px;
+
+    }
+
     .Band_pas{
 
         width: 80px;
