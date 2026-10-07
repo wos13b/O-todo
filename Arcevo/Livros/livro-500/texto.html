@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style_book.css">
+    <script src="../Audio.js" defer></script>
     <title>Document</title>
 </head>
 <body>
@@ -206,7 +207,18 @@
                 importantes na vida.
             </p>
 
-            <audio src="Audio/1.mp3">play</audio>
+            <div class="audio-player-container">
+                <audio class="meuAudio" src="Audio/1.mp3"></audio>
+                <button class="audio-btn btnAudio">
+                    <span class="iconePlay">▶</span> <span class="textoAudio">Resumo do mapa</span>
+                </button>
+            </div>
+            <div class="audio-player-container">
+                <audio class="meuAudio" src="Audio/2.mp3"></audio>
+                <button class="audio-btn btnAudio">
+                    <span class="iconePlay">▶</span> <span class="textoAudio">Vidas passadas</span>
+                </button>
+            </div>
 
             <div class="page-footer">
                 - 3 -
