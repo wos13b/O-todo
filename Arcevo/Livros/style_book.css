@@ -1,190 +1,256 @@
 /* =========================================================
-   SCROLLBAR E TEMA DARK/CINZA
-   ========================================================= */
+SCROLLBAR E TEMA DARK/CINZA
+========================================================= */
 
 body::-webkit-scrollbar {
-    display: none;
+display: none;
 }
 
 body {
-    background-color: #121214;
-    background-image: radial-gradient(circle, #1f1f24 0%, #0d0d0f 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Playfair Display', serif;
-    color: #d1d1d6;
-    margin: 0;
-    padding: 20px;
+background-color: #121214;
+background-image: radial-gradient(circle, #1f1f24 0%, #0d0d0f 100%);
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: 'Playfair Display', serif;
+color: #d1d1d6;
+margin: 0;
+padding: 20px;
 }
 
 /* Book container simulation */
 .book-container {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    max-width: 1400px;
-    box-sizing: border-box;
+display: flex;
+gap: 40px;
+flex-wrap: wrap;
+justify-content: center;
+width: 100%;
+max-width: 1400px;
+box-sizing: border-box;
 }
 
 /* Página individual com tom de pergaminho envelhecido escuro / cinza chumbo */
 .book-page {
-    width: 100%;
-    max-width: 650px;
-    background-color: #1c1c1e;
-    background-image: 
-        radial-gradient(circle at center, rgba(28, 28, 30, 0) 0%, rgba(10, 10, 12, 0.6) 100%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
-    border: 2px solid #5a5a66;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), inset 0 0 90px rgba(0, 0, 0, 0.7);
-    padding: 60px 50px;
-    position: relative;
-    box-sizing: border-box;
-    border-radius: 3px;
+width: 100%;
+max-width: 650px;
+background-color: #1c1c1e;
+background-image:
+radial-gradient(circle at center, rgba(28, 28, 30, 0) 0%, rgba(10, 10, 12, 0.6) 100%),
+url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
+border: 2px solid #5a5a66;
+box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), inset 0 0 90px rgba(0, 0, 0, 0.7);
+padding: 60px 50px;
+position: relative;
+box-sizing: border-box;
+border-radius: 3px;
 }
 
 /* Borda interna decorativa */
 .book-page::before {
-    content: '';
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    border: 1px solid #484852;
-    pointer-events: none;
+content: '';
+position: absolute;
+top: 12px;
+left: 12px;
+right: 12px;
+bottom: 12px;
+border: 1px solid #484852;
+pointer-events: none;
 }
 
 /* Títulos clássicos em tons prateados/claros */
 h1.sumario-title {
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-align: center;
-    color: #e5e5ea;
-    font-size: 2.2rem;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+font-family: 'Cinzel', serif;
+font-weight: 700;
+letter-spacing: 0.15em;
+text-align: center;
+color: #e5e5ea;
+font-size: 2.2rem;
+margin-bottom: 2rem;
+text-transform: uppercase;
+text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
 }
 
 h1.livro-title {
-    font-family: 'Cinzel', serif;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-align: center;
-    color: #aeaeb2;
-    font-size: 1.6rem;
-    margin-top: 3.5rem;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
+font-family: 'Cinzel', serif;
+font-weight: 600;
+letter-spacing: 0.1em;
+text-align: center;
+color: #aeaeb2;
+font-size: 1.6rem;
+margin-top: 3.5rem;
+margin-bottom: 1rem;
+text-transform: uppercase;
 }
 
 /* Ornamentos em tom metálico cinza/prata envelhecido */
 .ornament {
-    text-align: center;
-    color: #8e8e93;
-    font-size: 1.5rem;
-    margin: 1.5rem 0;
-    user-select: none;
-    text-shadow: 0 0 5px rgba(0,0,0,0.8);
+text-align: center;
+color: #8e8e93;
+font-size: 1.5rem;
+margin: 1.5rem 0;
+user-select: none;
+text-shadow: 0 0 5px rgba(0,0,0,0.8);
 }
 
 /* Sumário List Structure */
 .sumario-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+list-style: none;
+padding: 0;
+margin: 0;
 }
 
 .sumario-list li {
-    font-family: 'IM Fell English', serif;
-    font-size: 1.05rem;
-    padding: 0.5rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    color: #d1d1d6;
-    cursor: pointer;
-    position: relative;
-    gap: 10px;
+font-family: 'IM Fell English', serif;
+font-size: 1.05rem;
+padding: 0.5rem 0;
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+color: #d1d1d6;
+cursor: pointer;
+position: relative;
+gap: 10px;
 }
 
 .sumario-list li:hover {
-    color: #ffffff;
-    text-shadow: 0 0 8px rgba(255,255,255,0.3);
+color: #ffffff;
+text-shadow: 0 0 8px rgba(255,255,255,0.3);
 }
 
 /* Linha pontilhada escura */
 .sumario-list li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 35px;
-    bottom: 8px;
-    border-bottom: 1px dotted #484852;
-    z-index: 1;
+content: "";
+position: absolute;
+left: 0;
+right: 35px;
+bottom: 8px;
+border-bottom: 1px dotted #484852;
+z-index: 1;
 }
 
 .sumario-list .titulo-capitulo {
-    display: inline-block;
-    position: relative;
-    padding-right: 6px;
-    z-index: 2;
-    text-align: left;
+display: inline-block;
+position: relative;
+padding-right: 6px;
+z-index: 2;
+text-align: left;
 }
 
 .sumario-list .numero-pagina {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1.05rem;
-    color: #8e8e93;
-    padding-left: 6px;
-    z-index: 2;
-    white-space: nowrap;
+font-family: 'Playfair Display', serif;
+font-style: italic;
+font-size: 1.05rem;
+color: #8e8e93;
+padding-left: 6px;
+z-index: 2;
+white-space: nowrap;
 }
 
 /* =========================================================
-   ESTILIZAÇÃO DAS PÁGINAS DE CONTEÚDO (NOTAS E TEXTOS)
-   ========================================================= */
+ESTILIZAÇÃO DAS PÁGINAS DE CONTEÚDO (NOTAS E TEXTOS)
+========================================================= */
 
 .book-page h1:not(.sumario-title):not(.livro-title) {
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    font-size: 1.4rem;
-    letter-spacing: 0.1em;
-    text-align: center;
-    color: #e5e5ea;
-    margin-top: 1rem;
-    margin-bottom: 2.5rem;
-    text-transform: uppercase;
+font-family: 'Cinzel', serif;
+font-weight: 700;
+font-size: 1.4rem;
+letter-spacing: 0.1em;
+text-align: center;
+color: #e5e5ea;
+margin-top: 1rem;
+margin-bottom: 2.5rem;
+text-transform: uppercase;
 }
 
 .book-page p {
-    font-family: 'IM Fell English', serif;
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: #c7c7cc;
-    text-align: justify;
-    text-indent: 2rem;
-    margin-bottom: 1.5rem;
-    margin-top: 0;
+font-family: 'IM Fell English', serif;
+font-size: 1.15rem;
+line-height: 1.8;
+color: #c7c7cc;
+text-align: justify;
+text-indent: 2rem;
+margin-bottom: 1.5rem;
+margin-top: 0;
 }
 
 .book-page p em {
-    font-style: italic;
-    color: #aeaeb2;
+font-style: italic;
+color: #aeaeb2;
 }
 
 /* Footer page number */
 .page-footer {
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    color: #636366;
-    margin-top: 4rem;
+text-align: center;
+font-family: 'Playfair Display', serif;
+font-style: italic;
+font-size: 0.95rem;
+color: #636366;
+margin-top: 4rem;
+}
+
+/* =========================================================
+ESTILIZAÇÃO DA FICHA NUMEROLÓGICA (DIVS)
+========================================================= */
+
+.numerologia-container {
+display: flex;
+flex-direction: column;
+gap: 12px;
+font-size: 0.88rem;
+color: #d1d1d6;
+}
+
+.numerologia-titulo {
+font-family: 'Cinzel', serif;
+font-size: 1.3rem;
+font-style: italic;
+text-align: center;
+color: #e5e5ea;
+margin-bottom: 4px;
+letter-spacing: 0.08em;
+text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.num-box {
+border: 1px solid #484852;
+background-color: rgba(22, 22, 25, 0.6);
+padding: 10px 14px;
+border-radius: 2px;
+box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+}
+
+.num-row {
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+gap: 12px;
+margin-bottom: 6px;
+line-height: 1.4;
+}
+
+.num-row:last-child {
+margin-bottom: 0;
+}
+
+.num-grid-3 {
+display: grid;
+grid-template-columns: 1fr 2fr 2fr;
+gap: 15px;
+align-items: start;
+line-height: 1.5;
+}
+
+.circulo-destaque {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 22px;
+height: 22px;
+border: 1px solid #aeaeb2;
+border-radius: 50%;
+font-weight: bold;
+color: #ffffff;
+background-color: rgba(255, 255, 255, 0.05);
+margin: 0 2px;
 }
