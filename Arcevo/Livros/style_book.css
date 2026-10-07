@@ -259,67 +259,69 @@ ESTILIZAÇÃO DO BOTÃO DE ÁUDIO PERSONALIZADO
 }
 
 /* =========================================================
-ESTILIZAÇÃO DA FICHA NUMEROLÓGICA (DIVS)
+ESTILIZAÇÃO DA FICHA NUMEROLÓGICA (AJUSTADA AO PDF)
 ========================================================= */
 
 .numerologia-container {
-display: flex;
-flex-direction: column;
-gap: 12px;
-font-size: 0.88rem;
-color: #d1d1d6;
+    display: flex;
+    flex-direction: column;
+    gap: 7px; /* Espaço reduzido entre as caixas para colar proporcionalmente como no PDF */
+    font-size: 0.82rem;
+    color: #d1d1d6;
 }
 
 .numerologia-titulo {
-font-family: 'Cinzel', serif;
-font-size: 1.3rem;
-font-style: italic;
-text-align: center;
-color: #e5e5ea;
-margin-bottom: 4px;
-letter-spacing: 0.08em;
-text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    text-align: center;
+    color: #e5e5ea;
+    margin-bottom: 2px;
+    letter-spacing: 0.08em;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 .num-box {
-border: 1px solid #484852;
-background-color: rgba(22, 22, 25, 0.6);
-padding: 10px 14px;
-border-radius: 2px;
-box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+    border: 1px solid #484852;
+    background-color: rgba(22, 22, 25, 0.6);
+    padding: 8px 12px;
+    border-radius: 2px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
 }
 
 .num-row {
-display: flex;
-justify-content: space-between;
-flex-wrap: wrap;
-gap: 12px;
-margin-bottom: 6px;
-line-height: 1.4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap; /* Mantém os itens na mesma linha como no PDF */
+    gap: 8px;
+    margin-bottom: 4px;
+    line-height: 1.3;
 }
 
 .num-row:last-child {
-margin-bottom: 0;
+    margin-bottom: 0;
 }
 
+/* Bloco central do Bloco 2 com colunas bem distribuídas */
 .num-grid-3 {
-display: grid;
-grid-template-columns: 1fr 2fr 2fr;
-gap: 15px;
-align-items: start;
-line-height: 1.5;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr 1.8fr;
+    gap: 10px;
+    align-items: start;
+    line-height: 1.4;
 }
 
 .circulo-destaque {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-width: 22px;
-height: 22px;
-border: 1px solid #aeaeb2;
-border-radius: 50%;
-font-weight: bold;
-color: #ffffff;
-background-color: rgba(255, 255, 255, 0.05);
-margin: 0 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #aeaeb2;
+    border-radius: 50%;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+    margin: 0 2px;
 }
