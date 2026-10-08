@@ -770,7 +770,7 @@ function posicionarDiasCirculares() {
         Math.min(
             largura,
             altura
-        ) * 0.40;
+        ) * 0.42;
 
 
     /*

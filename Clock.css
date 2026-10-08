@@ -171,7 +171,7 @@ body {
 .calendar::before {
     content: "";
     position: absolute;
-    inset: 5%;
+    inset: 15%;
     border-radius: 50%;
     pointer-events: none;
     z-index: 1; /* Fica abaixo dos dias */
@@ -181,20 +181,24 @@ body {
         from 0deg at 50% 50%,
         rgba(255, 255, 255, 0.02) 0deg,
         rgba(255, 255, 255, 0.02) 118deg,
-        rgba(0, 0, 0, 0.4) 118deg,
-        rgba(0, 0, 0, 0.4) 120deg,
+        rgba(0, 0, 0, 0.6) 118deg,
+        rgba(0, 0, 0, 0.6) 120deg,
         
         rgba(255, 255, 255, 0.05) 120deg,
         rgba(255, 255, 255, 0.05) 238deg,
-        rgba(0, 0, 0, 0.4) 238deg,
-        rgba(0, 0, 0, 0.4) 240deg,
+        rgba(0, 0, 0, 0.6) 238deg,
+        rgba(0, 0, 0, 0.6) 240deg,
         
         rgba(255, 255, 255, 0.08) 240deg,
         rgba(255, 255, 255, 0.08) 358deg,
-        rgba(0, 0, 0, 0.4) 358deg,
-        rgba(0, 0, 0, 0.4) 360deg
+        rgba(0, 0, 0, 0.6) 358deg,
+        rgba(0, 0, 0, 0.6) 360deg
     );
     border: 1px solid #444;
+    
+    /* Cria um fade (transparência) nas bordas externas para as linhas não alcançarem os dias */
+    mask-image: radial-gradient(circle, black 60%, transparent 90%);
+    -webkit-mask-image: radial-gradient(circle, black 60%, transparent 90%);
 }
 
 /* Alteração específica para o Mês 14 (Shandi): Apenas 2 fatias (Fogo e Água) */
