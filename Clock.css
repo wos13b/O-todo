@@ -262,14 +262,6 @@ body {
     border: 1px solid #444;
     border-radius: 50%;
 
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            #414141,
-            #222 65%,
-            #111 100%
-        );
-
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -279,6 +271,55 @@ body {
 
     transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     box-sizing: border-box;
+}
+
+/* ================================
+   CORES POR ELEMENTO (SEMANAS)
+================================ */
+
+/* Semana 1: Fogo (Tons de Laranja e Âmbar) */
+.day.semana-1 {
+    background: radial-gradient(
+        circle at 35% 30%,
+        #ff7b25,
+        #b83306 65%,
+        #521102 100%
+    );
+    border-color: #ff9e59;
+}
+.day.semana-1:hover {
+    background: radial-gradient(circle, #ff9e59, #d94307);
+    box-shadow: 0 0 10px rgba(255, 123, 37, 0.4);
+}
+
+/* Semana 2: Terra (Tons de Verde e Oliva) */
+.day.semana-2 {
+    background: radial-gradient(
+        circle at 35% 30%,
+        #528c46,
+        #2d5225 65%,
+        #11240e 100%
+    );
+    border-color: #78be6b;
+}
+.day.semana-2:hover {
+    background: radial-gradient(circle, #78be6b, #3b6b30);
+    box-shadow: 0 0 10px rgba(82, 140, 70, 0.4);
+}
+
+/* Semana 3: Água (Tons de Azul e Ciano) */
+.day.semana-3 {
+    background: radial-gradient(
+        circle at 35% 30%,
+        #2d8ac7,
+        #144e7d 65%,
+        #082036 100%
+    );
+    border-color: #5cb8ff;
+}
+.day.semana-3:hover {
+    background: radial-gradient(circle, #5cb8ff, #1d699e);
+    box-shadow: 0 0 10px rgba(45, 138, 199, 0.4);
 }
 
 .day:hover {
