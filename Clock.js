@@ -879,27 +879,11 @@ function atualizarDiasDaSemana() {
     weekdays.innerHTML = "";
 
 
-    /*
-       Meses 1–13:
-
-       3 semanas.
-
-       Mês 14:
-
-       2 semanas.
-    */
-
     const quantidadeSemanas =
         quantidadeSemanasMes(
             mesAtual
         );
 
-
-    /*
-       Criar somente as semanas.
-
-       NÃO criamos os 9 dias aqui.
-    */
 
     for (
 
@@ -922,22 +906,9 @@ function atualizarDiasDaSemana() {
         );
 
 
-        /*
-           Mostrar:
-
-           1
-           2
-           3
-        */
-
         elemento.textContent =
             semana;
 
-
-        /*
-           Guardar o número
-           da semana.
-        */
 
         elemento.dataset.semana =
             semana;
@@ -950,19 +921,10 @@ function atualizarDiasDaSemana() {
     }
 
 
-    /*
-       Posicionar as semanas
-       no círculo interno.
-    */
-
     posicionarDiasDaSemana();
 
 }
 
-
-/* =========================================================
-   POSICIONAR AS SEMANAS EM CÍRCULO (No centro das fatias)
-========================================================= */
 
 function posicionarDiasDaSemana() {
 
@@ -983,10 +945,6 @@ function posicionarDiasDaSemana() {
     }
 
 
-    /*
-       Tamanho do calendário.
-    */
-
     const largura =
         daysContainer.clientWidth;
 
@@ -995,10 +953,6 @@ function posicionarDiasDaSemana() {
         daysContainer.clientHeight;
 
 
-    /*
-       Raio do círculo interno.
-    */
-
     const raio =
         Math.min(
             largura,
@@ -1006,22 +960,12 @@ function posicionarDiasDaSemana() {
         ) * 0.28;
 
 
-    /*
-       Posicionar as semanas no centro de cada fatia.
-    */
-
     elementos.forEach(
 
         function (
             elemento,
             indice
         ) {
-
-            /*
-               Calculamos o ângulo base de cada item e adicionamos
-               metade da largura de uma fatia ((Math.PI * 2) / total) / 2
-               para que o número fique exatamente no centro da fatia de pizza.
-            */
 
             const anguloFatia = (Math.PI * 2) / total;
 
@@ -1039,7 +983,7 @@ function posicionarDiasDaSemana() {
 
                 +
 
-                (anguloFatia / 2) // <-- Desfasamento para o centro da fatia
+                (anguloFatia / 2)
 
                 -
 
