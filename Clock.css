@@ -176,7 +176,7 @@ body {
     pointer-events: none;
     z-index: 1; /* Fica abaixo dos dias */
     
-    /* Divisão em 3 fatias iguais de 120 graus (para os meses regulares de 3 semanas) */
+    /* Padrão para os meses 1 a 13 (3 fatias: Fogo, Terra, Água) */
     background: conic-gradient(
         from 0deg at 50% 50%,
         rgba(255, 255, 255, 0.02) 0deg,
@@ -195,6 +195,39 @@ body {
         rgba(0, 0, 0, 0.4) 360deg
     );
     border: 1px solid #444;
+}
+
+/* Alteração específica para o Mês 14 (Shandi): Apenas 2 fatias (Fogo e Água) */
+.calendar.mes-14::before {
+    background: conic-gradient(
+        from 0deg at 50% 50%,
+        /* Semana 1: Fogo (0 a 180 graus) */
+        rgba(255, 123, 37, 0.05) 0deg,
+        rgba(255, 123, 37, 0.05) 178deg,
+        rgba(0, 0, 0, 0.4) 178deg,
+        rgba(0, 0, 0, 0.4) 180deg,
+        
+        /* Semana 2: Água (180 a 360 graus) */
+        rgba(45, 138, 199, 0.05) 180deg,
+        rgba(45, 138, 199, 0.05) 358deg,
+        rgba(0, 0, 0, 0.4) 358deg,
+        rgba(0, 0, 0, 0.4) 360deg
+    );
+}
+
+/* No mês 14, como a segunda semana é Água, garantimos que a .semana-2 de Shandi use o estilo de água */
+.calendar.mes-14 .day.semana-2 {
+    background: radial-gradient(
+        circle at 35% 30%,
+        #2d8ac7,
+        #144e7d 65%,
+        #082036 100%
+    );
+    border-color: #5cb8ff;
+}
+.calendar.mes-14 .day.semana-2:hover {
+    background: radial-gradient(circle, #5cb8ff, #1d699e);
+    box-shadow: 0 0 10px rgba(45, 138, 199, 0.4);
 }
 
 /* Ajuste do anel interno para ocultar as linhas no centro */

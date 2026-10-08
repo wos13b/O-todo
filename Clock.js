@@ -1136,6 +1136,15 @@ function renderizarDias() {
 
 function renderizarCalendario() {
 
+    const calendarElement = document.querySelector(".calendar");
+    
+    if (calendarElement) {
+        if (mesAtual === 14) {
+            calendarElement.classList.add("mes-14");
+        } else {
+            calendarElement.classList.remove("mes-14");
+        }
+    }
     /*
        Nome do mês.
     */
