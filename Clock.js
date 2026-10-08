@@ -570,10 +570,6 @@ function ehHoje(
    CRIAR UM DIA
 ========================================================= */
 
-/* =========================================================
-   CRIAR UM DIA
-========================================================= */
-
 function criarDia(
     ano,
     mes,
@@ -589,6 +585,26 @@ function criarDia(
     elemento.classList.add(
         "day"
     );
+
+
+    /*
+       Semana.
+    */
+
+    const semana =
+        obterSemanaDoMes(
+            mes,
+            dia
+        );
+
+
+    /*
+       Adicionar classe de elemento com base na semana:
+       Semana 1: Fogo
+       Semana 2: Terra
+       Semana 3: Água
+    */
+    elemento.classList.add(`semana-${semana}`);
 
 
     /*
@@ -622,17 +638,6 @@ function criarDia(
         </span>
 
     `;
-
-
-    /*
-       Semana.
-    */
-
-    const semana =
-        obterSemanaDoMes(
-            mes,
-            dia
-        );
 
 
     /*
