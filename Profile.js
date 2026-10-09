@@ -1,18 +1,9 @@
 // =========================================================
-// PROFILE.JS
-// =========================================================
-// Todas as funções relacionadas ao perfil do usuário
-// =========================================================
-
-
-// =========================================================
-// CONSTANTES DO PERFIL
+// PROFILE.JS (Atualizado com suporte à Biografia)
 // =========================================================
 
 const NOME_BUCKET = "avatars";
-
-const TAMANHO_MAXIMO_IMAGEM =
-    5 * 1024 * 1024;
+const TAMANHO_MAXIMO_IMAGEM = 5 * 1024 * 1024;
 
 
 // =========================================================
@@ -20,266 +11,53 @@ const TAMANHO_MAXIMO_IMAGEM =
 // =========================================================
 
 async function carregarPerfil() {
-
     const {
         data: { session }
     } = await supabaseClient.auth.getSession();
 
-
     if (!session) {
-
-        console.log(
-            "Perfil: nenhum usuário logado."
-        );
-
+        console.log("Perfil: nenhum usuário logado.");
         return;
     }
 
-
-    const user =
-        session.user;
-
-
-    const metadata =
-        user.user_metadata || {};
-
-
-    // =====================================================
-    // DADOS DO PERFIL
-    // =====================================================
-
-    const nome =
-        metadata.nome ||
-        "Usuário";
-
-
-    const nickname =
-        metadata.nickname ||
-        "nickname";
-
-
-    const dataNascimento =
-        metadata.data_nascimento ||
-        "---";
-
-
-    // =====================================================
-    // IMAGEM DO PERFIL
-    // =====================================================
-
-    const imagemPerfil =
-        metadata.avatar_url ||
-        "img/Logo.png";
-
-
-    // =====================================================
-    // CONSOLE
-    // =====================================================
-
-    console.log(
-        "Nome:",
-        nome
-    );
-
-
-    console.log(
-        "Nickname:",
-        nickname
-    );
-
-
-    console.log(
-        "Data de nascimento:",
-        dataNascimento
-    );
-
-
-    console.log(
-        "Email:",
-        user.email
-    );
-
-
-    console.log(
-        "ID:",
-        user.id
-    );
-
-
-    console.log(
-        "Imagem:",
-        imagemPerfil
-    );
-
-
-    // =====================================================
-    // ELEMENTOS DO PERFIL
-    // =====================================================
-
-    const perfilImagem =
-        document.getElementById(
-            "perfil-imagem"
-        );
-
-
-    const perfilNome =
-        document.getElementById(
-            "perfil-nome"
-        );
-
-
-    const perfilNickname =
-        document.getElementById(
-            "perfil-nickname"
-        );
-
-
-    const perfilEmail =
-        document.getElementById(
-            "perfil-email"
-        );
-
-
-    // =====================================================
-    // IMAGEM GRANDE
-    // =====================================================
-
-    if (perfilImagem) {
-
-        perfilImagem.src =
-            imagemPerfil;
-    }
-
-
-    // =====================================================
-    // NOME
-    // =====================================================
-
-    if (perfilNome) {
-
-        perfilNome.textContent =
-            nome;
-    }
-
-
-    // =====================================================
-    // NICKNAME
-    // =====================================================
-
-    if (perfilNickname) {
-
-        perfilNickname.textContent =
-            "@" + nickname;
-    }
-
-
-    // =====================================================
-    // EMAIL
-    // =====================================================
-
-    if (perfilEmail) {
-
-        perfilEmail.textContent =
-            user.email || "---";
-    }
-
-
-    // =====================================================
-    // INFORMAÇÕES DO PERFIL
-    // =====================================================
-
-    const infoNome =
-        document.getElementById(
-            "info-nome"
-        );
-
-
-    const infoNickname =
-        document.getElementById(
-            "info-nickname"
-        );
-
-
-    const infoEmail =
-        document.getElementById(
-            "info-email"
-        );
-
-
-    const infoId =
-        document.getElementById(
-            "info-id"
-        );
-
-
-    const infoNascimento =
-        document.getElementById(
-            "info-nascimento"
-        );
-
-
-    // =====================================================
-    // NOME
-    // =====================================================
-
-    if (infoNome) {
-
-        infoNome.textContent =
-            nome;
-    }
-
-
-    // =====================================================
-    // NICKNAME
-    // =====================================================
-
-    if (infoNickname) {
-
-        infoNickname.textContent =
-            "@" + nickname;
-    }
-
-
-    // =====================================================
-    // EMAIL
-    // =====================================================
-
-    if (infoEmail) {
-
-        infoEmail.textContent =
-            user.email || "---";
-    }
-
-
-    // =====================================================
-    // ID
-    // =====================================================
-
-    if (infoId) {
-
-        infoId.textContent =
-            user.id;
-    }
-
-
-    // =====================================================
-    // DATA DE NASCIMENTO
-    // =====================================================
-
-    if (infoNascimento) {
-
-        infoNascimento.textContent =
-            dataNascimento;
-    }
-
-
-    // =====================================================
-    // LOG_PERF
-    // =====================================================
-
-    atualizarLogPerfil(
-        imagemPerfil
-    );
+    const user = session.user;
+    const metadata = user.user_metadata || {};
+
+    const nome = metadata.nome || "Usuário";
+    const nickname = metadata.nickname || "nickname";
+    const dataNascimento = metadata.data_nascimento || "---";
+    const bio = metadata.bio || "Escreva algo sobre ti";
+    const imagemPerfil = metadata.avatar_url || "img/Logo.png";
+
+    // Elementos visuais principais
+    const perfilImagem = document.getElementById("perfil-imagem");
+    const perfilNome = document.getElementById("perfil-nome");
+    const perfilNickname = document.getElementById("perfil-nickname");
+    const perfilEmail = document.getElementById("perfil-email");
+    const perfilBio = document.getElementById("perfil-bio");
+
+    if (perfilImagem) perfilImagem.src = imagemPerfil;
+    if (perfilNome) perfilNome.textContent = nome;
+    if (perfilNickname) perfilNickname.textContent = "@" + nickname;
+    if (perfilEmail) perfilEmail.textContent = user.email || "---";
+    if (perfilBio) perfilBio.textContent = bio;
+
+    // Informações detalhadas
+    const infoNome = document.getElementById("info-nome");
+    const infoNickname = document.getElementById("info-nickname");
+    const infoEmail = document.getElementById("info-email");
+    const infoId = document.getElementById("info-id");
+    const infoNascimento = document.getElementById("info-nascimento");
+    const infoBio = document.getElementById("info-bio");
+
+    if (infoNome) infoNome.textContent = nome;
+    if (infoNickname) infoNickname.textContent = "@" + nickname;
+    if (infoEmail) infoEmail.textContent = user.email || "---";
+    if (infoId) infoId.textContent = user.id;
+    if (infoNascimento) infoNascimento.textContent = dataNascimento;
+    if (infoBio) infoBio.textContent = bio;
+
+    atualizarLogPerfil(imagemPerfil);
 }
 
 
@@ -287,43 +65,15 @@ async function carregarPerfil() {
 // ATUALIZAR LOG_PERF
 // =========================================================
 
-function atualizarLogPerfil(
-    imagem
-) {
+function atualizarLogPerfil(imagem) {
+    const logPerf = document.querySelector(".Log_perf");
+    if (!logPerf) return;
 
-    const logPerf =
-        document.querySelector(
-            ".Log_perf"
-        );
-
-
-    if (!logPerf) {
-
-        return;
-    }
-
-
-    logPerf.innerHTML =
-        "";
-
-
-    const img =
-        document.createElement(
-            "img"
-        );
-
-
-    img.src =
-        imagem;
-
-
-    img.alt =
-        "Perfil";
-
-
-    logPerf.appendChild(
-        img
-    );
+    logPerf.innerHTML = "";
+    const img = document.createElement("img");
+    img.src = imagem;
+    img.alt = "Perfil";
+    logPerf.appendChild(img);
 }
 
 
@@ -332,23 +82,11 @@ function atualizarLogPerfil(
 // =========================================================
 
 function abrirSeletorFoto() {
-
-    const input =
-        document.getElementById(
-            "input-foto-perfil"
-        );
-
-
+    const input = document.getElementById("input-foto-perfil");
     if (!input) {
-
-        console.error(
-            "Input de foto não encontrado."
-        );
-
+        console.error("Input de foto não encontrado.");
         return;
     }
-
-
     input.click();
 }
 
@@ -357,47 +95,18 @@ function abrirSeletorFoto() {
 // VALIDAR IMAGEM
 // =========================================================
 
-function validarImagem(
-    arquivo
-) {
+function validarImagem(arquivo) {
+    const tiposPermitidos = ["image/jpeg", "image/png", "image/webp"];
 
-    const tiposPermitidos = [
-
-        "image/jpeg",
-        "image/png",
-        "image/webp"
-
-    ];
-
-
-    if (
-        !tiposPermitidos.includes(
-            arquivo.type
-        )
-    ) {
-
-        alert(
-            "Formato inválido.\n\n" +
-            "Escolha uma imagem JPG, PNG ou WebP."
-        );
-
+    if (!tiposPermitidos.includes(arquivo.type)) {
+        alert("Formato inválido.\n\nEscolha uma imagem JPG, PNG ou WebP.");
         return false;
     }
 
-
-    if (
-        arquivo.size >
-        TAMANHO_MAXIMO_IMAGEM
-    ) {
-
-        alert(
-            "A imagem é muito grande.\n\n" +
-            "O tamanho máximo é de 5 MB."
-        );
-
+    if (arquivo.size > TAMANHO_MAXIMO_IMAGEM) {
+        alert("A imagem é muito grande.\n\nO tamanho máximo é de 5 MB.");
         return false;
     }
-
 
     return true;
 }
@@ -407,25 +116,10 @@ function validarImagem(
 // OBTER EXTENSÃO
 // =========================================================
 
-function obterExtensao(
-    arquivo
-) {
-
-    const partes =
-        arquivo.name.split(".");
-
-
-    if (
-        partes.length < 2
-    ) {
-
-        return "jpg";
-    }
-
-
-    return partes
-        .pop()
-        .toLowerCase();
+function obterExtensao(arquivo) {
+    const partes = arquivo.name.split(".");
+    if (partes.length < 2) return "jpg";
+    return partes.pop().toLowerCase();
 }
 
 
@@ -433,332 +127,83 @@ function obterExtensao(
 // ENVIAR FOTO DE PERFIL
 // =========================================================
 
-async function enviarFotoPerfil(
-    event
-) {
+async function enviarFotoPerfil(event) {
+    const input = event.target;
+    const arquivo = input.files[0];
+    if (!arquivo) return;
 
-    const input =
-        event.target;
-
-
-    const arquivo =
-        input.files[0];
-
-
-    if (!arquivo) {
-
+    if (!validarImagem(arquivo)) {
+        input.value = "";
         return;
     }
 
-
-    // =====================================================
-    // VALIDAR
-    // =====================================================
-
-    if (
-        !validarImagem(
-            arquivo
-        )
-    ) {
-
-        input.value =
-            "";
-
-        return;
-    }
-
-
-    // =====================================================
-    // PEGAR SESSÃO
-    // =====================================================
-
-    const {
-        data: { session }
-    } = await supabaseClient.auth.getSession();
-
-
+    const { data: { session } } = await supabaseClient.auth.getSession();
     if (!session) {
-
-        alert(
-            "Você precisa estar logado para alterar sua foto."
-        );
-
-        input.value =
-            "";
-
+        alert("Você precisa estar logado para alterar sua foto.");
+        input.value = "";
         return;
     }
 
+    const user = session.user;
+    const extensao = obterExtensao(arquivo);
+    const caminho = `perfis/${user.id}.${Date.now()}.${extensao}`;
+    const imagem = document.getElementById("perfil-imagem");
+    const imagemAnterior = imagem?.src;
 
-    const user =
-        session.user;
-
-
-    console.log(
-        "Enviando foto para:",
-        user.id
-    );
-
-
-    // =====================================================
-    // EXTENSÃO
-    // =====================================================
-
-    const extensao =
-        obterExtensao(
-            arquivo
-        );
-
-
-    // =====================================================
-    // CAMINHO DA FOTO
-    // =====================================================
-
-    const caminho =
-        `perfis/${user.id}.${Date.now()}.${extensao}`;
-
-
-    // =====================================================
-    // IMAGEM ATUAL
-    // =====================================================
-
-    const imagem =
-        document.getElementById(
-            "perfil-imagem"
-        );
-
-
-    const imagemAnterior =
-        imagem?.src;
-
-
-    if (imagem) {
-
-        imagem.style.opacity =
-            "0.5";
-    }
-
+    if (imagem) imagem.style.opacity = "0.5";
 
     try {
+        const metadata = user.user_metadata || {};
+        const imagemAntiga = metadata.avatar_url;
 
-        // =================================================
-        // IMAGEM ANTIGA
-        // =================================================
+        const { error: uploadError } = await supabaseClient.storage
+            .from(NOME_BUCKET)
+            .upload(caminho, arquivo, { contentType: arquivo.type, cacheControl: "3600" });
 
-        const metadata =
-            user.user_metadata || {};
+        if (uploadError) throw uploadError;
 
+        const { data: publicData } = supabaseClient.storage
+            .from(NOME_BUCKET)
+            .getPublicUrl(caminho);
 
-        const imagemAntiga =
-            metadata.avatar_url;
+        const urlImagem = publicData.publicUrl;
+        const urlAtualizada = urlImagem + "?t=" + Date.now();
 
+        const { error: updateError } = await supabaseClient.auth.updateUser({
+            data: { avatar_url: urlImagem }
+        });
 
-        // =================================================
-        // UPLOAD
-        // =================================================
-
-        const {
-            error: uploadError
-        } =
-            await supabaseClient
-                .storage
-                .from(
-                    NOME_BUCKET
-                )
-                .upload(
-                    caminho,
-                    arquivo,
-                    {
-                        contentType:
-                            arquivo.type,
-
-                        cacheControl:
-                            "3600"
-                    }
-                );
-
-
-        if (uploadError) {
-
-            throw uploadError;
-        }
-
-
-        // =================================================
-        // URL PÚBLICA
-        // =================================================
-
-        const {
-            data: publicData
-        } =
-            supabaseClient
-                .storage
-                .from(
-                    NOME_BUCKET
-                )
-                .getPublicUrl(
-                    caminho
-                );
-
-
-        const urlImagem =
-            publicData.publicUrl;
-
-
-        // =================================================
-        // CACHE BUSTER
-        // =================================================
-
-        const urlAtualizada =
-            urlImagem +
-            "?t=" +
-            Date.now();
-
-
-        // =================================================
-        // SALVAR NO USER_METADATA
-        // =================================================
-
-        const {
-            data: updateData,
-            error: updateError
-        } =
-            await supabaseClient
-                .auth
-                .updateUser({
-
-                    data: {
-
-                        avatar_url:
-                            urlImagem
-
-                    }
-
-                });
-
-
-        if (updateError) {
-
-            throw updateError;
-        }
-
-
-        // =================================================
-        // ATUALIZAR IMAGEM GRANDE
-        // =================================================
+        if (updateError) throw updateError;
 
         if (imagem) {
-
-            imagem.src =
-                urlAtualizada;
-
-            imagem.style.opacity =
-                "1";
+            imagem.src = urlAtualizada;
+            imagem.style.opacity = "1";
         }
 
+        atualizarLogPerfil(urlAtualizada);
 
-        // =================================================
-        // ATUALIZAR LOG_PERF
-        // =================================================
-
-        atualizarLogPerfil(
-            urlAtualizada
-        );
-
-
-        // =================================================
-        // CONSOLE
-        // =================================================
-
-        if (
-            updateData &&
-            updateData.user
-        ) {
-
-            console.log(
-                "Perfil atualizado:",
-                updateData.user
-            );
-        }
-
-
-        // =================================================
-        // REMOVER IMAGEM ANTIGA
-        // =================================================
-
-        if (
-            imagemAntiga &&
-            imagemAntiga.includes(
-                `/storage/v1/object/public/${NOME_BUCKET}/`
-            )
-        ) {
-
+        if (imagemAntiga && imagemAntiga.includes(`/storage/v1/object/public/${NOME_BUCKET}/`)) {
             try {
-
-                const parteCaminho =
-                    imagemAntiga.split(
-                        `/storage/v1/object/public/${NOME_BUCKET}/`
-                    )[1];
-
-
+                const parteCaminho = imagemAntiga.split(`/storage/v1/object/public/${NOME_BUCKET}/`)[1];
                 if (parteCaminho) {
-
-                    await supabaseClient
-                        .storage
-                        .from(
-                            NOME_BUCKET
-                        )
-                        .remove([
-                            parteCaminho
-                        ]);
+                    await supabaseClient.storage.from(NOME_BUCKET).remove([parteCaminho]);
                 }
-
-            }
-
-            catch (erroRemocao) {
-
-                console.warn(
-                    "Não foi possível remover a imagem antiga:",
-                    erroRemocao
-                );
+            } catch (erroRemocao) {
+                console.warn("Não foi possível remover a imagem antiga:", erroRemocao);
             }
         }
 
-
-        console.log(
-            "Foto de perfil atualizada."
-        );
-
-    }
-
-
-    catch (error) {
-
-        console.error(
-            "Erro ao alterar foto:",
-            error
-        );
-
-
+        console.log("Foto de perfil atualizada.");
+    } catch (error) {
+        console.error("Erro ao alterar foto:", error);
         if (imagem) {
-
-            imagem.src =
-                imagemAnterior;
-
-            imagem.style.opacity =
-                "1";
+            imagem.src = imagemAnterior;
+            imagem.style.opacity = "1";
         }
-
-
-        alert(
-            "Não foi possível alterar a foto.\n\n" +
-            error.message
-        );
+        alert("Não foi possível alterar a foto.\n\n" + error.message);
     }
 
-
-    input.value =
-        "";
+    input.value = "";
 }
 
 
@@ -767,214 +212,63 @@ async function enviarFotoPerfil(
 // =========================================================
 
 async function editarPerfil() {
-
-    const {
-        data: { session }
-    } = await supabaseClient.auth.getSession();
-
-
+    const { data: { session } } = await supabaseClient.auth.getSession();
     if (!session) {
-
-        alert(
-            "Você precisa estar logado para editar o perfil."
-        );
-
+        alert("Você precisa estar logado para editar o perfil.");
         return;
     }
 
+    const user = session.user;
+    const metadata = user.user_metadata || {};
 
-    const user =
-        session.user;
+    const nomeAtual = metadata.nome || "";
+    const nicknameAtual = metadata.nickname || "";
+    const nascimentoAtual = metadata.data_nascimento || "";
+    const bioAtual = metadata.bio || "";
 
+    const infoNome = document.getElementById("info-nome");
+    const infoNickname = document.getElementById("info-nickname");
+    const infoNascimento = document.getElementById("info-nascimento");
+    const infoBio = document.getElementById("info-bio");
 
-    const metadata =
-        user.user_metadata || {};
-
-
-    // =====================================================
-    // VALORES ATUAIS
-    // =====================================================
-
-    const nomeAtual =
-        metadata.nome || "";
-
-
-    const nicknameAtual =
-        metadata.nickname || "";
-
-
-    const nascimentoAtual =
-        metadata.data_nascimento || "";
-
-
-    // =====================================================
-    // ELEMENTOS
-    // =====================================================
-
-    const infoNome =
-        document.getElementById(
-            "info-nome"
-        );
-
-
-    const infoNickname =
-        document.getElementById(
-            "info-nickname"
-        );
-
-
-    const infoNascimento =
-        document.getElementById(
-            "info-nascimento"
-        );
-
-
-    // =====================================================
-    // VERIFICAR SE JÁ ESTÁ EDITANDO
-    // =====================================================
-
-    if (
-        document.getElementById(
-            "editar-nome"
-        )
-    ) {
-
-        return;
-    }
-
-
-    // =====================================================
-    // NOME
-    // =====================================================
+    if (document.getElementById("editar-nome")) return;
 
     if (infoNome) {
-
-        infoNome.innerHTML = `
-
-            <input
-                type="text"
-                id="editar-nome"
-                value="${escapeHtml(nomeAtual)}"
-                placeholder="Digite seu nome"
-            >
-
-        `;
+        infoNome.innerHTML = `<input type="text" id="editar-nome" value="${escapeHtml(nomeAtual)}" placeholder="Digite seu nome">`;
     }
-
-
-    // =====================================================
-    // NICKNAME
-    // =====================================================
 
     if (infoNickname) {
-
-        infoNickname.innerHTML = `
-
-            <input
-                type="text"
-                id="editar-nickname"
-                value="${escapeHtml(nicknameAtual)}"
-                placeholder="Digite seu nickname"
-            >
-
-        `;
+        infoNickname.innerHTML = `<input type="text" id="editar-nickname" value="${escapeHtml(nicknameAtual)}" placeholder="Digite seu nickname">`;
     }
-
-
-    // =====================================================
-    // DATA DE NASCIMENTO
-    // =====================================================
 
     if (infoNascimento) {
-
-        infoNascimento.innerHTML = `
-
-            <input
-                type="date"
-                id="editar-nascimento"
-                value="${escapeHtml(nascimentoAtual)}"
-            >
-
-        `;
+        infoNascimento.innerHTML = `<input type="date" id="editar-nascimento" value="${escapeHtml(nascimentoAtual)}">`;
     }
 
+    if (infoBio) {
+        infoBio.innerHTML = `<textarea id="editar-bio" rows="3" placeholder="Escreve algo sobre ti...">${escapeHtml(bioAtual)}</textarea>`;
+    }
 
-    // =====================================================
-    // EMAIL E ID CONTINUAM SOMENTE LEITURA
-    // =====================================================
-
-    // Nada é alterado aqui.
-    // O e-mail e o ID permanecem protegidos.
-
-
-    // =====================================================
-    // ALTERAR BOTÃO EDITAR
-    // =====================================================
-
-    const botaoEditar =
-        document.getElementById(
-            "editar-perfil"
-        );
-
-
+    const botaoEditar = document.getElementById("editar-perfil");
     if (botaoEditar) {
-
-        botaoEditar.textContent =
-            "Salvar";
-
-
-        botaoEditar.onclick =
-            salvarPerfil;
+        botaoEditar.textContent = "Salvar";
+        botaoEditar.onclick = salvarPerfil;
     }
 
-
-    // =====================================================
-    // CRIAR BOTÃO CANCELAR
-    // =====================================================
-
-    let botaoCancelar =
-        document.getElementById(
-            "cancelar-edicao"
-        );
-
-
+    let botaoCancelar = document.getElementById("cancelar-edicao");
     if (!botaoCancelar) {
+        botaoCancelar = document.createElement("button");
+        botaoCancelar.type = "button";
+        botaoCancelar.id = "cancelar-edicao";
+        botaoCancelar.textContent = "Cancelar";
 
-        botaoCancelar =
-            document.createElement(
-                "button"
-            );
-
-
-        botaoCancelar.type =
-            "button";
-
-
-        botaoCancelar.id =
-            "cancelar-edicao";
-
-
-        botaoCancelar.textContent =
-            "Cancelar";
-
-
-        const titulo =
-            document.querySelector(
-                ".Perfil_info_titulo"
-            );
-
-
+        const titulo = document.querySelector(".Perfil_info_titulo");
         if (titulo) {
-
-            titulo.appendChild(
-                botaoCancelar
-            );
+            titulo.appendChild(botaoCancelar);
         }
     }
 
-
-    botaoCancelar.onclick =
-        cancelarEdicaoPerfil;
+    botaoCancelar.onclick = cancelarEdicaoPerfil;
 }
 
 
@@ -982,31 +276,13 @@ async function editarPerfil() {
 // ESCAPAR HTML
 // =========================================================
 
-function escapeHtml(
-    texto
-) {
-
+function escapeHtml(texto) {
     return String(texto)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
@@ -1015,188 +291,59 @@ function escapeHtml(
 // =========================================================
 
 async function salvarPerfil() {
-
-    const {
-        data: { session }
-    } = await supabaseClient.auth.getSession();
-
-
+    const { data: { session } } = await supabaseClient.auth.getSession();
     if (!session) {
-
-        alert(
-            "Você precisa estar logado."
-        );
-
+        alert("Você precisa estar logado.");
         return;
     }
 
+    const campoNome = document.getElementById("editar-nome");
+    const campoNickname = document.getElementById("editar-nickname");
+    const campoNascimento = document.getElementById("editar-nascimento");
+    const campoBio = document.getElementById("editar-bio");
 
-    // =====================================================
-    // CAMPOS
-    // =====================================================
-
-    const campoNome =
-        document.getElementById(
-            "editar-nome"
-        );
-
-
-    const campoNickname =
-        document.getElementById(
-            "editar-nickname"
-        );
-
-
-    const campoNascimento =
-        document.getElementById(
-            "editar-nascimento"
-        );
-
-
-    // =====================================================
-    // VALORES
-    // =====================================================
-
-    const nome =
-        campoNome?.value.trim();
-
-
-    const nickname =
-        campoNickname?.value.trim();
-
-
-    const dataNascimento =
-        campoNascimento?.value;
-
-
-    // =====================================================
-    // VALIDAÇÃO
-    // =====================================================
+    const nome = campoNome?.value.trim();
+    const nickname = campoNickname?.value.trim();
+    const dataNascimento = campoNascimento?.value;
+    const bio = campoBio?.value.trim();
 
     if (!nome) {
-
-        alert(
-            "Digite seu nome."
-        );
-
+        alert("Digite seu nome.");
         return;
     }
-
 
     if (!nickname) {
-
-        alert(
-            "Digite seu nickname."
-        );
-
+        alert("Digite seu nickname.");
         return;
     }
 
-
-    // =====================================================
-    // BOTÃO
-    // =====================================================
-
-    const botaoEditar =
-        document.getElementById(
-            "editar-perfil"
-        );
-
-
+    const botaoEditar = document.getElementById("editar-perfil");
     if (botaoEditar) {
-
-        botaoEditar.disabled =
-            true;
-
-        botaoEditar.textContent =
-            "Salvando...";
+        botaoEditar.disabled = true;
+        botaoEditar.textContent = "Salvando...";
     }
-
 
     try {
+        const { data, error } = await supabaseClient.auth.updateUser({
+            data: {
+                nome: nome,
+                nickname: nickname,
+                data_nascimento: dataNascimento,
+                bio: bio
+            }
+        });
 
-        // =================================================
-        // ATUALIZAR SUPABASE
-        // =================================================
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .auth
-                .updateUser({
-
-                    data: {
-
-                        nome:
-                            nome,
-
-                        nickname:
-                            nickname,
-
-                        data_nascimento:
-                            dataNascimento
-
-                    }
-
-                });
-
-
-        if (error) {
-
-            throw error;
-        }
-
-
-        console.log(
-            "Perfil atualizado:",
-            data.user
-        );
-
-
-        // =================================================
-        // ATUALIZAR PÁGINA
-        // =================================================
+        if (error) throw error;
 
         await carregarPerfil();
-
-
-        // =================================================
-        // ENCERRAR EDIÇÃO
-        // =================================================
-
         removerModoEdicao();
-
-
-        alert(
-            "Perfil atualizado com sucesso!"
-        );
-
-    }
-
-
-    catch (error) {
-
-        console.error(
-            "Erro ao salvar perfil:",
-            error
-        );
-
-
-        alert(
-            "Não foi possível salvar o perfil.\n\n" +
-            error.message
-        );
-
-
+        alert("Perfil atualizado com sucesso!");
+    } catch (error) {
+        console.error("Erro ao salvar perfil:", error);
+        alert("Não foi possível salvar o perfil.\n\n" + error.message);
         if (botaoEditar) {
-
-            botaoEditar.disabled =
-                false;
-
-            botaoEditar.textContent =
-                "Salvar";
+            botaoEditar.disabled = false;
+            botaoEditar.textContent = "Salvar";
         }
     }
 }
@@ -1207,11 +354,7 @@ async function salvarPerfil() {
 // =========================================================
 
 async function cancelarEdicaoPerfil() {
-
-    // Recarrega os dados originais do Supabase
     await carregarPerfil();
-
-    // Volta o botão para "Editar perfil"
     removerModoEdicao();
 }
 
@@ -1221,124 +364,69 @@ async function cancelarEdicaoPerfil() {
 // =========================================================
 
 function removerModoEdicao() {
+    const botaoEditar = document.getElementById("editar-perfil");
+    const botaoCancelar = document.getElementById("cancelar-edicao");
 
-    const botaoEditar =
-        document.getElementById(
-            "editar-perfil"
-        );
-
-
-    const botaoCancelar =
-        document.getElementById(
-            "cancelar-edicao"
-        );
-
-
-    // =====================================================
-    // REMOVER BOTÃO CANCELAR
-    // =====================================================
-
-    if (botaoCancelar) {
-
-        botaoCancelar.remove();
-    }
-
-
-    // =====================================================
-    // RESTAURAR BOTÃO EDITAR
-    // =====================================================
+    if (botaoCancelar) botaoCancelar.remove();
 
     if (botaoEditar) {
-
-        botaoEditar.disabled =
-            false;
-
-        botaoEditar.textContent =
-            "Editar perfil";
-
-        botaoEditar.onclick =
-            editarPerfil;
+        botaoEditar.disabled = false;
+        botaoEditar.textContent = "Editar perfil";
+        botaoEditar.onclick = editarPerfil;
     }
 }
+
+
+// =========================================================
+// TERMINAR SESSÃO (LOGOUT)
+// =========================================================
+
+async function terminarSessao() {
+    const confirmar = confirm("Tens a certeza de que pretendes terminar sessão?");
+    if (!confirmar) return;
+
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) {
+        alert("Erro ao terminar sessão: " + error.message);
+        return;
+    }
+
+    window.location.href = "log.html";
+}
+
 
 // =========================================================
 // CONFIGURAR PERFIL
 // =========================================================
 
 function configurarPerfil() {
-
-    // =====================================================
-    // IMAGEM DO PERFIL
-    // =====================================================
-
-    const perfilImagemContainer =
-        document.getElementById(
-            "perfil-imagem-container"
-        );
-
-
+    const perfilImagemContainer = document.getElementById("perfil-imagem-container");
     if (perfilImagemContainer) {
-
-        perfilImagemContainer.addEventListener(
-            "click",
-            abrirSeletorFoto
-        );
+        perfilImagemContainer.addEventListener("click", abrirSeletorFoto);
     }
 
-
-    // =====================================================
-    // INPUT DA FOTO
-    // =====================================================
-
-    const inputFotoPerfil =
-        document.getElementById(
-            "input-foto-perfil"
-        );
-
-
+    const inputFotoPerfil = document.getElementById("input-foto-perfil");
     if (inputFotoPerfil) {
-
-        inputFotoPerfil.addEventListener(
-            "change",
-            enviarFotoPerfil
-        );
+        inputFotoPerfil.addEventListener("change", enviarFotoPerfil);
     }
 
-
-    // =====================================================
-    // BOTÃO EDITAR
-    // =====================================================
-
-    const botaoEditar =
-        document.getElementById(
-            "editar-perfil"
-        );
-
-
+    const botaoEditar = document.getElementById("editar-perfil");
     if (botaoEditar) {
+        botaoEditar.onclick = editarPerfil;
+    }
 
-        // IMPORTANTE:
-        // Usamos somente onclick.
-        // Não usamos addEventListener aqui,
-        // pois o onclick é alterado entre
-        // EDITAR e SALVAR.
-
-        botaoEditar.onclick =
-            editarPerfil;
+    const botaoLogout = document.getElementById("btn-logout");
+    if (botaoLogout) {
+        botaoLogout.addEventListener("click", terminarSessao);
     }
 }
+
 
 // =========================================================
 // INICIALIZAÇÃO
 // =========================================================
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        carregarPerfil();
-
-        configurarPerfil();
-
-    }
-);
+document.addEventListener("DOMContentLoaded", () => {
+    carregarPerfil();
+    configurarPerfil();
+});

@@ -1236,7 +1236,8 @@ strong {
    INPUTS
    ========================================================= */
 
-.Perfil_info input {
+.Perfil_info input,
+.Perfil_info textarea {
     width: 100%;
 
     min-height: 42px;
@@ -1416,6 +1417,192 @@ strong {
     color: #8fbd8f;
 }
 
+/* =========================================================
+   ESTILOS ADICIONAIS PARA AS NOVAS SECÇÕES DO PERFIL
+   ======================================================== */
+
+/* Biografia curta no cabeçalho */
+.perfil-bio-texto {
+    color: #b0c4de !important;
+    font-size: 13px !important;
+    font-style: italic;
+    margin-top: 4px !important;
+}
+
+/* Secção de Estatísticas (Progresso) */
+.Perfil_estatisticas,
+.Perfil_configuracoes,
+.Perfil_seguranca {
+    margin-top: 20px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    background-color: rgba(20, 20, 20, 0.35);
+    backdrop-filter: blur(8px);
+}
+
+.Perfil_estatisticas h2,
+.Perfil_configuracoes h2,
+.Perfil_seguranca h2 {
+    margin: 0 0 15px 0;
+    font-size: 21px;
+    font-weight: normal;
+    color: #b0b0b0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.stat-card {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 2px solid rgba(0, 210, 255, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.stat-value {
+    font-size: 24px;
+    color: #00d2ff;
+    font-weight: bold;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #aaa;
+}
+
+/* Definições (Checkboxes) */
+.setting-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ccffcc;
+    font-size: 15px;
+}
+
+.toggle-switch-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.toggle-switch-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #00d2ff;
+    cursor: pointer;
+}
+
+/* Zona de Segurança e Botões */
+.seguranca-botoes {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-secondary, .btn-danger, .btn-primary {
+    font-family: Greek, sans-serif;
+    font-size: 14px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary {
+    color: #00d2ff;
+    background: rgba(0, 210, 255, 0.08);
+    border: 1px solid rgba(0, 210, 255, 0.5);
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 210, 255, 0.18);
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.25);
+}
+
+.btn-danger {
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.08);
+    border: 1px solid rgba(255, 107, 107, 0.5);
+}
+
+.btn-danger:hover {
+    background: rgba(255, 107, 107, 0.18);
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.25);
+}
+
+/* Modal Flutuante de Edição (Caso utilizes) */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-conteudo {
+    background: #2a2a2a;
+    border: 1px solid rgba(0, 210, 255, 0.3);
+    border-radius: 16px;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.modal-conteudo h2 {
+    color: #e0e0e0;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.modal-conteudo label {
+    font-size: 13px;
+    color: #00d2ff;
+}
+
+.modal-conteudo input, 
+.modal-conteudo textarea {
+    width: 100%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: #ccffcc;
+    font-family: Greek, sans-serif;
+    outline: none;
+}
+
+.modal-conteudo input:focus, 
+.modal-conteudo textarea:focus {
+    border-color: #00d2ff;
+    box-shadow: 0 0 8px rgba(0, 210, 255, 0.2);
+}
+
+.modal-botoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
 
 /* =========================================================
    RESPONSIVIDADE

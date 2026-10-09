@@ -32,89 +32,108 @@
         </ul>
         <div class="Log_perf">
         </div>
-
     </div>
 
     <div class="Main">
-
         <div class="Conteudo">
-
             <div class="Perfil_area">
 
+                <!-- Cabeçalho do Perfil -->
                 <div class="Perfil_cabecalho">
-
                     <div class="Perfil_imagem" id="perfil-imagem-container">
-
                         <img
                             id="perfil-imagem"
                             src="img/Logo.png"
                             alt="Imagem de perfil"
                         >
-
                         <input
                             type="file"
                             id="input-foto-perfil"
                             accept="image/png, image/jpeg, image/webp"
                             hidden
                         >
-
                     </div>
 
                     <div class="Perfil_dados">
-
-                        <h1 id="perfil-nome">
-                            Usuário
-                        </h1>
-
-                        <p id="perfil-nickname">
-                            @nickname
-                        </p>
-
-                        <p id="perfil-email">
-                            email@email.com
-                        </p>
-
+                        <h1 id="perfil-nome">Usuário</h1>
+                        <p id="perfil-nickname">@nickname</p>
+                        <p id="perfil-email">email@email.com</p>
+                        <p class="Perfil_info"><strong>Biografia:</strong> <span id="info-bio">---</span></p>
                     </div>
-
                 </div>
 
+                <!-- Estatísticas / Progresso do Utilizador -->
+                <div class="Perfil_estatisticas">
+                    <h2>O Teu Progresso</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-value" id="stat-modulos">0</span>
+                            <span class="stat-label">Módulos Concluídos</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value" id="stat-conquistas">0</span>
+                            <span class="stat-label">Conquistas</span>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Informações Detalhadas -->
                 <div class="Perfil_info">
-
                     <div class="Perfil_info_titulo">
                         <h2>Informações do perfil</h2>
                         <button type="button" id="editar-perfil">Editar perfil</button>
                     </div>
 
-                    <p>
-                        <strong>Nome:</strong>
-                        <span id="info-nome">---</span>
-                    </p>
+                    <p><strong>Nome:</strong> <span id="info-nome">---</span></p>
+                    <p><strong>Nickname:</strong> <span id="info-nickname">---</span></p>
+                    <p><strong>E-mail:</strong> <span id="info-email">---</span></p>
+                    <p><strong>Data de nascimento:</strong> <span id="info-nascimento">---</span></p>
+                    <p><strong>ID:</strong> <span id="info-id">---</span></p>
+                </div>
 
-                    <p>
-                        <strong>Nickname:</strong>
-                        <span id="info-nickname">---</span>
-                    </p>
+                <!-- Definições e Preferências -->
+                <div class="Perfil_configuracoes">
+                    <h2>Definições</h2>
+                    <div class="setting-option">
+                        <label class="toggle-switch-label">
+                            <input type="checkbox" id="notificacoes-email" checked>
+                            Receber notificações por e-mail e atualizações
+                        </label>
+                    </div>
+                </div>
 
-                    <p>
-                        <strong>E-mail:</strong>
-                        <span id="info-email">---</span>
-                    </p>
-
-                    <p>
-                        <strong>Data de nascimento:</strong>
-                        <span id="info-nascimento">---</span>
-                    </p>
-
-                    <p>
-                        <strong>ID:</strong>
-                        <span id="info-id">---</span>
-                    </p>
-
+                <!-- Zona de Segurança e Sessão -->
+                <div class="Perfil_seguranca">
+                    <h2>Segurança e Conta</h2>
+                    <div class="seguranca-botoes">
+                        <button type="button" id="btn-mudar-senha" class="btn-secondary">Alterar Palavra-passe</button>
+                        <button type="button" id="btn-logout" class="btn-danger">Terminar Sessão</button>
+                    </div>
                 </div>
 
             </div>
+        </div>
+    </div>
 
+    <!-- Modal de Edição de Perfil (Oculto por defeito) -->
+    <div id="modal-editar" class="modal" style="display: none;">
+        <div class="modal-conteudo">
+            <h2>Editar Informações</h2>
+            <form id="form-editar-perfil">
+                <label for="edit-nome">Nome:</label>
+                <input type="text" id="edit-nome" required>
+                
+                <label for="edit-nickname">Nickname:</label>
+                <input type="text" id="edit-nickname" required>
+
+                <label for="edit-bio">Biografia:</label>
+                <textarea id="edit-bio" rows="3"></textarea>
+
+                <div class="modal-botoes">
+                    <button type="submit" class="btn-primary">Salvar Alterações</button>
+                    <button type="button" id="fechar-modal" class="btn-secondary">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
 </body>
