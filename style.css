@@ -1272,6 +1272,11 @@ strong {
         box-shadow 0.3s ease;
 }
 
+#perfil-bio, 
+#info-bio {
+    white-space: pre-line; /* Respeita os enters dados pelo utilizador */
+}
+
 
 /* ---------------------------------------------------------
    INPUT EM FOCO

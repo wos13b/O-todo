@@ -57,6 +57,16 @@ async function carregarPerfil() {
     if (infoNascimento) infoNascimento.textContent = dataNascimento;
     if (infoBio) infoBio.textContent = bio;
 
+    if (perfilBio) {
+        perfilBio.textContent = bio;
+        perfilBio.style.whiteSpace = "pre-line"; 
+    }
+
+    if (infoBio) {
+        infoBio.textContent = bio;
+        infoBio.style.whiteSpace = "pre-line";
+    }
+
     atualizarLogPerfil(imagemPerfil);
 }
 
