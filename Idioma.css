@@ -21,6 +21,7 @@
     cursor: pointer;
 }
 .Band_pas img {
+    align-items: center;
     width: 80px;
     height: auto;
     object-fit: contain;
