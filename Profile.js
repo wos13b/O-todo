@@ -298,10 +298,25 @@ function escapeHtml(texto) {
 // SALVAR PERFIL
 // =========================================================
 
+// =========================================================
+// SALVAR PERFIL (Com verificação e refresh de sessão)
+// =========================================================
+
 async function salvarPerfil() {
-    const { data: { session } } = await supabaseClient.auth.getSession();
+    // 1. Forçar atualização/verificação da sessão atual
+    const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
+    
+    let session = sessionData?.session;
+
+    if (sessionError || !session) {
+        // Tentar recuperar a sessão via refresh se falhar
+        const { data: refreshData } = await supabaseClient.auth.refreshSession();
+        session = refreshData?.session;
+    }
+
     if (!session) {
-        alert("Você precisa estar logado.");
+        alert("A tua sessão expirou. Por favor, faz login novamente.");
+        window.location.href = "log.html";
         return;
     }
 
@@ -313,7 +328,7 @@ async function salvarPerfil() {
     const nome = campoNome?.value.trim();
     const nickname = campoNickname?.value.trim();
     const dataNascimento = campoNascimento?.value;
-    const bio = campoBio?.value || ""; // Mantém as quebras de linha intactas
+    const bio = campoBio?.value || "";
 
     if (!nome) {
         alert("Digite seu nome.");
