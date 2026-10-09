@@ -1,5 +1,5 @@
 // =========================================================
-// PROFILE.JS (Atualizado com suporte à Biografia)
+// PROFILE.JS (Com suporte total a quebras de linha na Bio)
 // =========================================================
 
 const NOME_BUCKET = "avatars";
@@ -40,7 +40,11 @@ async function carregarPerfil() {
     if (perfilNome) perfilNome.textContent = nome;
     if (perfilNickname) perfilNickname.textContent = "@" + nickname;
     if (perfilEmail) perfilEmail.textContent = user.email || "---";
-    if (perfilBio) perfilBio.textContent = bio;
+    
+    if (perfilBio) {
+        perfilBio.textContent = bio;
+        perfilBio.style.whiteSpace = "pre-line"; 
+    }
 
     // Informações detalhadas
     const infoNome = document.getElementById("info-nome");
@@ -55,13 +59,7 @@ async function carregarPerfil() {
     if (infoEmail) infoEmail.textContent = user.email || "---";
     if (infoId) infoId.textContent = user.id;
     if (infoNascimento) infoNascimento.textContent = dataNascimento;
-    if (infoBio) infoBio.textContent = bio;
-
-    if (perfilBio) {
-        perfilBio.textContent = bio;
-        perfilBio.style.whiteSpace = "pre-line"; 
-    }
-
+    
     if (infoBio) {
         infoBio.textContent = bio;
         infoBio.style.whiteSpace = "pre-line";
@@ -256,7 +254,7 @@ async function editarPerfil() {
     }
 
     if (infoBio) {
-        infoBio.innerHTML = `<textarea id="editar-bio" rows="3" placeholder="Escreve algo sobre ti...">${escapeHtml(bioAtual)}</textarea>`;
+        infoBio.innerHTML = `<textarea id="editar-bio" rows="4" placeholder="Escreve algo sobre ti...">${escapeHtml(bioAtual)}</textarea>`;
     }
 
     const botaoEditar = document.getElementById("editar-perfil");
@@ -315,7 +313,7 @@ async function salvarPerfil() {
     const nome = campoNome?.value.trim();
     const nickname = campoNickname?.value.trim();
     const dataNascimento = campoNascimento?.value;
-    const bio = campoBio?.value.trim();
+    const bio = campoBio?.value || ""; // Mantém as quebras de linha intactas
 
     if (!nome) {
         alert("Digite seu nome.");
