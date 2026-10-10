@@ -235,7 +235,7 @@ function iniciarFundoMatrix() {
 
   if (!ctx) return;
 
-  // Renderiza em resolução reduzida no celular.
+  // Renderiza em resolução reduzida no telemóvel/celular.
   const scale = window.innerWidth < 768 ? 0.6 : 1;
   const fontSize = 16 * scale;
 
@@ -338,17 +338,6 @@ function iniciarFundoMatrix() {
   });
 
   start();
-}
-
-iniciarAnimacaoMatrix();
-
-    window.addEventListener('resize', () => {
-        columns = Math.floor(canvas.width / fontSize);
-        drops = [];
-        for (let i = 0; i < columns; i++) {
-            drops[i] = 1;
-        }
-    });
 }
 
 
@@ -703,12 +692,7 @@ document.querySelectorAll(".Band_pas").forEach(bandeira => {
         
         if (lang) {
             trocarIdioma(lang);
-            
-            // Opcional: Feedback visual ou redirecionamento após trocar
             console.log(`Idioma alterado para: ${lang}`);
-            
-            // Se quiser redirecionar para a página inicial após escolher o idioma:
-            // window.location.href = "index.html";
         }
     });
 });
