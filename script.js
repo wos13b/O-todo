@@ -226,95 +226,119 @@ supabaseClient.auth.onAuthStateChange(
 // =========================================================
 
 function iniciarFundoMatrix() {
-    const canvas = document.getElementById('matrix-canvas');
-    if (!canvas) return;
+  const canvas = document.getElementById("matrix-canvas");
+  if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext("2d", {
+    alpha: true
+  });
 
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+  if (!ctx) return;
 
-    // Conjunto expandido abrangendo vários idiomas e símbolos universais
-    const rawCharacters = '0123456789' +
-        // Alfabeto Latino (Maiúsculo e Minúsculo) + Acentuação Básica
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÀÁÂÃÇÉÊÍÓÔÕÚÑ' +
-        // Grego (Maiúsculo e Minúsculo)
-        'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω' +
-        // Cirílico (Russo/Básico)
-        'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюя' +
-        // Devanagari (Hindi/Sânscrito)
-        'अआइईउऊऋॠऌॡएऐओऔअंअःकखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसह' +
-        // Hebraico (Básico)
-        'אבגדהוזחטיכלמנסעפצקרשת' +
-        // Árabe (Formas isoladas básicas)
-        'ابتثجحخدذرزسشصضطظعغفقكلمنهوي' +
-        // Símbolos Astronômicos (Sol, Lua, Planetas)
-        '☉☽☿♀♁♂♃♄♅♆♇' +
-        // setas
-        '←↑→↓↔↕↖↗↘↙⇎⇕⇐⇑⇒⇓⇔⇕' +
-        // Símbolos Matemáticos e Úteis
-        '±×÷≠≈≤≥∞∑∏∫∂√' +
-        // Setas
-        '←↑→↓↔↕↖↗↘↙'
-    ;
-    
-    // Converte a string em um array seguro para lidar com caracteres complexos/multibyte
-    const characters = Array.from(rawCharacters);
+  // Renderiza em resolução reduzida no celular.
+  const scale = window.innerWidth < 768 ? 0.6 : 1;
+  const fontSize = 16 * scale;
 
-    const fontSize = 16;
-    let columns = Math.floor(canvas.width / fontSize);
+  const characters = Array.from(
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" +
+    "☉☽☿♀♂♃♄♅♆♇∞∑∫√" +
+    "←↑→↓↔±×÷≠≈≤≥" +
+    "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ" +
+    "अआइईउऊऋएऐओऔकखगघचछजझटठडढतथदधनपफबभमयरलवशषसह" +
+    "אבגדהוזחטיכלמנסעפצקרשת"
+  );
 
-    let drops = [];
+  let columns = 0;
+  let drops = [];
+  let timer = null;
+
+  function resizeCanvas() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    canvas.width = Math.floor(width * scale);
+    canvas.height = Math.floor(height * scale);
+
+    columns = Math.ceil(canvas.width / fontSize);
+    drops = Array.from(
+      { length: columns },
+      () => 1
+    );
+  }
+
+  function drawMatrix() {
+    ctx.fillStyle = "rgba(44, 44, 44, 0.1)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#ccffcc";
+    ctx.font = `${fontSize}px monospace`;
+
     for (let i = 0; i < columns; i++) {
-        drops[i] = 1;
+      const text = characters[
+        Math.floor(Math.random() * characters.length)
+      ];
+
+      ctx.fillText(
+        text,
+        i * fontSize,
+        drops[i] * fontSize
+      );
+
+      if (
+        drops[i] * fontSize > canvas.height &&
+        Math.random() > 0.975
+      ) {
+        drops[i] = 0;
+      }
+
+      drops[i]++;
     }
+  }
 
-    function drawMatrix() {
-        // Rastro escuro com transparência combinando com o tema (#2c2c2c)
-        ctx.fillStyle = 'rgba(44, 44, 44, 0.1)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Cor do texto baseada na paleta do site (#ccffcc)
-        ctx.fillStyle = '#ccffcc';
-        ctx.font = fontSize + 'px monospace';
-
-        for (let i = 0; i < drops.length; i++) {
-            const text = characters[Math.floor(Math.random() * characters.length)];
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
-            }
-            drops[i]++;
-        }
-    }
-
-    let matrixTimer = null;
-
-    function iniciarAnimacaoMatrix() {
-    if (matrixTimer !== null || document.hidden) return;
-
-    matrixTimer = setInterval(drawMatrix, 80);
-    }
-
-    function pararAnimacaoMatrix() {
-    if (matrixTimer !== null) {
-        clearInterval(matrixTimer);
-        matrixTimer = null;
-    }
-    }
-
-    document.addEventListener("visibilitychange", () => {
+  function tick() {
     if (document.hidden) {
-        pararAnimacaoMatrix();
-    } else {
-        iniciarAnimacaoMatrix();
+      timer = null;
+      return;
     }
-    });
+
+    drawMatrix();
+
+    // Cerca de 12 atualizações por segundo.
+    timer = setTimeout(tick, 80);
+  }
+
+  function stop() {
+    if (timer !== null) {
+      clearTimeout(timer);
+      timer = null;
+    }
+  }
+
+  function start() {
+    if (timer === null && !document.hidden) {
+      tick();
+    }
+  }
+
+  function handleResize() {
+    resizeCanvas();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  resizeCanvas();
+
+  window.addEventListener("resize", handleResize);
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      stop();
+    } else {
+      start();
+    }
+  });
+
+  start();
+}
 
 iniciarAnimacaoMatrix();
 
