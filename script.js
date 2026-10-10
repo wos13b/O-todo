@@ -293,7 +293,30 @@ function iniciarFundoMatrix() {
         }
     }
 
-    setInterval(drawMatrix, 33);
+    let matrixTimer = null;
+
+    function iniciarAnimacaoMatrix() {
+    if (matrixTimer !== null || document.hidden) return;
+
+    matrixTimer = setInterval(drawMatrix, 80);
+    }
+
+    function pararAnimacaoMatrix() {
+    if (matrixTimer !== null) {
+        clearInterval(matrixTimer);
+        matrixTimer = null;
+    }
+    }
+
+    document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+        pararAnimacaoMatrix();
+    } else {
+        iniciarAnimacaoMatrix();
+    }
+    });
+
+iniciarAnimacaoMatrix();
 
     window.addEventListener('resize', () => {
         columns = Math.floor(canvas.width / fontSize);
