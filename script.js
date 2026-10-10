@@ -237,7 +237,7 @@ function iniciarFundoMatrix() {
 
   // Renderiza em resolução reduzida no telemóvel/celular.
   const scale = window.innerWidth < 768 ? 0.6 : 1;
-  const fontSize = 16 * scale;
+  const fontSize = 14 * scale;
 
   const characters = Array.from(
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" +
@@ -304,7 +304,7 @@ function iniciarFundoMatrix() {
     drawMatrix();
 
     // Cerca de 12 atualizações por segundo.
-    timer = setTimeout(tick, 80);
+    timer = setTimeout(tick, 38);
   }
 
   function stop() {
