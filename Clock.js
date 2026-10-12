@@ -1,1926 +1,382 @@
 /* =========================================================
-   CALENDÁRIO 14 MESES
-   =========================================================
-
-   ESTRUTURA:
-
-   Meses 1–13:
-   3 semanas × 9 dias
-   = 27 dias por mês
-
-   Mês 14:
-   2 semanas × 7 dias
-   = 14 dias
-
-   Total:
-
-   13 × 27 = 351
-   351 + 14 = 365 dias
-
-   Ano bissexto:
-
-   365 + 1 dia especial = 366
-
-   O dia bissexto não pertence a nenhuma
-   das semanas do calendário.
-
-========================================================= */
-
-
-/* =========================================================
-   CONFIGURAÇÕES
-========================================================= */
+   CALENDÁRIO 14 MESES & PAINEL DE INFORMAÇÕES UNIFICADO
+   ========================================================= */
 
 const TOTAL_MESES = 14;
-
-
-/*
-   Quantidade de meses regulares.
-*/
-
 const MESES_REGULARES = 13;
-
-
-/*
-   Meses 1–13:
-
-   3 semanas
-   ×
-   9 dias
-
-   = 27 dias
-*/
-
 const SEMANAS_MES_REGULAR = 3;
-
 const DIAS_POR_SEMANA_REGULAR = 9;
-
-const DIAS_POR_MES =
-    SEMANAS_MES_REGULAR *
-    DIAS_POR_SEMANA_REGULAR;
-
-
-/*
-   Total dos primeiros 13 meses.
-
-   13 × 27 = 351
-*/
-
-const DIAS_REGULARES =
-    MESES_REGULARES *
-    DIAS_POR_MES;
-
-
-/*
-   Mês 14:
-
-   2 semanas
-   ×
-   7 dias
-
-   = 14 dias
-*/
-
+const DIAS_POR_MES = SEMANAS_MES_REGULAR * DIAS_POR_SEMANA_REGULAR;
+const DIAS_REGULARES = MESES_REGULARES * DIAS_POR_MES;
 const SEMANAS_MES_FINAL = 2;
-
 const DIAS_POR_SEMANA_FINAL = 7;
-
-const DIAS_MES_FINAL =
-    SEMANAS_MES_FINAL *
-    DIAS_POR_SEMANA_FINAL;
-
-
-/*
-   Dia especial do ano bissexto.
-*/
-
-const DIA_BISSEXTO = 1;
-
-
-/* =========================================================
-   ESTADO
-========================================================= */
+const DIAS_MES_FINAL = SEMANAS_MES_FINAL * DIAS_POR_SEMANA_FINAL;
 
 let anoAtual = 2026;
-
 let mesAtual = 1;
 
-
-/* =========================================================
-   NOMES DOS MESES
-========================================================= */
-
 const nomesMeses = [
-
-    "Surya",
-    "Soma",
-    "Mangala",
-    "Budha",
-    "Guru",
-    "Shukra",
-    "Shani",
-    "Rahu",
-    "Ketu",
-    "Akasha",
-    "Prithvi",
-    "Dhruva",
-    "Nexus",
-    "Sandhi"
-
+    "Surya", "Soma", "Mangala", "Budha", "Guru", "Shukra", "Shani",
+    "Rahu", "Ketu", "Akasha", "Prithvi", "Dhruva", "Nexus", "Sandhi"
 ];
 
+/* =========================================================
+   ELEMENTOS DO DOM
+   ========================================================= */
+const daysContainer = document.getElementById("days");
+const monthName = document.getElementById("monthName");
+const yearDisplay = document.getElementById("yearDisplay");
+const yearNumerology = document.getElementById("yearNumerology");
+const selectedDate = document.getElementById("selectedDate");
+const gregorianDate = document.getElementById("gregorianDate");
+const dayOfYear = document.getElementById("dayOfYear");
+const extraDays = document.getElementById("extraDays");
+const centerMonth = document.getElementById("centerMonth");
+const centerYear = document.getElementById("centerYear");
+const weekdaysContainer = document.querySelector(".weekdays");
 
 /* =========================================================
-   ELEMENTOS
-========================================================= */
+   FUNÇÕES AUXILIARES E MATEMÁTICAS
+   ========================================================= */
 
-const daysContainer =
-    document.getElementById("days");
+const ehBissexto = (ano) => (ano % 400 === 0) || (ano % 4 === 0 && ano % 100 !== 0);
+const quantidadeDiasNoAno = (ano) => ehBissexto(ano) ? 366 : 365;
+const quantidadeDiasMes = (mes) => mes <= MESES_REGULARES ? DIAS_POR_MES : DIAS_MES_FINAL;
+const quantidadeDiasPorSemana = (mes) => mes <= MESES_REGULARES ? DIAS_POR_SEMANA_REGULAR : DIAS_POR_SEMANA_FINAL;
+const quantidadeSemanasMes = (mes) => mes <= MESES_REGULARES ? SEMANAS_MES_REGULAR : SEMANAS_MES_FINAL;
 
+const obterSemanaDoMes = (mes, dia) => Math.floor((dia - 1) / quantidadeDiasPorSemana(mes)) + 1;
+const obterDiaDaSemana = (mes, dia) => ((dia - 1) % quantidadeDiasPorSemana(mes)) + 1;
 
-const monthName =
-    document.getElementById("monthName");
-
-
-const yearDisplay =
-    document.getElementById("yearDisplay");
-
-
-const yearNumerology =
-    document.getElementById("yearNumerology");
-
-
-const selectedDate =
-    document.getElementById("selectedDate");
-
-
-const gregorianDate =
-    document.getElementById("gregorianDate");
-
-
-const dayOfYear =
-    document.getElementById("dayOfYear");
-
-
-const extraDays =
-    document.getElementById("extraDays");
-
-
-/*
-   Elementos do centro.
-*/
-
-const centerMonth =
-    document.getElementById("centerMonth");
-
-
-const centerYear =
-    document.getElementById("centerYear");
-
-
-/* =========================================================
-   ANO BISSEXTO
-========================================================= */
-
-function ehBissexto(ano) {
-
-    return (
-
-        ano % 400 === 0 ||
-
-        (
-            ano % 4 === 0 &&
-            ano % 100 !== 0
-        )
-
-    );
-
-}
-
-
-/* =========================================================
-   DIAS DO ANO
-========================================================= */
-
-function quantidadeDiasNoAno(ano) {
-
-    if (ehBissexto(ano)) {
-
-        return 366;
-
+function reduzirNumero(numero) {
+    while (numero >= 10) {
+        numero = String(numero).split("").reduce((soma, digito) => soma + Number(digito), 0);
     }
-
-    return 365;
-
-}
-
-
-/* =========================================================
-   DIAS DO MÊS
-========================================================= */
-
-function quantidadeDiasMes(
-    mes,
-    ano
-) {
-
-    /*
-       Meses 1–13:
-
-       3 semanas × 9 dias
-       = 27 dias.
-    */
-
-    if (
-        mes <=
-        MESES_REGULARES
-    ) {
-
-        return DIAS_POR_MES;
-
-    }
-
-
-    /*
-       Mês 14:
-
-       2 semanas × 7 dias
-       = 14 dias.
-
-       O dia bissexto fica fora
-       da estrutura normal.
-    */
-
-    return DIAS_MES_FINAL;
-
-}
-
-
-/* =========================================================
-   DIAS DA SEMANA DO MÊS
-========================================================= */
-
-function quantidadeDiasPorSemana(
-    mes
-) {
-
-    /*
-       Meses 1–13:
-
-       semana de 9 dias.
-    */
-
-    if (
-        mes <=
-        MESES_REGULARES
-    ) {
-
-        return DIAS_POR_SEMANA_REGULAR;
-
-    }
-
-
-    /*
-       Mês 14:
-
-       semana de 7 dias.
-    */
-
-    return DIAS_POR_SEMANA_FINAL;
-
-}
-
-
-/* =========================================================
-   QUANTIDADE DE SEMANAS DO MÊS
-========================================================= */
-
-function quantidadeSemanasMes(
-    mes
-) {
-
-    if (
-        mes <=
-        MESES_REGULARES
-    ) {
-
-        return SEMANAS_MES_REGULAR;
-
-    }
-
-
-    return SEMANAS_MES_FINAL;
-
-}
-
-
-/* =========================================================
-   OBTER SEMANA DO MÊS
-========================================================= */
-
-function obterSemanaDoMes(
-    mes,
-    dia
-) {
-
-    const diasPorSemana =
-        quantidadeDiasPorSemana(
-            mes
-        );
-
-
-    return Math.floor(
-
-        (
-            dia - 1
-        )
-
-        /
-
-        diasPorSemana
-
-    ) + 1;
-
-}
-
-
-/* =========================================================
-   OBTER DIA DA SEMANA
-========================================================= */
-
-function obterDiaDaSemana(
-    mes,
-    dia
-) {
-
-    const diasPorSemana =
-        quantidadeDiasPorSemana(
-            mes
-        );
-
-
-    return (
-
-        (
-            dia - 1
-        )
-
-        %
-
-        diasPorSemana
-
-    ) + 1;
-
-}
-
-
-/* =========================================================
-   REDUÇÃO NUMEROLÓGICA
-========================================================= */
-
-function reduzirNumero(
-    numero
-) {
-
-    while (
-        numero >= 10
-    ) {
-
-        numero =
-            String(numero)
-                .split("")
-                .reduce(
-
-                    function (
-                        soma,
-                        digito
-                    ) {
-
-                        return soma +
-                            Number(digito);
-
-                    },
-
-                    0
-
-                );
-
-    }
-
-
     return numero;
-
 }
 
-
-/* =========================================================
-   CALENDÁRIO → GREGORIANO
-========================================================= */
-
-function obterDataGregoriana(
-    ano,
-    mes,
-    dia
-) {
-
-    /*
-       Número do dia dentro
-       do ano.
-
-       Meses 1–13:
-       27 dias cada.
-
-       Mês 14:
-       14 dias.
-    */
-
-    let numeroDoDia = 0;
-
-
-    /*
-       Meses 1–13.
-    */
-
-    if (
-        mes <=
-        MESES_REGULARES
-    ) {
-
-        numeroDoDia =
-
-            (
-                (
-                    mes - 1
-                )
-
-                *
-
-                DIAS_POR_MES
-
-            )
-
-            +
-
-            dia;
-
-    }
-
-    else {
-
-        /*
-           Mês 14.
-        */
-
-        numeroDoDia =
-
-            DIAS_REGULARES +
-            dia;
-
-    }
-
-
-    /*
-       Converter para Gregorian.
-
-       O Date aceita:
-
-       new Date(ano, 0, 1)
-
-       = 1º de janeiro.
-
-       Por isso utilizamos
-       numeroDoDia - 1.
-    */
-
-    const data =
-        new Date(
-            ano,
-            0,
-            numeroDoDia
-        );
-
-
-    return data;
-
+function obterDataGregoriana(ano, mes, dia) {
+    const numeroDoDia = mes <= MESES_REGULARES ? ((mes - 1) * DIAS_POR_MES) + dia : DIAS_REGULARES + dia;
+    return new Date(ano, 0, numeroDoDia);
 }
 
+const formatarData = (data) => data.toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric" });
+const ehHoje = (data) => {
+    const hoje = new Date();
+    return data.getFullYear() === hoje.getFullYear() && data.getMonth() === hoje.getMonth() && data.getDate() === hoje.getDate();
+};
 
 /* =========================================================
-   FORMATAR DATA
-========================================================= */
+   CÁLCULO SOLAR E LUNAR
+   ========================================================= */
 
-function formatarData(
-    data
-) {
+function calcularSignoSolar(data) {
+    const ano = data.getFullYear();
 
-    return data.toLocaleDateString(
+    const signos = [
+        { nome: "Capricórnio", icone: "♑", elemento: "Terra", inicio: new Date(ano, 11, 22), fim: new Date(ano, 0, 19) },
+        { nome: "Aquário", icone: "♒", elemento: "Ar", inicio: new Date(ano, 0, 20), fim: new Date(ano, 1, 18) },
+        { nome: "Peixes", icone: "♓", elemento: "Água", inicio: new Date(ano, 1, 19), fim: new Date(ano, 2, 20) },
+        { nome: "Áries", icone: "♈", elemento: "Fogo", inicio: new Date(ano, 2, 21), fim: new Date(ano, 3, 19) },
+        { nome: "Touro", icone: "♉", elemento: "Terra", inicio: new Date(ano, 3, 20), fim: new Date(ano, 4, 20) },
+        { nome: "Gêmeos", icone: "♊", elemento: "Ar", inicio: new Date(ano, 4, 21), fim: new Date(ano, 5, 20) },
+        { nome: "Câncer", icone: "♋", elemento: "Água", inicio: new Date(ano, 5, 21), fim: new Date(ano, 6, 22) },
+        { nome: "Leão", icone: "♌", elemento: "Fogo", inicio: new Date(ano, 6, 23), fim: new Date(ano, 7, 22) },
+        { nome: "Virgem", icone: "♍", elemento: "Terra", inicio: new Date(ano, 7, 23), fim: new Date(ano, 8, 22) },
+        { nome: "Libra", icone: "♎", elemento: "Ar", inicio: new Date(ano, 8, 23), fim: new Date(ano, 9, 22) },
+        { nome: "Escorpião", icone: "♏", elemento: "Água", inicio: new Date(ano, 9, 23), fim: new Date(ano, 10, 21) },
+        { nome: "Sagitário", icone: "♐", elemento: "Fogo", inicio: new Date(ano, 10, 22), fim: new Date(ano, 11, 21) }
+    ];
 
-        "pt-BR",
-
-        {
-
-            weekday: "long",
-
-            day: "2-digit",
-
-            month: "2-digit",
-
-            year: "numeric"
-
+    let signoAtual = signos.find(s => {
+        if (s.nome === "Capricórnio") {
+            return (data >= new Date(ano, 11, 22)) || (data <= new Date(ano, 0, 19));
         }
+        return data >= s.inicio && data <= s.fim;
+    }) || signos[0];
 
-    );
+    let dataInicio = signoAtual.inicio;
+    if (signoAtual.nome === "Capricórnio" && data < new Date(ano, 6, 1)) {
+        dataInicio = new Date(ano - 1, 11, 22);
+    }
+    
+    const diffDias = Math.floor((data - dataInicio) / (1000 * 60 * 60 * 24));
+    const grau = Math.max(0, Math.min(29, diffDias));
 
+    return { ...signoAtual, grau };
 }
 
+const FASES_LUNARES = [
+    { limite: 1.84566, nome: "Lua Nova", icone: "🌑" },
+    { limite: 5.53699, nome: "Lua Crescente Côncava", icone: "🌒" },
+    { limite: 9.22831, nome: "Quarto Crescente", icone: "🌓" },
+    { limite: 12.91964, nome: "Crescente Gibosa", icone: "🌔" },
+    { limite: 16.61096, nome: "Lua Cheia", icone: "🌕" },
+    { limite: 20.30228, nome: "Minguante Gibosa", icone: "🌖" },
+    { limite: 23.99361, nome: "Quarto Minguante", icone: "🌗" },
+    { limite: 27.68493, nome: "Lua Minguante Côncava", icone: "🌘" },
+    { limite: Infinity, nome: "Lua Nova", icone: "🌑" }
+];
 
-/* =========================================================
-   VERIFICAR SE É HOJE
-========================================================= */
+const LISTA_SIGNOS = [
+    { nome: "Áries", icone: "♈" }, { nome: "Touro", icone: "♉" }, { nome: "Gêmeos", icone: "♊" },
+    { nome: "Câncer", icone: "♋" }, { nome: "Leão", icone: "♌" }, { nome: "Virgem", icone: "♍" },
+    { nome: "Libra", icone: "♎" }, { nome: "Escorpião", icone: "♏" }, { nome: "Sagitário", icone: "♐" },
+    { nome: "Capricórnio", icone: "♑" }, { nome: "Aquário", icone: "♒" }, { nome: "Peixes", icone: "♓" }
+];
 
-function ehHoje(
-    data
-) {
+function calcularFaseLua(data) {
+    const luaNovaBase = new Date(2024, 0, 11, 8, 57, 0);
+    const cicloSinodico = 29.5305877057;
+    
+    let idadeLunar = ((data - luaNovaBase) / (1000 * 60 * 60 * 24)) % cicloSinodico;
+    if (idadeLunar < 0) idadeLunar += cicloSinodico;
+    
+    const faseEncontrada = FASES_LUNARES.find(f => idadeLunar < f.limite) || FASES_LUNARES[0];
+    const iluminacao = Math.round(((1 - Math.cos((idadeLunar / cicloSinodico) * 2 * Math.PI)) / 2) * 100);
 
-    const hoje =
-        new Date();
-
-
-    return (
-
-        data.getFullYear() ===
-        hoje.getFullYear()
-
-        &&
-
-        data.getMonth() ===
-        hoje.getMonth()
-
-        &&
-
-        data.getDate() ===
-        hoje.getDate()
-
-    );
-
+    return { nomeFase: faseEncontrada.nome, icone: faseEncontrada.icone, iluminacao, idadeLunar: idadeLunar.toFixed(1) };
 }
 
+function calcularSignoLunar(idadeLunar) {
+    const cicloSideral = 27.321661;
+    const progressoZodiaco = (idadeLunar % cicloSideral) / cicloSideral;
+    const indiceSigno = Math.floor(progressoZodiaco * 12);
+    const signoObj = LISTA_SIGNOS[indiceSigno % 12];
+    const grau = Math.floor(((progressoZodiaco * 12) % 1) * 30);
+    return { nome: signoObj.nome, icone: signoObj.icone, grau };
+}
 
 /* =========================================================
-   CRIAR UM DIA
-========================================================= */
+   CRIAR E POSICIONAR DIAS
+   ========================================================= */
 
-function criarDia(
-    ano,
-    mes,
-    dia
-) {
+function criarDia(ano, mes, dia) {
+    const elemento = document.createElement("div");
+    elemento.classList.add("day");
 
-    const elemento =
-        document.createElement(
-            "div"
-        );
-
-
-    elemento.classList.add(
-        "day"
-    );
-
-
-    /*
-       Semana.
-    */
-
-    const semana =
-        obterSemanaDoMes(
-            mes,
-            dia
-        );
-
-
-    /*
-       Adicionar classe de elemento com base na semana:
-       Semana 1: Fogo
-       Semana 2: Terra
-       Semana 3: Água
-    */
+    const semana = obterSemanaDoMes(mes, dia);
     elemento.classList.add(`semana-${semana}`);
+    elemento.dataset.semana = semana;
+    elemento.dataset.diaSemana = obterDiaDaSemana(mes, dia);
 
-
-    /*
-       Número do dia.
-    */
-
-    const numero =
-        document.createElement(
-            "div"
-        );
-
-
-    numero.classList.add(
-        "day-number"
-    );
-
-
-    /*
-       Número original +
-       número reduzido.
-    */
-
-    numero.innerHTML = `
-
-        <span class="numero-original">
-            ${dia}
-        </span>
-
-        <span class="numero-reduzido">
-            ${reduzirNumero(dia)}
-        </span>
-
+    elemento.innerHTML = `
+        <div class="day-number">
+            <span class="numero-original">${dia}</span>
+            <span class="numero-reduzido">${reduzirNumero(dia)}</span>
+        </div>
     `;
 
+    const data = obterDataGregoriana(ano, mes, dia);
+    if (ehHoje(data)) elemento.classList.add("today");
 
-    /*
-       Dia dentro da semana.
-    */
-
-    const diaSemana =
-        obterDiaDaSemana(
-            mes,
-            dia
-        );
-
-
-    elemento.dataset.semana =
-        semana;
-
-
-    elemento.dataset.diaSemana =
-        diaSemana;
-
-
-    /*
-       Adicionar elementos.
-    */
-
-    elemento.appendChild(
-        numero
-    );
-
-
-    /*
-       Obter data gregoriana para verificação e eventos.
-    */
-
-    const data =
-        obterDataGregoriana(
-
-            ano,
-            mes,
-            dia
-
-        );
-
-
-    /*
-       Verificar hoje.
-    */
-
-    if (
-        ehHoje(data)
-    ) {
-
-        elemento.classList.add(
-            "today"
-        );
-
-    }
-
-
-    /*
-       Clique.
-    */
-
-    elemento.addEventListener(
-
-        "click",
-
-        function () {
-
-            selecionarDia(
-
-                ano,
-                mes,
-                dia,
-                data,
-                elemento
-
-            );
-
-        }
-
-    );
-
-
+    elemento.addEventListener("click", () => selecionarDia(ano, mes, dia, data, elemento));
     return elemento;
-
 }
 
-
-/* =========================================================
-   POSICIONAR OS DIAS EM CÍRCULO
-========================================================= */
-
-function posicionarDiasCirculares() {
-
-    const elementos =
-        daysContainer.querySelectorAll(
-            ".day"
-        );
-
-
-    const total =
-        elementos.length;
-
-
-    if (!total) {
-
-        return;
-
-    }
-
-
-    /*
-       Tamanho real do calendário.
-    */
-
-    const largura =
-        daysContainer.clientWidth;
-
-
-    const altura =
-        daysContainer.clientHeight;
-
-
-    /*
-       Raio.
-    */
-
-    const raio =
-        Math.min(
-            largura,
-            altura
-        ) * 0.42;
-
-
-    /*
-       Posicionar cada dia.
-    */
-
-    elementos.forEach(
-
-        function (
-            elemento,
-            indice
-        ) {
-
-            /*
-               Distribuição circular.
-
-               O primeiro dia começa
-               no topo.
-            */
-
-            const angulo =
-
-                (
-                    indice /
-                    total
-                )
-
-                *
-
-                Math.PI *
-                2
-
-                -
-
-                Math.PI / 2;
-
-
-            /*
-               X.
-            */
-
-            const x =
-
-                Math.cos(
-                    angulo
-                )
-
-                *
-
-                raio;
-
-
-            /*
-               Y.
-            */
-
-            const y =
-
-                Math.sin(
-                    angulo
-                )
-
-                *
-
-                raio;
-
-
-            /*
-               Posicionar.
-            */
-
-            elemento.style.transform =
-
-                `translate(${x}px, ${y}px)`;
-
-        }
-
-    );
-
-}
-
-
-/* =========================================================
-   ATUALIZAR SEMANAS DO MÊS
-========================================================= */
-
-function atualizarDiasDaSemana() {
-
-    const weekdays =
-        document.querySelector(
-            ".weekdays"
-        );
-
-
-    if (!weekdays) {
-
-        return;
-
-    }
-
-
-    /*
-       Limpar o círculo interno.
-    */
-
-    weekdays.innerHTML = "";
-
-
-    const quantidadeSemanas =
-        quantidadeSemanasMes(
-            mesAtual
-        );
-
-
-    for (
-
-        let semana = 1;
-
-        semana <= quantidadeSemanas;
-
-        semana++
-
-    ) {
-
-        const elemento =
-            document.createElement(
-                "div"
-            );
-
-
-        elemento.classList.add(
-            "weekday"
-        );
-
-
-        elemento.textContent =
-            semana;
-
-
-        elemento.dataset.semana =
-            semana;
-
-
-        weekdays.appendChild(
-            elemento
-        );
-
-    }
-
-
-    posicionarDiasDaSemana();
-
-}
-
-
-function posicionarDiasDaSemana() {
-
-    const elementos =
-        document.querySelectorAll(
-            ".weekdays div"
-        );
-
-
-    const total =
-        elementos.length;
-
-
-    if (!total) {
-
-        return;
-
-    }
-
-
-    const largura =
-        daysContainer.clientWidth;
-
-
-    const altura =
-        daysContainer.clientHeight;
-
-
-    const raio =
-        Math.min(
-            largura,
-            altura
-        ) * 0.28;
-
-
-    elementos.forEach(
-
-        function (
-            elemento,
-            indice
-        ) {
-
+function posicionarElementosCirculares(seletor, raioFator) {
+    const elementos = document.querySelectorAll(seletor);
+    const total = elementos.length;
+    if (!total) return;
+
+    const raio = Math.min(daysContainer.clientWidth, daysContainer.clientHeight) * raioFator;
+
+    elementos.forEach((elemento, indice) => {
+        const isWeekday = seletor.includes("weekday");
+        
+        if (isWeekday) {
             const anguloFatia = (Math.PI * 2) / total;
-
-            const angulo =
-
-                (
-                    indice /
-                    total
-                )
-
-                *
-
-                Math.PI *
-                2
-
-                +
-
-                (anguloFatia / 2)
-
-                -
-
-                Math.PI / 2;
-
-
-            const x =
-
-                Math.cos(
-                    angulo
-                )
-
-                *
-
-                raio;
-
-
-            const y =
-
-                Math.sin(
-                    angulo
-                )
-
-                *
-
-                raio;
-
-
-            elemento.style.transform =
-
-                `translate(-50%, -50%) translate(${x}px, ${y}px)`;
-
+            const angulo = (indice / total) * Math.PI * 2 + (anguloFatia / 2) - Math.PI / 2;
+            const x = Math.cos(angulo) * raio;
+            const y = Math.sin(angulo) * raio;
+            elemento.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+        } else {
+            const angulo = (indice / total) * Math.PI * 2 - Math.PI / 2;
+            const x = Math.cos(angulo) * raio;
+            const y = Math.sin(angulo) * raio;
+            elemento.style.transform = `translate(${x}px, ${y}px)`;
         }
-
-    );
-
+    });
 }
-
-
-/* =========================================================
-   POSICIONAR CALENDÁRIO CIRCULAR
-========================================================= */
 
 function posicionarCalendarioCircular() {
-
-    posicionarDiasCirculares();
-
-    posicionarDiasDaSemana();
-
+    posicionarElementosCirculares(".day", 0.42);
+    posicionarElementosCirculares(".weekdays div", 0.28);
 }
 
-
 /* =========================================================
-   REDIMENSIONAMENTO
-========================================================= */
+   RENDERIZAÇÃO
+   ========================================================= */
 
-window.addEventListener(
+function atualizarDiasDaSemana() {
+    if (!weekdaysContainer) return;
+    weekdaysContainer.innerHTML = "";
 
-    "resize",
+    const qtdSemanas = quantidadeSemanasMes(mesAtual);
+    const fragment = document.createDocumentFragment();
 
-    function () {
-
-        posicionarCalendarioCircular();
-
+    for (let semana = 1; semana <= qtdSemanas; semana++) {
+        const el = document.createElement("div");
+        el.classList.add("weekday");
+        el.textContent = semana;
+        el.dataset.semana = semana;
+        fragment.appendChild(el);
     }
-
-);
-
-
-/* =========================================================
-   RENDERIZAR OS DIAS DO MÊS
-========================================================= */
+    weekdaysContainer.appendChild(fragment);
+}
 
 function renderizarDias() {
-
-    /*
-       Limpar.
-    */
-
     daysContainer.innerHTML = "";
+    const qtdDias = quantidadeDiasMes(mesAtual);
+    const fragment = document.createDocumentFragment();
 
-
-    /*
-       Quantidade de dias.
-    */
-
-    const quantidadeDias =
-
-        quantidadeDiasMes(
-
-            mesAtual,
-            anoAtual
-
-        );
-
-
-    /*
-       Criar.
-    */
-
-    for (
-
-        let dia = 1;
-
-        dia <= quantidadeDias;
-
-        dia++
-
-    ) {
-
-        const elemento =
-
-            criarDia(
-
-                anoAtual,
-                mesAtual,
-                dia
-
-            );
-
-
-        daysContainer.appendChild(
-            elemento
-        );
-
+    for (let dia = 1; dia <= qtdDias; dia++) {
+        fragment.appendChild(criarDia(anoAtual, mesAtual, dia));
     }
+    daysContainer.appendChild(fragment);
 
-
-    /*
-       Esperar o navegador
-       calcular dimensões.
-    */
-
-    requestAnimationFrame(
-
-        function () {
-
-            posicionarCalendarioCircular();
-
-        }
-
-    );
-
+    requestAnimationFrame(posicionarCalendarioCircular);
 }
-
-
-/* =========================================================
-   RENDERIZAR CALENDÁRIO COMPLETO
-========================================================= */
-
-function renderizarCalendario() {
-
-    const calendarElement = document.querySelector(".calendar");
-    
-    if (calendarElement) {
-        if (mesAtual === 14) {
-            calendarElement.classList.add("mes-14");
-        } else {
-            calendarElement.classList.remove("mes-14");
-        }
-    }
-    /*
-       Nome do mês.
-    */
-
-    monthName.textContent =
-
-        nomesMeses[
-            mesAtual - 1
-        ];
-
-
-    /*
-       Ano.
-    */
-
-    yearDisplay.textContent =
-    anoAtual;
-
-    if (yearNumerology) {
-
-        yearNumerology.textContent =
-            reduzirNumero(anoAtual);
-
-    }
-
-
-    /*
-       Centro.
-    */
-
-    if (centerMonth) {
-
-        centerMonth.textContent =
-
-            nomesMeses[
-                mesAtual - 1
-            ];
-
-    }
-
-
-    if (centerYear) {
-
-        centerYear.textContent =
-            anoAtual;
-
-    }
-
-
-    /*
-       Atualizar semanas.
-
-       9 para meses 1–13.
-
-       7 para mês 14.
-    */
-
-    atualizarDiasDaSemana();
-
-
-    /*
-       Criar dias.
-    */
-
-    renderizarDias();
-
-
-    /*
-       Área de dias extras.
-    */
-
-    renderizarDiasExtras();
-
-}
-
-
-/* =========================================================
-   SELECIONAR DIA
-========================================================= */
-
-function selecionarDia(
-
-    ano,
-    mes,
-    dia,
-    data,
-    elemento
-
-) {
-
-    /*
-       Remover seleção anterior.
-    */
-
-    document
-        .querySelectorAll(
-            ".day"
-        )
-        .forEach(
-
-            function (
-                diaElemento
-            ) {
-
-                diaElemento.classList.remove(
-                    "selected"
-                );
-
-            }
-
-        );
-
-
-    /*
-       Selecionar.
-    */
-
-    elemento.classList.add(
-        "selected"
-    );
-
-
-    /*
-       Número reduzido.
-    */
-
-    const numeroReduzido =
-        reduzirNumero(dia);
-
-
-    /*
-       Semana.
-    */
-
-    const semana =
-        obterSemanaDoMes(
-            mes,
-            dia
-        );
-
-
-    /*
-       Dia da semana.
-    */
-
-    const diaSemana =
-        obterDiaDaSemana(
-            mes,
-            dia
-        );
-
-
-    /*
-       Informações.
-    */
-
-    selectedDate.textContent =
-
-        `${nomesMeses[mes - 1]} — Dia ${dia} → ${numeroReduzido}`;
-
-
-    /*
-       Data gregoriana.
-    */
-
-    gregorianDate.textContent =
-
-        `Data gregoriana: ${formatarData(data)}`;
-
-
-    /*
-       Semana.
-    */
-
-    const informacaoSemana =
-
-        `Semana ${semana} — Dia ${diaSemana}`;
-
-
-    /*
-       Número do dia no ano.
-    */
-
-    const numeroDoDia =
-
-        obterNumeroDoDia(
-            mes,
-            dia
-        );
-
-
-    /*
-       Dia do ano.
-    */
-
-    dayOfYear.textContent =
-
-        `${informacaoSemana} — Dia ${numeroDoDia} de ${quantidadeDiasNoAno(ano)}`;
-
-}
-
-
-/* =========================================================
-   OBTER NÚMERO DO DIA NO ANO
-========================================================= */
-
-function obterNumeroDoDia(
-
-    mes,
-    dia
-
-) {
-
-    /*
-       Meses 1–13.
-    */
-
-    if (
-        mes <=
-        MESES_REGULARES
-    ) {
-
-        return (
-
-            (
-                mes - 1
-            )
-
-            *
-
-            DIAS_POR_MES
-
-        )
-
-        +
-
-        dia;
-
-    }
-
-
-    /*
-       Mês 14.
-    */
-
-    return (
-
-        DIAS_REGULARES +
-
-        dia
-
-    );
-
-}
-
-
-/* =========================================================
-   CONVERTER DIA DO ANO → MÊS
-========================================================= */
-
-function obterMesDoCalendario(
-    numeroDoDia
-) {
-
-    /*
-       Primeiros 351 dias.
-    */
-
-    if (
-        numeroDoDia <=
-        DIAS_REGULARES
-    ) {
-
-        return Math.floor(
-
-            (
-                numeroDoDia - 1
-            )
-
-            /
-
-            DIAS_POR_MES
-
-        ) + 1;
-
-    }
-
-
-    /*
-       Últimos 14 dias.
-    */
-
-    return TOTAL_MESES;
-
-}
-
-
-/* =========================================================
-   CONVERTER DIA DO ANO → DIA DO MÊS
-========================================================= */
-
-function obterDiaDoMes(
-    numeroDoDia,
-    mes
-) {
-
-    /*
-       Meses 1–13.
-    */
-
-    if (
-        mes <=
-        MESES_REGULARES
-    ) {
-
-        return (
-
-            (
-                numeroDoDia - 1
-            )
-
-            %
-
-            DIAS_POR_MES
-
-        )
-
-        +
-
-        1;
-
-    }
-
-
-    /*
-       Mês 14.
-    */
-
-    return (
-
-        numeroDoDia -
-        DIAS_REGULARES
-
-    );
-
-}
-
-
-/* =========================================================
-   DIAS EXTRAS
-========================================================= */
 
 function renderizarDiasExtras() {
-
-    if (!extraDays) {
-
-        return;
-
-    }
-
-
-    /*
-       Limpar área antiga.
-    */
-
+    if (!extraDays) return;
     extraDays.innerHTML = "";
 
-
-    /*
-       Ano bissexto.
-
-       Criamos um dia especial separado.
-
-       Ele não pertence a uma semana.
-    */
-
-    if (
-        ehBissexto(anoAtual)
-    ) {
-
-        const elemento =
-            document.createElement(
-                "div"
-            );
-
-
-        elemento.classList.add(
-            "dia-bissexto"
-        );
-
-
-        elemento.textContent =
-            "Dia Bissexto";
-
-
-        extraDays.appendChild(
-            elemento
-        );
-
+    if (ehBissexto(anoAtual)) {
+        const elemento = document.createElement("div");
+        elemento.classList.add("dia-bissexto");
+        elemento.textContent = "Dia Bissexto";
+        extraDays.appendChild(elemento);
     }
-
 }
 
+function renderizarCalendario() {
+    const calendarElement = document.querySelector(".calendar");
+    if (calendarElement) {
+        calendarElement.classList.toggle("mes-14", mesAtual === TOTAL_MESES);
+    }
+
+    const nomeMesAtual = nomesMeses[mesAtual - 1];
+    monthName.textContent = nomeMesAtual;
+    yearDisplay.textContent = anoAtual;
+    if (yearNumerology) yearNumerology.textContent = reduzirNumero(anoAtual);
+    if (centerMonth) centerMonth.textContent = nomeMesAtual;
+    if (centerYear) centerYear.textContent = anoAtual;
+
+    atualizarDiasDaSemana();
+    renderizarDias();
+    renderizarDiasExtras();
+}
 
 /* =========================================================
-   MUDAR MÊS
-========================================================= */
+   SELEÇÃO DE DIAS
+   ========================================================= */
 
-function mudarMes(
-    valor
-) {
+function selecionarDia(ano, mes, dia, data, elemento) {
+    document.querySelectorAll(".day").forEach(el => el.classList.remove("selected"));
+    elemento.classList.add("selected");
 
+    const semana = obterSemanaDoMes(mes, dia);
+    const diaSemana = obterDiaDaSemana(mes, dia);
+
+    selectedDate.textContent = `${nomesMeses[mes - 1]} — Dia ${dia} → ${reduzirNumero(dia)}`;
+    gregorianDate.textContent = `Data gregoriana: ${formatarData(data)}`;
+    dayOfYear.textContent = `Semana ${semana} — Dia ${diaSemana} — Dia ${obterNumeroDoDia(mes, dia)} de ${quantidadeDiasNoAno(ano)}`;
+
+    const dadosSol = calcularSignoSolar(data);
+    const dadosLua = calcularFaseLua(data);
+    const dadosLuaSigno = calcularSignoLunar(parseFloat(dadosLua.idadeLunar));
+
+    // 1. Atualizar Painel Solar (Esquerdo)
+    const sunIcon = document.getElementById("sunIcon");
+    const sunSignName = document.getElementById("sunSignName");
+    const sunDegree = document.getElementById("sunDegree");
+    const sunElement = document.getElementById("sunElement");
+
+    if (sunIcon) sunIcon.textContent = dadosSol.icone;
+    if (sunSignName) sunSignName.textContent = dadosSol.nome;
+    if (sunDegree) sunDegree.textContent = `Grau: ${dadosSol.grau}°`;
+    if (sunElement) sunElement.textContent = `Elemento: ${dadosSol.elemento}`;
+
+    // 2. Atualizar Painel Lunar (Direito)
+    const moonIcon = document.getElementById("moonIcon");
+    const moonPhaseName = document.getElementById("moonPhaseName");
+    const moonSign = document.getElementById("moonSign");
+    const moonDegree = document.getElementById("moonDegree");
+    const moonIllumination = document.getElementById("moonIllumination");
+    const moonAge = document.getElementById("moonAge");
+
+    if (moonIcon) moonIcon.textContent = dadosLua.icone;
+    if (moonPhaseName) moonPhaseName.textContent = dadosLua.nomeFase;
+    if (moonSign) moonSign.textContent = `Signo: ${dadosLuaSigno.icone} ${dadosLuaSigno.nome}`;
+    if (moonDegree) moonDegree.textContent = `Grau: ${dadosLuaSigno.grau}°`;
+    if (moonIllumination) moonIllumination.textContent = `Iluminação: ${dadosLua.iluminacao}%`;
+    if (moonAge) moonAge.textContent = `Idade: ${dadosLua.idadeLunar} dias`;
+
+    // 3. Atualizar Painel Info (Inferior)
+    const sunInfo = document.getElementById("sunInfo");
+    const moonInfo = document.getElementById("moonInfo");
+
+    if (sunInfo) {
+        sunInfo.textContent = `☀️ Sol em ${dadosSol.icone} ${dadosSol.nome} (${dadosSol.grau}°) — Elemento: ${dadosSol.elemento}`;
+    }
+
+    if (moonInfo) {
+        moonInfo.textContent = `${dadosLua.icone} Lua em ${dadosLuaSigno.icone} ${dadosLuaSigno.nome} (${dadosLuaSigno.grau}°) — ${dadosLua.nomeFase} (${dadosLua.iluminacao}%)`;
+    }
+}
+
+const obterNumeroDoDia = (mes, dia) => mes <= MESES_REGULARES ? ((mes - 1) * DIAS_POR_MES) + dia : DIAS_REGULARES + dia;
+const obterMesDoCalendario = (numDia) => numDia <= DIAS_REGULARES ? Math.floor((numDia - 1) / DIAS_POR_MES) + 1 : TOTAL_MESES;
+const obterDiaDoMes = (numDia, mes) => mes <= MESES_REGULARES ? ((numDia - 1) % DIAS_POR_MES) + 1 : numDia - DIAS_REGULARES;
+
+/* =========================================================
+   NAVEGAÇÃO E EVENTOS
+   ========================================================= */
+
+function mudarMes(valor) {
     mesAtual += valor;
-
-
-    /*
-       Avançou além do mês 14.
-    */
-
-    if (
-        mesAtual >
-        TOTAL_MESES
-    ) {
-
-        mesAtual = 1;
-
-        anoAtual++;
-
-    }
-
-
-    /*
-       Voltou antes do mês 1.
-    */
-
-    if (
-        mesAtual < 1
-    ) {
-
-        mesAtual =
-            TOTAL_MESES;
-
-        anoAtual--;
-
-    }
-
-
+    if (mesAtual > TOTAL_MESES) { mesAtual = 1; anoAtual++; }
+    if (mesAtual < 1) { mesAtual = TOTAL_MESES; anoAtual--; }
     renderizarCalendario();
-
 }
 
-
-/* =========================================================
-   MUDAR ANO
-========================================================= */
-
-function mudarAno(
-    valor
-) {
-
+function mudarAno(valor) {
     anoAtual += valor;
-
     renderizarCalendario();
-
 }
-
-
-/* =========================================================
-   IR PARA HOJE
-========================================================= */
 
 function irParaHoje() {
+    const hoje = new Date();
+    anoAtual = hoje.getFullYear();
+    const numeroDoDia = Math.floor((hoje - new Date(anoAtual, 0, 1)) / (1000 * 60 * 60 * 24)) + 1;
 
-    const hoje =
-        new Date();
-
-
-    /*
-       Ano atual.
-    */
-
-    anoAtual =
-        hoje.getFullYear();
-
-
-    /*
-       Início do ano.
-    */
-
-    const inicioDoAno =
-        new Date(
-
-            anoAtual,
-            0,
-            1
-
-        );
-
-
-    /*
-       Diferença em dias.
-    */
-
-    const diferenca =
-
-        Math.floor(
-
-            (
-                hoje -
-                inicioDoAno
-            )
-
-            /
-
-            (
-                1000 *
-                60 *
-                60 *
-                24
-            )
-
-        );
-
-
-    /*
-       Número do dia.
-
-       1 = 1º de janeiro.
-    */
-
-    const numeroDoDia =
-        diferenca + 1;
-
-
-    /*
-       Verificar se estamos
-       no dia bissexto especial.
-
-       Em um ano bissexto,
-       o dia 366 é separado.
-    */
-
-    if (
-        ehBissexto(anoAtual)
-
-        &&
-
-        numeroDoDia === 366
-    ) {
-
-        /*
-           Não existe um mês normal
-           para esse dia.
-
-           Mantemos o mês 14
-           visualmente selecionado.
-        */
-
-        mesAtual =
-            TOTAL_MESES;
-
-
+    if (ehBissexto(anoAtual) && numeroDoDia === 366) {
+        mesAtual = TOTAL_MESES;
         renderizarCalendario();
-
-
-        if (extraDays) {
-
-            const elemento =
-                extraDays.querySelector(
-                    ".dia-bissexto"
-                );
-
-
-            if (elemento) {
-
-                elemento.classList.add(
-                    "selected"
-                );
-
-            }
-
-        }
-
-
-        return; // <-- Correção aplicada: interrompe a execução para evitar conflito com os dias regulares
-
+        extraDays?.querySelector(".dia-bissexto")?.classList.add("selected");
+        return;
     }
 
-
-    /*
-       Descobrir o mês.
-    */
-
-    mesAtual =
-        obterMesDoCalendario(
-            numeroDoDia
-        );
-
-
-    /*
-       Descobrir o dia.
-    */
-
-    const dia =
-        obterDiaDoMes(
-
-            numeroDoDia,
-            mesAtual
-
-        );
-
-
-    /*
-       Renderizar.
-    */
+    mesAtual = obterMesDoCalendario(numeroDoDia);
+    const dia = obterDiaDoMes(numeroDoDia, mesAtual);
 
     renderizarCalendario();
 
-
-    /*
-       Localizar elementos.
-    */
-
-    const elementos =
-        document.querySelectorAll(
-            ".day"
-        );
-
-
-    /*
-       Índice começa em zero.
-    */
-
-    const indice =
-        dia - 1;
-
-
-    if (
-        elementos[indice]
-    ) {
-
-        const data =
-
-            obterDataGregoriana(
-
-                anoAtual,
-                mesAtual,
-                dia
-
-            );
-
-
-        selecionarDia(
-
-            anoAtual,
-            mesAtual,
-            dia,
-            data,
-            elementos[indice]
-
-        );
-
+    const elementos = document.querySelectorAll(".day");
+    if (elementos[dia - 1]) {
+        selecionarDia(anoAtual, mesAtual, dia, obterDataGregoriana(anoAtual, mesAtual, dia), elementos[dia - 1]);
     }
-
 }
 
+/* Event Listeners */
+window.addEventListener("resize", posicionarCalendarioCircular);
+document.getElementById("prevMonth")?.addEventListener("click", () => mudarMes(-1));
+document.getElementById("nextMonth")?.addEventListener("click", () => mudarMes(1));
+document.getElementById("prevYear")?.addEventListener("click", () => mudarAno(-1));
+document.getElementById("nextYear")?.addEventListener("click", () => mudarAno(1));
+document.getElementById("todayButton")?.addEventListener("click", irParaHoje);
 
-/* =========================================================
-   BOTÃO MÊS ANTERIOR
-========================================================= */
-
-document
-    .getElementById(
-        "prevMonth"
-    )
-    .addEventListener(
-
-        "click",
-
-        function () {
-
-            mudarMes(-1);
-
-        }
-
-    );
-
-
-/* =========================================================
-   BOTÃO MÊS PRÓXIMO
-========================================================= */
-
-document
-    .getElementById(
-        "nextMonth"
-    )
-    .addEventListener(
-
-        "click",
-
-        function () {
-
-            mudarMes(1);
-
-        }
-
-    );
-
-
-/* =========================================================
-   BOTÃO ANO ANTERIOR
-========================================================= */
-
-document
-    .getElementById(
-        "prevYear"
-    )
-    .addEventListener(
-
-        "click",
-
-        function () {
-
-            mudarAno(-1);
-
-        }
-
-    );
-
-
-/* =========================================================
-   BOTÃO ANO PRÓXIMO
-========================================================= */
-
-document
-    .getElementById(
-        "nextYear"
-    )
-    .addEventListener(
-
-        "click",
-
-        function () {
-
-            mudarAno(1);
-
-        }
-
-    );
-
-
-/* =========================================================
-   BOTÃO HOJE
-========================================================= */
-
-document
-    .getElementById(
-        "todayButton"
-    )
-    .addEventListener(
-
-        "click",
-
-        function () {
-
-            irParaHoje();
-
-        }
-
-    );
-
-
-/* =========================================================
-   INICIAR
-========================================================= */
-
+/* Inicialização */
 renderizarCalendario();
-
 irParaHoje();

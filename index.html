@@ -50,6 +50,13 @@
         <div class="Conteudo">
             
             <div class="Main_clock">
+                <aside class="sun-panel">
+                    <h3>Signo Solar</h3>
+                    <div id="sunIcon" class="sun-icon">☀️</div>
+                    <div id="sunSignName" class="moon-phase-name">Calculando...</div>
+                    <p id="sunDegree">Grau: --°</p>
+                    <p id="sunElement">Elemento: --</p>
+                </aside>
                 <section class="calendar">
 
                     <div class="calendar-center">
@@ -71,6 +78,16 @@
 
                 </section>
 
+                <aside class="moon-panel">
+                    <h3>Fase e Lua</h3>
+                    <div id="moonIcon" class="moon-icon">🌑</div>
+                    <div id="moonPhaseName" class="moon-phase-name">Calculando...</div>
+                    <p id="moonSign">Signo: --</p>
+                    <p id="moonDegree">Grau: --°</p>
+                    <p id="moonIllumination">Iluminação: --%</p>
+                    <p id="moonAge">Idade: -- dias</p>
+                </aside>
+
                 <div class="Header_clock">
                     <button id="prevYear" class="nav-button">«</button>
 
@@ -91,23 +108,16 @@
 
                 <section class="info">
 
-                    <h2 id="selectedDate">
-                        Selecione um dia
-                    </h2>
-
-                    <p id="gregorianDate">
-                        —
-                    </p>
-
-                    <p id="dayOfYear">
-                        —
-                    </p>
+                    <h2 id="selectedDate">Selecione um dia</h2>
+                    <p id="gregorianDate">—</p>
+                    <p id="dayOfYear">—</p>
+                    <p id="sunInfo">☀️ Signo Solar: --</p>
+                    <p id="moonInfo">🌑 Fase Lunar: --</p>
+                    
+                    <button id="todayButton" class="today-button">Hoje</button>
 
                 </section>
 
-                <button id="todayButton" class="today-button" data-i18n="calendario_hoje">
-                    Hoje
-                </button>
             </div>
             <h1 data-i18n="title">Os 9 tronos</h1>
 

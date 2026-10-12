@@ -66,11 +66,55 @@ body {
    ÁREA PRINCIPAL
 ================================ */
 .Main_clock {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 15px auto;
     padding: 0 10px;
-    flex: 1;
+}
+
+.sun-panel, .moon-panel {
+    background: rgba(27, 27, 27, 0.9);
+    border: 1px solid #444;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    min-width: 200px;
+    max-width: 210px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.sun-icon {
+    font-size: 2.8rem;
+    margin: 8px 0;
+}
+
+.moon-icon {
+    font-size: 2.8rem;
+    margin: 8px 0;
+}
+
+.moon-phase-name {
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    
+    /* Propriedades para quebrar o texto e conter na div */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+}
+
+.moon-panel p {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 4px;
 }
 
 /* ================================
@@ -377,6 +421,7 @@ body {
 .info, .extra {
     margin-top: 12px;
     padding: 12px;
+    width: 880px;
     border: 1px solid #444;
     border-radius: 10px;
     background: #1b1b1b;
