@@ -177,20 +177,33 @@ function calcularEstacaoLocal(data) {
    CÁLCULO DE REGÊNCIA PLANETÁRIA (DIA DA SEMANA)
    ========================================================= */
 
-function calcularRegenciaPlanetaria(data) {
-    const diaSemana = data.getDay(); // 0 = Domingo, 1 = Segunda, ..., 6 = Sábado
+/* =========================================================
+   CÁLCULO DE REGÊNCIA PLANETÁRIA (SINCRONIZADA COM O SISTEMA)
+   ========================================================= */
 
-    const regencias = [
-        { nome: "Surya (Sol)", icone: "☉", atributo: "Identidade e Vitalidade" },      // Domingo
-        { nome: "Soma (Lua)", icone: "☽", atributo: "Emoção e Intuição" },            // Segunda
-        { nome: "Mangala (Marte)", icone: "♂", atributo: "Ação e Conquista" },        // Terça
-        { nome: "Budha (Mercúrio)", icone: "☿", atributo: "Comunicação e Mente" },    // Quarta
-        { nome: "Guru (Júpiter)", icone: "♃", atributo: "Expansão e Sabedoria" },     // Quinta
-        { nome: "Shukra (Vênus)", icone: "♀", atributo: "Desejo e Harmonia" },        // Sexta
-        { nome: "Shani (Saturno)", icone: "♄", atributo: "Disciplina e Estrutura" }  // Sábado
+/* =========================================================
+   CÁLCULO DE REGÊNCIA PLANETÁRIA (ORDEM CÓSMICA)
+   ========================================================= */
+
+function calcularRegenciaPlanetaria(mes, dia) {
+    // Lista alinhada rigorosamente de acordo com a progressão do Cosmos
+    const regenciasSistema = [
+        { nome: "Surya (Sol)", icone: "☉", atributo: "A Identidade (Centro)" },
+        { nome: "Budha (Mercúrio)", icone: "☿", atributo: "Comunicação e Mente" },
+        { nome: "Shukra (Vênus)", icone: "♀", atributo: "Desejo e Harmonia" },
+        { nome: "Soma (Lua / Terra)", icone: "☽", atributo: "Emoção e Manifestação" },
+        { nome: "Mangala (Marte)", icone: "♂", atributo: "Ação e Conquista" },
+        { nome: "Guru (Júpiter)", icone: "♃", atributo: "Expansão e Sabedoria" },
+        { nome: "Shani (Saturno)", icone: "♄", atributo: "Disciplina e Estrutura" },
+        { nome: "Urano", icone: "⛢", atributo: "Inovação e Despertar" },
+        { nome: "Netuno", icone: "♆", atributo: "Imaginação e Transcendência" }
     ];
 
-    return regencias[diaSemana];
+    // Garante que o Dia 1 de cada mês comece exatamente no Sol (índice 0)
+    // e siga sequencialmente a ordem cósmica ao longo dos 9 dias do ciclo.
+    const indiceRegente = (dia - 1) % regenciasSistema.length;
+
+    return regenciasSistema[indiceRegente];
 }
 
 /* =========================================================
@@ -333,7 +346,7 @@ function selecionarDia(ano, mes, dia, data, elemento) {
     const dadosLua = calcularFaseLua(data);
     const dadosLuaSigno = calcularSignoLunar(parseFloat(dadosLua.idadeLunar));
     const dadosEstacao = calcularEstacaoLocal(data);
-    const dadosPlaneta = calcularRegenciaPlanetaria(data);
+    const dadosPlaneta = calcularRegenciaPlanetaria(mes, dia);
 
     // 1. Atualizar Painel Solar (Esquerdo)
     const sunIcon = document.getElementById("sunIcon");

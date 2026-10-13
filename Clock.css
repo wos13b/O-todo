@@ -107,7 +107,7 @@ body {
     overflow: hidden; /* Corta qualquer elemento que tente vazar */
 }
 
-.sun-icon, .moon-icon {
+.sun-icon, .moon-icon, .season-icon{
     font-size: 2.2rem;
     margin: 4px 0;
     line-height: 1;
@@ -123,12 +123,13 @@ body {
     max-width: 100%;
 }
 
-.moon-panel p, .planet-panel p, .sun-panel p, .season-panel p {
+.panel-text {
     font-size: 0.7rem;
     opacity: 0.7;
     margin-top: 2px;
     word-break: break-word;
     max-width: 100%;
+    display: block;
 }
 
 /* ================================
