@@ -77,13 +77,13 @@ body {
     padding: 0 10px;
 }
 
-.Painel_Esquerdo aside{
+.Painel_Esquerdo aside, .Painel_Direito aside{
 
     margin-bottom: 4px;
 
 }
 
-.sun-panel, .moon-panel, .season-panel {
+.sun-panel, .moon-panel, .season-panel, .planet-panel{
     background: rgba(27, 27, 27, 0.9);
     border: 1px solid #444;
     border-radius: 12px;
@@ -101,6 +101,12 @@ body {
 .moon-icon {
     font-size: 2.8rem;
     margin: 8px 0;
+}
+
+.planet-panel p {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 4px;
 }
 
 .moon-phase-name {

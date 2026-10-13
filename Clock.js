@@ -174,6 +174,26 @@ function calcularEstacaoLocal(data) {
 }
 
 /* =========================================================
+   CÁLCULO DE REGÊNCIA PLANETÁRIA (DIA DA SEMANA)
+   ========================================================= */
+
+function calcularRegenciaPlanetaria(data) {
+    const diaSemana = data.getDay(); // 0 = Domingo, 1 = Segunda, ..., 6 = Sábado
+
+    const regencias = [
+        { nome: "Surya (Sol)", icone: "☉", atributo: "Identidade e Vitalidade" },      // Domingo
+        { nome: "Soma (Lua)", icone: "☽", atributo: "Emoção e Intuição" },            // Segunda
+        { nome: "Mangala (Marte)", icone: "♂", atributo: "Ação e Conquista" },        // Terça
+        { nome: "Budha (Mercúrio)", icone: "☿", atributo: "Comunicação e Mente" },    // Quarta
+        { nome: "Guru (Júpiter)", icone: "♃", atributo: "Expansão e Sabedoria" },     // Quinta
+        { nome: "Shukra (Vênus)", icone: "♀", atributo: "Desejo e Harmonia" },        // Sexta
+        { nome: "Shani (Saturno)", icone: "♄", atributo: "Disciplina e Estrutura" }  // Sábado
+    ];
+
+    return regencias[diaSemana];
+}
+
+/* =========================================================
    CRIAR E POSICIONAR DIAS
    ========================================================= */
 
