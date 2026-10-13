@@ -13,6 +13,9 @@ const SEMANAS_POR_SETOR = DIAS_POR_SETOR / DIAS_POR_SEMANA; // 9 semanas por set
 const SEGUNDOS_NO_DIA_CUSTOM = (12 * 3600) + (1 * 60) + 27;
 const SEGUNDOS_NO_ANO_CUSTOM = TOTAL_DIAS_ANO * SEGUNDOS_NO_DIA_CUSTOM; // 31,556,223 segundos
 
+// Marco zero para a contagem contínua ininterrupta
+const MARCO_ZERO_COSMICO = new Date(2026, 0, 1, 0, 0, 0).getTime();
+
 let anoAtual = 2026;
 let setorAtual = 1;
 
@@ -28,6 +31,18 @@ const nomesSetores = [
     "Neptunas"
 ];
 
+const regenciasDiariasDoRelogio = [
+    { nome: "Sūrya (Sol)", icone: "☉", atributo: "A Identidade (Centro)" },
+    { nome: "Budha (Mercúrio)", icone: "☿", atributo: "Comunicação e Mente" },
+    { nome: "Śukra (Vênus)", icone: "♀", atributo: "Desejo e Harmonia" },
+    { nome: "Chandra (Lua)", icone: "☽", atributo: "Emoção e Manifestação" },
+    { nome: "Maṅgala (Marte)", icone: "♂", atributo: "Ação e Conquista" },
+    { nome: "Bṛhaspati (Júpiter)", icone: "♃", atributo: "Expansão e Sabedoria" },
+    { nome: "Śani (Saturno)", icone: "♄", atributo: "Disciplina e Estrutura" },
+    { nome: "Urano", icone: "⛢", atributo: "Inovação e Despertar" },
+    { nome: "Netuno", icone: "♆", atributo: "Imaginação e Transcendência" }
+];
+
 /* =========================================================
    ELEMENTOS DO DOM
    ========================================================= */
@@ -38,7 +53,6 @@ const yearNumerology = document.getElementById("yearNumerology");
 const selectedDate = document.getElementById("selectedDate");
 const gregorianDate = document.getElementById("gregorianDate");
 const dayOfYear = document.getElementById("dayOfYear");
-const extraDays = document.getElementById("extraDays");
 const centerMonth = document.getElementById("centerMonth");
 const centerYear = document.getElementById("centerYear");
 const weekdaysContainer = document.querySelector(".weekdays");
@@ -66,10 +80,6 @@ function obterDataGregoriana(ano, setor, dia) {
 }
 
 const formatarData = (data) => data.toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric" });
-const ehHoje = (data) => {
-    const hoje = new Date();
-    return data.getFullYear() === hoje.getFullYear() && data.getMonth() === hoje.getMonth() && data.getDate() === hoje.getDate();
-};
 
 /* =========================================================
    CÁLCULO SOLAR, LUNAR E CÓSMICO
@@ -161,20 +171,8 @@ function calcularEstacaoLocal(data) {
 }
 
 function calcularRegenciaPlanetaria(setor, dia) {
-    const regenciasSistema = [
-        { nome: "Sūrya (Sol)", icone: "☉", atributo: "A Identidade (Centro)" },
-        { nome: "Budha (Mercúrio)", icone: "☿", atributo: "Comunicação e Mente" },
-        { nome: "Śukra (Vênus)", icone: "♀", atributo: "Desejo e Harmonia" },
-        { nome: "Chandra (Lua)", icone: "☽", atributo: "Emoção e Manifestação" },
-        { nome: "Maṅgala (Marte)", icone: "♂", atributo: "Ação e Conquista" },
-        { nome: "Bṛhaspati (Júpiter)", icone: "♃", atributo: "Expansão e Sabedoria" },
-        { nome: "Śani (Saturno)", icone: "♄", atributo: "Disciplina e Estrutura" },
-        { nome: "Urano", icone: "⛢", atributo: "Inovação e Despertar" },
-        { nome: "Netuno", icone: "♆", atributo: "Imaginação e Transcendência" }
-    ];
-
-    const indiceRegente = (dia - 1) % regenciasSistema.length;
-    return regenciasSistema[indiceRegente];
+    const indiceRegente = (dia - 1) % regenciasDiariasDoRelogio.length;
+    return regenciasDiariasDoRelogio[indiceRegente];
 }
 
 /* =========================================================
@@ -190,12 +188,79 @@ function criarDia(ano, setor, dia) {
     elemento.dataset.semana = semana;
     elemento.dataset.diaSemana = obterDiaDaSemana(dia);
 
-    elemento.innerHTML = ``;
-
     const data = obterDataGregoriana(ano, setor, dia);
     elemento.addEventListener("click", () => selecionarDia(ano, setor, dia, data, elemento));
     return elemento;
 }
+
+/* =========================================================
+   CICLO CONTÍNUO DO TEMPO CÓSMICO E MINI RELÓGIO
+   ========================================================= */
+
+function obterTempoCosmicoAtual() {
+    const agora = new Date().getTime();
+    const segundosTotaisDecorridos = Math.floor((agora - MARCO_ZERO_COSMICO) / 1000);
+
+    if (segundosTotaisDecorridos < 0) {
+        return { diaAbsoluto: 1, anoCosmico: 2026, setor: 1, diaDoSetor: 1, horaCustom: 0, minCustom: 0, segCustom: 0, segundosNoDiaAtual: 0 };
+    }
+
+    const diaAbsoluto = Math.floor(segundosTotaisDecorridos / SEGUNDOS_NO_DIA_CUSTOM) + 1;
+    const segundosNoDiaAtual = segundosTotaisDecorridos % SEGUNDOS_NO_DIA_CUSTOM;
+    
+    const horaCustom = Math.floor(segundosNoDiaAtual / 3600);
+    const minCustom = Math.floor((segundosNoDiaAtual % 3600) / 60);
+    const segCustom = segundosNoDiaAtual % 60;
+
+    const anoCosmico = 2026 + Math.floor((diaAbsoluto - 1) / TOTAL_DIAS_ANO);
+    const diaNoAnoCosmico = ((diaAbsoluto - 1) % TOTAL_DIAS_ANO) + 1;
+    
+    const setor = Math.floor((diaNoAnoCosmico - 1) / DIAS_POR_SETOR) + 1;
+    const diaDoSetor = ((diaNoAnoCosmico - 1) % DIAS_POR_SETOR) + 1;
+
+    return {
+        diaAbsoluto,
+        anoCosmico,
+        setor,
+        diaDoSetor,
+        horaCustom,
+        minCustom,
+        segCustom,
+        segundosNoDiaAtual
+    };
+}
+
+function atualizarMiniRelogioContinuo() {
+    const timeElement = document.getElementById("miniClockTime");
+    const dateElement = document.getElementById("miniClockDate");
+    const iconElement = document.getElementById("miniClockIcon");
+    
+    if (!timeElement || !dateElement) return;
+
+    const tempo = obterTempoCosmicoAtual();
+    
+    const h = String(tempo.horaCustom).padStart(2, '0');
+    const m = String(tempo.minCustom).padStart(2, '0');
+    const s = String(tempo.segCustom).padStart(2, '0');
+    
+    timeElement.textContent = `${h}:${m}:${s}`;
+    dateElement.textContent = `Dia ${tempo.diaAbsoluto} (${nomesSetores[tempo.setor - 1]})`;
+
+    // Divisão do dia customizado em 9 períodos planetários proporcionais
+    const duracaoPeriodo = SEGUNDOS_NO_DIA_CUSTOM / 9;
+    let indicePeriodo = Math.floor(tempo.segundosNoDiaAtual / duracaoPeriodo);
+    indicePeriodo = Math.max(0, Math.min(8, indicePeriodo));
+
+    const planetaRegente = regenciasDiariasDoRelogio[indicePeriodo];
+    if (iconElement) {
+        iconElement.textContent = planetaRegente.icone;
+        iconElement.title = `Período Regente: ${planetaRegente.nome} — ${planetaRegente.atributo}`;
+    }
+}
+
+// Atualiza o relógio a cada segundo
+setInterval(atualizarMiniRelogioContinuo, 1000);
+atualizarMiniRelogioContinuo();
 
 /* =========================================================
    POSICIONAMENTO CIRCULAR EXATO
@@ -323,7 +388,7 @@ const obterSetorDoCalendario = (numDia) => Math.min(TOTAL_SETORES, Math.floor((n
 const obterDiaDoSetor = (numDia) => ((numDia - 1) % DIAS_POR_SETOR) + 1;
 
 /* =========================================================
-   NAVEGAÇÃO E EVENTOS (COM BASE NO TEMPO CUSTOMIZADO)
+   NAVEGAÇÃO E EVENTOS
    ========================================================= */
 
 function mudarSetor(valor) {
@@ -339,19 +404,11 @@ function mudarAno(valor) {
 }
 
 function irParaHoje() {
-    const agora = new Date();
-    anoAtual = agora.getFullYear();
-    
-    // Segundos decorridos no ano civil atual até este exato momento
-    const inicioAno = new Date(anoAtual, 0, 1);
-    const segundosDecorridosNoAno = Math.floor((agora - inicioAno) / 1000);
-    
-    // Aplicação da proporção baseada na duração exata do ano customizado (SEGUNDOS_NO_ANO_CUSTOM)
-    const segundosNoCicloAtual = segundosDecorridosNoAno % SEGUNDOS_NO_ANO_CUSTOM;
-    const numeroDoDiaAbsoluto = Math.min(TOTAL_DIAS_ANO, Math.max(1, Math.floor(segundosNoCicloAtual / SEGUNDOS_NO_DIA_CUSTOM) + 1));
+    const tempo = obterTempoCosmicoAtual();
 
-    setorAtual = obterSetorDoCalendario(numeroDoDiaAbsoluto);
-    const dia = obterDiaDoSetor(numeroDoDiaAbsoluto);
+    anoAtual = tempo.anoCosmico;
+    setorAtual = tempo.setor;
+    const dia = tempo.diaDoSetor;
 
     renderizarCalendario();
 

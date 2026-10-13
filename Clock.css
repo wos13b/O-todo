@@ -132,6 +132,52 @@ body {
     display: block;
 }
 
+.mini-clock {
+    height: 40px;
+    width: 260px; /* Largura fixa para o container não redimensionar */
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza perfeitamente o conteúdo dentro da largura fixa */
+    gap: 10px;
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-family: inherit;
+    color: #e0e0e0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 6;
+    pointer-events: none;
+}
+
+#miniClockIcon {
+    font-size: 1rem;
+    width: 20px; /* Garante espaço fixo para o ícone do planeta */
+    text-align: center;
+}
+
+#miniClockTime {
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    color: #fff;
+    font-family: monospace; /* Garante que todos os números tenham a exata mesma largura */
+    font-variant-numeric: tabular-nums; /* Otimiza alinhamento de números */
+}
+
+#miniClockDate {
+    font-size: 0.75rem;
+    color: #aaa;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    padding-left: 8px;
+    white-space: nowrap; /* Evita que a data quebre linha */
+}
+
 /* ================================
    CALENDÁRIO CIRCULAR
 ================================ */
@@ -205,7 +251,7 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 27%;
+    width: 40%;
     aspect-ratio: 1 / 1;
     border: 1px solid #555;
     border-radius: 50%;
