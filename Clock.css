@@ -14,17 +14,20 @@ body {
 }
 
 /* ================================
-   CABEÇALHO
+   CABEÇALHO DO RELÓGIO
 ================================ */
 .Header_clock {
     width: 100%;
-    padding: 12px 10px;
+    max-width: 900px;
+    margin: 0 auto 10px auto;
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    border-bottom: 3px solid #1b1b1b;
+    gap: 15px;
+    border-bottom: 2px solid #1b1b1b;
     flex-wrap: wrap;
+    order: 1; /* Garante a ordem correta no layout flex */
 }
 
 .titulo {
@@ -32,24 +35,24 @@ body {
 }
 
 .titulo h1 {
-    font-size: clamp(18px, 4vw, 22px);
+    font-size: clamp(16px, 3vw, 20px);
 }
 
 .titulo span {
     display: block;
     margin-top: 2px;
-    font-size: clamp(12px, 3vw, 15px);
+    font-size: clamp(11px, 2.5vw, 13px);
     opacity: 0.6;
 }
 
 .nav-button {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border: none;
     border-radius: 50%;
     background: #333;
     color: white;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     transition: 0.2s;
     display: flex;
@@ -63,7 +66,7 @@ body {
 }
 
 /* ================================
-   ÁREA PRINCIPAL
+   ÁREA PRINCIPAL (Layout Grade/Flex)
 ================================ */
 .Main_clock {
     display: flex;
@@ -77,64 +80,64 @@ body {
     padding: 0 10px;
 }
 
-.Painel_Esquerdo aside, .Painel_Direito aside{
-
-    margin-bottom: 4px;
-
+/* Container dos Paineis Laterais */
+.Painel_Esquerdo, .Painel_Direito {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 190px; /* Largura controlada para evitar estourar */
+    flex-shrink: 0;
 }
 
-.sun-panel, .moon-panel, .season-panel, .planet-panel{
+/* Estilização Base dos Painéis (Evita vazamentos de conteúdo) */
+.sun-panel, .moon-panel, .season-panel, .planet-panel {
     background: rgba(27, 27, 27, 0.9);
     border: 1px solid #444;
     border-radius: 12px;
-    padding: 20px;
+    padding: 15px 10px;
     text-align: center;
-    width: 200px;
+    width: 180px;
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    overflow: hidden; /* Corta qualquer elemento que tente vazar */
 }
 
-.sun-icon {
-    font-size: 2.8rem;
-    margin: 8px 0;
-}
-
-.moon-icon {
-    font-size: 2.8rem;
-    margin: 8px 0;
-}
-
-.planet-panel p {
-    font-size: 0.8rem;
-    opacity: 0.7;
-    margin-top: 4px;
+.sun-icon, .moon-icon {
+    font-size: 2.2rem;
+    margin: 4px 0;
+    line-height: 1;
 }
 
 .moon-phase-name {
     font-weight: bold;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
+    margin-bottom: 4px;
+    font-size: 0.75rem;
     color: #e0e0e0;
-    
-    /* Propriedades para quebrar o texto e conter na div */
-    word-wrap: break-word;
+    word-break: break-word;
     overflow-wrap: break-word;
-    hyphens: auto;
     max-width: 100%;
 }
 
-.moon-panel p {
-    font-size: 0.8rem;
+.moon-panel p, .planet-panel p, .sun-panel p, .season-panel p {
+    font-size: 0.7rem;
     opacity: 0.7;
-    margin-top: 4px;
+    margin-top: 2px;
+    word-break: break-word;
+    max-width: 100%;
 }
 
 /* ================================
-   CALENDÁRIO CIRCULAR (Mais compacto)
+   CALENDÁRIO CIRCULAR
 ================================ */
 .calendar {
-    width: min(440px, 88vw);
+    flex: 0 0 auto;
+    width: min(400px, 85vw);
     aspect-ratio: 1 / 1;
-    margin: 0 auto;
     position: relative;
     overflow: visible;
     border: none;
@@ -209,29 +212,26 @@ body {
 }
 
 .calendar-center #centerMonth {
-    font-size: clamp(11px, 3vw, 18px);
+    font-size: clamp(10px, 2.5vw, 16px);
     font-weight: bold;
 }
 
 .calendar-center #centerYear {
     margin-top: 1px;
-    font-size: clamp(9px, 2vw, 13px);
+    font-size: clamp(8px, 2vw, 12px);
     opacity: 0.55;
 }
 
 /* ================================
    FATIAS DE PIZZA (Divisórias Radiais)
 ================================ */
-
 .calendar::before {
     content: "";
     position: absolute;
     inset: 15%;
     border-radius: 50%;
     pointer-events: none;
-    z-index: 1; /* Fica abaixo dos dias */
-    
-    /* Padrão para os meses 1 a 13 (3 fatias: Fogo, Terra, Água) */
+    z-index: 1;
     background: conic-gradient(
         from 0deg at 50% 50%,
         rgba(255, 255, 255, 0.02) 0deg,
@@ -250,23 +250,18 @@ body {
         rgba(0, 0, 0, 0.6) 360deg
     );
     border: 1px solid #444;
-    
-    /* Cria um fade (transparência) nas bordas externas para as linhas não alcançarem os dias */
     mask-image: radial-gradient(circle, black 60%, transparent 90%);
     -webkit-mask-image: radial-gradient(circle, black 60%, transparent 90%);
 }
 
-/* Alteração específica para o Mês 14 (Shandi): Apenas 2 fatias (Fogo e Água) */
 .calendar.mes-14::before {
     background: conic-gradient(
         from 0deg at 50% 50%,
-        /* Semana 1: Fogo (0 a 180 graus) */
         rgba(255, 123, 37, 0.05) 0deg,
         rgba(255, 123, 37, 0.05) 178deg,
         rgba(0, 0, 0, 0.4) 178deg,
         rgba(0, 0, 0, 0.4) 180deg,
         
-        /* Semana 2: Água (180 a 360 graus) */
         rgba(45, 138, 199, 0.05) 180deg,
         rgba(45, 138, 199, 0.05) 358deg,
         rgba(0, 0, 0, 0.4) 358deg,
@@ -274,7 +269,6 @@ body {
     );
 }
 
-/* No mês 14, como a segunda semana é Água, garantimos que a .semana-2 de Shandi use o estilo de água */
 .calendar.mes-14 .day.semana-2 {
     border-color: #5cb8ff;
 }
@@ -283,7 +277,6 @@ body {
     box-shadow: 0 0 10px rgba(45, 138, 199, 0.4);
 }
 
-/* Ajuste do anel interno para ocultar as linhas no centro */
 .calendar::after {
     content: "";
     position: absolute;
@@ -311,10 +304,10 @@ body {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: clamp(30px, 10vw, 60px);
+    width: clamp(25px, 8vw, 50px);
     transform-origin: center;
     text-align: center;
-    font-size: clamp(6px, 1.6vw, 10px);
+    font-size: clamp(5px, 1.4vw, 9px);
     font-weight: bold;
     color: #aaa;
 }
@@ -331,18 +324,18 @@ body {
 }
 
 /* ================================
-   CADA DIA (Tamanho reduzido)
+   CADA DIA
 ================================ */
 .day {
     position: absolute;
     left: 50%;
     top: 50%;
 
-    width: clamp(28px, 8vw, 42px);
-    height: clamp(28px, 8vw, 42px);
+    width: clamp(26px, 7vw, 38px);
+    height: clamp(26px, 7vw, 38px);
 
-    margin-left: calc(clamp(28px, 8vw, 42px) / -2);
-    margin-top: calc(clamp(28px, 8vw, 42px) / -2);
+    margin-left: calc(clamp(26px, 7vw, 38px) / -2);
+    margin-top: calc(clamp(26px, 7vw, 38px) / -2);
 
     padding: 0;
     border: 1px solid #444;
@@ -359,32 +352,19 @@ body {
     box-sizing: border-box;
 }
 
-/* ================================
-   CORES POR ELEMENTO (SEMANAS)
-================================ */
-
-/* Semana 1: Fogo (Tons de Laranja e Âmbar) */
-.day.semana-1 {
-    border-color: #ff9e59;
-}
+.day.semana-1 { border-color: #ff9e59; }
 .day.semana-1:hover {
     background: radial-gradient(circle, #ff9e59, #d94307);
     box-shadow: 0 0 10px rgba(255, 123, 37, 0.4);
 }
 
-/* Semana 2: Terra (Tons de Verde e Oliva) */
-.day.semana-2 {
-    border-color: #78be6b;
-}
+.day.semana-2 { border-color: #78be6b; }
 .day.semana-2:hover {
     background: radial-gradient(circle, #78be6b, #3b6b30);
     box-shadow: 0 0 10px rgba(82, 140, 70, 0.4);
 }
 
-/* Semana 3: Água (Tons de Azul e Ciano) */
-.day.semana-3 {
-    border-color: #5cb8ff;
-}
+.day.semana-3 { border-color: #5cb8ff; }
 .day.semana-3:hover {
     background: radial-gradient(circle, #5cb8ff, #1d699e);
     box-shadow: 0 0 10px rgba(45, 138, 199, 0.4);
@@ -396,9 +376,8 @@ body {
     z-index: 10;
 }
 
-/* Número do dia */
 .day-number {
-    font-size: clamp(10px, 2.5vw, 14px);
+    font-size: clamp(9px, 2.2vw, 13px);
     font-weight: bold;
     line-height: 1;
 }
@@ -413,13 +392,11 @@ body {
     font-size: 0.5em;
 }
 
-/* Hoje */
 .day.today {
     background: radial-gradient(circle, #555, #292929);
     box-shadow: 0 0 0 2px white, 0 0 10px rgba(255, 255, 255, 0.25);
 }
 
-/* Selecionado */
 .day.selected {
     background: radial-gradient(circle, #666, #333);
     box-shadow: 0 0 0 2px #aaa, 0 0 12px rgba(255, 255, 255, 0.2);
@@ -427,48 +404,42 @@ body {
 }
 
 /* ================================
-   INFORMAÇÕES, EXTRAS E BOTÕES
+   INFORMAÇÕES E BOTÕES INFERIORES
 ================================ */
-.info, .extra {
-    margin-top: 12px;
-    padding: 12px;
-    width: 880px;
+.info {
+    margin-top: 15px;
+    padding: 15px;
+    width: 100%;
+    max-width: 860px;
     border: 1px solid #444;
     border-radius: 10px;
     background: #1b1b1b;
+    text-align: center;
+    order: 3; /* Posiciona corretamente abaixo de toda a estrutura central */
 }
 
-.info h2, .extra h2 {
-    font-size: 15px;
+.info h2 {
+    font-size: 14px;
     margin-bottom: 6px;
 }
 
 .info p {
     margin-top: 3px;
-    font-size: 12px;
+    font-size: 11px;
     opacity: 0.7;
 }
 
 .today-button {
     display: block;
-    margin: 12px auto;
-    padding: 8px 16px;
+    margin: 12px auto 0 auto;
+    padding: 6px 14px;
     border: none;
     border-radius: 20px;
     background: white;
     color: black;
     font-weight: bold;
-    font-size: 13px;
-    cursor: pointer;
-}
-
-.extra-day {
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 6px;
-    background: #292929;
-    cursor: pointer;
     font-size: 12px;
+    cursor: pointer;
 }
 
 footer {
@@ -481,29 +452,23 @@ footer {
 }
 
 /* ================================
-   MEDIA QUERY ESPECIAL: TELAS MUITO PEQUENAS (< 380px)
+   RESPONSIVIDADE (Telas menores / Dispositivos Móveis)
 ================================ */
-@media (max-width: 380px) {
-    .calendar {
-        width: 92vw;
-    }
-    
-    .calendar-center {
-        width: 30%;
+@media (max-width: 950px) {
+    .Main_clock {
+        flex-direction: column;
+        align-items: center;
     }
 
-    .day {
-        width: 26px;
-        height: 26px;
-        margin-left: -13px;
-        margin-top: -13px;
+    .Painel_Esquerdo, .Painel_Direito {
+        flex-direction: row;
+        width: 100%;
+        max-width: 420px;
+        justify-content: space-between;
     }
 
-    .day-number {
-        font-size: 9px;
-    }
-
-    .day-gregorian {
-        font-size: 4px;
+    .sun-panel, .moon-panel, .season-panel, .planet-panel {
+        width: 48%;
+        min-height: 160px;
     }
 }

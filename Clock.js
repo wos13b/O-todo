@@ -333,12 +333,18 @@ function selecionarDia(ano, mes, dia, data, elemento) {
     const dadosLua = calcularFaseLua(data);
     const dadosLuaSigno = calcularSignoLunar(parseFloat(dadosLua.idadeLunar));
     const dadosEstacao = calcularEstacaoLocal(data);
+    const dadosPlaneta = calcularRegenciaPlanetaria(data);
 
     // 1. Atualizar Painel Solar (Esquerdo)
     const sunIcon = document.getElementById("sunIcon");
     const sunSignName = document.getElementById("sunSignName");
     const sunDegree = document.getElementById("sunDegree");
     const sunElement = document.getElementById("sunElement");
+
+    if (sunIcon) sunIcon.textContent = dadosSol.icone;
+    if (sunSignName) sunSignName.textContent = dadosSol.nome;
+    if (sunDegree) sunDegree.textContent = `Grau: ${dadosSol.grau}°`;
+    if (sunElement) sunElement.textContent = `Elemento: ${dadosSol.elemento}`;
 
     // 2. Atualizar Painel Estação (Esquerdo)
 
@@ -350,10 +356,6 @@ function selecionarDia(ano, mes, dia, data, elemento) {
     if (seasonName) seasonName.textContent = dadosEstacao.nome;
     if (seasonDesc) seasonDesc.textContent = dadosEstacao.descricao;
 
-    if (sunIcon) sunIcon.textContent = dadosSol.icone;
-    if (sunSignName) sunSignName.textContent = dadosSol.nome;
-    if (sunDegree) sunDegree.textContent = `Grau: ${dadosSol.grau}°`;
-    if (sunElement) sunElement.textContent = `Elemento: ${dadosSol.elemento}`;
 
     // 3. Atualizar Painel Lunar (Direito)
     const moonIcon = document.getElementById("moonIcon");
@@ -370,7 +372,16 @@ function selecionarDia(ano, mes, dia, data, elemento) {
     if (moonIllumination) moonIllumination.textContent = `Iluminação: ${dadosLua.iluminacao}%`;
     if (moonAge) moonAge.textContent = `Idade: ${dadosLua.idadeLunar} dias`;
 
-    // 3. Atualizar Painel Info (Inferior)
+    // 4. Atualizar Painel Regente (Direito)
+    const planetIcon = document.getElementById("planetIcon");
+    const planetName = document.getElementById("planetName");
+    const planetAspect = document.getElementById("planetAspect");
+
+    if (planetIcon) planetIcon.textContent = dadosPlaneta.icone;
+    if (planetName) planetName.textContent = dadosPlaneta.nome;
+    if (planetAspect) planetAspect.textContent = `Atributo: ${dadosPlaneta.atributo}`;
+
+    // 5. Atualizar Painel Info (Inferior)
     const sunInfo = document.getElementById("sunInfo");
     const moonInfo = document.getElementById("moonInfo");
 
