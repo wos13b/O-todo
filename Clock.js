@@ -148,6 +148,32 @@ function calcularSignoLunar(idadeLunar) {
 }
 
 /* =========================================================
+   CÁLCULO DE ESTAÇÕES (SÃO FÉLIX DO XINGU - PA)
+   ========================================================= */
+
+function calcularEstacaoLocal(data) {
+    const mes = data.getMonth() + 1; // 1 a 12 (Janeiro a Dezembro)
+
+    // Em São Félix do Xingu - PA:
+    // Chuvoso (Inverno Amazônico): de Novembro (11) até Maio (5)
+    // Seco (Verão Amazônico): de Junho (6) até Outubro (10)
+    
+    if (mes >= 11 || mes <= 5) {
+        return {
+            nome: "Período Chuvoso",
+            icone: "🌧️",
+            descricao: "Inverno Amazônico (Águas)"
+        };
+    } else {
+        return {
+            nome: "Período Seco",
+            icone: "☀️",
+            descricao: "Verão Amazônico (Estiagem)"
+        };
+    }
+}
+
+/* =========================================================
    CRIAR E POSICIONAR DIAS
    ========================================================= */
 
@@ -286,6 +312,7 @@ function selecionarDia(ano, mes, dia, data, elemento) {
     const dadosSol = calcularSignoSolar(data);
     const dadosLua = calcularFaseLua(data);
     const dadosLuaSigno = calcularSignoLunar(parseFloat(dadosLua.idadeLunar));
+    const dadosEstacao = calcularEstacaoLocal(data);
 
     // 1. Atualizar Painel Solar (Esquerdo)
     const sunIcon = document.getElementById("sunIcon");
@@ -293,12 +320,22 @@ function selecionarDia(ano, mes, dia, data, elemento) {
     const sunDegree = document.getElementById("sunDegree");
     const sunElement = document.getElementById("sunElement");
 
+    // 2. Atualizar Painel Estação (Esquerdo)
+
+    const seasonIcon = document.getElementById("seasonIcon");
+    const seasonName = document.getElementById("seasonName");
+    const seasonDesc = document.getElementById("seasonDesc");
+
+    if (seasonIcon) seasonIcon.textContent = dadosEstacao.icone;
+    if (seasonName) seasonName.textContent = dadosEstacao.nome;
+    if (seasonDesc) seasonDesc.textContent = dadosEstacao.descricao;
+
     if (sunIcon) sunIcon.textContent = dadosSol.icone;
     if (sunSignName) sunSignName.textContent = dadosSol.nome;
     if (sunDegree) sunDegree.textContent = `Grau: ${dadosSol.grau}°`;
     if (sunElement) sunElement.textContent = `Elemento: ${dadosSol.elemento}`;
 
-    // 2. Atualizar Painel Lunar (Direito)
+    // 3. Atualizar Painel Lunar (Direito)
     const moonIcon = document.getElementById("moonIcon");
     const moonPhaseName = document.getElementById("moonPhaseName");
     const moonSign = document.getElementById("moonSign");
