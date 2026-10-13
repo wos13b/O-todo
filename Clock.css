@@ -77,7 +77,13 @@ body {
     padding: 0 10px;
 }
 
-.sun-panel, .moon-panel {
+.Painel_Esquerdo aside{
+
+    margin-bottom: 4px;
+
+}
+
+.sun-panel, .moon-panel, .season-panel {
     background: rgba(27, 27, 27, 0.9);
     border: 1px solid #444;
     border-radius: 12px;
