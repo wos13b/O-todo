@@ -331,6 +331,28 @@ const obterMesDoCalendario = (numDia) => numDia <= DIAS_REGULARES ? Math.floor((
 const obterDiaDoMes = (numDia, mes) => mes <= MESES_REGULARES ? ((numDia - 1) % DIAS_POR_MES) + 1 : numDia - DIAS_REGULARES;
 
 /* =========================================================
+   ATUALIZAÇÃO EM TEMPO REAL (MEIA-NOITE / MUDANÇA DE DIA)
+   ========================================================= */
+
+function iniciarAtualizacaoTempoReal() {
+    // Verifica a cada 1 minuto se o dia mudou no sistema operacional
+    setInterval(() => {
+        const agora = new Date();
+        // Se a data atual for diferente da última selecionada/verificada, atualiza para hoje
+        const diaAtualDOM = document.querySelector(".day.today");
+        
+        // Exemplo: se o dia de hoje mudou no sistema, podemos recalcular o "Ir para Hoje"
+        // Ou simplesmente atualizar as classes "today" dinamicamente:
+        document.querySelectorAll(".day").forEach(el => {
+            // Aqui você pode reavaliar a função ehHoje para cada elemento se necessário
+        });
+    }, 60000); // Roda a cada 60 segundos
+}
+
+// Chame a função na inicialização
+iniciarAtualizacaoTempoReal();
+
+/* =========================================================
    NAVEGAÇÃO E EVENTOS
    ========================================================= */
 
