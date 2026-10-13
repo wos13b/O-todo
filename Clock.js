@@ -1,23 +1,29 @@
 /* =========================================================
-   CALENDÁRIO 14 MESES & PAINEL DE INFORMAÇÕES UNIFICADO
+   CALENDÁRIO CÓSMICO DE 729 DIAS (PROGRESSÃO DE 3)
+   Estrutura: 3 -> 9 -> 27 -> 81 -> 243 -> 729
    ========================================================= */
 
-const TOTAL_MESES = 14;
-const MESES_REGULARES = 13;
-const SEMANAS_MES_REGULAR = 3;
-const DIAS_POR_SEMANA_REGULAR = 9;
-const DIAS_POR_MES = SEMANAS_MES_REGULAR * DIAS_POR_SEMANA_REGULAR;
-const DIAS_REGULARES = MESES_REGULARES * DIAS_POR_MES;
-const SEMANAS_MES_FINAL = 2;
-const DIAS_POR_SEMANA_FINAL = 7;
-const DIAS_MES_FINAL = SEMANAS_MES_FINAL * DIAS_POR_SEMANA_FINAL;
+const TOTAL_DIAS_ANO = 729; // 3^6
+const TOTAL_SETORES = 9;     // 9 Setores (Meses estruturais de 81 dias)
+const DIAS_POR_SETOR = 81;   // 3^4 dias por setor
+const DIAS_POR_SEMANA = 9;   // 3^2 dias por semana
+const SEMANAS_POR_SETOR = DIAS_POR_SETOR / DIAS_POR_SEMANA; // 9 semanas por setor
+
+const SEGUNDOS_NO_DIA_CUSTOM = (12 * 3600) + (1 * 60) + 27;
 
 let anoAtual = 2026;
-let mesAtual = 1;
+let setorAtual = 1;
 
-const nomesMeses = [
-    "Surya", "Soma", "Mangala", "Budha", "Guru", "Shukra", "Shani",
-    "Rahu", "Ketu", "Akasha", "Prithvi", "Dhruva", "Nexus", "Sandhi"
+const nomesSetores = [
+    "Sūrya", 
+    "Budha", 
+    "Śukra", 
+    "Chandra", 
+    "Maṅgala", 
+    "Bṛhaspati", 
+    "Śani", 
+    "Uranas", 
+    "Neptunas"
 ];
 
 /* =========================================================
@@ -36,17 +42,12 @@ const centerYear = document.getElementById("centerYear");
 const weekdaysContainer = document.querySelector(".weekdays");
 
 /* =========================================================
-   FUNÇÕES AUXILIARES E MATEMÁTICAS
+   FUNÇÕES AUXILIARES E MATEMÁTICAS (BASE 3)
    ========================================================= */
 
-const ehBissexto = (ano) => (ano % 400 === 0) || (ano % 4 === 0 && ano % 100 !== 0);
-const quantidadeDiasNoAno = (ano) => ehBissexto(ano) ? 366 : 365;
-const quantidadeDiasMes = (mes) => mes <= MESES_REGULARES ? DIAS_POR_MES : DIAS_MES_FINAL;
-const quantidadeDiasPorSemana = (mes) => mes <= MESES_REGULARES ? DIAS_POR_SEMANA_REGULAR : DIAS_POR_SEMANA_FINAL;
-const quantidadeSemanasMes = (mes) => mes <= MESES_REGULARES ? SEMANAS_MES_REGULAR : SEMANAS_MES_FINAL;
-
-const obterSemanaDoMes = (mes, dia) => Math.floor((dia - 1) / quantidadeDiasPorSemana(mes)) + 1;
-const obterDiaDaSemana = (mes, dia) => ((dia - 1) % quantidadeDiasPorSemana(mes)) + 1;
+const quantidadeDiasSetor = () => DIAS_POR_SETOR;
+const obterSemanaDoSetor = (dia) => Math.floor((dia - 1) / DIAS_POR_SEMANA) + 1;
+const obterDiaDaSemana = (dia) => ((dia - 1) % DIAS_POR_SEMANA) + 1;
 
 function reduzirNumero(numero) {
     while (numero >= 10) {
@@ -55,9 +56,10 @@ function reduzirNumero(numero) {
     return numero;
 }
 
-function obterDataGregoriana(ano, mes, dia) {
-    const numeroDoDia = mes <= MESES_REGULARES ? ((mes - 1) * DIAS_POR_MES) + dia : DIAS_REGULARES + dia;
-    return new Date(ano, 0, numeroDoDia);
+function obterDataGregoriana(ano, setor, dia) {
+    const numeroDoDiaAbsoluto = ((setor - 1) * DIAS_POR_SETOR) + dia;
+    const diaAnoGregoriano = Math.min(365, Math.max(1, Math.ceil((numeroDoDiaAbsoluto / TOTAL_DIAS_ANO) * 365)));
+    return new Date(ano, 0, diaAnoGregoriano);
 }
 
 const formatarData = (data) => data.toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric" });
@@ -67,12 +69,11 @@ const ehHoje = (data) => {
 };
 
 /* =========================================================
-   CÁLCULO SOLAR E LUNAR
+   CÁLCULO SOLAR, LUNAR E CÓSMICO
    ========================================================= */
 
 function calcularSignoSolar(data) {
     const ano = data.getFullYear();
-
     const signos = [
         { nome: "Capricórnio", icone: "♑", elemento: "Terra", inicio: new Date(ano, 11, 22), fim: new Date(ano, 0, 19) },
         { nome: "Aquário", icone: "♒", elemento: "Ar", inicio: new Date(ano, 0, 20), fim: new Date(ano, 1, 18) },
@@ -147,46 +148,16 @@ function calcularSignoLunar(idadeLunar) {
     return { nome: signoObj.nome, icone: signoObj.icone, grau };
 }
 
-/* =========================================================
-   CÁLCULO DE ESTAÇÕES (SÃO FÉLIX DO XINGU - PA)
-   ========================================================= */
-
 function calcularEstacaoLocal(data) {
-    const mes = data.getMonth() + 1; // 1 a 12 (Janeiro a Dezembro)
-
-    // Em São Félix do Xingu - PA:
-    // Chuvoso (Inverno Amazônico): de Novembro (11) até Maio (5)
-    // Seco (Verão Amazônico): de Junho (6) até Outubro (10)
-    
+    const mes = data.getMonth() + 1;
     if (mes >= 11 || mes <= 5) {
-        return {
-            nome: "Período Chuvoso",
-            icone: "🌧️",
-            descricao: "Inverno Amazônico (Águas)"
-        };
+        return { nome: "Período Chuvoso", icone: "🌧️", descricao: "Inverno Amazônico (Águas)" };
     } else {
-        return {
-            nome: "Período Seco",
-            icone: "☀️",
-            descricao: "Verão Amazônico (Estiagem)"
-        };
+        return { nome: "Período Seco", icone: "☀️", descricao: "Verão Amazônico (Estiagem)" };
     }
 }
 
-/* =========================================================
-   CÁLCULO DE REGÊNCIA PLANETÁRIA (DIA DA SEMANA)
-   ========================================================= */
-
-/* =========================================================
-   CÁLCULO DE REGÊNCIA PLANETÁRIA (SINCRONIZADA COM O SISTEMA)
-   ========================================================= */
-
-/* =========================================================
-   CÁLCULO DE REGÊNCIA PLANETÁRIA (ORDEM CÓSMICA)
-   ========================================================= */
-
-function calcularRegenciaPlanetaria(mes, dia) {
-    // Lista alinhada rigorosamente de acordo com a progressão do Cosmos
+function calcularRegenciaPlanetaria(setor, dia) {
     const regenciasSistema = [
         { nome: "Surya (Sol)", icone: "☉", atributo: "A Identidade (Centro)" },
         { nome: "Budha (Mercúrio)", icone: "☿", atributo: "Comunicação e Mente" },
@@ -199,10 +170,7 @@ function calcularRegenciaPlanetaria(mes, dia) {
         { nome: "Netuno", icone: "♆", atributo: "Imaginação e Transcendência" }
     ];
 
-    // Garante que o Dia 1 de cada mês comece exatamente no Sol (índice 0)
-    // e siga sequencialmente a ordem cósmica ao longo dos 9 dias do ciclo.
     const indiceRegente = (dia - 1) % regenciasSistema.length;
-
     return regenciasSistema[indiceRegente];
 }
 
@@ -210,28 +178,27 @@ function calcularRegenciaPlanetaria(mes, dia) {
    CRIAR E POSICIONAR DIAS
    ========================================================= */
 
-function criarDia(ano, mes, dia) {
+function criarDia(ano, setor, dia) {
     const elemento = document.createElement("div");
     elemento.classList.add("day");
 
-    const semana = obterSemanaDoMes(mes, dia);
+    const semana = obterSemanaDoSetor(dia);
     elemento.classList.add(`semana-${semana}`);
     elemento.dataset.semana = semana;
-    elemento.dataset.diaSemana = obterDiaDaSemana(mes, dia);
+    elemento.dataset.diaSemana = obterDiaDaSemana(dia);
 
-    elemento.innerHTML = `
-        <div class="day-number">
-            <span class="numero-original">${dia}</span>
-            <span class="numero-reduzido">${reduzirNumero(dia)}</span>
-        </div>
-    `;
+    // Esferas sem números internos
+    elemento.innerHTML = ``;
 
-    const data = obterDataGregoriana(ano, mes, dia);
-    if (ehHoje(data)) elemento.classList.add("today");
+    const data = obterDataGregoriana(ano, setor, dia);
 
-    elemento.addEventListener("click", () => selecionarDia(ano, mes, dia, data, elemento));
+    elemento.addEventListener("click", () => selecionarDia(ano, setor, dia, data, elemento));
     return elemento;
 }
+
+/* =========================================================
+   POSICIONAMENTO CIRCULAR EXATO
+   ========================================================= */
 
 function posicionarElementosCirculares(seletor, raioFator) {
     const elementos = document.querySelectorAll(seletor);
@@ -259,8 +226,53 @@ function posicionarElementosCirculares(seletor, raioFator) {
 }
 
 function posicionarCalendarioCircular() {
-    posicionarElementosCirculares(".day", 0.42);
-    posicionarElementosCirculares(".weekdays div", 0.28);
+    posicionarElementosCirculares(".day", 0.46);
+    posicionarElementosCirculares(".weekdays div", 0.30);
+}
+
+function selecionarDia(ano, setor, dia, data, elemento) {
+    document.querySelectorAll(".day").forEach(el => el.classList.remove("selected"));
+    elemento.classList.add("selected");
+
+    const semana = obterSemanaDoSetor(dia);
+    const diaSemana = obterDiaDaSemana(dia);
+    const diaAbsoluto = ((setor - 1) * DIAS_POR_SETOR) + dia;
+
+    selectedDate.textContent = `${nomesSetores[setor - 1]} — Dia ${dia} → ${reduzirNumero(dia)}`;
+    gregorianDate.textContent = `Data gregoriana equivalente: ${formatarData(data)}`;
+    dayOfYear.textContent = `Tríade ${semana} — Semana ${diaSemana} — Dia ${diaAbsoluto} de ${TOTAL_DIAS_ANO}`;
+
+    const dadosSol = calcularSignoSolar(data);
+    const dadosLua = calcularFaseLua(data);
+    const dadosLuaSigno = calcularSignoLunar(parseFloat(dadosLua.idadeLunar));
+    const dadosEstacao = calcularEstacaoLocal(data);
+    const dadosPlaneta = calcularRegenciaPlanetaria(setor, dia);
+
+    document.getElementById("sunIcon").textContent = dadosSol.icone;
+    document.getElementById("sunSignName").textContent = dadosSol.nome;
+    document.getElementById("sunDegree").textContent = `Grau: ${dadosSol.grau}°`;
+    document.getElementById("sunElement").textContent = `Elemento: ${dadosSol.elemento}`;
+
+    document.getElementById("seasonIcon").textContent = dadosEstacao.icone;
+    document.getElementById("seasonName").textContent = dadosEstacao.nome;
+    document.getElementById("seasonDesc").textContent = dadosEstacao.descricao;
+
+    document.getElementById("moonIcon").textContent = dadosLua.icone;
+    document.getElementById("moonPhaseName").textContent = dadosLua.nomeFase;
+    document.getElementById("moonSign").textContent = `Signo: ${dadosLuaSigno.icone} ${dadosLuaSigno.nome}`;
+    document.getElementById("moonDegree").textContent = `Grau: ${dadosLuaSigno.grau}°`;
+    document.getElementById("moonIllumination").textContent = `Iluminação: ${dadosLua.iluminacao}%`;
+    document.getElementById("moonAge").textContent = `Idade: ${dadosLua.idadeLunar} dias`;
+
+    document.getElementById("planetIcon").textContent = dadosPlaneta.icone;
+    document.getElementById("planetName").textContent = dadosPlaneta.nome;
+    document.getElementById("planetAspect").textContent = `Atributo: ${dadosPlaneta.atributo}`;
+
+    // Atualiza também os textos informativos adicionais se existirem
+    const sunInfo = document.getElementById("sunInfo");
+    const moonInfo = document.getElementById("moonInfo");
+    if (sunInfo) sunInfo.textContent = `☀️ Signo Solar: ${dadosSol.icone} ${dadosSol.nome} (${dadosSol.grau}°)`;
+    if (moonInfo) moonInfo.textContent = `🌑 Fase Lunar: ${dadosLua.icone} ${dadosLua.nomeFase} (${dadosLua.iluminacao}%)`;
 }
 
 /* =========================================================
@@ -271,10 +283,8 @@ function atualizarDiasDaSemana() {
     if (!weekdaysContainer) return;
     weekdaysContainer.innerHTML = "";
 
-    const qtdSemanas = quantidadeSemanasMes(mesAtual);
     const fragment = document.createDocumentFragment();
-
-    for (let semana = 1; semana <= qtdSemanas; semana++) {
+    for (let semana = 1; semana <= SEMANAS_POR_SETOR; semana++) {
         const el = document.createElement("div");
         el.classList.add("weekday");
         el.textContent = semana;
@@ -286,161 +296,40 @@ function atualizarDiasDaSemana() {
 
 function renderizarDias() {
     daysContainer.innerHTML = "";
-    const qtdDias = quantidadeDiasMes(mesAtual);
+    const qtdDias = quantidadeDiasSetor();
     const fragment = document.createDocumentFragment();
 
     for (let dia = 1; dia <= qtdDias; dia++) {
-        fragment.appendChild(criarDia(anoAtual, mesAtual, dia));
+        fragment.appendChild(criarDia(anoAtual, setorAtual, dia));
     }
     daysContainer.appendChild(fragment);
 
     requestAnimationFrame(posicionarCalendarioCircular);
 }
 
-function renderizarDiasExtras() {
-    if (!extraDays) return;
-    extraDays.innerHTML = "";
-
-    if (ehBissexto(anoAtual)) {
-        const elemento = document.createElement("div");
-        elemento.classList.add("dia-bissexto");
-        elemento.textContent = "Dia Bissexto";
-        extraDays.appendChild(elemento);
-    }
-}
-
 function renderizarCalendario() {
-    const calendarElement = document.querySelector(".calendar");
-    if (calendarElement) {
-        calendarElement.classList.toggle("mes-14", mesAtual === TOTAL_MESES);
-    }
-
-    const nomeMesAtual = nomesMeses[mesAtual - 1];
-    monthName.textContent = nomeMesAtual;
+    const nomeSetorAtual = nomesSetores[setorAtual - 1];
+    monthName.textContent = nomeSetorAtual;
     yearDisplay.textContent = anoAtual;
     if (yearNumerology) yearNumerology.textContent = reduzirNumero(anoAtual);
-    if (centerMonth) centerMonth.textContent = nomeMesAtual;
+    if (centerMonth) centerMonth.textContent = nomeSetorAtual;
     if (centerYear) centerYear.textContent = anoAtual;
 
     atualizarDiasDaSemana();
     renderizarDias();
-    renderizarDiasExtras();
 }
 
-/* =========================================================
-   SELEÇÃO DE DIAS
-   ========================================================= */
-
-function selecionarDia(ano, mes, dia, data, elemento) {
-    document.querySelectorAll(".day").forEach(el => el.classList.remove("selected"));
-    elemento.classList.add("selected");
-
-    const semana = obterSemanaDoMes(mes, dia);
-    const diaSemana = obterDiaDaSemana(mes, dia);
-
-    selectedDate.textContent = `${nomesMeses[mes - 1]} — Dia ${dia} → ${reduzirNumero(dia)}`;
-    gregorianDate.textContent = `Data gregoriana: ${formatarData(data)}`;
-    dayOfYear.textContent = `Semana ${semana} — Dia ${diaSemana} — Dia ${obterNumeroDoDia(mes, dia)} de ${quantidadeDiasNoAno(ano)}`;
-
-    const dadosSol = calcularSignoSolar(data);
-    const dadosLua = calcularFaseLua(data);
-    const dadosLuaSigno = calcularSignoLunar(parseFloat(dadosLua.idadeLunar));
-    const dadosEstacao = calcularEstacaoLocal(data);
-    const dadosPlaneta = calcularRegenciaPlanetaria(mes, dia);
-
-    // 1. Atualizar Painel Solar (Esquerdo)
-    const sunIcon = document.getElementById("sunIcon");
-    const sunSignName = document.getElementById("sunSignName");
-    const sunDegree = document.getElementById("sunDegree");
-    const sunElement = document.getElementById("sunElement");
-
-    if (sunIcon) sunIcon.textContent = dadosSol.icone;
-    if (sunSignName) sunSignName.textContent = dadosSol.nome;
-    if (sunDegree) sunDegree.textContent = `Grau: ${dadosSol.grau}°`;
-    if (sunElement) sunElement.textContent = `Elemento: ${dadosSol.elemento}`;
-
-    // 2. Atualizar Painel Estação (Esquerdo)
-
-    const seasonIcon = document.getElementById("seasonIcon");
-    const seasonName = document.getElementById("seasonName");
-    const seasonDesc = document.getElementById("seasonDesc");
-
-    if (seasonIcon) seasonIcon.textContent = dadosEstacao.icone;
-    if (seasonName) seasonName.textContent = dadosEstacao.nome;
-    if (seasonDesc) seasonDesc.textContent = dadosEstacao.descricao;
-
-
-    // 3. Atualizar Painel Lunar (Direito)
-    const moonIcon = document.getElementById("moonIcon");
-    const moonPhaseName = document.getElementById("moonPhaseName");
-    const moonSign = document.getElementById("moonSign");
-    const moonDegree = document.getElementById("moonDegree");
-    const moonIllumination = document.getElementById("moonIllumination");
-    const moonAge = document.getElementById("moonAge");
-
-    if (moonIcon) moonIcon.textContent = dadosLua.icone;
-    if (moonPhaseName) moonPhaseName.textContent = dadosLua.nomeFase;
-    if (moonSign) moonSign.textContent = `Signo: ${dadosLuaSigno.icone} ${dadosLuaSigno.nome}`;
-    if (moonDegree) moonDegree.textContent = `Grau: ${dadosLuaSigno.grau}°`;
-    if (moonIllumination) moonIllumination.textContent = `Iluminação: ${dadosLua.iluminacao}%`;
-    if (moonAge) moonAge.textContent = `Idade: ${dadosLua.idadeLunar} dias`;
-
-    // 4. Atualizar Painel Regente (Direito)
-    const planetIcon = document.getElementById("planetIcon");
-    const planetName = document.getElementById("planetName");
-    const planetAspect = document.getElementById("planetAspect");
-
-    if (planetIcon) planetIcon.textContent = dadosPlaneta.icone;
-    if (planetName) planetName.textContent = dadosPlaneta.nome;
-    if (planetAspect) planetAspect.textContent = `Atributo: ${dadosPlaneta.atributo}`;
-
-    // 5. Atualizar Painel Info (Inferior)
-    const sunInfo = document.getElementById("sunInfo");
-    const moonInfo = document.getElementById("moonInfo");
-
-    if (sunInfo) {
-        sunInfo.textContent = `☀️ Sol em ${dadosSol.icone} ${dadosSol.nome} (${dadosSol.grau}°) — Elemento: ${dadosSol.elemento}`;
-    }
-
-    if (moonInfo) {
-        moonInfo.textContent = `${dadosLua.icone} Lua em ${dadosLuaSigno.icone} ${dadosLuaSigno.nome} (${dadosLuaSigno.grau}°) — ${dadosLua.nomeFase} (${dadosLua.iluminacao}%)`;
-    }
-}
-
-const obterNumeroDoDia = (mes, dia) => mes <= MESES_REGULARES ? ((mes - 1) * DIAS_POR_MES) + dia : DIAS_REGULARES + dia;
-const obterMesDoCalendario = (numDia) => numDia <= DIAS_REGULARES ? Math.floor((numDia - 1) / DIAS_POR_MES) + 1 : TOTAL_MESES;
-const obterDiaDoMes = (numDia, mes) => mes <= MESES_REGULARES ? ((numDia - 1) % DIAS_POR_MES) + 1 : numDia - DIAS_REGULARES;
-
-/* =========================================================
-   ATUALIZAÇÃO EM TEMPO REAL (MEIA-NOITE / MUDANÇA DE DIA)
-   ========================================================= */
-
-function iniciarAtualizacaoTempoReal() {
-    // Verifica a cada 1 minuto se o dia mudou no sistema operacional
-    setInterval(() => {
-        const agora = new Date();
-        // Se a data atual for diferente da última selecionada/verificada, atualiza para hoje
-        const diaAtualDOM = document.querySelector(".day.today");
-        
-        // Exemplo: se o dia de hoje mudou no sistema, podemos recalcular o "Ir para Hoje"
-        // Ou simplesmente atualizar as classes "today" dinamicamente:
-        document.querySelectorAll(".day").forEach(el => {
-            // Aqui você pode reavaliar a função ehHoje para cada elemento se necessário
-        });
-    }, 60000); // Roda a cada 60 segundos
-}
-
-// Chame a função na inicialização
-iniciarAtualizacaoTempoReal();
+const obterSetorDoCalendario = (numDia) => Math.min(TOTAL_SETORES, Math.floor((numDia - 1) / DIAS_POR_SETOR) + 1);
+const obterDiaDoSetor = (numDia) => ((numDia - 1) % DIAS_POR_SETOR) + 1;
 
 /* =========================================================
    NAVEGAÇÃO E EVENTOS
    ========================================================= */
 
-function mudarMes(valor) {
-    mesAtual += valor;
-    if (mesAtual > TOTAL_MESES) { mesAtual = 1; anoAtual++; }
-    if (mesAtual < 1) { mesAtual = TOTAL_MESES; anoAtual--; }
+function mudarSetor(valor) {
+    setorAtual += valor;
+    if (setorAtual > TOTAL_SETORES) { setorAtual = 1; anoAtual++; }
+    if (setorAtual < 1) { setorAtual = TOTAL_SETORES; anoAtual--; }
     renderizarCalendario();
 }
 
@@ -452,34 +341,35 @@ function mudarAno(valor) {
 function irParaHoje() {
     const hoje = new Date();
     anoAtual = hoje.getFullYear();
-    const numeroDoDia = Math.floor((hoje - new Date(anoAtual, 0, 1)) / (1000 * 60 * 60 * 24)) + 1;
+    
+    const inicioAno = new Date(anoAtual, 0, 1);
+    const fimAno = new Date(anoAtual + 1, 0, 1);
+    const progressoAno = (hoje - inicioAno) / (fimAno - inicioAno);
+    
+    const numeroDoDiaAbsoluto = Math.min(TOTAL_DIAS_ANO, Math.max(1, Math.floor(progressoAno * TOTAL_DIAS_ANO) + 1));
 
-    if (ehBissexto(anoAtual) && numeroDoDia === 366) {
-        mesAtual = TOTAL_MESES;
-        renderizarCalendario();
-        extraDays?.querySelector(".dia-bissexto")?.classList.add("selected");
-        return;
-    }
-
-    mesAtual = obterMesDoCalendario(numeroDoDia);
-    const dia = obterDiaDoMes(numeroDoDia, mesAtual);
+    setorAtual = obterSetorDoCalendario(numeroDoDiaAbsoluto);
+    const dia = obterDiaDoSetor(numeroDoDiaAbsoluto);
 
     renderizarCalendario();
 
     const elementos = document.querySelectorAll(".day");
     if (elementos[dia - 1]) {
-        selecionarDia(anoAtual, mesAtual, dia, obterDataGregoriana(anoAtual, mesAtual, dia), elementos[dia - 1]);
+        elementos[dia - 1].classList.add("today");
+        selecionarDia(anoAtual, setorAtual, dia, obterDataGregoriana(anoAtual, setorAtual, dia), elementos[dia - 1]);
     }
 }
 
 /* Event Listeners */
 window.addEventListener("resize", posicionarCalendarioCircular);
-document.getElementById("prevMonth")?.addEventListener("click", () => mudarMes(-1));
-document.getElementById("nextMonth")?.addEventListener("click", () => mudarMes(1));
+document.getElementById("prevMonth")?.addEventListener("click", () => mudarSetor(-1));
+document.getElementById("nextMonth")?.addEventListener("click", () => mudarSetor(1));
 document.getElementById("prevYear")?.addEventListener("click", () => mudarAno(-1));
 document.getElementById("nextYear")?.addEventListener("click", () => mudarAno(1));
 document.getElementById("todayButton")?.addEventListener("click", irParaHoje);
 
 /* Inicialização */
 renderizarCalendario();
-irParaHoje();
+requestAnimationFrame(() => {
+    irParaHoje();
+});

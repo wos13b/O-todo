@@ -27,7 +27,7 @@ body {
     gap: 15px;
     border-bottom: 2px solid #1b1b1b;
     flex-wrap: wrap;
-    order: 1; /* Garante a ordem correta no layout flex */
+    order: 1;
 }
 
 .titulo {
@@ -85,11 +85,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 190px; /* Largura controlada para evitar estourar */
+    width: 190px;
     flex-shrink: 0;
 }
 
-/* Estilização Base dos Painéis (Evita vazamentos de conteúdo) */
+/* Estilização Base dos Painéis */
 .sun-panel, .moon-panel, .season-panel, .planet-panel {
     background: rgba(27, 27, 27, 0.9);
     border: 1px solid #444;
@@ -104,10 +104,10 @@ body {
     align-items: center;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
-    overflow: hidden; /* Corta qualquer elemento que tente vazar */
+    overflow: hidden;
 }
 
-.sun-icon, .moon-icon, .season-icon{
+.sun-icon, .moon-icon, .season-icon {
     font-size: 2.2rem;
     margin: 4px 0;
     line-height: 1;
@@ -157,14 +157,32 @@ body {
         inset 0 0 20px rgba(255, 255, 255, 0.04);
 }
 
-/* Anel externo */
+/* ================================
+   FATIAS / DIVISÓRIAS DOS 9 TRONOS
+================================ */
 .calendar::before {
     content: "";
     position: absolute;
-    inset: 5%;
-    border: 1px solid #444;
+    inset: 15%;
     border-radius: 50%;
     pointer-events: none;
+    z-index: 1;
+    /* Sequência exata de 9 cores (40 graus para cada uma) */
+    background: conic-gradient(
+        from 0deg at 50% 50%,
+        rgba(20, 20, 20, 0.85) 0deg, rgba(20, 20, 20, 0.85) 38deg, rgba(0, 0, 0, 0.9) 38deg, rgba(0, 0, 0, 0.9) 40deg,         /* 1. Preto (0° - 40°) */
+        rgba(217, 67, 7, 0.25) 40deg, rgba(217, 67, 7, 0.25) 78deg, rgba(0, 0, 0, 0.9) 78deg, rgba(0, 0, 0, 0.9) 80deg,       /* 2. Vermelho (40° - 80°) */
+        rgba(242, 133, 0, 0.25) 80deg, rgba(242, 133, 0, 0.25) 118deg, rgba(0, 0, 0, 0.9) 118deg, rgba(0, 0, 0, 0.9) 120deg, /* 3. Laranja (80° - 120°) */
+        rgba(235, 203, 40, 0.25) 120deg, rgba(235, 203, 40, 0.25) 158deg, rgba(0, 0, 0, 0.9) 158deg, rgba(0, 0, 0, 0.9) 160deg, /* 4. Amarelo (120° - 160°) */
+        rgba(82, 140, 70, 0.25) 160deg, rgba(82, 140, 70, 0.25) 198deg, rgba(0, 0, 0, 0.9) 198deg, rgba(0, 0, 0, 0.9) 200deg, /* 5. Verde (160° - 200°) */
+        rgba(45, 138, 199, 0.25) 200deg, rgba(45, 138, 199, 0.25) 238deg, rgba(0, 0, 0, 0.9) 238deg, rgba(0, 0, 0, 0.9) 240deg, /* 6. Azul (200° - 240°) */
+        rgba(75, 0, 130, 0.3) 240deg, rgba(75, 0, 130, 0.3) 278deg, rgba(0, 0, 0, 0.9) 278deg, rgba(0, 0, 0, 0.9) 280deg,     /* 7. Índigo (240° - 280°) */
+        rgba(138, 43, 226, 0.3) 280deg, rgba(138, 43, 226, 0.3) 318deg, rgba(0, 0, 0, 0.9) 318deg, rgba(0, 0, 0, 0.9) 320deg, /* 8. Violeta (280° - 320°) */
+        rgba(240, 240, 240, 0.2) 320deg, rgba(240, 240, 240, 0.2) 358deg, rgba(0, 0, 0, 0.9) 358deg, rgba(0, 0, 0, 0.9) 360deg /* 9. Branco (320° - 360°) */
+    );
+    border: 1px solid #444;
+    mask-image: radial-gradient(circle, black 60%, transparent 90%);
+    -webkit-mask-image: radial-gradient(circle, black 60%, transparent 90%);
 }
 
 /* Anel interno */
@@ -175,6 +193,8 @@ body {
     border: 1px solid #333;
     border-radius: 50%;
     pointer-events: none;
+    z-index: 4;
+    background: #111;
 }
 
 /* ================================
@@ -185,31 +205,18 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-
     width: 27%;
     aspect-ratio: 1 / 1;
-
     border: 1px solid #555;
     border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #303030,
-            #171717 70%
-        );
-
+    background: radial-gradient(circle, #303030, #171717 70%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     text-align: center;
     z-index: 5;
-
-    box-shadow:
-        0 0 12px rgba(0, 0, 0, 0.7),
-        inset 0 0 8px rgba(255, 255, 255, 0.04);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.7), inset 0 0 8px rgba(255, 255, 255, 0.04);
 }
 
 .calendar-center #centerMonth {
@@ -221,72 +228,6 @@ body {
     margin-top: 1px;
     font-size: clamp(8px, 2vw, 12px);
     opacity: 0.55;
-}
-
-/* ================================
-   FATIAS DE PIZZA (Divisórias Radiais)
-================================ */
-.calendar::before {
-    content: "";
-    position: absolute;
-    inset: 15%;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 1;
-    background: conic-gradient(
-        from 0deg at 50% 50%,
-        rgba(255, 255, 255, 0.02) 0deg,
-        rgba(255, 255, 255, 0.02) 118deg,
-        rgba(0, 0, 0, 0.6) 118deg,
-        rgba(0, 0, 0, 0.6) 120deg,
-        
-        rgba(255, 255, 255, 0.05) 120deg,
-        rgba(255, 255, 255, 0.05) 238deg,
-        rgba(0, 0, 0, 0.6) 238deg,
-        rgba(0, 0, 0, 0.6) 240deg,
-        
-        rgba(255, 255, 255, 0.08) 240deg,
-        rgba(255, 255, 255, 0.08) 358deg,
-        rgba(0, 0, 0, 0.6) 358deg,
-        rgba(0, 0, 0, 0.6) 360deg
-    );
-    border: 1px solid #444;
-    mask-image: radial-gradient(circle, black 60%, transparent 90%);
-    -webkit-mask-image: radial-gradient(circle, black 60%, transparent 90%);
-}
-
-.calendar.mes-14::before {
-    background: conic-gradient(
-        from 0deg at 50% 50%,
-        rgba(255, 123, 37, 0.05) 0deg,
-        rgba(255, 123, 37, 0.05) 178deg,
-        rgba(0, 0, 0, 0.4) 178deg,
-        rgba(0, 0, 0, 0.4) 180deg,
-        
-        rgba(45, 138, 199, 0.05) 180deg,
-        rgba(45, 138, 199, 0.05) 358deg,
-        rgba(0, 0, 0, 0.4) 358deg,
-        rgba(0, 0, 0, 0.4) 360deg
-    );
-}
-
-.calendar.mes-14 .day.semana-2 {
-    border-color: #5cb8ff;
-}
-.calendar.mes-14 .day.semana-2:hover {
-    background: radial-gradient(circle, #5cb8ff, #1d699e);
-    box-shadow: 0 0 10px rgba(45, 138, 199, 0.4);
-}
-
-.calendar::after {
-    content: "";
-    position: absolute;
-    inset: 24%;
-    border: 1px solid #333;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 4;
-    background: #111;
 }
 
 /* ================================
@@ -332,11 +273,12 @@ body {
     left: 50%;
     top: 50%;
 
-    width: clamp(26px, 7vw, 38px);
-    height: clamp(26px, 7vw, 38px);
+    width: 16px;
+    height: 16px;
 
-    margin-left: calc(clamp(26px, 7vw, 38px) / -2);
-    margin-top: calc(clamp(26px, 7vw, 38px) / -2);
+    /* Margens negativas exatas para centralizar a esfera a partir do seu próprio eixo */
+    margin-left: -9px;
+    margin-top: -9px;
 
     padding: 0;
     border: 1px solid #444;
@@ -353,22 +295,88 @@ body {
     box-sizing: border-box;
 }
 
-.day.semana-1 { border-color: #ff9e59; }
+/* ================================
+   CORES DAS 9 FAIXAS / SEMANAS NAS ESFERAS
+================================ */
+.day.semana-1 { 
+    border-color: #262626; 
+    background: rgba(20, 20, 20, 0.6);
+}
 .day.semana-1:hover {
-    background: radial-gradient(circle, #ff9e59, #d94307);
-    box-shadow: 0 0 10px rgba(255, 123, 37, 0.4);
+    background: radial-gradient(circle, #404040, #111);
+    box-shadow: 0 0 10px rgba(100, 100, 100, 0.4);
 }
 
-.day.semana-2 { border-color: #78be6b; }
+.day.semana-2 { 
+    border-color: #d94307; 
+    background: rgba(217, 67, 7, 0.2);
+}
 .day.semana-2:hover {
-    background: radial-gradient(circle, #78be6b, #3b6b30);
+    background: radial-gradient(circle, #d94307, #7a2202);
+    box-shadow: 0 0 10px rgba(217, 67, 7, 0.4);
+}
+
+.day.semana-3 { 
+    border-color: #f28500; 
+    background: rgba(242, 133, 0, 0.2);
+}
+.day.semana-3:hover {
+    background: radial-gradient(circle, #f28500, #945200);
+    box-shadow: 0 0 10px rgba(242, 133, 0, 0.4);
+}
+
+.day.semana-4 { 
+    border-color: #ebcb28; 
+    background: rgba(235, 203, 40, 0.2);
+}
+.day.semana-4:hover {
+    background: radial-gradient(circle, #ebcb28, #8f7b10);
+    box-shadow: 0 0 10px rgba(235, 203, 40, 0.4);
+}
+
+.day.semana-5 { 
+    border-color: #528c46; 
+    background: rgba(82, 140, 70, 0.2);
+}
+.day.semana-5:hover {
+    background: radial-gradient(circle, #528c46, #21381b);
     box-shadow: 0 0 10px rgba(82, 140, 70, 0.4);
 }
 
-.day.semana-3 { border-color: #5cb8ff; }
-.day.semana-3:hover {
-    background: radial-gradient(circle, #5cb8ff, #1d699e);
+.day.semana-6 { 
+    border-color: #2d8ac7; 
+    background: rgba(45, 138, 199, 0.2);
+}
+.day.semana-6:hover {
+    background: radial-gradient(circle, #2d8ac7, #11354d);
     box-shadow: 0 0 10px rgba(45, 138, 199, 0.4);
+}
+
+.day.semana-7 { 
+    border-color: #4b0082; 
+    background: rgba(75, 0, 130, 0.25);
+}
+.day.semana-7:hover {
+    background: radial-gradient(circle, #6a1b9a, #2c004e);
+    box-shadow: 0 0 10px rgba(106, 27, 154, 0.4);
+}
+
+.day.semana-8 { 
+    border-color: #8a2be2; 
+    background: rgba(138, 43, 226, 0.25);
+}
+.day.semana-8:hover {
+    background: radial-gradient(circle, #9c4dff, #431275);
+    box-shadow: 0 0 10px rgba(156, 77, 255, 0.4);
+}
+
+.day.semana-9 { 
+    border-color: #e0e0e0; 
+    background: rgba(240, 240, 240, 0.2);
+}
+.day.semana-9:hover {
+    background: radial-gradient(circle, #ffffff, #888888);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
 }
 
 .day:hover {
@@ -378,7 +386,7 @@ body {
 }
 
 .day-number {
-    font-size: clamp(9px, 2.2vw, 13px);
+    font-size: 7px;
     font-weight: bold;
     line-height: 1;
 }
@@ -389,19 +397,27 @@ body {
 
 .numero-reduzido {
     color: #ff4a4a;
-    margin: 1px 0 0;
-    font-size: 0.5em;
+    margin: 0;
+    font-size: 0.45em;
 }
 
-.day.today {
-    background: radial-gradient(circle, #555, #292929);
-    box-shadow: 0 0 0 2px white, 0 0 10px rgba(255, 255, 255, 0.25);
+/* Apenas a borda branca quando o dia for hoje, MAS NÃO estiver selecionado */
+.day.today:not(.selected) {
+    background: transparent;
+    box-shadow: 0 0 0 2px white;
 }
 
+/* O dia selecionado ganha o destaque principal */
 .day.selected {
     background: radial-gradient(circle, #666, #333);
     box-shadow: 0 0 0 2px #aaa, 0 0 12px rgba(255, 255, 255, 0.2);
     z-index: 11;
+}
+
+/* Se o dia de hoje estiver selecionado, exibe um brilho unificado sem duplicar bordas */
+.day.today.selected {
+    background: radial-gradient(circle, #666, #333);
+    box-shadow: 0 0 0 2px white, 0 0 14px rgba(255, 255, 255, 0.4);
 }
 
 /* ================================
@@ -416,7 +432,7 @@ body {
     border-radius: 10px;
     background: #1b1b1b;
     text-align: center;
-    order: 3; /* Posiciona corretamente abaixo de toda a estrutura central */
+    order: 3;
 }
 
 .info h2 {
@@ -453,7 +469,7 @@ footer {
 }
 
 /* ================================
-   RESPONSIVIDADE (Telas menores / Dispositivos Móveis)
+   RESPONSIVIDADE
 ================================ */
 @media (max-width: 950px) {
     .Main_clock {
