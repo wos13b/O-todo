@@ -9,7 +9,9 @@ const DIAS_POR_SETOR = 81;   // 3^4 dias por setor
 const DIAS_POR_SEMANA = 9;   // 3^2 dias por semana
 const SEMANAS_POR_SETOR = DIAS_POR_SETOR / DIAS_POR_SEMANA; // 9 semanas por setor
 
+// Duração exata do dia customizado em segundos: 12h 01min 27s = 43287 segundos
 const SEGUNDOS_NO_DIA_CUSTOM = (12 * 3600) + (1 * 60) + 27;
+const SEGUNDOS_NO_ANO_CUSTOM = TOTAL_DIAS_ANO * SEGUNDOS_NO_DIA_CUSTOM; // 31,556,223 segundos
 
 let anoAtual = 2026;
 let setorAtual = 1;
@@ -56,6 +58,7 @@ function reduzirNumero(numero) {
     return numero;
 }
 
+// Mapeia o dia absoluto do calendário cósmico de volta para uma data civil aproximada para exibição
 function obterDataGregoriana(ano, setor, dia) {
     const numeroDoDiaAbsoluto = ((setor - 1) * DIAS_POR_SETOR) + dia;
     const diaAnoGregoriano = Math.min(365, Math.max(1, Math.ceil((numeroDoDiaAbsoluto / TOTAL_DIAS_ANO) * 365)));
@@ -159,13 +162,13 @@ function calcularEstacaoLocal(data) {
 
 function calcularRegenciaPlanetaria(setor, dia) {
     const regenciasSistema = [
-        { nome: "Surya (Sol)", icone: "☉", atributo: "A Identidade (Centro)" },
+        { nome: "Sūrya (Sol)", icone: "☉", atributo: "A Identidade (Centro)" },
         { nome: "Budha (Mercúrio)", icone: "☿", atributo: "Comunicação e Mente" },
-        { nome: "Shukra (Vênus)", icone: "♀", atributo: "Desejo e Harmonia" },
-        { nome: "Soma (Lua / Terra)", icone: "☽", atributo: "Emoção e Manifestação" },
-        { nome: "Mangala (Marte)", icone: "♂", atributo: "Ação e Conquista" },
-        { nome: "Guru (Júpiter)", icone: "♃", atributo: "Expansão e Sabedoria" },
-        { nome: "Shani (Saturno)", icone: "♄", atributo: "Disciplina e Estrutura" },
+        { nome: "Śukra (Vênus)", icone: "♀", atributo: "Desejo e Harmonia" },
+        { nome: "Chandra (Lua)", icone: "☽", atributo: "Emoção e Manifestação" },
+        { nome: "Maṅgala (Marte)", icone: "♂", atributo: "Ação e Conquista" },
+        { nome: "Bṛhaspati (Júpiter)", icone: "♃", atributo: "Expansão e Sabedoria" },
+        { nome: "Śani (Saturno)", icone: "♄", atributo: "Disciplina e Estrutura" },
         { nome: "Urano", icone: "⛢", atributo: "Inovação e Despertar" },
         { nome: "Netuno", icone: "♆", atributo: "Imaginação e Transcendência" }
     ];
@@ -187,11 +190,9 @@ function criarDia(ano, setor, dia) {
     elemento.dataset.semana = semana;
     elemento.dataset.diaSemana = obterDiaDaSemana(dia);
 
-    // Esferas sem números internos
     elemento.innerHTML = ``;
 
     const data = obterDataGregoriana(ano, setor, dia);
-
     elemento.addEventListener("click", () => selecionarDia(ano, setor, dia, data, elemento));
     return elemento;
 }
@@ -268,7 +269,6 @@ function selecionarDia(ano, setor, dia, data, elemento) {
     document.getElementById("planetName").textContent = dadosPlaneta.nome;
     document.getElementById("planetAspect").textContent = `Atributo: ${dadosPlaneta.atributo}`;
 
-    // Atualiza também os textos informativos adicionais se existirem
     const sunInfo = document.getElementById("sunInfo");
     const moonInfo = document.getElementById("moonInfo");
     if (sunInfo) sunInfo.textContent = `☀️ Signo Solar: ${dadosSol.icone} ${dadosSol.nome} (${dadosSol.grau}°)`;
@@ -323,7 +323,7 @@ const obterSetorDoCalendario = (numDia) => Math.min(TOTAL_SETORES, Math.floor((n
 const obterDiaDoSetor = (numDia) => ((numDia - 1) % DIAS_POR_SETOR) + 1;
 
 /* =========================================================
-   NAVEGAÇÃO E EVENTOS
+   NAVEGAÇÃO E EVENTOS (COM BASE NO TEMPO CUSTOMIZADO)
    ========================================================= */
 
 function mudarSetor(valor) {
@@ -339,14 +339,16 @@ function mudarAno(valor) {
 }
 
 function irParaHoje() {
-    const hoje = new Date();
-    anoAtual = hoje.getFullYear();
+    const agora = new Date();
+    anoAtual = agora.getFullYear();
     
+    // Segundos decorridos no ano civil atual até este exato momento
     const inicioAno = new Date(anoAtual, 0, 1);
-    const fimAno = new Date(anoAtual + 1, 0, 1);
-    const progressoAno = (hoje - inicioAno) / (fimAno - inicioAno);
+    const segundosDecorridosNoAno = Math.floor((agora - inicioAno) / 1000);
     
-    const numeroDoDiaAbsoluto = Math.min(TOTAL_DIAS_ANO, Math.max(1, Math.floor(progressoAno * TOTAL_DIAS_ANO) + 1));
+    // Aplicação da proporção baseada na duração exata do ano customizado (SEGUNDOS_NO_ANO_CUSTOM)
+    const segundosNoCicloAtual = segundosDecorridosNoAno % SEGUNDOS_NO_ANO_CUSTOM;
+    const numeroDoDiaAbsoluto = Math.min(TOTAL_DIAS_ANO, Math.max(1, Math.floor(segundosNoCicloAtual / SEGUNDOS_NO_DIA_CUSTOM) + 1));
 
     setorAtual = obterSetorDoCalendario(numeroDoDiaAbsoluto);
     const dia = obterDiaDoSetor(numeroDoDiaAbsoluto);
