@@ -133,7 +133,8 @@ body {
 }
 .clock{
 
-    margin: 20px auto;
+    display: block;
+    margin: 40px auto;
 
 }
 
