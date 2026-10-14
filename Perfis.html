@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101010">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+    <script src="Supa.js" defer></script>
+    <script src="Anim.js" defer></script>
+    <link rel="shortcut icon" href="ico/Logo.png" type="image/x-icon">
+    <title>O todo - Perfis</title>
+</head>
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <div class="header">
+        <button class="menu-toggle">☰</button>
+        <ul class="kalk">
+            <li><a href="Idiom.html">Idioma</a></li>
+            <li><a href="Perfis.html">Perfis</a></li>
+        </ul>
+        <ul class="nav">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Elemental.html">Fisica/Quimica</a></li>
+        </ul>
+        <ul class="nav_2">
+            <li><a href="Cruz.html">Fonte Divina</a></li>
+            <li><a href="Pl.html">Plano existencial</a></li>
+            <li><a href="Idiom.html">Idiomas</a></li>
+            <li><a href="Padrão.html">Padrões universais</a></li>
+            <li id="nav-perfil"><a href="Perf.html">Perfil</a></li>
+            <li id="nav-login"><a href="log.html">Login</a></li>
+            <li id="nav-cadastro"><a href="Cdstr.html">Cadastro</a></li>
+        </ul>
+        <div class="Log_perf"></div>
+    </div>
+
+    <div class="Main">
+        <div class="Conteudo">
+            <h1>Perfis da Família</h1>
+            <p>Membros registrados no sistema:</p>
+
+            <div class="user-profiles-container" id="userProfilesContainer">
+                <p style="color: #aaa; text-align: center; width: 100%;">A carregar perfis...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const container = document.getElementById("userProfilesContainer");
+            if (!container) return;
+
+            try {
+                const { data: users, error } = await supabaseClient
+                    .from('profiles') 
+                    .select('*');
+
+                if (error) throw error;
+
+                container.innerHTML = "";
+
+                if (!users || users.length === 0) {
+                    container.innerHTML = "<p>Nenhum perfil encontrado.</p>";
+                    return;
+                }
+
+                users.forEach(user => {
+                    const userId = user.id || user.user_id;
+                    const userName = user.nome || user.name || "Membro";
+                    const userAvatar = user.avatar_url || user.foto || "ico/Logo.png";
+
+                    const card = document.createElement("a");
+                    card.href = `Perf.html?id=${userId}`;
+                    card.className = "user-circle-card";
+
+                    card.innerHTML = `
+                        <div class="user-avatar">
+                            <img src="${userAvatar}" alt="${userName}" onerror="this.src='ico/Logo.png'">
+                        </div>
+                        <span class="user-name">${userName}</span>
+                    `;
+
+                    container.appendChild(card);
+                });
+
+            } catch (err) {
+                console.error("Erro ao carregar os perfis:", err);
+                container.innerHTML = "<p>Erro ao carregar os perfis do banco de dados.</p>";
+            }
+        });
+    </script>
+</body>
+</html>
