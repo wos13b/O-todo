@@ -131,6 +131,11 @@ body {
     max-width: 100%;
     display: block;
 }
+.clock{
+
+    margin: 20px auto;
+
+}
 
 .mini-clock {
     height: 40px;
