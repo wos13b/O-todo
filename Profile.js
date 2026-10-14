@@ -1,5 +1,5 @@
 // =========================================================
-// PROFILE.JS (Com suporte total a quebras de linha na Bio)
+// PROFILE.JS (Com suporte total a quebras de linha na Bio e Sincronização com 'profiles')
 // =========================================================
 
 const NOME_BUCKET = "avatars";
@@ -132,7 +132,7 @@ function obterExtensao(arquivo) {
 
 
 // =========================================================
-// ENVIAR FOTO DE PERFIL
+// ENVIAR FOTO DE PERFIL (Atualizado com Supabase Database)
 // =========================================================
 
 async function enviarFotoPerfil(event) {
@@ -153,6 +153,9 @@ async function enviarFotoPerfil(event) {
     }
 
     const user = session.user;
+    const metadata = user.user_metadata || {};
+    const nomeAtual = metadata.nome || "Usuário";
+    
     const extensao = obterExtensao(arquivo);
     const caminho = `perfis/${user.id}.${Date.now()}.${extensao}`;
     const imagem = document.getElementById("perfil-imagem");
@@ -161,7 +164,6 @@ async function enviarFotoPerfil(event) {
     if (imagem) imagem.style.opacity = "0.5";
 
     try {
-        const metadata = user.user_metadata || {};
         const imagemAntiga = metadata.avatar_url;
 
         const { error: uploadError } = await supabaseClient.storage
@@ -177,11 +179,25 @@ async function enviarFotoPerfil(event) {
         const urlImagem = publicData.publicUrl;
         const urlAtualizada = urlImagem + "?t=" + Date.now();
 
+        // 1. Atualizar metadados no Auth
         const { error: updateError } = await supabaseClient.auth.updateUser({
             data: { avatar_url: urlImagem }
         });
 
         if (updateError) throw updateError;
+
+        // 2. Atualizar/Inserir na tabela 'profiles' para sincronizar com Perfis.html
+        const { error: profileError } = await supabaseClient
+            .from('profiles')
+            .upsert({
+                id: user.id,
+                nome: nomeAtual,
+                avatar_url: urlImagem
+            });
+
+        if (profileError) {
+            console.warn("Aviso ao atualizar tabela profiles:", profileError);
+        }
 
         if (imagem) {
             imagem.src = urlAtualizada;
@@ -201,7 +217,7 @@ async function enviarFotoPerfil(event) {
             }
         }
 
-        console.log("Foto de perfil atualizada.");
+        console.log("Foto de perfil atualizada com sucesso.");
     } catch (error) {
         console.error("Erro ao alterar foto:", error);
         if (imagem) {
@@ -295,21 +311,15 @@ function escapeHtml(texto) {
 
 
 // =========================================================
-// SALVAR PERFIL
-// =========================================================
-
-// =========================================================
-// SALVAR PERFIL (Com verificação e refresh de sessão)
+// SALVAR PERFIL (Atualizado para atualizar também a tabela 'profiles')
 // =========================================================
 
 async function salvarPerfil() {
-    // 1. Forçar atualização/verificação da sessão atual
     const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
     
     let session = sessionData?.session;
 
     if (sessionError || !session) {
-        // Tentar recuperar a sessão via refresh se falhar
         const { data: refreshData } = await supabaseClient.auth.refreshSession();
         session = refreshData?.session;
     }
@@ -319,6 +329,10 @@ async function salvarPerfil() {
         window.location.href = "log.html";
         return;
     }
+
+    const user = session.user;
+    const metadata = user.user_metadata || {};
+    const avatarAtual = metadata.avatar_url || null;
 
     const campoNome = document.getElementById("editar-nome");
     const campoNickname = document.getElementById("editar-nickname");
@@ -347,6 +361,7 @@ async function salvarPerfil() {
     }
 
     try {
+        // 1. Atualizar dados no Auth
         const { data, error } = await supabaseClient.auth.updateUser({
             data: {
                 nome: nome,
@@ -357,6 +372,19 @@ async function salvarPerfil() {
         });
 
         if (error) throw error;
+
+        // 2. Atualizar também na tabela 'profiles' para manter a lista sincronizada
+        const { error: profileError } = await supabaseClient
+            .from('profiles')
+            .upsert({
+                id: user.id,
+                nome: nome,
+                avatar_url: avatarAtual
+            });
+
+        if (profileError) {
+            console.warn("Aviso ao atualizar tabela profiles:", profileError);
+        }
 
         await carregarPerfil();
         removerModoEdicao();
