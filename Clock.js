@@ -436,11 +436,7 @@ const obterSetorDoCalendario = (numDia) => Math.min(TOTAL_SETORES, Math.floor((n
 const obterDiaDoSetor = (numDia) => ((numDia - 1) % DIAS_POR_SETOR) + 1;
 
 /* =========================================================
-   NAVEGAÇÃO E EVENTOS
-   ========================================================= */
-
-/* =========================================================
-   NAVEGAÇÃO E EVENTOS (ATUALIZADO)
+   NAVEGAÇÃO E EVENTOS (AJUSTADO PARA NÃO PRENDER NO DIA 1)
    ========================================================= */
 
 function mudarSetor(valor) {
@@ -449,22 +445,17 @@ function mudarSetor(valor) {
     if (setorAtual < 1) { setorAtual = TOTAL_SETORES; anoAtual--; }
     renderizarCalendario();
     
-    // Seleciona automaticamente o primeiro dia do novo setor/mês para manter a marcação ativa
-    const elementos = document.querySelectorAll(".day");
-    if (elementos[0]) {
-        selecionarDia(anoAtual, setorAtual, 1, obterDataGregoriana(anoAtual, setorAtual, 1), elementos[0]);
-    }
+    // Apenas removemos a seleção anterior ao trocar de mês para não mostrar dados dessincronizados,
+    // mas sem forçar o dia 1. O usuário pode clicar no dia que desejar.
+    document.querySelectorAll(".day").forEach(el => el.classList.remove("selected"));
 }
 
 function mudarAno(valor) {
     anoAtual += valor;
     renderizarCalendario();
     
-    // Seleciona automaticamente o primeiro dia do setor atual no novo ano
-    const elementos = document.querySelectorAll(".day");
-    if (elementos[0]) {
-        selecionarDia(anoAtual, setorAtual, 1, obterDataGregoriana(anoAtual, setorAtual, 1), elementos[0]);
-    }
+    // Remove a seleção ao trocar de ano
+    document.querySelectorAll(".day").forEach(el => el.classList.remove("selected"));
 }
 
 function irParaHoje() {
