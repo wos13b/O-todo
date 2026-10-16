@@ -197,26 +197,33 @@ function criarDia(ano, setor, dia) {
    CICLO CONTÍNUO DO TEMPO CÓSMICO E MINI RELÓGIO
    ========================================================= */
 
+/* =========================================================
+   CICLO CONTÍNUO DO TEMPO CÓSMICO E MINI RELÓGIO (BASE 100)
+   ========================================================= */
+
 function obterTempoCosmicoAtual() {
     const agora = new Date().getTime();
     const segundosTotaisDecorridos = Math.floor((agora - MARCO_ZERO_COSMICO) / 1000);
 
     if (segundosTotaisDecorridos < 0) {
-        return { diaAbsoluto: 1, anoCosmico: 2026, setor: 1, diaDoSetor: 1, horaCustom: 0, minCustom: 0, segCustom: 0, segundosNoDiaAtual: 0 };
+        return { diaAbsoluto: 1, anoCosmico: 2026, setor: 1, diaDoSetor: 1, parte1: 0, parte2: 0, parte3: 0, segundosNoDiaAtual: 0 };
     }
 
     // Avanço dos dias de 12h 01m 27s (43.287s)
     const diaAbsoluto = Math.floor(segundosTotaisDecorridos / SEGUNDOS_NO_DIA_CUSTOM) + 1;
     const segundosNoDiaAtual = segundosTotaisDecorridos % SEGUNDOS_NO_DIA_CUSTOM;
 
-    // --- NOVA LÓGICA: Converter os 43.287s reais para uma escala de 0 a 9 horas ---
-    // Mapeamos a fração do dia decorrido (0 a 1) para 32.400 segundos virtuais (9 horas * 3600s)
+    // --- NOVA LÓGICA: Escala até 99 antes de resetar ---
+    // Dividimos o dia em blocos de contagem até 99 (ex: 100 * 100 * 100 = 1.000.000 unidades ou formato 99:99:99)
     const progressoDoDia = segundosNoDiaAtual / SEGUNDOS_NO_DIA_CUSTOM;
-    const segundosVirtuais9h = Math.floor(progressoDoDia * (9 * 3600)); // Total até 32.400s
+    
+    // Total de "ticks" virtuais no dia (por exemplo, 100 unidades principais, cada uma com subdivisões de 100)
+    const totalTicksVirtuais = progressoDoDia * 1000000; // Escala ampla para dar precisão de segundos
 
-    const horaCustom = Math.floor(segundosVirtuais9h / 3600);           // Vai de 0 a 8 (chega a 09:00 no fim do dia)
-    const minCustom = Math.floor((segundosVirtuais9h % 3600) / 60);     // Vai de 0 a 59
-    const segCustom = segundosVirtuais9h % 60;                          // Vai de 0 a 59
+    // Usando base 100 para os contadores (reseta ao atingir 100, indo de 0 a 99)
+    const parte3 = Math.floor(totalTicksVirtuais % 100);                  // Unidades rápidas (0 a 99)
+    const parte2 = Math.floor((totalTicksVirtuais / 100) % 100);          // Unidades médias (0 a 99)
+    const parte1 = Math.floor((totalTicksVirtuais / 10000) % 100);        // Unidades principais (0 a 99)
 
     const anoCosmico = 2026 + Math.floor((diaAbsoluto - 1) / TOTAL_DIAS_ANO);
     const diaNoAnoCosmico = ((diaAbsoluto - 1) % TOTAL_DIAS_ANO) + 1;
@@ -229,11 +236,41 @@ function obterTempoCosmicoAtual() {
         anoCosmico,
         setor,
         diaDoSetor,
-        horaCustom,
-        minCustom,
-        segCustom,
+        parte1,
+        parte2,
+        parte3,
         segundosNoDiaAtual
     };
+}
+
+function atualizarMiniRelogioContinuo() {
+    const timeElement = document.getElementById("miniClockTime");
+    const dateElement = document.getElementById("miniClockDate");
+    const iconElement = document.getElementById("miniClockIcon");
+    
+    if (!timeElement || !dateElement) return;
+
+    const tempo = obterTempoCosmicoAtual();
+    
+    // Formata para garantir sempre 2 dígitos (de 00 até 99)
+    const p1 = String(tempo.parte1).padStart(2, '0');
+    const p2 = String(tempo.parte2).padStart(2, '0');
+    const p3 = String(tempo.parte3).padStart(2, '0');
+    
+    // Exibe no formato Xx:Yy:Zz onde cada bloco vai até 99
+    timeElement.textContent = `${p1}:${p2}:${p3}`;
+    dateElement.textContent = `Dia ${tempo.diaAbsoluto} (${nomesSetores[tempo.setor - 1]})`;
+
+    // Divisão do dia customizado em 9 períodos planetários proporcionais
+    const duracaoPeriodo = SEGUNDOS_NO_DIA_CUSTOM / 9;
+    let indicePeriodo = Math.floor(tempo.segundosNoDiaAtual / duracaoPeriodo);
+    indicePeriodo = Math.max(0, Math.min(8, indicePeriodo));
+
+    const planetaRegente = regenciasDiariasDoRelogio[indicePeriodo];
+    if (iconElement) {
+        iconElement.textContent = planetaRegente.icone;
+        iconElement.title = `Período Regente: ${planetaRegente.nome} — ${planetaRegente.atributo}`;
+    }
 }
 
 function atualizarMiniRelogioContinuo() {
