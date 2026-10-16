@@ -205,20 +205,18 @@ function obterTempoCosmicoAtual() {
         return { diaAbsoluto: 1, anoCosmico: 2026, setor: 1, diaDoSetor: 1, parte1: 0, parte2: 0, parte3: 0, segundosNoDiaAtual: 0 };
     }
 
-    const duracaoDiaMs = SEGUNDOS_NO_DIA_CUSTOM * 1000; // Duração do dia em milissegundos
+    const duracaoDiaMs = SEGUNDOS_NO_DIA_CUSTOM * 1000;
     const milissegundosNoDiaAtual = milissegundosTotaisDecorridos % duracaoDiaMs;
     const segundosNoDiaAtual = milissegundosNoDiaAtual / 1000;
 
     const diaAbsoluto = Math.floor(milissegundosTotaisDecorridos / duracaoDiaMs) + 1;
 
-    // --- ALTA PRECISÃO BASE 100 (Fluido por milissegundos) ---
-    // Em vez de pular a cada segundo inteiro, usamos os milissegundos exatos para preencher os 1.000.000 de ticks
     const progressoDoDia = milissegundosNoDiaAtual / duracaoDiaMs;
     const totalTicksVirtuais = progressoDoDia * 1000000; 
 
-    const parte3 = Math.floor(totalTicksVirtuais % 100);                  // 0 a 99 (Gira fluido e contínuo)
-    const parte2 = Math.floor((totalTicksVirtuais / 100) % 100);          // 0 a 99
-    const parte1 = Math.floor((totalTicksVirtuais / 10000) % 100);        // 0 a 99
+    const parte3 = Math.floor(totalTicksVirtuais % 100);                  
+    const parte2 = Math.floor((totalTicksVirtuais / 100) % 100);          
+    const parte1 = Math.floor((totalTicksVirtuais / 10000) % 100);        
 
     const anoCosmico = 2026 + Math.floor((diaAbsoluto - 1) / TOTAL_DIAS_ANO);
     const diaNoAnoCosmico = ((diaAbsoluto - 1) % TOTAL_DIAS_ANO) + 1;
@@ -243,9 +241,9 @@ function obterTempoCosmicoAtual() {
    ========================================================= */
 let audioCtx = null;
 let ultimoIndicePlaneta = null;
+let ultimoSomRepetido = null;
 
 function tocarSomMudancaPlaneta() {
-    // Inicializa o contexto de áudio no primeiro clique/interação do usuário (exigência dos navegadores)
     if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
@@ -254,16 +252,13 @@ function tocarSomMudancaPlaneta() {
     }
 
     const agora = audioCtx.currentTime;
-    
-    // Cria osciladores para um som harmônico e cósmico (tipo sino/cristal)
     const osc = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
 
-    osc.type = 'sine'; // Onda suave
-    osc.frequency.setValueAtTime(528, agora); // Frequência base (frequência de solfejo / tom harmônico)
-    osc.frequency.exponentialRampToValueAtTime(1046.5, agora + 0.15); // Sobe para um tom agudo agradável
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(528, agora);
+    osc.frequency.exponentialRampToValueAtTime(1046.5, agora + 0.15);
 
-    // Controle de volume (Fade in / Fade out rápido para não estalar)
     gainNode.gain.setValueAtTime(0, agora);
     gainNode.gain.linearRampToValueAtTime(0.15, agora + 0.05);
     gainNode.gain.exponentialRampToValueAtTime(0.001, agora + 0.8);
@@ -273,6 +268,51 @@ function tocarSomMudancaPlaneta() {
 
     osc.start(agora);
     osc.stop(agora + 0.8);
+}
+
+// Nova função para tocar a escala crescente quando números iguais se sincronizarem
+function tocarEscalaCrescenteDeSons() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+
+    const notas = [220, 277.18, 329.63, 440, 554.37, 659.25, 880]; // Escala harmônica
+    
+    notas.forEach((frequencia, index) => {
+        const agora = audioCtx.currentTime + (index * 0.08);
+        
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        osc.type = 'triangle'; // Som encorpado/suave tipo sintetizador
+        osc.frequency.setValueAtTime(frequencia, agora);
+
+        gainNode.gain.setValueAtTime(0, agora);
+        gainNode.gain.linearRampToValueAtTime(0.1, agora + 0.03);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, agora + 0.3);
+
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        osc.start(agora);
+        osc.stop(agora + 0.3);
+    });
+}
+
+function verificarESonsRepetidos(p1, p2, p3) {
+    const isRepetido = (p1 === p2) && (p2 === p3) && (p1[0] === p1[1]);
+
+    if (isRepetido) {
+        if (ultimoSomRepetido !== p1) {
+            ultimoSomRepetido = p1;
+            tocarEscalaCrescenteDeSons();
+        }
+    } else {
+        ultimoSomRepetido = null;
+    }
 }
 
 function atualizarMiniRelogioContinuo() {
@@ -291,17 +331,17 @@ function atualizarMiniRelogioContinuo() {
     timeElement.textContent = `${p1}:${p2}:${p3}`;
     dateElement.textContent = `Dia ${tempo.diaAbsoluto} (${nomesSetores[tempo.setor - 1]})`;
 
-    // Divisão do dia customizado em 9 períodos planetários proporcionais
+    // Verifica sincronia de números iguais (ex: 11:11:11, 22:22:22)
+    verificarESonsRepetidos(p1, p2, p3);
+
     const duracaoPeriodo = SEGUNDOS_NO_DIA_CUSTOM / 9;
     let indicePeriodo = Math.floor(tempo.segundosNoDiaAtual / duracaoPeriodo);
     indicePeriodo = Math.max(0, Math.min(8, indicePeriodo));
 
-    // --- DETECÇÃO DE MUDANÇA DE PLANETA ---
     if (ultimoIndicePlaneta !== null && ultimoIndicePlaneta !== indicePeriodo) {
-        tocarSomMudancaPlaneta(); // Dispara o som sintetizado!
+        tocarSomMudancaPlaneta();
     }
     ultimoIndicePlaneta = indicePeriodo;
-    // -------------------------------------
 
     const planetaRegente = regenciasDiariasDoRelogio[indicePeriodo];
     if (iconElement) {
@@ -318,7 +358,6 @@ function iniciarRelogioFluido() {
     requestAnimationFrame(iniciarRelogioFluido);
 }
 
-// Inicia o loop de animação contínua em tempo real
 requestAnimationFrame(iniciarRelogioFluido);
 
 /* =========================================================
@@ -443,24 +482,19 @@ function renderizarCalendario() {
     renderizarDias();
 }
 
-const obterSetorDoCalendario = (numDia) => Math.min(TOTAL_SETORES, Math.floor((numDia - 1) / DIAS_POR_SETOR) + 1);
-const obterDiaDoSetor = (numDia) => ((numDia - 1) % DIAS_POR_SETOR) + 1;
-
 /* =========================================================
-   NAVEGAÇÃO E EVENTOS (ATUALIZADO COM PERSISTÊNCIA DO HOJE)
+   NAVEGAÇÃO E EVENTOS
    ========================================================= */
 
 function verificarESelecionarHojeOuLimpar() {
     const tempo = obterTempoCosmicoAtual();
     
-    // Se o ano e o setor atuais da tela forem exatamente os de "hoje", marca o dia atual
     if (anoAtual === tempo.anoCosmico && setorAtual === tempo.setor) {
         const elementos = document.querySelectorAll(".day");
         if (elementos[tempo.diaDoSetor - 1]) {
             selecionarDia(anoAtual, setorAtual, tempo.diaDoSetor, obterDataGregoriana(anoAtual, setorAtual, tempo.diaDoSetor), elementos[tempo.diaDoSetor - 1]);
         }
     } else {
-        // Se estivermos em outro mês/ano, apenas remove a seleção para não confundir
         document.querySelectorAll(".day").forEach(el => el.classList.remove("selected"));
     }
 }
