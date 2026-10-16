@@ -194,25 +194,29 @@ function criarDia(ano, setor, dia) {
 }
 
 /* =========================================================
-   CICLO CONTÍNUO DO TEMPO CÓSMICO E MINI RELÓGIO (BASE 100)
+   CICLO CONTÍNUO DO TEMPO CÓSMICO E MINI RELÓGIO (FLUIDO E SEM SALTOS)
    ========================================================= */
 
 function obterTempoCosmicoAtual() {
-    const agora = new Date().getTime();
-    const segundosTotaisDecorridos = Math.floor((agora - MARCO_ZERO_COSMICO) / 1000);
+    const agora = Date.now();
+    const milissegundosTotaisDecorridos = agora - MARCO_ZERO_COSMICO;
 
-    if (segundosTotaisDecorridos < 0) {
+    if (milissegundosTotaisDecorridos < 0) {
         return { diaAbsoluto: 1, anoCosmico: 2026, setor: 1, diaDoSetor: 1, parte1: 0, parte2: 0, parte3: 0, segundosNoDiaAtual: 0 };
     }
 
-    const diaAbsoluto = Math.floor(segundosTotaisDecorridos / SEGUNDOS_NO_DIA_CUSTOM) + 1;
-    const segundosNoDiaAtual = segundosTotaisDecorridos % SEGUNDOS_NO_DIA_CUSTOM;
+    const duracaoDiaMs = SEGUNDOS_NO_DIA_CUSTOM * 1000; // Duração do dia em milissegundos
+    const milissegundosNoDiaAtual = milissegundosTotaisDecorridos % duracaoDiaMs;
+    const segundosNoDiaAtual = milissegundosNoDiaAtual / 1000;
 
-    // Conversão limpa para contagem em Base 100 (00:00:00 até 99:99:99)
-    const progressoDoDia = segundosNoDiaAtual / SEGUNDOS_NO_DIA_CUSTOM;
+    const diaAbsoluto = Math.floor(milissegundosTotaisDecorridos / duracaoDiaMs) + 1;
+
+    // --- ALTA PRECISÃO BASE 100 (Fluido por milissegundos) ---
+    // Em vez de pular a cada segundo inteiro, usamos os milissegundos exatos para preencher os 1.000.000 de ticks
+    const progressoDoDia = milissegundosNoDiaAtual / duracaoDiaMs;
     const totalTicksVirtuais = progressoDoDia * 1000000; 
 
-    const parte3 = Math.floor(totalTicksVirtuais % 100);                  // 0 a 99
+    const parte3 = Math.floor(totalTicksVirtuais % 100);                  // 0 a 99 (Gira fluido e contínuo)
     const parte2 = Math.floor((totalTicksVirtuais / 100) % 100);          // 0 a 99
     const parte1 = Math.floor((totalTicksVirtuais / 10000) % 100);        // 0 a 99
 
@@ -306,9 +310,16 @@ function atualizarMiniRelogioContinuo() {
     }
 }
 
-// Atualiza o relógio a cada segundo
-setInterval(atualizarMiniRelogioContinuo, 1000);
-atualizarMiniRelogioContinuo();
+/* =========================================================
+   ATUALIZAÇÃO EM TEMPO REAL FLUIDA (ALTA FREQUÊNCIA)
+   ========================================================= */
+function iniciarRelogioFluido() {
+    atualizarMiniRelogioContinuo();
+    requestAnimationFrame(iniciarRelogioFluido);
+}
+
+// Inicia o loop de animação contínua em tempo real
+requestAnimationFrame(iniciarRelogioFluido);
 
 /* =========================================================
    POSICIONAMENTO CIRCULAR EXATO
