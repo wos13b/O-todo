@@ -439,16 +439,32 @@ const obterDiaDoSetor = (numDia) => ((numDia - 1) % DIAS_POR_SETOR) + 1;
    NAVEGAÇÃO E EVENTOS
    ========================================================= */
 
+/* =========================================================
+   NAVEGAÇÃO E EVENTOS (ATUALIZADO)
+   ========================================================= */
+
 function mudarSetor(valor) {
     setorAtual += valor;
     if (setorAtual > TOTAL_SETORES) { setorAtual = 1; anoAtual++; }
     if (setorAtual < 1) { setorAtual = TOTAL_SETORES; anoAtual--; }
     renderizarCalendario();
+    
+    // Seleciona automaticamente o primeiro dia do novo setor/mês para manter a marcação ativa
+    const elementos = document.querySelectorAll(".day");
+    if (elementos[0]) {
+        selecionarDia(anoAtual, setorAtual, 1, obterDataGregoriana(anoAtual, setorAtual, 1), elementos[0]);
+    }
 }
 
 function mudarAno(valor) {
     anoAtual += valor;
     renderizarCalendario();
+    
+    // Seleciona automaticamente o primeiro dia do setor atual no novo ano
+    const elementos = document.querySelectorAll(".day");
+    if (elementos[0]) {
+        selecionarDia(anoAtual, setorAtual, 1, obterDataGregoriana(anoAtual, setorAtual, 1), elementos[0]);
+    }
 }
 
 function irParaHoje() {
