@@ -234,6 +234,43 @@ function obterTempoCosmicoAtual() {
     };
 }
 
+/* =========================================================
+   SINTETIZADOR DE EFEITO SONORO (WEB AUDIO API)
+   ========================================================= */
+let audioCtx = null;
+let ultimoIndicePlaneta = null;
+
+function tocarSomMudancaPlaneta() {
+    // Inicializa o contexto de áudio no primeiro clique/interação do usuário (exigência dos navegadores)
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+
+    const agora = audioCtx.currentTime;
+    
+    // Cria osciladores para um som harmônico e cósmico (tipo sino/cristal)
+    const osc = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+
+    osc.type = 'sine'; // Onda suave
+    osc.frequency.setValueAtTime(528, agora); // Frequência base (frequência de solfejo / tom harmônico)
+    osc.frequency.exponentialRampToValueAtTime(1046.5, agora + 0.15); // Sobe para um tom agudo agradável
+
+    // Controle de volume (Fade in / Fade out rápido para não estalar)
+    gainNode.gain.setValueAtTime(0, agora);
+    gainNode.gain.linearRampToValueAtTime(0.15, agora + 0.05);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, agora + 0.8);
+
+    osc.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+
+    osc.start(agora);
+    osc.stop(agora + 0.8);
+}
+
 function atualizarMiniRelogioContinuo() {
     const timeElement = document.getElementById("miniClockTime");
     const dateElement = document.getElementById("miniClockDate");
@@ -254,6 +291,13 @@ function atualizarMiniRelogioContinuo() {
     const duracaoPeriodo = SEGUNDOS_NO_DIA_CUSTOM / 9;
     let indicePeriodo = Math.floor(tempo.segundosNoDiaAtual / duracaoPeriodo);
     indicePeriodo = Math.max(0, Math.min(8, indicePeriodo));
+
+    // --- DETECÇÃO DE MUDANÇA DE PLANETA ---
+    if (ultimoIndicePlaneta !== null && ultimoIndicePlaneta !== indicePeriodo) {
+        tocarSomMudancaPlaneta(); // Dispara o som sintetizado!
+    }
+    ultimoIndicePlaneta = indicePeriodo;
+    // -------------------------------------
 
     const planetaRegente = regenciasDiariasDoRelogio[indicePeriodo];
     if (iconElement) {
