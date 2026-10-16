@@ -436,26 +436,36 @@ const obterSetorDoCalendario = (numDia) => Math.min(TOTAL_SETORES, Math.floor((n
 const obterDiaDoSetor = (numDia) => ((numDia - 1) % DIAS_POR_SETOR) + 1;
 
 /* =========================================================
-   NAVEGAÇÃO E EVENTOS (AJUSTADO PARA NÃO PRENDER NO DIA 1)
+   NAVEGAÇÃO E EVENTOS (ATUALIZADO COM PERSISTÊNCIA DO HOJE)
    ========================================================= */
+
+function verificarESelecionarHojeOuLimpar() {
+    const tempo = obterTempoCosmicoAtual();
+    
+    // Se o ano e o setor atuais da tela forem exatamente os de "hoje", marca o dia atual
+    if (anoAtual === tempo.anoCosmico && setorAtual === tempo.setor) {
+        const elementos = document.querySelectorAll(".day");
+        if (elementos[tempo.diaDoSetor - 1]) {
+            selecionarDia(anoAtual, setorAtual, tempo.diaDoSetor, obterDataGregoriana(anoAtual, setorAtual, tempo.diaDoSetor), elementos[tempo.diaDoSetor - 1]);
+        }
+    } else {
+        // Se estivermos em outro mês/ano, apenas remove a seleção para não confundir
+        document.querySelectorAll(".day").forEach(el => el.classList.remove("selected"));
+    }
+}
 
 function mudarSetor(valor) {
     setorAtual += valor;
     if (setorAtual > TOTAL_SETORES) { setorAtual = 1; anoAtual++; }
     if (setorAtual < 1) { setorAtual = TOTAL_SETORES; anoAtual--; }
     renderizarCalendario();
-    
-    // Apenas removemos a seleção anterior ao trocar de mês para não mostrar dados dessincronizados,
-    // mas sem forçar o dia 1. O usuário pode clicar no dia que desejar.
-    document.querySelectorAll(".day").forEach(el => el.classList.remove("selected"));
+    verificarESelecionarHojeOuLimpar();
 }
 
 function mudarAno(valor) {
     anoAtual += valor;
     renderizarCalendario();
-    
-    // Remove a seleção ao trocar de ano
-    document.querySelectorAll(".day").forEach(el => el.classList.remove("selected"));
+    verificarESelecionarHojeOuLimpar();
 }
 
 function irParaHoje() {
