@@ -205,12 +205,18 @@ function obterTempoCosmicoAtual() {
         return { diaAbsoluto: 1, anoCosmico: 2026, setor: 1, diaDoSetor: 1, horaCustom: 0, minCustom: 0, segCustom: 0, segundosNoDiaAtual: 0 };
     }
 
+    // Avanço dos dias de 12h 01m 27s (43.287s)
     const diaAbsoluto = Math.floor(segundosTotaisDecorridos / SEGUNDOS_NO_DIA_CUSTOM) + 1;
     const segundosNoDiaAtual = segundosTotaisDecorridos % SEGUNDOS_NO_DIA_CUSTOM;
-    
-    const horaCustom = Math.floor(segundosNoDiaAtual / 3600);
-    const minCustom = Math.floor((segundosNoDiaAtual % 3600) / 60);
-    const segCustom = segundosNoDiaAtual % 60;
+
+    // --- NOVA LÓGICA: Converter os 43.287s reais para uma escala de 0 a 9 horas ---
+    // Mapeamos a fração do dia decorrido (0 a 1) para 32.400 segundos virtuais (9 horas * 3600s)
+    const progressoDoDia = segundosNoDiaAtual / SEGUNDOS_NO_DIA_CUSTOM;
+    const segundosVirtuais9h = Math.floor(progressoDoDia * (9 * 3600)); // Total até 32.400s
+
+    const horaCustom = Math.floor(segundosVirtuais9h / 3600);           // Vai de 0 a 8 (chega a 09:00 no fim do dia)
+    const minCustom = Math.floor((segundosVirtuais9h % 3600) / 60);     // Vai de 0 a 59
+    const segCustom = segundosVirtuais9h % 60;                          // Vai de 0 a 59
 
     const anoCosmico = 2026 + Math.floor((diaAbsoluto - 1) / TOTAL_DIAS_ANO);
     const diaNoAnoCosmico = ((diaAbsoluto - 1) % TOTAL_DIAS_ANO) + 1;
