@@ -132,15 +132,29 @@
                 </div>
 
                 <section class="info">
-
                     <h2 id="selectedDate">Selecione um dia</h2>
-                    <p id="gregorianDate">—</p>
-                    <p id="dayOfYear">—</p>
-                    <p id="sunInfo">☀️ Signo Solar: --</p>
-                    <p id="moonInfo">🌑 Fase Lunar: --</p>
+                    
+                    <table class="mini-info-table">
+                        <tbody>
+                            <tr>
+                                <td><strong>Gregoriana:</strong></td>
+                                <td id="gregorianDate">—</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Posição:</strong></td>
+                                <td id="dayOfYear">—</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Astronomia:</strong></td>
+                                <td>
+                                    <span id="sunInfo">☀️ Signo Solar: --</span><br>
+                                    <span id="moonInfo">🌑 Fase Lunar: --</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     
                     <button id="todayButton" class="today-button">Hoje</button>
-
                 </section>
 
             </div>
