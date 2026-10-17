@@ -1,20 +1,18 @@
 /* =========================================================
-   CALENDÁRIO CÓSMICO DE 729 DIAS (PROGRESSÃO DE 3)
-   Estrutura: 3 -> 9 -> 27 -> 81 -> 243 -> 729
+   CALENDÁRIO CÓSMICO HIERÁRQUICO (ESTILO MAIA / CONCÊNTRICO)
+   Ordem: Centro (Ano) > Meses > Semanas > Dias > Horas/Períodos
    ========================================================= */
 
 const TOTAL_DIAS_ANO = 729; // 3^6[cite: 1]
-const TOTAL_SETORES = 9;     // 9 Setores (Meses estruturais de 81 dias)[cite: 1]
+const TOTAL_SETORES = 9;     // 9 Setores / Meses estruturais[cite: 1]
 const DIAS_POR_SETOR = 81;   // 3^4 dias por setor[cite: 1]
 const DIAS_POR_SEMANA = 9;   // 3^2 dias por semana[cite: 1]
 const SEMANAS_POR_SETOR = DIAS_POR_SETOR / DIAS_POR_SEMANA; // 9 semanas por setor[cite: 1]
 
-// Duração exata do dia customizado em segundos: 12h 01min 27s = 43287 segundos
-const SEGUNDOS_NO_DIA_CUSTOM = (12 * 3600) + (1 * 60) + 27;
+const SEGUNDOS_NO_DIA_CUSTOM = (12 * 3600) + (1 * 60) + 27; // 12h 01min 27s
 const DURACAO_DIA_MS = SEGUNDOS_NO_DIA_CUSTOM * 1000;
-const SEGUNDOS_NO_ANO_CUSTOM = TOTAL_DIAS_ANO * SEGUNDOS_NO_DIA_CUSTOM; // 31,556,223 segundos
+const SEGUNDOS_NO_ANO_CUSTOM = TOTAL_DIAS_ANO * SEGUNDOS_NO_DIA_CUSTOM;
 
-// Marco zero para a contagem contínua ininterrupta
 const MARCO_ZERO_COSMICO = new Date(2026, 0, 1, 0, 0, 0).getTime();
 
 let anoAtual = 2026;
@@ -37,7 +35,6 @@ const regenciasDiariasDoRelogio = [
     { nome: "Netuno", icone: "♆", img: "img/Silhueta/Symb/Cosmo/Netuno.png", atributo: "Imaginação" }
 ];
 
-// Lista de Signos unificada com imagens e ícones para reaproveitamento total
 const LISTA_SIGNOS = [
     { nome: "Capricórnio", icone: "♑", img: "img/Silhueta/Signos/Capricornio.png", elemento: "Terra" },
     { nome: "Aquário", icone: "♒", img: "img/Silhueta/Signos/Aquario.png", elemento: "Ar" },
@@ -53,9 +50,6 @@ const LISTA_SIGNOS = [
     { nome: "Sagitário", icone: "♐", img: "img/Silhueta/Signos/Sagitario.png", elemento: "Fogo" }
 ];
 
-/* =========================================================
-   ELEMENTOS DO DOM & CACHE
-   ========================================================= */
 const DOM = {
     daysContainer: document.getElementById("days"),
     monthName: document.getElementById("monthName"),
@@ -69,12 +63,10 @@ const DOM = {
     weekdaysContainer: document.querySelector(".weekdays"),
     timelineContainer: document.getElementById("planetTimelineCircle"),
     
-    // Relógio 1 (Fluido)
     miniClockTime: document.getElementById("miniClockTime"),
     miniClockDate: document.getElementById("miniClockDate"),
     miniClockIcon: document.getElementById("miniClockIcon"),
     
-    // Relógio 2 (Resets)
     resetClockCounter: document.getElementById("resetClockCounter"),
     resetClockProgress: document.getElementById("resetClockProgress"),
     resetClockIcon: document.getElementById("resetClockIcon"),
@@ -101,11 +93,6 @@ const DOM = {
 
 let timelineSegmentsCache = [];
 
-/* =========================================================
-   FUNÇÕES AUXILIARES E MATEMÁTICAS (BASE 3)
-   ========================================================= */
-
-const quantidadeDiasSetor = () => DIAS_POR_SETOR;
 const obterSemanaDoSetor = (dia) => Math.floor((dia - 1) / DIAS_POR_SEMANA) + 1;
 const obterDiaDaSemana = (dia) => ((dia - 1) % DIAS_POR_SEMANA) + 1;
 
@@ -139,13 +126,8 @@ function renderizarIconeOuImagem(elementoDOM, dados, maxDim = "45px") {
     }
 }
 
-/* =========================================================
-   CÁLCULO SOLAR, LUNAR E CÓSMICO
-   ========================================================= */
-
 function calcularSignoSolar(data) {
     const ano = data.getFullYear();
-    
     const faixasSignos = [
         { nome: "Capricórnio", inicio: new Date(ano, 11, 22), fim: new Date(ano, 0, 19) },
         { nome: "Aquário", inicio: new Date(ano, 0, 20), fim: new Date(ano, 1, 18) },
@@ -162,9 +144,7 @@ function calcularSignoSolar(data) {
     ];
 
     let faixaAtual = faixasSignos.find(s => {
-        if (s.nome === "Capricórnio") {
-            return (data >= new Date(ano, 11, 22)) || (data <= new Date(ano, 0, 19));
-        }
+        if (s.nome === "Capricórnio") return (data >= new Date(ano, 11, 22)) || (data <= new Date(ano, 0, 19));
         return data >= s.inicio && data <= s.fim;
     }) || faixasSignos[0];
 
@@ -175,7 +155,6 @@ function calcularSignoSolar(data) {
     
     const diffDias = Math.floor((data - dataInicio) / 86400000);
     const grau = Math.max(0, Math.min(29, diffDias));
-
     const objetoSigno = LISTA_SIGNOS.find(s => s.nome === faixaAtual.nome) || LISTA_SIGNOS[0];
 
     return { ...objetoSigno, grau };
@@ -199,10 +178,8 @@ const CICLO_SINODICO = 29.5305877057;
 function calcularFaseLua(data) {
     let idadeLunar = ((data.getTime() - LUA_NOVA_BASE) / 86400000) % CICLO_SINODICO;
     if (idadeLunar < 0) idadeLunar += CICLO_SINODICO;
-    
     const faseEncontrada = FASES_LUNARES.find(f => idadeLunar < f.limite) || FASES_LUNARES[0];
     const iluminacao = Math.round(((1 - Math.cos((idadeLunar / CICLO_SINODICO) * 2 * Math.PI)) / 2) * 100);
-
     return { nomeFase: faseEncontrada.nome, icone: faseEncontrada.icone, iluminacao, idadeLunar: idadeLunar.toFixed(1) };
 }
 
@@ -217,9 +194,7 @@ function calcularSignoLunar(idadeLunar) {
 
 function calcularEstacaoLocal(data) {
     const mes = data.getMonth() + 1;
-    if (mes >= 11 || mes <= 5) {
-        return { nome: "Período Chuvoso", icone: "🌧️", descricao: "Inverno Amazônico (Águas)" };
-    }
+    if (mes >= 11 || mes <= 5) return { nome: "Período Chuvoso", icone: "🌧️", descricao: "Inverno Amazônico (Águas)" };
     return { nome: "Período Seco", icone: "☀️", descricao: "Verão Amazônico (Estiagem)" };
 }
 
@@ -227,21 +202,13 @@ function calcularRegenciaPlanetaria(setor, dia) {
     return regenciasDiariasDoRelogio[(dia - 1) % regenciasDiariasDoRelogio.length];
 }
 
-/* =========================================================
-   CICLO CONTÍNUO DO TEMPO CÓSMICO
-   ========================================================= */
-
 function obterTempoCosmicoAtual() {
     const milissegundosTotaisDecorridos = Date.now() - MARCO_ZERO_COSMICO;
-
-    if (milissegundosTotaisDecorridos < 0) {
-        return { diaAbsoluto: 1, anoCosmico: 2026, setor: 1, diaDoSetor: 1, parte1: 0, parte2: 0, parte3: 0, segundosNoDiaAtual: 0 };
-    }
+    if (milissegundosTotaisDecorridos < 0) return { diaAbsoluto: 1, anoCosmico: 2026, setor: 1, diaDoSetor: 1, parte1: 0, parte2: 0, parte3: 0, segundosNoDiaAtual: 0 };
 
     const milissegundosNoDiaAtual = milissegundosTotaisDecorridos % DURACAO_DIA_MS;
     const segundosNoDiaAtual = milissegundosNoDiaAtual / 1000;
     const diaAbsoluto = Math.floor(milissegundosTotaisDecorridos / DURACAO_DIA_MS) + 1;
-
     const totalTicksVirtuais = (milissegundosNoDiaAtual / DURACAO_DIA_MS) * 1000000;
 
     const parte3 = Math.floor(totalTicksVirtuais % 100);                  
@@ -250,96 +217,25 @@ function obterTempoCosmicoAtual() {
 
     const anoCosmico = 2026 + Math.floor((diaAbsoluto - 1) / TOTAL_DIAS_ANO);
     const diaNoAnoCosmico = ((diaAbsoluto - 1) % TOTAL_DIAS_ANO) + 1;
-    
     const setor = Math.floor((diaNoAnoCosmico - 1) / DIAS_POR_SETOR) + 1;
     const diaDoSetor = ((diaNoAnoCosmico - 1) % DIAS_POR_SETOR) + 1;
 
     return { diaAbsoluto, anoCosmico, setor, diaDoSetor, parte1, parte2, parte3, segundosNoDiaAtual };
 }
 
-/* =========================================================
-   AUDIO CONTEXT (SINGLETON REUTILIZADO)
-   ========================================================= */
 let audioCtx = null;
 let ultimoIndicePlaneta = null;
-let ultimoSomRepetido = null;
 
 function obterAudioContext() {
-    if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-    }
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
     return audioCtx;
 }
 
 window.addEventListener('click', () => obterAudioContext(), { once: true });
 
-function tocarSomMudancaPlaneta() {
-    const ctx = obterAudioContext();
-    const agora = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    const gainNode = ctx.createGain();
-
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(528, agora);
-    osc.frequency.exponentialRampToValueAtTime(1046.5, agora + 0.15);
-
-    gainNode.gain.setValueAtTime(0, agora);
-    gainNode.gain.linearRampToValueAtTime(0.15, agora + 0.05);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, agora + 0.8);
-
-    osc.connect(gainNode);
-    gainNode.connect(ctx.destination);
-
-    osc.start(agora);
-    osc.stop(agora + 0.8);
-}
-
-function tocarEscalaCrescenteDeSons() {
-    const ctx = obterAudioContext();
-    const notas = [220, 277.18, 329.63, 440, 554.37, 659.25, 880]; 
-    
-    notas.forEach((frequencia, index) => {
-        const agora = ctx.currentTime + (index * 0.08);
-        const osc = ctx.createOscillator();
-        const gainNode = ctx.createGain();
-
-        osc.type = 'triangle'; 
-        osc.frequency.setValueAtTime(frequencia, agora);
-
-        gainNode.gain.setValueAtTime(0, agora);
-        gainNode.gain.linearRampToValueAtTime(0.1, agora + 0.03);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, agora + 0.3);
-
-        osc.connect(gainNode);
-        gainNode.connect(ctx.destination);
-
-        osc.start(agora);
-        osc.stop(agora + 0.3);
-    });
-}
-
-function verificarESonsRepetidos(p1, p2, p3) {
-    const isRepetido = (p1 === p2) && (p2 === p3) && (p1[0] === p1[1]);
-
-    if (isRepetido) {
-        if (ultimoSomRepetido !== p1) {
-            ultimoSomRepetido = p1;
-            tocarEscalaCrescenteDeSons();
-        }
-    } else {
-        ultimoSomRepetido = null;
-    }
-}
-
-/* =========================================================
-   INICIALIZAÇÃO DA TIMELINE CIRCULAR (9 SEGMENTOS)
-   ========================================================= */
 function criarSegmentosTimelineCircular() {
     if (!DOM.timelineContainer) return;
-    
     DOM.timelineContainer.innerHTML = "";
     timelineSegmentsCache = [];
     const fragment = document.createDocumentFragment();
@@ -348,124 +244,58 @@ function criarSegmentosTimelineCircular() {
         const segment = document.createElement("div");
         segment.className = "timeline-arc-segment";
         segment.dataset.index = i;
-        
         const regente = regenciasDiariasDoRelogio[i];
-        segment.title = `${i + 1}º Período: ${regente.nome} (${regente.atributo})`;
-        
+        segment.title = `Hora/Período ${i + 1}: ${regente.nome}`;
         fragment.appendChild(segment);
         timelineSegmentsCache.push(segment);
     }
     DOM.timelineContainer.appendChild(fragment);
 }
 
-let ultimoTextoTempo = "";
-
 function atualizarMiniRelogioContinuo() {
     if (!DOM.miniClockTime || !DOM.miniClockDate) return;
-
     const tempo = obterTempoCosmicoAtual();
-    
     const p1 = String(tempo.parte1).padStart(2, '0');
     const p2 = String(tempo.parte2).padStart(2, '0');
     const p3 = String(tempo.parte3).padStart(2, '0');
-    const novoTextoTempo = `${p1}:${p2}:${p3}`;
     
-    if (ultimoTextoTempo !== novoTextoTempo) {
-        DOM.miniClockTime.textContent = novoTextoTempo;
-        DOM.miniClockDate.textContent = `Dia ${tempo.diaAbsoluto} (${nomesSetores[tempo.setor - 1]})`;
-        ultimoTextoTempo = novoTextoTempo;
-        verificarESonsRepetidos(p1, p2, p3);
-    }
+    DOM.miniClockTime.textContent = `${p1}:${p2}:${p3}`;
+    DOM.miniClockDate.textContent = `Dia ${tempo.diaAbsoluto} (${nomesSetores[tempo.setor - 1]})`;
 
     const duracaoPeriodo = SEGUNDOS_NO_DIA_CUSTOM / 9;
     const indicePeriodo = Math.max(0, Math.min(8, Math.floor(tempo.segundosNoDiaAtual / duracaoPeriodo)));
 
-    if (ultimoIndicePlaneta !== null && ultimoIndicePlaneta !== indicePeriodo) {
-        tocarSomMudancaPlaneta();
-    }
-    
     if (ultimoIndicePlaneta !== indicePeriodo) {
         ultimoIndicePlaneta = indicePeriodo;
-
-        const planetaRegente = regenciasDiariasDoRelogio[indicePeriodo];
-        if (DOM.miniClockIcon) {
-            DOM.miniClockIcon.textContent = planetaRegente.icone;
-            DOM.miniClockIcon.title = `Período Regente: ${planetaRegente.nome} — ${planetaRegente.atributo}`;
-        }
+        const regente = regenciasDiariasDoRelogio[indicePeriodo];
+        if (DOM.miniClockIcon) DOM.miniClockIcon.textContent = regente.icone;
 
         timelineSegmentsCache.forEach((seg, idx) => {
-            if (idx < indicePeriodo) {
-                seg.className = "timeline-arc-segment passed";
-            } else if (idx === indicePeriodo) {
-                seg.className = "timeline-arc-segment active";
-            } else {
-                seg.className = "timeline-arc-segment";
-            }
+            seg.className = idx < indicePeriodo ? "timeline-arc-segment passed" : idx === indicePeriodo ? "timeline-arc-segment active" : "timeline-arc-segment";
         });
     }
 }
 
-/* =========================================================
-   CÁLCULO E EXIBIÇÃO DO RELÓGIO DE RESETS
-   ========================================================= */
-
-let ultimoPorcentagemReset = "";
-
 function atualizarRelogioDeResets() {
-    if (!DOM.resetClockCounter || !DOM.resetClockProgress) return;
-
-    const msTotaisDecorridos = Date.now() - MARCO_ZERO_COSMICO;
-
-    if (msTotaisDecorridos < 0) {
-        DOM.resetClockCounter.textContent = `RESET: 0 (Dia 1/${TOTAL_DIAS_ANO})`;
-        DOM.resetClockProgress.textContent = `0.00%`;
-        return;
-    }
-
-    const segundosTotais = msTotaisDecorridos / 1000;
-    
-    // Ciclos completos de 729 dias (resets)
-    const numeroDeResetsTotais = Math.floor(segundosTotais / SEGUNDOS_NO_ANO_CUSTOM);
-    
-    // Segundos dentro do ciclo anual atual
-    const segundosNoCicloAtual = segundosTotais % SEGUNDOS_NO_ANO_CUSTOM;
-    
-    // Dia atual dentro do ciclo de 729 dias
-    const diaNoCicloAtual = Math.floor(segundosNoCicloAtual / SEGUNDOS_NO_DIA_CUSTOM) + 1;
-
-    // Porcentagem de progresso do reset atual
-    const porcentagemProgresso = ((segundosNoCicloAtual / SEGUNDOS_NO_ANO_CUSTOM) * 100).toFixed(2);
-
-    DOM.resetClockCounter.textContent = `RESET: ${numeroDeResetsTotais} (Dia ${diaNoCicloAtual}/${TOTAL_DIAS_ANO})`;
-    
-    if (ultimoPorcentagemReset !== porcentagemProgresso) {
-        DOM.resetClockProgress.textContent = `${porcentagemProgresso}%`;
-        ultimoPorcentagemReset = porcentagemProgresso;
-    }
+    if (!DOM.resetClockCounter) return;
+    const ms = Date.now() - MARCO_ZERO_COSMICO;
+    if (ms < 0) return;
+    const seg = ms / 1000;
+    const resets = Math.floor(seg / SEGUNDOS_NO_ANO_CUSTOM);
+    const dia = Math.floor((seg % SEGUNDOS_NO_ANO_CUSTOM) / SEGUNDOS_NO_DIA_CUSTOM) + 1;
+    DOM.resetClockCounter.textContent = `RESET: ${resets} (Dia ${dia}/${TOTAL_DIAS_ANO})`;
+    DOM.resetClockProgress.textContent = `${(( (seg % SEGUNDOS_NO_ANO_CUSTOM) / SEGUNDOS_NO_ANO_CUSTOM) * 100).toFixed(2)}%`;
 }
 
-/* =========================================================
-   ATUALIZAÇÃO EM TEMPO REAL
-   ========================================================= */
-let lastFrameTime = 0;
-function iniciarRelogioFluido(timestamp) {
-    if (timestamp - lastFrameTime > 33) {
-        atualizarMiniRelogioContinuo();
-        atualizarRelogioDeResets();
-        lastFrameTime = timestamp;
-    }
-    requestAnimationFrame(iniciarRelogioFluido);
-}
-
-requestAnimationFrame(iniciarRelogioFluido);
-
-/* =========================================================
-   POSICIONAMENTO CIRCULAR EXATO
-   ========================================================= */
+requestAnimationFrame(function loop(t) {
+    atualizarMiniRelogioContinuo();
+    atualizarRelogioDeResets();
+    requestAnimationFrame(loop);
+});
 
 function posicionarElementosCirculares(seletor, raioFator) {
     const elementos = document.querySelectorAll(seletor);
-    const total = elementos.length;
+    const total = elementor = elementos.length;
     if (!total || !DOM.daysContainer) return;
 
     const raio = Math.min(DOM.daysContainer.clientWidth, DOM.daysContainer.clientHeight) * raioFator;
@@ -473,40 +303,59 @@ function posicionarElementosCirculares(seletor, raioFator) {
     const anguloFatia = (Math.PI * 2) / total;
 
     elementos.forEach((elemento, indice) => {
-        const angulo = isWeekday 
-            ? (indice / total) * Math.PI * 2 + (anguloFatia / 2) - Math.PI / 2
-            : (indice / total) * Math.PI * 2 - Math.PI / 2;
-
+        const angulo = isWeekday ? (indice / total) * Math.PI * 2 + (anguloFatia / 2) - Math.PI / 2 : (indice / total) * Math.PI * 2 - Math.PI / 2;
         const x = Math.cos(angulo) * raio;
         const y = Math.sin(angulo) * raio;
-        
-        elemento.style.transform = isWeekday 
-            ? `translate(-50%, -50%) translate(${x}px, ${y}px)`
-            : `translate(${x}px, ${y}px)`;
+        elemento.style.transform = isWeekday ? `translate(-50%, -50%) translate(${x}px, ${y}px)` : `translate(${x}px, ${y}px)`;
     });
 }
 
 function posicionarTimelineCircular() {
     const total = timelineSegmentsCache.length;
     if (!total || !DOM.daysContainer) return;
-
-    const raio = (DOM.daysContainer.clientWidth / 2) + 18;
+    const raio = (DOM.daysContainer.clientWidth / 2) + 20;
     const anguloFatia = (Math.PI * 2) / total;
 
     timelineSegmentsCache.forEach((elemento, indice) => {
         const angulo = (indice / total) * Math.PI * 2 + (anguloFatia / 2) - Math.PI / 2;
         const x = Math.cos(angulo) * raio;
         const y = Math.sin(angulo) * raio;
-        const rotacaoGraus = (angulo * (180 / Math.PI)) + 90;
-
-        elemento.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${rotacaoGraus}deg)`;
+        elemento.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${angulo * (180 / Math.PI) + 90}deg)`;
     });
 }
 
 function posicionarCalendarioCircular() {
     posicionarElementosCirculares(".day", 0.46);
-    posicionarElementosCirculares(".weekdays div", 0.30);
+    posicionarElementosCirculares(".weekdays div", 0.35);
     posicionarTimelineCircular();
+}
+
+function atualizarDestaqueSemana(semanaAtiva) {
+    document.querySelectorAll(".weekday").forEach(el => el.classList.remove("active-week"));
+    document.querySelectorAll(".day").forEach(el => el.classList.remove("week-selected"));
+    const sel = document.querySelector(`.weekday[data-semana="${semanaAtiva}"]`);
+    if (sel) sel.classList.add("active-week");
+    document.querySelectorAll(`.day.semana-${semanaAtiva}`).forEach(el => el.classList.add("week-selected"));
+}
+
+function renderizarAnelMeses() {
+    const containerMeses = document.getElementById("calendarMonthsRing");
+    if (!containerMeses) return;
+
+    containerMeses.innerHTML = "";
+    
+    // Cada setor ocupa exatamente 40 graus (360 / 9)
+    const anguloPorSetor = 40;
+    // O conic-gradient começa no topo (0°). Ajustamos para que o setor 1 comece no topo exato.
+    const indiceSetor = setorAtual - 1;
+    const rotacaoInicial = (indiceSetor * anguloPorSetor);
+
+    const indicadorAtivo = document.createElement("div");
+    indicadorAtivo.className = "month-active-indicator";
+    // Aplica a rotação exata baseada no setor atual
+    indicadorAtivo.style.transform = `rotate(${rotacaoInicial}deg)`;
+    
+    containerMeses.appendChild(indicadorAtivo);
 }
 
 function selecionarDia(ano, setor, dia, data, elemento) {
@@ -517,148 +366,121 @@ function selecionarDia(ano, setor, dia, data, elemento) {
     const diaSemana = obterDiaDaSemana(dia);
     const diaAbsoluto = ((setor - 1) * DIAS_POR_SETOR) + dia;
 
+    // Removemos a chamada para atualizarDestaqueSemana(semana) aqui para evitar que a semana pinte o anel interno
+
     if (DOM.selectedDate) DOM.selectedDate.textContent = `${nomesSetores[setor - 1]} — Dia ${dia} → ${reduzirNumero(dia)}`;
-    if (DOM.gregorianDate) DOM.gregorianDate.textContent = `Data gregoriana equivalente: ${formatarData(data)}`;
-    if (DOM.dayOfYear) DOM.dayOfYear.textContent = `Tríade ${semana} — Semana ${diaSemana} — Dia ${diaAbsoluto} de ${TOTAL_DIAS_ANO}`;
+    if (DOM.gregorianDate) DOM.gregorianDate.textContent = `Gregoriana: ${formatarData(data)}`;
+    if (DOM.dayOfYear) DOM.dayOfYear.textContent = `Tríade ${semana} — Semana ${diaSemana} — Dia ${diaAbsoluto}/${TOTAL_DIAS_ANO}`;
 
-    const dadosSol = calcularSignoSolar(data);
-    const dadosLua = calcularFaseLua(data);
-    const dadosLuaSigno = calcularSignoLunar(parseFloat(dadosLua.idadeLunar));
-    const dadosEstacao = calcularEstacaoLocal(data);
-    const dadosPlaneta = calcularRegenciaPlanetaria(setor, dia);
+    const sol = calcularSignoSolar(data);
+    const lua = calcularFaseLua(data);
+    const luaSigno = calcularSignoLunar(parseFloat(lua.idadeLunar));
+    const estacao = calcularEstacaoLocal(data);
+    const planeta = calcularRegenciaPlanetaria(setor, dia);
 
-    renderizarIconeOuImagem(DOM.sunIcon, dadosSol);
-    renderizarIconeOuImagem(DOM.planetIcon, dadosPlaneta);
+    renderizarIconeOuImagem(DOM.sunIcon, sol);
+    renderizarIconeOuImagem(DOM.planetIcon, planeta);
 
-    if (DOM.planetName) DOM.planetName.textContent = dadosPlaneta.nome;
-    if (DOM.planetAspect) DOM.planetAspect.textContent = `Atributo: ${dadosPlaneta.atributo}`;
+    if (DOM.planetName) DOM.planetName.textContent = planeta.nome;
+    if (DOM.planetAspect) DOM.planetAspect.textContent = `Atributo: ${planeta.atributo}`;
+    if (DOM.sunSignName) DOM.sunSignName.textContent = sol.nome;
+    if (DOM.sunDegree) DOM.sunDegree.textContent = `Grau: ${sol.grau}°`;
+    if (DOM.sunElement) DOM.sunElement.textContent = `Elemento: ${sol.elemento}`;
+    if (DOM.seasonIcon) DOM.seasonIcon.textContent = estacao.icone;
+    if (DOM.seasonName) DOM.seasonName.textContent = estacao.nome;
+    if (DOM.seasonDesc) DOM.seasonDesc.textContent = estacao.descricao;
+    if (DOM.moonIcon) DOM.moonIcon.textContent = lua.icone;
+    if (DOM.moonPhaseName) DOM.moonPhaseName.textContent = lua.nomeFase;
 
-    if (DOM.sunSignName) DOM.sunSignName.textContent = dadosSol.nome;
-    if (DOM.sunDegree) DOM.sunDegree.textContent = `Grau: ${dadosSol.grau}°`;
-    if (DOM.sunElement) DOM.sunElement.textContent = `Elemento: ${dadosSol.elemento}`;
+    const imgLua = luaSigno.img ? `<img src="${luaSigno.img}" style="width:16px;vertical-align:middle;">` : luaSigno.icone;
+    if (DOM.moonSign) DOM.moonSign.innerHTML = `Signo: ${imgLua} ${luaSigno.nome}`;
+    if (DOM.moonDegree) DOM.moonDegree.textContent = `Grau: ${luaSigno.grau}°`;
+    if (DOM.moonIllumination) DOM.moonIllumination.textContent = `Iluminação: ${lua.iluminacao}%`;
+    if (DOM.moonAge) DOM.moonAge.textContent = `Idade: ${lua.idadeLunar} dias`;
 
-    if (DOM.seasonIcon) DOM.seasonIcon.textContent = dadosEstacao.icone;
-    if (DOM.seasonName) DOM.seasonName.textContent = dadosEstacao.nome;
-    if (DOM.seasonDesc) DOM.seasonDesc.textContent = dadosEstacao.descricao;
-
-    if (DOM.moonIcon) DOM.moonIcon.textContent = dadosLua.icone;
-    if (DOM.moonPhaseName) DOM.moonPhaseName.textContent = dadosLua.nomeFase;
-
-    const iconeLuaSignoHtml = dadosLuaSigno.img 
-        ? `<img src="${dadosLuaSigno.img}" alt="${dadosLuaSigno.nome}" style="width: 18px; height: 18px; vertical-align: middle; object-fit: contain; display: inline-block;">` 
-        : dadosLuaSigno.icone;
-
-    if (DOM.moonSign) DOM.moonSign.innerHTML = `Signo: ${iconeLuaSignoHtml} ${dadosLuaSigno.nome}`;
-    if (DOM.moonDegree) DOM.moonDegree.textContent = `Grau: ${dadosLuaSigno.grau}°`;
-    if (DOM.moonIllumination) DOM.moonIllumination.textContent = `Iluminação: ${dadosLua.iluminacao}%`;
-    if (DOM.moonAge) DOM.moonAge.textContent = `Idade: ${dadosLua.idadeLunar} dias`;
-
-    if (DOM.sunInfo) DOM.sunInfo.textContent = `☀️ Signo Solar: ${dadosSol.icone} ${dadosSol.nome} (${dadosSol.grau}°)`;
-    if (DOM.moonInfo) DOM.moonInfo.textContent = `🌑 Fase Lunar: ${dadosLua.icone} ${dadosLua.nomeFase} (${dadosLua.iluminacao}%)`;
+    if (DOM.sunInfo) DOM.sunInfo.textContent = `☀️ ${sol.icone} ${sol.nome} (${sol.grau}°)`;
+    if (DOM.moonInfo) DOM.moonInfo.textContent = `🌑 ${lua.icone} ${lua.nomeFase} (${lua.iluminacao}%)`;
 }
-
-/* =========================================================
-   RENDERIZAÇÃO
-   ========================================================= */
 
 function atualizarDiasDaSemana() {
     if (!DOM.weekdaysContainer) return;
     DOM.weekdaysContainer.innerHTML = "";
-
     const fragment = document.createDocumentFragment();
-    for (let semana = 1; semana <= SEMANAS_POR_SETOR; semana++) {
+    for (let s = 1; s <= SEMANAS_POR_SETOR; s++) {
         const el = document.createElement("div");
         el.className = "weekday";
-        el.textContent = semana;
-        el.dataset.semana = semana;
+        el.textContent = s;
+        el.dataset.semana = s;
         fragment.appendChild(el);
     }
     DOM.weekdaysContainer.appendChild(fragment);
 }
 
-function criarDia(ano, setor, dia) {
-    const elemento = document.createElement("div");
-    const semana = obterSemanaDoSetor(dia);
-    elemento.className = `day semana-${semana}`;
-    elemento.dataset.semana = semana;
-    elemento.dataset.diaSemana = obterDiaDaSemana(dia);
-
-    const data = obterDataGregoriana(ano, setor, dia);
-    elemento.addEventListener("click", () => selecionarDia(ano, setor, dia, data, elemento));
-    return elemento;
-}
-
 function renderizarDias() {
     if (!DOM.daysContainer) return;
     DOM.daysContainer.innerHTML = "";
-    
     const fragment = document.createDocumentFragment();
     for (let dia = 1; dia <= DIAS_POR_SETOR; dia++) {
-        fragment.appendChild(criarDia(anoAtual, setorAtual, dia));
+        const el = document.createElement("div");
+        const semana = obterSemanaDoSetor(dia);
+        el.className = `day semana-${semana}`;
+        el.dataset.semana = semana;
+        el.addEventListener("click", () => selecionarDia(anoAtual, setorAtual, dia, obterDataGregoriana(anoAtual, setorAtual, dia), el));
+        fragment.appendChild(el);
     }
     DOM.daysContainer.appendChild(fragment);
-
     requestAnimationFrame(posicionarCalendarioCircular);
 }
 
 function renderizarCalendario() {
-    const nomeSetorAtual = nomesSetores[setorAtual - 1];
-    if (DOM.monthName) DOM.monthName.textContent = nomeSetorAtual;
+    const mesNome = nomesSetores[setorAtual - 1];
+    if (DOM.monthName) DOM.monthName.textContent = mesNome;
     if (DOM.yearDisplay) DOM.yearDisplay.textContent = anoAtual;
     if (DOM.yearNumerology) DOM.yearNumerology.textContent = reduzirNumero(anoAtual);
-    if (DOM.centerMonth) DOM.centerMonth.textContent = nomeSetorAtual;
+    if (DOM.centerMonth) DOM.centerMonth.textContent = mesNome;
     if (DOM.centerYear) DOM.centerYear.textContent = anoAtual;
 
     atualizarDiasDaSemana();
     renderizarDias();
+    renderizarAnelMeses();
 }
 
-/* =========================================================
-   NAVEGAÇÃO E EVENTOS
-   ========================================================= */
+function mudarSetor(v) {
+    setorAtual += v;
+    if (setorAtual > TOTAL_SETORES) { setorAtual = 1; anoAtual++; }
+    if (setorAtual < 1) { setorAtual = TOTAL_SETORES; anoAtual--; }
+    renderizarCalendario();
+    verificarHojeOuLimpar();
+}
 
-function verificarESelecionarHojeOuLimpar() {
-    const tempo = obterTempoCosmicoAtual();
-    
-    if (anoAtual === tempo.anoCosmico && setorAtual === tempo.setor) {
-        const elementos = DOM.daysContainer?.children;
-        if (elementos && elementos[tempo.diaDoSetor - 1]) {
-            selecionarDia(anoAtual, setorAtual, tempo.diaDoSetor, obterDataGregoriana(anoAtual, setorAtual, tempo.diaDoSetor), elementos[tempo.diaDoSetor - 1]);
-        }
+function mudarAno(v) {
+    anoAtual += v;
+    renderizarCalendario();
+    verificarHojeOuLimpar();
+}
+
+function verificarHojeOuLimpar() {
+    const t = obterTempoCosmicoAtual();
+    if (anoAtual === t.anoCosmico && setorAtual === t.setor) {
+        const els = DOM.daysContainer?.children;
+        if (els && els[t.diaDoSetor - 1]) selecionarDia(anoAtual, setorAtual, t.diaDoSetor, obterDataGregoriana(anoAtual, setorAtual, t.diaDoSetor), els[t.diaDoSetor - 1]);
     } else {
         document.querySelectorAll(".day.selected").forEach(el => el.classList.remove("selected"));
     }
 }
 
-function mudarSetor(valor) {
-    setorAtual += valor;
-    if (setorAtual > TOTAL_SETORES) { setorAtual = 1; anoAtual++; }
-    if (setorAtual < 1) { setorAtual = TOTAL_SETORES; anoAtual--; }
-    renderizarCalendario();
-    verificarESelecionarHojeOuLimpar();
-}
-
-function mudarAno(valor) {
-    anoAtual += valor;
-    renderizarCalendario();
-    verificarESelecionarHojeOuLimpar();
-}
-
 function irParaHoje() {
-    const tempo = obterTempoCosmicoAtual();
-    anoAtual = tempo.anoCosmico;
-    setorAtual = tempo.setor;
-
+    const t = obterTempoCosmicoAtual();
+    anoAtual = t.anoCosmico;
+    setorAtual = t.setor;
     renderizarCalendario();
-
-    const elementos = DOM.daysContainer?.children;
-    if (elementos && elementos[tempo.diaDoSetor - 1]) {
-        elementos[tempo.diaDoSetor - 1].classList.add("today");
-        selecionarDia(anoAtual, setorAtual, tempo.diaDoSetor, obterDataGregoriana(anoAtual, setorAtual, tempo.diaDoSetor), elementos[tempo.diaDoSetor - 1]);
+    const els = DOM.daysContainer?.children;
+    if (els && els[t.diaDoSetor - 1]) {
+        els[t.diaDoSetor - 1].classList.add("today");
+        selecionarDia(anoAtual, setorAtual, t.diaDoSetor, obterDataGregoriana(anoAtual, setorAtual, t.diaDoSetor), els[t.diaDoSetor - 1]);
     }
 }
 
-/* Event Listeners Otimizados */
 window.addEventListener("resize", posicionarCalendarioCircular);
 document.getElementById("prevMonth")?.addEventListener("click", () => mudarSetor(-1));
 document.getElementById("nextMonth")?.addEventListener("click", () => mudarSetor(1));
@@ -666,7 +488,6 @@ document.getElementById("prevYear")?.addEventListener("click", () => mudarAno(-1
 document.getElementById("nextYear")?.addEventListener("click", () => mudarAno(1));
 document.getElementById("todayButton")?.addEventListener("click", irParaHoje);
 
-/* Inicialização */
 criarSegmentosTimelineCircular();
 renderizarCalendario();
-requestAnimationFrame(() => irParaHoje());
+requestAnimationFrame(irParaHoje);
