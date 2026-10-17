@@ -71,6 +71,10 @@ const DOM = {
     resetClockProgress: document.getElementById("resetClockProgress"),
     resetClockIcon: document.getElementById("resetClockIcon"),
 
+    // Terceiro Relógio
+    totalSecondsCounter: document.getElementById("totalSecondsCounter"),
+    totalSecondsIcon: document.getElementById("totalSecondsIcon"),
+
     sunIcon: document.getElementById("sunIcon"),
     sunSignName: document.getElementById("sunSignName"),
     sunDegree: document.getElementById("sunDegree"),
@@ -287,15 +291,27 @@ function atualizarRelogioDeResets() {
     DOM.resetClockProgress.textContent = `${(( (seg % SEGUNDOS_NO_ANO_CUSTOM) / SEGUNDOS_NO_ANO_CUSTOM) * 100).toFixed(2)}%`;
 }
 
+function atualizarRelogioDeSegundosTotais() {
+    if (!DOM.totalSecondsCounter) return;
+    const ms = Date.now() - MARCO_ZERO_COSMICO;
+    if (ms < 0) {
+        DOM.totalSecondsCounter.textContent = "0 s";
+        return;
+    }
+    const segundosTotais = Math.floor(ms / 1000);
+    DOM.totalSecondsCounter.textContent = `${segundosTotais.toLocaleString("pt-BR")} s`;
+}
+
 requestAnimationFrame(function loop(t) {
     atualizarMiniRelogioContinuo();
     atualizarRelogioDeResets();
+    atualizarRelogioDeSegundosTotais();
     requestAnimationFrame(loop);
 });
 
 function posicionarElementosCirculares(seletor, raioFator) {
     const elementos = document.querySelectorAll(seletor);
-    const total = elementor = elementos.length;
+    const total = elementos.length;
     if (!total || !DOM.daysContainer) return;
 
     const raio = Math.min(DOM.daysContainer.clientWidth, DOM.daysContainer.clientHeight) * raioFator;
@@ -330,29 +346,18 @@ function posicionarCalendarioCircular() {
     posicionarTimelineCircular();
 }
 
-function atualizarDestaqueSemana(semanaAtiva) {
-    document.querySelectorAll(".weekday").forEach(el => el.classList.remove("active-week"));
-    document.querySelectorAll(".day").forEach(el => el.classList.remove("week-selected"));
-    const sel = document.querySelector(`.weekday[data-semana="${semanaAtiva}"]`);
-    if (sel) sel.classList.add("active-week");
-    document.querySelectorAll(`.day.semana-${semanaAtiva}`).forEach(el => el.classList.add("week-selected"));
-}
-
 function renderizarAnelMeses() {
     const containerMeses = document.getElementById("calendarMonthsRing");
     if (!containerMeses) return;
 
     containerMeses.innerHTML = "";
     
-    // Cada setor ocupa exatamente 40 graus (360 / 9)
     const anguloPorSetor = 40;
-    // O conic-gradient começa no topo (0°). Ajustamos para que o setor 1 comece no topo exato.
     const indiceSetor = setorAtual - 1;
     const rotacaoInicial = (indiceSetor * anguloPorSetor);
 
     const indicadorAtivo = document.createElement("div");
     indicadorAtivo.className = "month-active-indicator";
-    // Aplica a rotação exata baseada no setor atual
     indicadorAtivo.style.transform = `rotate(${rotacaoInicial}deg)`;
     
     containerMeses.appendChild(indicadorAtivo);
@@ -365,8 +370,6 @@ function selecionarDia(ano, setor, dia, data, elemento) {
     const semana = obterSemanaDoSetor(dia);
     const diaSemana = obterDiaDaSemana(dia);
     const diaAbsoluto = ((setor - 1) * DIAS_POR_SETOR) + dia;
-
-    // Removemos a chamada para atualizarDestaqueSemana(semana) aqui para evitar que a semana pinte o anel interno
 
     if (DOM.selectedDate) DOM.selectedDate.textContent = `${nomesSetores[setor - 1]} — Dia ${dia} → ${reduzirNumero(dia)}`;
     if (DOM.gregorianDate) DOM.gregorianDate.textContent = `Gregoriana: ${formatarData(data)}`;
