@@ -68,9 +68,17 @@ const DOM = {
     centerYear: document.getElementById("centerYear"),
     weekdaysContainer: document.querySelector(".weekdays"),
     timelineContainer: document.getElementById("planetTimelineCircle"),
+    
+    // Relógio 1 (Fluido)
     miniClockTime: document.getElementById("miniClockTime"),
     miniClockDate: document.getElementById("miniClockDate"),
     miniClockIcon: document.getElementById("miniClockIcon"),
+    
+    // Relógio 2 (Resets)
+    resetClockCounter: document.getElementById("resetClockCounter"),
+    resetClockProgress: document.getElementById("resetClockProgress"),
+    resetClockIcon: document.getElementById("resetClockIcon"),
+
     sunIcon: document.getElementById("sunIcon"),
     sunSignName: document.getElementById("sunSignName"),
     sunDegree: document.getElementById("sunDegree"),
@@ -138,7 +146,6 @@ function renderizarIconeOuImagem(elementoDOM, dados, maxDim = "45px") {
 function calcularSignoSolar(data) {
     const ano = data.getFullYear();
     
-    // Mapeamento de datas de início e fim baseadas na LISTA_SIGNOS unificada
     const faixasSignos = [
         { nome: "Capricórnio", inicio: new Date(ano, 11, 22), fim: new Date(ano, 0, 19) },
         { nome: "Aquário", inicio: new Date(ano, 0, 20), fim: new Date(ano, 1, 18) },
@@ -399,12 +406,52 @@ function atualizarMiniRelogioContinuo() {
 }
 
 /* =========================================================
+   CÁLCULO E EXIBIÇÃO DO RELÓGIO DE RESETS
+   ========================================================= */
+
+let ultimoPorcentagemReset = "";
+
+function atualizarRelogioDeResets() {
+    if (!DOM.resetClockCounter || !DOM.resetClockProgress) return;
+
+    const msTotaisDecorridos = Date.now() - MARCO_ZERO_COSMICO;
+
+    if (msTotaisDecorridos < 0) {
+        DOM.resetClockCounter.textContent = `RESET: 0 (Dia 1/${TOTAL_DIAS_ANO})`;
+        DOM.resetClockProgress.textContent = `0.00%`;
+        return;
+    }
+
+    const segundosTotais = msTotaisDecorridos / 1000;
+    
+    // Ciclos completos de 729 dias (resets)
+    const numeroDeResetsTotais = Math.floor(segundosTotais / SEGUNDOS_NO_ANO_CUSTOM);
+    
+    // Segundos dentro do ciclo anual atual
+    const segundosNoCicloAtual = segundosTotais % SEGUNDOS_NO_ANO_CUSTOM;
+    
+    // Dia atual dentro do ciclo de 729 dias
+    const diaNoCicloAtual = Math.floor(segundosNoCicloAtual / SEGUNDOS_NO_DIA_CUSTOM) + 1;
+
+    // Porcentagem de progresso do reset atual
+    const porcentagemProgresso = ((segundosNoCicloAtual / SEGUNDOS_NO_ANO_CUSTOM) * 100).toFixed(2);
+
+    DOM.resetClockCounter.textContent = `RESET: ${numeroDeResetsTotais} (Dia ${diaNoCicloAtual}/${TOTAL_DIAS_ANO})`;
+    
+    if (ultimoPorcentagemReset !== porcentagemProgresso) {
+        DOM.resetClockProgress.textContent = `${porcentagemProgresso}%`;
+        ultimoPorcentagemReset = porcentagemProgresso;
+    }
+}
+
+/* =========================================================
    ATUALIZAÇÃO EM TEMPO REAL
    ========================================================= */
 let lastFrameTime = 0;
 function iniciarRelogioFluido(timestamp) {
     if (timestamp - lastFrameTime > 33) {
         atualizarMiniRelogioContinuo();
+        atualizarRelogioDeResets();
         lastFrameTime = timestamp;
     }
     requestAnimationFrame(iniciarRelogioFluido);
@@ -480,7 +527,6 @@ function selecionarDia(ano, setor, dia, data, elemento) {
     const dadosEstacao = calcularEstacaoLocal(data);
     const dadosPlaneta = calcularRegenciaPlanetaria(setor, dia);
 
-    // Renderização unificada via helper
     renderizarIconeOuImagem(DOM.sunIcon, dadosSol);
     renderizarIconeOuImagem(DOM.planetIcon, dadosPlaneta);
 
@@ -498,7 +544,6 @@ function selecionarDia(ano, setor, dia, data, elemento) {
     if (DOM.moonIcon) DOM.moonIcon.textContent = dadosLua.icone;
     if (DOM.moonPhaseName) DOM.moonPhaseName.textContent = dadosLua.nomeFase;
 
-    // Renderiza a imagem do signo lunar inline se houver suporte, ou o ícone de texto
     const iconeLuaSignoHtml = dadosLuaSigno.img 
         ? `<img src="${dadosLuaSigno.img}" alt="${dadosLuaSigno.nome}" style="width: 18px; height: 18px; vertical-align: middle; object-fit: contain; display: inline-block;">` 
         : dadosLuaSigno.icone;

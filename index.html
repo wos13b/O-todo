@@ -48,11 +48,23 @@
     <div class="Main">
 
         <div class="Conteudo">
-            <div class="clock">
-                <div id="miniClock" class="mini-clock">
-                    <span id="miniClockIcon" title="Regente do Período">☉</span>
-                    <span id="miniClockTime">00:00:00</span>
-                    <span id="miniClockDate">--/--/----</span>
+            <div class="clock-container">
+                <!-- PRIMEIRO RELÓGIO: Tempo Fluido do Dia Cósmico -->
+                <div class="clock">
+                    <div id="miniClock" class="mini-clock">
+                        <span id="miniClockIcon" title="Regente do Período">☉</span>
+                        <span id="miniClockTime">00:00:00</span>
+                        <span id="miniClockDate">--/--/----</span>
+                    </div>
+                </div>
+
+                <!-- SEGUNDO RELÓGIO: Contador de Resets e Ciclos -->
+                <div class="clock reset-clock-wrapper">
+                    <div id="resetClock" class="mini-clock reset-clock">
+                        <span id="resetClockIcon" title="Contador de Resets Cósmicos">♾️</span>
+                        <span id="resetClockCounter">RESET: 0 (Dia 1/729)</span>
+                        <span id="resetClockProgress">0.00%</span>
+                    </div>
                 </div>
             </div>
             
