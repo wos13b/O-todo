@@ -9,11 +9,11 @@ const DIAS_POR_SETOR = 81;   // 3^4 dias por setor
 const DIAS_POR_SEMANA = 9;   // 3^2 dias por semana
 const SEMANAS_POR_SETOR = DIAS_POR_SETOR / DIAS_POR_SEMANA; // 9 semanas por setor
 
-// Duração exata do dia customizado em segundos: 12h 01min 27s = 43287 segundos
+// Duração exata do dia customizado em segundos: 12h 01min 27s = 43287 segundos[cite: 2]
 const SEGUNDOS_NO_DIA_CUSTOM = (12 * 3600) + (1 * 60) + 27;
-const SEGUNDOS_NO_ANO_CUSTOM = TOTAL_DIAS_ANO * SEGUNDOS_NO_DIA_CUSTOM; // 31,556,223 segundos
+const SEGUNDOS_NO_ANO_CUSTOM = TOTAL_DIAS_ANO * SEGUNDOS_NO_DIA_CUSTOM; // 31,556,223 segundos[cite: 2]
 
-// Marco zero para a contagem contínua ininterrupta
+// Marco zero para a contagem contínua ininterrupta[cite: 2]
 const MARCO_ZERO_COSMICO = new Date(2026, 0, 1, 0, 0, 0).getTime();
 
 let anoAtual = 2026;
@@ -72,7 +72,7 @@ function reduzirNumero(numero) {
     return numero;
 }
 
-// Mapeia o dia absoluto do calendário cósmico de volta para uma data civil aproximada para exibição
+// Mapeia o dia absoluto do calendário cósmico de volta para uma data civil aproximada para exibição[cite: 2]
 function obterDataGregoriana(ano, setor, dia) {
     const numeroDoDiaAbsoluto = ((setor - 1) * DIAS_POR_SETOR) + dia;
     const diaAnoGregoriano = Math.min(365, Math.max(1, Math.ceil((numeroDoDiaAbsoluto / TOTAL_DIAS_ANO) * 365)));
@@ -194,7 +194,7 @@ function criarDia(ano, setor, dia) {
 }
 
 /* =========================================================
-   CICLO CONTÍNUO DO TEMPO CÓSMICO E MINI RELÓGIO (FLUIDO E SEM SALTOS)
+   CICLO CONTÍNUO DO TEMPO CÓSMICO E MINI RELÓGIO (FLUIDO E SEM SALTOS)[cite: 2]
    ========================================================= */
 
 function obterTempoCosmicoAtual() {
@@ -237,7 +237,7 @@ function obterTempoCosmicoAtual() {
 }
 
 /* =========================================================
-   SINTETIZADOR DE EFEITO SONORO (WEB AUDIO API)
+   SINTETIZADOR DE EFEITO SONORO (WEB AUDIO API)[cite: 2]
    ========================================================= */
 let audioCtx = null;
 let ultimoIndicePlaneta = null;
@@ -270,7 +270,6 @@ function tocarSomMudancaPlaneta() {
     osc.stop(agora + 0.8);
 }
 
-// Nova função para tocar a escala crescente quando números iguais se sincronizarem
 function tocarEscalaCrescenteDeSons() {
     if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -279,7 +278,7 @@ function tocarEscalaCrescenteDeSons() {
         audioCtx.resume();
     }
 
-    const notas = [220, 277.18, 329.63, 440, 554.37, 659.25, 880]; // Escala harmônica
+    const notas = [220, 277.18, 329.63, 440, 554.37, 659.25, 880]; 
     
     notas.forEach((frequencia, index) => {
         const agora = audioCtx.currentTime + (index * 0.08);
@@ -287,7 +286,7 @@ function tocarEscalaCrescenteDeSons() {
         const osc = audioCtx.createOscillator();
         const gainNode = audioCtx.createGain();
 
-        osc.type = 'triangle'; // Som encorpado/suave tipo sintetizador
+        osc.type = 'triangle'; 
         osc.frequency.setValueAtTime(frequencia, agora);
 
         gainNode.gain.setValueAtTime(0, agora);
@@ -315,6 +314,26 @@ function verificarESonsRepetidos(p1, p2, p3) {
     }
 }
 
+/* =========================================================
+   INICIALIZAÇÃO DA TIMELINE CIRCULAR (9 SEGMENTOS)
+   ========================================================= */
+function criarSegmentosTimelineCircular() {
+    const timelineContainer = document.getElementById("planetTimelineCircle");
+    if (!timelineContainer) return;
+    
+    timelineContainer.innerHTML = "";
+    for (let i = 0; i < 9; i++) {
+        const segment = document.createElement("div");
+        segment.classList.add("timeline-arc-segment");
+        segment.dataset.index = i;
+        
+        const regente = regenciasDiariasDoRelogio[i];
+        segment.title = `${i + 1}º Período: ${regente.nome} (${regente.atributo})`;
+        
+        timelineContainer.appendChild(segment);
+    }
+}
+
 function atualizarMiniRelogioContinuo() {
     const timeElement = document.getElementById("miniClockTime");
     const dateElement = document.getElementById("miniClockDate");
@@ -331,7 +350,6 @@ function atualizarMiniRelogioContinuo() {
     timeElement.textContent = `${p1}:${p2}:${p3}`;
     dateElement.textContent = `Dia ${tempo.diaAbsoluto} (${nomesSetores[tempo.setor - 1]})`;
 
-    // Verifica sincronia de números iguais (ex: 11:11:11, 22:22:22)
     verificarESonsRepetidos(p1, p2, p3);
 
     const duracaoPeriodo = SEGUNDOS_NO_DIA_CUSTOM / 9;
@@ -348,6 +366,17 @@ function atualizarMiniRelogioContinuo() {
         iconElement.textContent = planetaRegente.icone;
         iconElement.title = `Período Regente: ${planetaRegente.nome} — ${planetaRegente.atributo}`;
     }
+
+    // === ATUALIZAÇÃO DA TIMELINE CIRCULAR ===
+    const segmentos = document.querySelectorAll(".timeline-arc-segment");
+    segmentos.forEach((seg, idx) => {
+        seg.classList.remove("passed", "active");
+        if (idx < indicePeriodo) {
+            seg.classList.add("passed");
+        } else if (idx === indicePeriodo) {
+            seg.classList.add("active");
+        }
+    });
 }
 
 /* =========================================================
@@ -389,9 +418,29 @@ function posicionarElementosCirculares(seletor, raioFator) {
     });
 }
 
+function posicionarTimelineCircular() {
+    const segmentos = document.querySelectorAll(".timeline-arc-segment");
+    const total = segmentos.length;
+    if (!total) return;
+
+    const raio = (daysContainer.clientWidth / 2) + 18;
+
+    segmentos.forEach((elemento, indice) => {
+        const anguloFatia = (Math.PI * 2) / total;
+        const angulo = (indice / total) * Math.PI * 2 + (anguloFatia / 2) - Math.PI / 2;
+        
+        const x = Math.cos(angulo) * raio;
+        const y = Math.sin(angulo) * raio;
+        const rotacaoGraus = (angulo * (180 / Math.PI)) + 90;
+
+        elemento.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${rotacaoGraus}deg)`;
+    });
+}
+
 function posicionarCalendarioCircular() {
     posicionarElementosCirculares(".day", 0.46);
     posicionarElementosCirculares(".weekdays div", 0.30);
+    posicionarTimelineCircular();
 }
 
 function selecionarDia(ano, setor, dia, data, elemento) {
@@ -538,6 +587,7 @@ document.getElementById("nextYear")?.addEventListener("click", () => mudarAno(1)
 document.getElementById("todayButton")?.addEventListener("click", irParaHoje);
 
 /* Inicialização */
+criarSegmentosTimelineCircular();
 renderizarCalendario();
 requestAnimationFrame(() => {
     irParaHoje();

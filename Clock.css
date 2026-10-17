@@ -189,8 +189,39 @@ body {
 }
 
 /* ================================
-   CALENDÁRIO CIRCULAR
+   TIMELINE CIRCULAR AO REDOR DO CALENDÁRIO
 ================================ */
+.planet-timeline-circle {
+    position: absolute;
+    inset: -15px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.timeline-arc-segment {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    transform-origin: center;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* O que já passou */
+.timeline-arc-segment.passed {
+    background: rgb(255, 255, 255);
+}
+
+.timeline-arc-segment.active {
+    background: #007500;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+}
 /* ================================
    CALENDÁRIO CIRCULAR (Isolamento de Layout)
 ================================ */
