@@ -24,8 +24,7 @@ body {
     gap: 15px; /* Espaçamento mínimo de segurança caso a tela seja menor */
     margin: 20px auto;
     width: 100%;
-    max-width: 1000px; /* Aumentado ligeiramente para dar mais respiro lateral */
-    padding: 0 2px;
+    max-width: 1010px; /* Aumentado ligeiramente para dar mais respiro lateral */
     flex-wrap: wrap;
 }
 
