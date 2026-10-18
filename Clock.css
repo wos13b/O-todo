@@ -285,41 +285,102 @@ body {
 }
 
 /* ================================
-   TIMELINE CIRCULAR DE PERÍODOS DA BORDA
+   TIMELINE DE PERÍODOS (BARRA ESTILO LOGIN ELEGANTE)
 ================================ */
-.planet-timeline-circle {
-    position: absolute;
-    inset: -20px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 5;
+.planet-timeline-bar {
+    position: relative;
+    width: 100%;
+    max-width: 350px; /* Alinhado com a largura do calendário */
+    height: 32px;
+    margin: 0 auto 15px auto; /* Espaçamento ideal entre o cabeçalho do mês e o círculo */
+    background: linear-gradient(180deg, rgba(12, 14, 19, 0.9) 0%, rgba(20, 23, 30, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.04);
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(12px);
 }
 
+/* Preenchimento Dinâmico com Gradiente Cósmico e Brilho Dinâmico */
+.timeline-progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    background: linear-gradient(90deg, 
+        rgba(217, 67, 7, 0.4) 0%, 
+        rgba(242, 133, 0, 0.6) 40%, 
+        rgba(235, 203, 40, 0.8) 80%, 
+        rgba(255, 255, 255, 0.95) 100%
+    );
+    border-right: 3px solid #ffffff;
+    box-shadow: 0 0 16px rgba(255, 215, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+/* Efeito de brilho animado (Luz percorrendo a barra) */
+.timeline-progress-fill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+    filter: blur(4px);
+}
+
+/* Container de Marcadores dos 9 Períodos */
+.timeline-segments-container {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+/* Marcadores / Divisores da Barra */
 .timeline-arc-segment {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 10px;
-    height: 10px;
-    background: #12141a;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-    transform-origin: center;
-    pointer-events: auto;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.35);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    user-select: none;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
+.timeline-arc-segment:last-child {
+    border-right: none;
+}
+
+/* Efeito ao passar o mouse em um segmento específico */
+.timeline-arc-segment:hover {
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* Períodos já concluídos */
 .timeline-arc-segment.passed {
-    background: rgba(255, 255, 255, 0.4);
-    border-color: rgba(255, 255, 255, 0.6);
+    color: #f5f5f7;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
+/* Período Ativo (Destaque Principal) */
 .timeline-arc-segment.active {
-    background: #ffffff;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 1);
-    transform: scale(1.3);
-    border-color: #fff;
+    color: #ffffff;
+    font-weight: 700;
+    transform: scale(1.15);
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 255, 255, 0.8);
 }
 
 /* ================================

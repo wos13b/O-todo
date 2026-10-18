@@ -61,7 +61,10 @@ const DOM = {
     centerMonth: document.getElementById("centerMonth"),
     centerYear: document.getElementById("centerYear"),
     weekdaysContainer: document.querySelector(".weekdays"),
-    timelineContainer: document.getElementById("planetTimelineCircle"),
+    
+    // Elementos da Timeline em Barra
+    timelineContainer: document.getElementById("timelineSegmentsContainer"),
+    timelineProgressFill: document.getElementById("timelineProgressFill"),
     
     miniClockTime: document.getElementById("miniClockTime"),
     miniClockDate: document.getElementById("miniClockDate"),
@@ -71,7 +74,6 @@ const DOM = {
     resetClockProgress: document.getElementById("resetClockProgress"),
     resetClockIcon: document.getElementById("resetClockIcon"),
 
-    // Terceiro Relógio
     totalSecondsCounter: document.getElementById("totalSecondsCounter"),
     totalSecondsIcon: document.getElementById("totalSecondsIcon"),
 
@@ -249,7 +251,8 @@ function criarSegmentosTimelineCircular() {
         segment.className = "timeline-arc-segment";
         segment.dataset.index = i;
         const regente = regenciasDiariasDoRelogio[i];
-        segment.title = `Hora/Período ${i + 1}: ${regente.nome}`;
+        segment.textContent = regente.icone;
+        segment.title = `Período ${i + 1}: ${regente.nome}`;
         fragment.appendChild(segment);
         timelineSegmentsCache.push(segment);
     }
@@ -266,6 +269,12 @@ function atualizarMiniRelogioContinuo() {
     DOM.miniClockTime.textContent = `${p1}:${p2}:${p3}`;
     DOM.miniClockDate.textContent = `Dia ${tempo.diaAbsoluto} (${nomesSetores[tempo.setor - 1]})`;
 
+    // Atualiza a barra de carregamento linear da Timeline
+    const percentualDia = (tempo.segundosNoDiaAtual / SEGUNDOS_NO_DIA_CUSTOM) * 100;
+    if (DOM.timelineProgressFill) {
+        DOM.timelineProgressFill.style.width = `${percentualDia}%`;
+    }
+
     const duracaoPeriodo = SEGUNDOS_NO_DIA_CUSTOM / 9;
     const indicePeriodo = Math.max(0, Math.min(8, Math.floor(tempo.segundosNoDiaAtual / duracaoPeriodo)));
 
@@ -273,11 +282,17 @@ function atualizarMiniRelogioContinuo() {
         ultimoIndicePlaneta = indicePeriodo;
         const regente = regenciasDiariasDoRelogio[indicePeriodo];
         if (DOM.miniClockIcon) DOM.miniClockIcon.textContent = regente.icone;
-
-        timelineSegmentsCache.forEach((seg, idx) => {
-            seg.className = idx < indicePeriodo ? "timeline-arc-segment passed" : idx === indicePeriodo ? "timeline-arc-segment active" : "timeline-arc-segment";
-        });
     }
+
+    timelineSegmentsCache.forEach((seg, idx) => {
+        if (idx < indicePeriodo) {
+            seg.className = "timeline-arc-segment passed";
+        } else if (idx === indicePeriodo) {
+            seg.className = "timeline-arc-segment active";
+        } else {
+            seg.className = "timeline-arc-segment";
+        }
+    });
 }
 
 function atualizarRelogioDeResets() {
@@ -288,7 +303,7 @@ function atualizarRelogioDeResets() {
     const resets = Math.floor(seg / SEGUNDOS_NO_ANO_CUSTOM);
     const dia = Math.floor((seg % SEGUNDOS_NO_ANO_CUSTOM) / SEGUNDOS_NO_DIA_CUSTOM) + 1;
     DOM.resetClockCounter.textContent = `RESET: ${resets} (Dia ${dia}/${TOTAL_DIAS_ANO})`;
-    DOM.resetClockProgress.textContent = `${(( (seg % SEGUNDOS_NO_ANO_CUSTOM) / SEGUNDOS_NO_ANO_CUSTOM) * 100).toFixed(2)}%`;
+    DOM.resetClockProgress.textContent = `${(((seg % SEGUNDOS_NO_ANO_CUSTOM) / SEGUNDOS_NO_ANO_CUSTOM) * 100).toFixed(2)}%`;
 }
 
 function atualizarRelogioDeSegundosTotais() {
@@ -326,24 +341,9 @@ function posicionarElementosCirculares(seletor, raioFator) {
     });
 }
 
-function posicionarTimelineCircular() {
-    const total = timelineSegmentsCache.length;
-    if (!total || !DOM.daysContainer) return;
-    const raio = (DOM.daysContainer.clientWidth / 2) + 20;
-    const anguloFatia = (Math.PI * 2) / total;
-
-    timelineSegmentsCache.forEach((elemento, indice) => {
-        const angulo = (indice / total) * Math.PI * 2 + (anguloFatia / 2) - Math.PI / 2;
-        const x = Math.cos(angulo) * raio;
-        const y = Math.sin(angulo) * raio;
-        elemento.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${angulo * (180 / Math.PI) + 90}deg)`;
-    });
-}
-
 function posicionarCalendarioCircular() {
     posicionarElementosCirculares(".day", 0.46);
     posicionarElementosCirculares(".weekdays div", 0.35);
-    posicionarTimelineCircular();
 }
 
 function renderizarAnelMeses() {
@@ -367,15 +367,14 @@ function selecionarDia(ano, setor, dia, data, elemento) {
     document.querySelectorAll(".day.selected").forEach(el => el.classList.remove("selected"));
     elemento.classList.add("selected");
 
-    const semana = obterSemanaDoSetor(dia);           // Semana de 1 a 9 no setor
-    const diaSemana = obterDiaDaSemana(dia);         // Dia de 1 a 9 na semana
-    const triadeDoSetor = Math.ceil(semana / 3);       // Tríade de 1 a 3 no setor
+    const semana = obterSemanaDoSetor(dia);           
+    const diaSemana = obterDiaDaSemana(dia);         
+    const triadeDoSetor = Math.ceil(semana / 3);       
     const diaAbsoluto = ((setor - 1) * DIAS_POR_SETOR) + dia;
 
     if (DOM.selectedDate) DOM.selectedDate.textContent = `${nomesSetores[setor - 1]} — Dia ${dia} → ${reduzirNumero(dia)}`;
     if (DOM.gregorianDate) DOM.gregorianDate.textContent = `Gregoriana: ${formatarData(data)}`;
     
-    // EXIBIÇÃO CORRIGIDA: Tríade correta calculada com base na semana, seguida da semana e do dia da semana
     if (DOM.dayOfYear) {
         DOM.dayOfYear.textContent = `Tríade ${triadeDoSetor} — Semana ${semana} (Dia ${diaSemana}/9) — Dia ${diaAbsoluto}/${TOTAL_DIAS_ANO}`;
     }

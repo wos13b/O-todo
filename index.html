@@ -92,7 +92,6 @@
                         </aside>
                     </div>
 
-                    <!-- Centro: Navegação de Mês/Ano e Calendário Circular -->
                     <div class="calendar-center-wrapper">
                         <div class="Header_clock">
                             <button id="prevYear" class="nav-button">«</button>
@@ -105,9 +104,15 @@
                             <button id="nextYear" class="nav-button">»</button>
                         </div>
 
+                        <!-- Barra de Timeline posicionada de forma limpa aqui -->
+                        <div class="planet-timeline-bar" id="planetTimelineCircle">
+                            <div class="timeline-progress-fill" id="timelineProgressFill"></div>
+                            <div class="timeline-segments-container" id="timelineSegmentsContainer"></div>
+                        </div>
+
                         <section class="calendar">
                             <div class="calendar-months-ring" id="calendarMonthsRing"></div>
-                            <div class="planet-timeline-circle" id="planetTimelineCircle"></div>
+                            <!-- (Removido daqui para evitar sobreposição) -->
                             <div class="calendar-center">
                                 <div id="centerMonth">Uno</div>
                                 <div id="centerYear">2026</div>
