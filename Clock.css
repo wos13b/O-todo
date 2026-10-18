@@ -547,47 +547,89 @@ body {
 }
 
 /* ================================
-   RESPONSIVIDADE
+   AJUSTES PARA TELAS MENORES (MOBILE)
 ================================ */
-@media (max-width: 950px) {
+
+@media (max-width: 768px) {
+    /* Reduz levemente as margens da área principal para aproveitar melhor as bordas */
     .Main_clock {
-        flex-direction: column;
-        align-items: center;
+        padding: 0 8px;
+        gap: 15px;
     }
 
+    /* Torna os relógios superiores empilhados e com largura fluida */
+    .clock-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        margin: 10px auto;
+        padding: 0 12px;
+    }
+
+    .clock {
+        width: 100%;
+        max-width: 380px; /* Limita a largura máxima para não esticar demais */
+        flex: none;
+    }
+
+    .mini-clock {
+        width: 100%;
+        justify-content: space-between;
+        padding: 8px 14px;
+    }
+
+    /* Reorganiza os painéis laterais para ocuparem uma linha inteira ou lado a lado compactos */
     .Painel_Esquerdo, .Painel_Direito {
         flex-direction: row;
         width: 100%;
-        max-width: 440px;
+        max-width: 100%;
         justify-content: space-between;
+        gap: 10px;
     }
 
     .sun-panel, .moon-panel, .season-panel, .planet-panel {
         width: 48%;
         height: auto;
-        min-height: 170px;
+        min-height: 160px;
+        padding: 12px 8px;
+    }
+
+    /* O calendário circular adapta-se proporcionalmente à tela sem estourar */
+    .calendar {
+        width: min(320px, 92vw);
+        margin: 10px auto;
+    }
+
+    /* Centraliza e ajusta o cabeçativo inferior de navegação do mês/ano */
+    .Header_clock {
+        padding: 8px 10px;
+        gap: 10px;
+    }
+
+    .titulo h1 {
+        font-size: 16px;
     }
 }
 
-@media (max-width: 480px) {
-    .clock-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .clock {
-        width: 100%;
-        max-width: 300px;
-    }
-
+/* Ajustes finos para telas muito pequenas (abaixo de 420px) */
+@media (max-width: 420px) {
     .Painel_Esquerdo, .Painel_Direito {
         flex-direction: column;
         align-items: center;
-        width: 100%;
     }
 
     .sun-panel, .moon-panel, .season-panel, .planet-panel {
         width: 100%;
-        max-width: 300px;
+        max-width: 100%;
+    }
+
+    /* Reduz o tamanho das fontes dos relógios superiores para caber perfeitamente */
+    #miniClockTime, #resetClockCounter, #totalSecondsCounter {
+        font-size: 0.75rem;
+    }
+    
+    #miniClockDate, #resetClockProgress {
+        font-size: 0.65rem;
+        padding-left: 6px;
     }
 }
