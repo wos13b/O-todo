@@ -48,110 +48,102 @@
     <div class="Main">
 
         <div class="Conteudo">
-            <div class="clock-container">
-                <!-- PRIMEIRO RELÓGIO: Tempo Fluido do Dia Cósmico -->
-                <div class="clock">
-                    <div id="miniClock" class="mini-clock">
+        
+            <div class="cosmic-dashboard">
+                
+                <!-- TOPO: Relógios e Contadores Unidos -->
+                <div class="dashboard-clocks-row">
+                    <!-- Primeiro Relógio (Fluido) -->
+                    <div class="mini-clock">
                         <span id="miniClockIcon" title="Regente do Período">☉</span>
                         <span id="miniClockTime">00:00:00</span>
                         <span id="miniClockDate">--/--/----</span>
                     </div>
-                </div>
 
-                <!-- SEGUNDO RELÓGIO: Contador de Resets e Ciclos -->
-                <div class="clock reset-clock-wrapper">
-                    <div id="resetClock" class="mini-clock reset-clock">
+                    <!-- Segundo Relógio (Resets) -->
+                    <div class="mini-clock reset-clock">
                         <span id="resetClockIcon" title="Contador de Resets Cósmicos">♾️</span>
                         <span id="resetClockCounter">RESET: 0 (Dia 1/729)</span>
                         <span id="resetClockProgress">0.00%</span>
                     </div>
-                </div>
 
-                <!-- TERCEIRO RELÓGIO: Total de Segundos Passados -->
-                <div class="clock total-seconds-clock-wrapper">
-                    <div id="totalSecondsClock" class="mini-clock total-seconds-clock">
+                    <!-- Terceiro Relógio (Segundos Totais) -->
+                    <div class="mini-clock total-seconds-clock">
                         <span id="totalSecondsIcon" title="Total de Segundos Decorridos">⏱️</span>
                         <span id="totalSecondsCounter">0 s</span>
                     </div>
                 </div>
-            </div>
-            
-            <div class="Main_clock">
-                
-                <div class="Painel_Esquerdo">
 
-                    <aside class="sun-panel">
-                        <div id="sunIcon" class="sun-icon">☀️</div>
-                        <div id="sunSignName" class="moon-phase-name">Calculando...</div>
-                        <span id="sunDegree" class="panel-text">Grau: --°</span>
-                        <span id="sunElement" class="panel-text">Elemento: --</span>
-                    </aside>
-                    <aside class="season-panel">
-                        <div id="seasonIcon" class="season-icon">🌿</div>
-                        <div id="seasonName" class="moon-phase-name">Calculando...</div>
-                        <span id="seasonDesc" class="panel-text">Regime local</span>
-                    </aside>
-
-                </div>
-                <section class="calendar">
-                    <div class="calendar-months-ring" id="calendarMonthsRing"></div>
-                    <div class="planet-timeline-circle" id="planetTimelineCircle"></div>
-
-                    <div class="calendar-center">
-                        <div id="centerMonth">Uno</div>
-                        <div id="centerYear">2026</div>
-                        <span id="yearNumerology"></span>
+                <!-- MIOLO: Painéis Laterais, Calendário e Navegação -->
+                <div class="dashboard-grid-main">
+                    
+                    <!-- Painel Esquerdo (Sol e Estação) -->
+                    <div class="Painel_Esquerdo">
+                        <aside class="sun-panel">
+                            <div id="sunIcon" class="sun-icon">☀️</div>
+                            <div id="sunSignName" class="moon-phase-name">Calculando...</div>
+                            <span id="sunDegree" class="panel-text">Grau: --°</span>
+                            <span id="sunElement" class="panel-text">Elemento: --</span>
+                        </aside>
+                        <aside class="season-panel">
+                            <div id="seasonIcon" class="season-icon">🌿</div>
+                            <div id="seasonName" class="moon-phase-name">Calculando...</div>
+                            <span id="seasonDesc" class="panel-text">Regime local</span>
+                        </aside>
                     </div>
 
-                    <div class="weekdays">
-                        <div>T. BRAN</div>
-                        <div>T. VERD</div>
-                        <div>T. PRET</div>
+                    <!-- Centro: Navegação de Mês/Ano e Calendário Circular -->
+                    <div class="calendar-center-wrapper">
+                        <div class="Header_clock">
+                            <button id="prevYear" class="nav-button">«</button>
+                            <button id="prevMonth" class="nav-button">‹</button>
+                            <div class="titulo">
+                                <h1 id="monthName" data-i18n="calendario_mes_1">Mês</h1>
+                                <span id="yearDisplay">2026</span>
+                            </div>
+                            <button id="nextMonth" class="nav-button">›</button>
+                            <button id="nextYear" class="nav-button">»</button>
+                        </div>
+
+                        <section class="calendar">
+                            <div class="calendar-months-ring" id="calendarMonthsRing"></div>
+                            <div class="planet-timeline-circle" id="planetTimelineCircle"></div>
+                            <div class="calendar-center">
+                                <div id="centerMonth">Uno</div>
+                                <div id="centerYear">2026</div>
+                                <span id="yearNumerology"></span>
+                            </div>
+                            <div class="weekdays">
+                                <div>T. BRAN</div>
+                                <div>T. VERD</div>
+                                <div>T. PRET</div>
+                            </div>
+                            <div id="days" class="days"></div>
+                        </section>
                     </div>
 
-                    <div id="days" class="days"></div>
-                </section>
-
-                <div class="Painel_Direito">
-
-                    <aside class="moon-panel">
-                        <div id="moonIcon" class="moon-icon">🌑</div>
-                        <div id="moonPhaseName" class="moon-phase-name">Calculando...</div>
-                        <span id="moonSign" class="panel-text">Signo: --</span>
-                        <span id="moonDegree" class="panel-text">Grau: --°</span>
-                        <span id="moonIllumination" class="panel-text">Iluminação: --%</span>
-                        <span id="moonAge" class="panel-text">Idade: -- dias</span>
-                    </aside>
-
-                    <aside class="planet-panel">
-                        <div id="planetIcon" class="sun-icon">🪐</div>
-                        <div id="planetName" class="moon-phase-name">Calculando...</div>
-                        <span id="planetAspect" class="panel-text">Influência: --</span>
-                    </aside>
+                    <!-- Painel Direito (Lua e Planeta) -->
+                    <div class="Painel_Direito">
+                        <aside class="moon-panel">
+                            <div id="moonIcon" class="moon-icon">🌑</div>
+                            <div id="moonPhaseName" class="moon-phase-name">Calculando...</div>
+                            <span id="moonSign" class="panel-text">Signo: --</span>
+                            <span id="moonDegree" class="panel-text">Grau: --°</span>
+                            <span id="moonIllumination" class="panel-text">Iluminação: --%</span>
+                            <span id="moonAge" class="panel-text">Idade: -- dias</span>
+                        </aside>
+                        <aside class="planet-panel">
+                            <div id="planetIcon" class="sun-icon">🪐</div>
+                            <div id="planetName" class="moon-phase-name">Calculando...</div>
+                            <span id="planetAspect" class="panel-text">Influência: --</span>
+                        </aside>
+                    </div>
 
                 </div>
 
-                <div class="Header_clock">
-                    <button id="prevYear" class="nav-button">«</button>
-
-                    <button id="prevMonth" class="nav-button">‹</button>
-
-                    <div class="titulo">
-
-                        <h1 id="monthName" data-i18n="calendario_mes_1">Mês</h1>
-
-                        <span id="yearDisplay">2026</span>
-
-                    </div>
-
-                    <button id="nextMonth" class="nav-button">›</button>
-
-                    <button id="nextYear" class="nav-button">»</button>
-                </div>
-
+                <!-- RODAPÉ DO PAINEL: Informações Detalhadas do Dia Selecionado -->
                 <section class="info">
                     <h2 id="selectedDate">Selecione um dia</h2>
-                    
                     <table class="mini-info-table">
                         <tbody>
                             <tr>
@@ -171,7 +163,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    
                     <button id="todayButton" class="today-button">Hoje</button>
                 </section>
 
