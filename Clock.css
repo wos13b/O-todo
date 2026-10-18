@@ -587,44 +587,66 @@ body {
     }
 
     .dashboard-grid-main {
+        display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 16px;
     }
 
     .Painel_Esquerdo, .Painel_Direito {
+        display: contents;
+    }
+
+    .sun-panel, .moon-panel, .season-panel, .planet-panel {
+        order: 2; /* Todos os 4 cards ficam posicionados após o calendário na mesma linha */
+        flex: 0 0 auto;
+        width: 60px;
+        height: 60px;
+        padding: 0;
+        border-radius: 14px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Esconde os textos descritivos nos 4 cards */
+    .sun-panel .moon-phase-name,
+    .sun-panel .panel-text,
+    .moon-panel .moon-phase-name,
+    .moon-panel .panel-text,
+    .season-panel .moon-phase-name,
+    .season-panel .panel-text,
+    .planet-panel .moon-phase-name,
+    .planet-panel .panel-text {
+        display: none !important;
+    }
+
+    /* Ajusta o tamanho dos ícones/imagens dentro das divs */
+    .sun-icon, .moon-icon, .season-icon {
+        font-size: 1.8rem;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .sun-icon img, .moon-icon img, .season-icon img {
+        max-width: 36px !important;
+        max-height: 36px !important;
+    }
+
+    .dashboard-grid-main {
+        display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .calendar-center-wrapper {
         width: 100%;
-        justify-content: space-between;
-        gap: 10px;
-    }
-
-    .sun-panel, .moon-panel, .season-panel, .planet-panel {
-        width: 48%;
-        height: auto;
-        min-height: 150px;
-        padding: 12px 8px;
-    }
-
-    .calendar {
-        width: min(320px, 92vw);
-    }
-}
-
-@media (max-width: 420px) {
-    .Painel_Esquerdo, .Painel_Direito {
-        flex-direction: column;
-    }
-
-    .sun-panel, .moon-panel, .season-panel, .planet-panel {
-        width: 100%;
-    }
-
-    #miniClockTime, #resetClockCounter, #totalSecondsCounter {
-        font-size: 0.75rem;
-    }
-    
-    #miniClockDate, #resetClockProgress {
-        font-size: 0.65rem;
-        padding-left: 6px;
+        order: 1;
     }
 }
