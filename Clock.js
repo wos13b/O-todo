@@ -1,6 +1,6 @@
 /* =========================================================
    CALENDÁRIO CÓSMICO HIERÁRQUICO (ESTILO MAIA / CONCÊNTRICO)
-   Ordem: Centro (Ano) > Meses > Semanas > Dias > Horas/Períodos
+   Ordem: Centro (Ano) > Meses > Tríades > Semanas > Dias > Períodos
    ========================================================= */
 
 const TOTAL_DIAS_ANO = 729; // 3^6[cite: 1]
@@ -367,13 +367,18 @@ function selecionarDia(ano, setor, dia, data, elemento) {
     document.querySelectorAll(".day.selected").forEach(el => el.classList.remove("selected"));
     elemento.classList.add("selected");
 
-    const semana = obterSemanaDoSetor(dia);
-    const diaSemana = obterDiaDaSemana(dia);
+    const semana = obterSemanaDoSetor(dia);           // Semana de 1 a 9 no setor
+    const diaSemana = obterDiaDaSemana(dia);         // Dia de 1 a 9 na semana
+    const triadeDoSetor = Math.ceil(semana / 3);       // Tríade de 1 a 3 no setor
     const diaAbsoluto = ((setor - 1) * DIAS_POR_SETOR) + dia;
 
     if (DOM.selectedDate) DOM.selectedDate.textContent = `${nomesSetores[setor - 1]} — Dia ${dia} → ${reduzirNumero(dia)}`;
     if (DOM.gregorianDate) DOM.gregorianDate.textContent = `Gregoriana: ${formatarData(data)}`;
-    if (DOM.dayOfYear) DOM.dayOfYear.textContent = `Tríade ${semana} — Semana ${diaSemana} — Dia ${diaAbsoluto}/${TOTAL_DIAS_ANO}`;
+    
+    // EXIBIÇÃO CORRIGIDA: Tríade correta calculada com base na semana, seguida da semana e do dia da semana
+    if (DOM.dayOfYear) {
+        DOM.dayOfYear.textContent = `Tríade ${triadeDoSetor} — Semana ${semana} (Dia ${diaSemana}/9) — Dia ${diaAbsoluto}/${TOTAL_DIAS_ANO}`;
+    }
 
     const sol = calcularSignoSolar(data);
     const lua = calcularFaseLua(data);
