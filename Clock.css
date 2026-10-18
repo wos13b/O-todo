@@ -330,7 +330,7 @@ body {
     width: min(350px, 86vw);
     aspect-ratio: 1 / 1;
     position: relative;
-    margin: 10px auto;
+    margin: 20px auto;
     border-radius: 50%;
     background: radial-gradient(circle at center, #22252e 0%, #14161d 50%, #0a0b0e 100%);
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(255, 255, 255, 0.03);
@@ -586,11 +586,23 @@ body {
         flex: none;
     }
 
+    /* Container principal ajustado para alinhar o calendário em cima e os 4 ícones em fila abaixo */
     .dashboard-grid-main {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .calendar-center-wrapper {
+        width: 100%;
+        order: 1;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 16px;
     }
 
     .Painel_Esquerdo, .Painel_Direito {
@@ -598,17 +610,19 @@ body {
     }
 
     .sun-panel, .moon-panel, .season-panel, .planet-panel {
-        order: 2; /* Todos os 4 cards ficam posicionados após o calendário na mesma linha */
+        order: 2;
         flex: 0 0 auto;
         width: 60px;
         height: 60px;
+        min-height: unset;
         padding: 0;
         border-radius: 14px;
         justify-content: center;
         align-items: center;
+        background: rgba(18, 20, 26, 0.85);
     }
 
-    /* Esconde os textos descritivos nos 4 cards */
+    /* Esconde os textos descritivos nos 4 cards compactos */
     .sun-panel .moon-phase-name,
     .sun-panel .panel-text,
     .moon-panel .moon-phase-name,
@@ -620,7 +634,7 @@ body {
         display: none !important;
     }
 
-    /* Ajusta o tamanho dos ícones/imagens dentro das divs */
+    /* Ajusta perfeitamente os ícones e imagens dentro dos cards redimensionados */
     .sun-icon, .moon-icon, .season-icon {
         font-size: 1.8rem;
         margin: 0;
@@ -632,21 +646,7 @@ body {
     }
 
     .sun-icon img, .moon-icon img, .season-icon img {
-        max-width: 36px !important;
-        max-height: 36px !important;
-    }
-
-    .dashboard-grid-main {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .calendar-center-wrapper {
-        width: 100%;
-        order: 1;
+        max-width: 32px !important;
+        max-height: 32px !important;
     }
 }
