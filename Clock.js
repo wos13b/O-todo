@@ -69,11 +69,9 @@ const DOM = {
     // Sub-barras (Minutos e Segundos)
     minuteSegmentsContainer: document.getElementById("minuteSegmentsContainer"),
     minuteProgressFill: document.getElementById("minuteProgressFill"),
-    minuteBarLabel: document.getElementById("minuteBarLabel"),
 
     secondSegmentsContainer: document.getElementById("secondSegmentsContainer"),
     secondProgressFill: document.getElementById("secondProgressFill"),
-    secondBarLabel: document.getElementById("secondBarLabel"),
     
     miniClockTime: document.getElementById("miniClockTime"),
     miniClockDate: document.getElementById("miniClockDate"),
@@ -332,7 +330,6 @@ function atualizarMiniRelogioContinuo() {
     // 2. Atualização da Barra de Minutos (0 a 99)
     const percentualMin = (tempo.parte2 / 99) * 100;
     if (DOM.minuteProgressFill) DOM.minuteProgressFill.style.width = `${percentualMin}%`;
-    if (DOM.minuteBarLabel) DOM.minuteBarLabel.textContent = `MIN: ${p2} / 99`;
     
     const indiceMinutoBarra = Math.min(8, Math.floor((tempo.parte2 / 100) * 9));
     minuteSegmentsCache.forEach((seg, idx) => {
@@ -344,7 +341,6 @@ function atualizarMiniRelogioContinuo() {
     // 3. Atualização da Barra de Segundos (0 a 99)
     const percentualSeg = (tempo.parte3 / 99) * 100;
     if (DOM.secondProgressFill) DOM.secondProgressFill.style.width = `${percentualSeg}%`;
-    if (DOM.secondBarLabel) DOM.secondBarLabel.textContent = `SEG: ${p3} / 99`;
 
     const indiceSegundoBarra = Math.min(8, Math.floor((tempo.parte3 / 100) * 9));
     secondSegmentsCache.forEach((seg, idx) => {
