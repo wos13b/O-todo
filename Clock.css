@@ -384,6 +384,39 @@ body {
 }
 
 /* ================================
+   AJUSTE DAS SUB-BARRAS DE MINUTOS E SEGUNDOS
+================================ */
+.sub-clocks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 1028px;
+    margin-top: 5px;
+}
+
+.planet-timeline-bar.sub-bar {
+    height: 30px;
+    max-width: 1028px;
+    margin: 0;
+}
+
+.sub-bar-label {
+    position: absolute;
+    right: 15px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    color: rgba(255, 255, 255, 0.9);
+    z-index: 4;
+    pointer-events: none;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* ================================
    CALENDÁRIO CIRCULAR HIERÁRQUICO
 ================================ */
 .calendar {

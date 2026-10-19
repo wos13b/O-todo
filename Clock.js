@@ -62,9 +62,18 @@ const DOM = {
     centerYear: document.getElementById("centerYear"),
     weekdaysContainer: document.querySelector(".weekdays"),
     
-    // Elementos da Timeline em Barra
+    // Timeline Principal (Dia / Períodos)
     timelineContainer: document.getElementById("timelineSegmentsContainer"),
     timelineProgressFill: document.getElementById("timelineProgressFill"),
+
+    // Sub-barras (Minutos e Segundos)
+    minuteSegmentsContainer: document.getElementById("minuteSegmentsContainer"),
+    minuteProgressFill: document.getElementById("minuteProgressFill"),
+    minuteBarLabel: document.getElementById("minuteBarLabel"),
+
+    secondSegmentsContainer: document.getElementById("secondSegmentsContainer"),
+    secondProgressFill: document.getElementById("secondProgressFill"),
+    secondBarLabel: document.getElementById("secondBarLabel"),
     
     miniClockTime: document.getElementById("miniClockTime"),
     miniClockDate: document.getElementById("miniClockDate"),
@@ -98,6 +107,8 @@ const DOM = {
 };
 
 let timelineSegmentsCache = [];
+let minuteSegmentsCache = [];
+let secondSegmentsCache = [];
 
 const obterSemanaDoSetor = (dia) => Math.floor((dia - 1) / DIAS_POR_SEMANA) + 1;
 const obterDiaDaSemana = (dia) => ((dia - 1) % DIAS_POR_SEMANA) + 1;
@@ -241,22 +252,52 @@ function obterAudioContext() {
 window.addEventListener('click', () => obterAudioContext(), { once: true });
 
 function criarSegmentosTimelineCircular() {
-    if (!DOM.timelineContainer) return;
-    DOM.timelineContainer.innerHTML = "";
-    timelineSegmentsCache = [];
-    const fragment = document.createDocumentFragment();
-
-    for (let i = 0; i < 9; i++) {
-        const segment = document.createElement("div");
-        segment.className = "timeline-arc-segment";
-        segment.dataset.index = i;
-        const regente = regenciasDiariasDoRelogio[i];
-        segment.textContent = regente.icone;
-        segment.title = `Período ${i + 1}: ${regente.nome}`;
-        fragment.appendChild(segment);
-        timelineSegmentsCache.push(segment);
+    // 1. Timeline Principal
+    if (DOM.timelineContainer) {
+        DOM.timelineContainer.innerHTML = "";
+        timelineSegmentsCache = [];
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < 9; i++) {
+            const segment = document.createElement("div");
+            segment.className = "timeline-arc-segment";
+            const regente = regenciasDiariasDoRelogio[i];
+            segment.textContent = regente.icone;
+            segment.title = `Período ${i + 1}: ${regente.nome}`;
+            fragment.appendChild(segment);
+            timelineSegmentsCache.push(segment);
+        }
+        DOM.timelineContainer.appendChild(fragment);
     }
-    DOM.timelineContainer.appendChild(fragment);
+
+    // 2. Sub-barra de Minutos
+    if (DOM.minuteSegmentsContainer) {
+        DOM.minuteSegmentsContainer.innerHTML = "";
+        minuteSegmentsCache = [];
+        const fragMin = document.createDocumentFragment();
+        for (let i = 0; i < 9; i++) {
+            const segment = document.createElement("div");
+            segment.className = "timeline-arc-segment";
+            segment.textContent = regenciasDiariasDoRelogio[i].icone;
+            fragMin.appendChild(segment);
+            minuteSegmentsCache.push(segment);
+        }
+        DOM.minuteSegmentsContainer.appendChild(fragMin);
+    }
+
+    // 3. Sub-barra de Segundos
+    if (DOM.secondSegmentsContainer) {
+        DOM.secondSegmentsContainer.innerHTML = "";
+        secondSegmentsCache = [];
+        const fragSec = document.createDocumentFragment();
+        for (let i = 0; i < 9; i++) {
+            const segment = document.createElement("div");
+            segment.className = "timeline-arc-segment";
+            segment.textContent = regenciasDiariasDoRelogio[i].icone;
+            fragSec.appendChild(segment);
+            secondSegmentsCache.push(segment);
+        }
+        DOM.secondSegmentsContainer.appendChild(fragSec);
+    }
 }
 
 function atualizarMiniRelogioContinuo() {
@@ -269,11 +310,9 @@ function atualizarMiniRelogioContinuo() {
     DOM.miniClockTime.textContent = `${p1}:${p2}:${p3}`;
     DOM.miniClockDate.textContent = `Dia ${tempo.diaAbsoluto} (${nomesSetores[tempo.setor - 1]})`;
 
-    // Atualiza a barra de carregamento linear da Timeline
+    // 1. Atualização da Barra Principal (Dia / Períodos)
     const percentualDia = (tempo.segundosNoDiaAtual / SEGUNDOS_NO_DIA_CUSTOM) * 100;
-    if (DOM.timelineProgressFill) {
-        DOM.timelineProgressFill.style.width = `${percentualDia}%`;
-    }
+    if (DOM.timelineProgressFill) DOM.timelineProgressFill.style.width = `${percentualDia}%`;
 
     const duracaoPeriodo = SEGUNDOS_NO_DIA_CUSTOM / 9;
     const indicePeriodo = Math.max(0, Math.min(8, Math.floor(tempo.segundosNoDiaAtual / duracaoPeriodo)));
@@ -285,13 +324,33 @@ function atualizarMiniRelogioContinuo() {
     }
 
     timelineSegmentsCache.forEach((seg, idx) => {
-        if (idx < indicePeriodo) {
-            seg.className = "timeline-arc-segment passed";
-        } else if (idx === indicePeriodo) {
-            seg.className = "timeline-arc-segment active";
-        } else {
-            seg.className = "timeline-arc-segment";
-        }
+        if (idx < indicePeriodo) seg.className = "timeline-arc-segment passed";
+        else if (idx === indicePeriodo) seg.className = "timeline-arc-segment active";
+        else seg.className = "timeline-arc-segment";
+    });
+
+    // 2. Atualização da Barra de Minutos (0 a 99)
+    const percentualMin = (tempo.parte2 / 99) * 100;
+    if (DOM.minuteProgressFill) DOM.minuteProgressFill.style.width = `${percentualMin}%`;
+    if (DOM.minuteBarLabel) DOM.minuteBarLabel.textContent = `MIN: ${p2} / 99`;
+    
+    const indiceMinutoBarra = Math.min(8, Math.floor((tempo.parte2 / 100) * 9));
+    minuteSegmentsCache.forEach((seg, idx) => {
+        if (idx < indiceMinutoBarra) seg.className = "timeline-arc-segment passed";
+        else if (idx === indiceMinutoBarra) seg.className = "timeline-arc-segment active";
+        else seg.className = "timeline-arc-segment";
+    });
+
+    // 3. Atualização da Barra de Segundos (0 a 99)
+    const percentualSeg = (tempo.parte3 / 99) * 100;
+    if (DOM.secondProgressFill) DOM.secondProgressFill.style.width = `${percentualSeg}%`;
+    if (DOM.secondBarLabel) DOM.secondBarLabel.textContent = `SEG: ${p3} / 99`;
+
+    const indiceSegundoBarra = Math.min(8, Math.floor((tempo.parte3 / 100) * 9));
+    secondSegmentsCache.forEach((seg, idx) => {
+        if (idx < indiceSegundoBarra) seg.className = "timeline-arc-segment passed";
+        else if (idx === indiceSegundoBarra) seg.className = "timeline-arc-segment active";
+        else seg.className = "timeline-arc-segment";
     });
 }
 
