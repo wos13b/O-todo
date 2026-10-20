@@ -62,11 +62,9 @@ const DOM = {
     centerYear: document.getElementById("centerYear"),
     weekdaysContainer: document.querySelector(".weekdays"),
     
-    // Timeline Principal (Dia / Períodos)
     timelineContainer: document.getElementById("timelineSegmentsContainer"),
     timelineProgressFill: document.getElementById("timelineProgressFill"),
 
-    // Sub-barras (Minutos e Segundos)
     minuteSegmentsContainer: document.getElementById("minuteSegmentsContainer"),
     minuteProgressFill: document.getElementById("minuteProgressFill"),
 
@@ -141,38 +139,44 @@ function renderizarIconeOuImagem(elementoDOM, dados, maxDim = "45px") {
     }
 }
 
+// =========================================================
+// CÁLCULOS CORRIGIDOS DOS SIGNOS (SOL E LUA)
+// =========================================================
+
 function calcularSignoSolar(data) {
     const ano = data.getFullYear();
-    const faixasSignos = [
-        { nome: "Capricórnio", inicio: new Date(ano, 11, 22), fim: new Date(ano, 0, 19) },
-        { nome: "Aquário", inicio: new Date(ano, 0, 20), fim: new Date(ano, 1, 18) },
-        { nome: "Peixes", inicio: new Date(ano, 1, 19), fim: new Date(ano, 2, 20) },
-        { nome: "Áries", inicio: new Date(ano, 2, 21), fim: new Date(ano, 3, 19) },
-        { nome: "Touro", inicio: new Date(ano, 3, 20), fim: new Date(ano, 4, 20) },
-        { nome: "Gêmeos", inicio: new Date(ano, 4, 21), fim: new Date(ano, 5, 20) },
-        { nome: "Câncer", inicio: new Date(ano, 5, 21), fim: new Date(ano, 6, 22) },
-        { nome: "Leão", inicio: new Date(ano, 6, 23), fim: new Date(ano, 7, 22) },
-        { nome: "Virgem", inicio: new Date(ano, 7, 23), fim: new Date(ano, 8, 22) },
-        { nome: "Libra", inicio: new Date(ano, 8, 23), fim: new Date(ano, 9, 22) },
-        { nome: "Escorpião", inicio: new Date(ano, 9, 23), fim: new Date(ano, 10, 21) },
-        { nome: "Sagitário", inicio: new Date(ano, 10, 22), fim: new Date(ano, 11, 21) }
-    ];
-
-    let faixaAtual = faixasSignos.find(s => {
-        if (s.nome === "Capricórnio") return (data >= new Date(ano, 11, 22)) || (data <= new Date(ano, 0, 19));
-        return data >= s.inicio && data <= s.fim;
-    }) || faixasSignos[0];
-
-    let dataInicio = faixaAtual.inicio;
-    if (faixaAtual.nome === "Capricórnio" && data < new Date(ano, 6, 1)) {
-        dataInicio = new Date(ano - 1, 11, 22);
-    }
+    const inicioAries = new Date(ano, 2, 21); // ~21 de março (Equinócio)
+    let diffDias = (data - inicioAries) / 86400000;
     
-    const diffDias = Math.floor((data - dataInicio) / 86400000);
-    const grau = Math.max(0, Math.min(29, diffDias));
-    const objetoSigno = LISTA_SIGNOS.find(s => s.nome === faixaAtual.nome) || LISTA_SIGNOS[0];
+    while (diffDias < 0) diffDias += 365.25;
+    while (diffDias >= 365.25) diffDias -= 365.25;
 
-    return { ...objetoSigno, grau };
+    const grausTotais = (diffDias / 365.25) * 360;
+    const indiceSigno = Math.floor(grausTotais / 30) % 12;
+    const grau = Math.floor(grausTotais % 30);
+
+    const objetoSigno = LISTA_SIGNOS[indiceSigno] || LISTA_SIGNOS[0];
+    const elemento = objetoSigno.elemen || objetoSigno.elemento || "Fogo";
+    return { ...objetoSigno, grau, elemento };
+}
+
+function calcularSignoLunar(data) {
+    const EPOCH = new Date(2000, 0, 1, 12, 0, 0).getTime(); // J2000.0
+    const diasDesdeEpoch = (data.getTime() - EPOCH) / 86400000;
+
+    let L = 218.316 + 13.176396 * diasDesdeEpoch;
+    L = L % 360;
+    if (L < 0) L += 360;
+
+    const M = (134.963 + 13.064993 * diasDesdeEpoch) % 360;
+    const longitudeEclipticaLua = L + 6.289 * Math.sin(M * (Math.PI / 180));
+
+    const grausNormalizados = (longitudeEclipticaLua + 360) % 360;
+    const indiceSigno = Math.floor(grausNormalizados / 30) % 12;
+    const grau = Math.floor(grausNormalizados % 30);
+
+    const signoObj = LISTA_SIGNOS[indiceSigno] || LISTA_SIGNOS[0];
+    return { ...signoObj, grau };
 }
 
 const FASES_LUNARES = [
@@ -196,15 +200,6 @@ function calcularFaseLua(data) {
     const faseEncontrada = FASES_LUNARES.find(f => idadeLunar < f.limite) || FASES_LUNARES[0];
     const iluminacao = Math.round(((1 - Math.cos((idadeLunar / CICLO_SINODICO) * 2 * Math.PI)) / 2) * 100);
     return { nomeFase: faseEncontrada.nome, icone: faseEncontrada.icone, iluminacao, idadeLunar: idadeLunar.toFixed(1) };
-}
-
-function calcularSignoLunar(idadeLunar) {
-    const cicloSideral = 27.321661;
-    const progressoZodiaco = (idadeLunar % cicloSideral) / cicloSideral;
-    const indiceSigno = Math.floor(progressoZodiaco * 12);
-    const signoObj = LISTA_SIGNOS[indiceSigno % 12];
-    const grau = Math.floor(((progressoZodiaco * 12) % 1) * 30);
-    return { ...signoObj, grau };
 }
 
 function calcularEstacaoLocal(data) {
@@ -250,7 +245,6 @@ function obterAudioContext() {
 window.addEventListener('click', () => obterAudioContext(), { once: true });
 
 function criarSegmentosTimelineCircular() {
-    // 1. Timeline Principal
     if (DOM.timelineContainer) {
         DOM.timelineContainer.innerHTML = "";
         timelineSegmentsCache = [];
@@ -267,7 +261,6 @@ function criarSegmentosTimelineCircular() {
         DOM.timelineContainer.appendChild(fragment);
     }
 
-    // 2. Sub-barra de Minutos
     if (DOM.minuteSegmentsContainer) {
         DOM.minuteSegmentsContainer.innerHTML = "";
         minuteSegmentsCache = [];
@@ -282,7 +275,6 @@ function criarSegmentosTimelineCircular() {
         DOM.minuteSegmentsContainer.appendChild(fragMin);
     }
 
-    // 3. Sub-barra de Segundos
     if (DOM.secondSegmentsContainer) {
         DOM.secondSegmentsContainer.innerHTML = "";
         secondSegmentsCache = [];
@@ -308,7 +300,6 @@ function atualizarMiniRelogioContinuo() {
     DOM.miniClockTime.textContent = `${p1}:${p2}:${p3}`;
     DOM.miniClockDate.textContent = `Dia ${tempo.diaAbsoluto} (${nomesSetores[tempo.setor - 1]})`;
 
-    // 1. Atualização da Barra Principal (Dia / Períodos)
     const percentualDia = (tempo.segundosNoDiaAtual / SEGUNDOS_NO_DIA_CUSTOM) * 100;
     if (DOM.timelineProgressFill) DOM.timelineProgressFill.style.width = `${percentualDia}%`;
 
@@ -327,7 +318,6 @@ function atualizarMiniRelogioContinuo() {
         else seg.className = "timeline-arc-segment";
     });
 
-    // 2. Atualização da Barra de Minutos (0 a 99)
     const percentualMin = (tempo.parte2 / 99) * 100;
     if (DOM.minuteProgressFill) DOM.minuteProgressFill.style.width = `${percentualMin}%`;
     
@@ -338,7 +328,6 @@ function atualizarMiniRelogioContinuo() {
         else seg.className = "timeline-arc-segment";
     });
 
-    // 3. Atualização da Barra de Segundos (0 a 99)
     const percentualSeg = (tempo.parte3 / 99) * 100;
     if (DOM.secondProgressFill) DOM.secondProgressFill.style.width = `${percentualSeg}%`;
 
@@ -436,7 +425,7 @@ function selecionarDia(ano, setor, dia, data, elemento) {
 
     const sol = calcularSignoSolar(data);
     const lua = calcularFaseLua(data);
-    const luaSigno = calcularSignoLunar(parseFloat(lua.idadeLunar));
+    const luaSigno = calcularSignoLunar(data); // Agora passa a data diretamente para precisão real
     const estacao = calcularEstacaoLocal(data);
     const planeta = calcularRegenciaPlanetaria(setor, dia);
 
