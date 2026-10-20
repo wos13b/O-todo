@@ -17,6 +17,7 @@ const MARCO_ZERO_COSMICO = new Date(2026, 0, 1, 0, 0, 0).getTime();
 
 let anoAtual = 2026;
 let setorAtual = 1;
+let diaSelecionadoInfo = null;
 
 const nomesSetores = [
     "Sūrya", "Budha", "Śukra", "Chandra", "Maṅgala", 
@@ -140,7 +141,7 @@ function renderizarIconeOuImagem(elementoDOM, dados, maxDim = "45px") {
 }
 
 // =========================================================
-// CÁLCULO SOLAR CORRIGIDO (ZODÍACO TROPICAL EXATO)
+// CÁLCULOS ASTRONÔMICOS (SOL E LUA)
 // =========================================================
 
 function calcularSignoSolar(data) {
@@ -189,19 +190,24 @@ function calcularSignoSolar(data) {
 }
 
 function calcularSignoLunar(data) {
-    const EPOCH_LUNAR_BASE = new Date(2026, 0, 1).getTime();
-    const diasDecorridos = (data.getTime() - EPOCH_LUNAR_BASE) / 86400000;
+    const EPOCH = new Date(2000, 0, 1, 12, 0, 0).getTime(); 
+    const diasDesdeEpoch = (data.getTime() - EPOCH) / 86400000;
+
+    let L = 218.316 + 13.176396 * diasDesdeEpoch;
+    L = L % 360;
+    if (L < 0) L += 360;
+
+    const M = (134.963 + 13.064993 * diasDesdeEpoch) % 360;
+    const longitudeEclipticaLua = L + 6.289 * Math.sin(M * (Math.PI / 180));
+
+    const grausNormalizados = (longitudeEclipticaLua + 360) % 360;
+    const grausAjustados = (grausNormalizados - 270 + 360) % 360;
     
-    const cicloZodiacalLua = 27.321661;
-    let progressoCiclo = (diasDecorridos % cicloZodiacalLua) / cicloZodiacalLua;
-    if (progressoCiclo < 0) progressoCiclo += 1;
+    const indiceSigno = Math.floor(grausAjustados / 30) % 12;
+    const grau = Math.floor(grausAjustados % 30);
 
-    const grausTotais = progressoCiclo * 360;
-    const indiceSigno = Math.floor(grausTotais / 30) % 12;
-    const grau = Math.floor(grausTotais % 30);
-
-    const objetoSigno = LISTA_SIGNOS[indiceSigno] || LISTA_SIGNOS[0];
-    return { ...objetoSigno, grau };
+    const signoObj = LISTA_SIGNOS[indiceSigno] || LISTA_SIGNOS[0];
+    return { ...signoObj, grau };
 }
 
 const FASES_LUNARES = [
@@ -362,6 +368,17 @@ function atualizarMiniRelogioContinuo() {
         else if (idx === indiceSegundoBarra) seg.className = "timeline-arc-segment active";
         else seg.className = "timeline-arc-segment";
     });
+
+    if (diaSelecionadoInfo && ehHoje(diaSelecionadoInfo.data)) {
+        atualizarPainelAstronomia(new Date());
+    }
+}
+
+function ehHoje(data) {
+    const hoje = new Date();
+    return data.getDate() === hoje.getDate() &&
+           data.getMonth() === hoje.getMonth() &&
+           data.getFullYear() === hoje.getFullYear();
 }
 
 function atualizarRelogioDeResets() {
@@ -432,27 +449,31 @@ function renderizarAnelMeses() {
     containerMeses.appendChild(indicadorAtivo);
 }
 
-function selecionarDia(ano, setor, dia, data, elemento) {
-    document.querySelectorAll(".day.selected").forEach(el => el.classList.remove("selected"));
-    elemento.classList.add("selected");
+function atualizarPainelAstronomia(dataParaCalculo) {
+    const info = diaSelecionadoInfo || {
+        ano: anoAtual,
+        setor: setorAtual,
+        dia: 1,
+        data: new Date()
+    };
 
-    const semana = obterSemanaDoSetor(dia);           
-    const diaSemana = obterDiaDaSemana(dia);         
+    const semana = obterSemanaDoSetor(info.dia);           
+    const diaSemana = obterDiaDaSemana(info.dia);         
     const triadeDoSetor = Math.ceil(semana / 3);       
-    const diaAbsoluto = ((setor - 1) * DIAS_POR_SETOR) + dia;
+    const diaAbsoluto = ((info.setor - 1) * DIAS_POR_SETOR) + info.dia;
 
-    if (DOM.selectedDate) DOM.selectedDate.textContent = `${nomesSetores[setor - 1]} — Dia ${dia} → ${reduzirNumero(dia)}`;
-    if (DOM.gregorianDate) DOM.gregorianDate.textContent = `Gregoriana: ${formatarData(data)}`;
+    if (DOM.selectedDate) DOM.selectedDate.textContent = `${nomesSetores[info.setor - 1]} — Dia ${info.dia} → ${reduzirNumero(info.dia)}`;
+    if (DOM.gregorianDate) DOM.gregorianDate.textContent = `Gregoriana: ${formatarData(info.data)}`;
     
     if (DOM.dayOfYear) {
         DOM.dayOfYear.textContent = `Tríade ${triadeDoSetor} — Semana ${semana} (Dia ${diaSemana}/9) — Dia ${diaAbsoluto}/${TOTAL_DIAS_ANO}`;
     }
 
-    const sol = calcularSignoSolar(data);
-    const lua = calcularFaseLua(data);
-    const luaSigno = calcularSignoLunar(data);
-    const estacao = calcularEstacaoLocal(data);
-    const planeta = calcularRegenciaPlanetaria(setor, dia);
+    const sol = calcularSignoSolar(dataParaCalculo);
+    const lua = calcularFaseLua(dataParaCalculo);
+    const luaSigno = calcularSignoLunar(dataParaCalculo);
+    const estacao = calcularEstacaoLocal(dataParaCalculo);
+    const planeta = calcularRegenciaPlanetaria(info.setor, info.dia);
 
     renderizarIconeOuImagem(DOM.sunIcon, sol);
     renderizarIconeOuImagem(DOM.planetIcon, planeta);
@@ -476,6 +497,16 @@ function selecionarDia(ano, setor, dia, data, elemento) {
 
     if (DOM.sunInfo) DOM.sunInfo.textContent = `☀️ ${sol.icone} ${sol.nome} (${sol.grau}°)`;
     if (DOM.moonInfo) DOM.moonInfo.textContent = `🌑 ${lua.icone} ${lua.nomeFase} (${lua.iluminacao}%)`;
+}
+
+function selecionarDia(ano, setor, dia, data, elemento) {
+    document.querySelectorAll(".day.selected").forEach(el => el.classList.remove("selected"));
+    if (elemento) elemento.classList.add("selected");
+
+    diaSelecionadoInfo = { ano, setor, dia, data };
+
+    const dataCalculo = ehHoje(data) ? new Date() : data;
+    atualizarPainelAstronomia(dataCalculo);
 }
 
 function atualizarDiasDaSemana() {
@@ -539,9 +570,12 @@ function verificarHojeOuLimpar() {
     const t = obterTempoCosmicoAtual();
     if (anoAtual === t.anoCosmico && setorAtual === t.setor) {
         const els = DOM.daysContainer?.children;
-        if (els && els[t.diaDoSetor - 1]) selecionarDia(anoAtual, setorAtual, t.diaDoSetor, obterDataGregoriana(anoAtual, setorAtual, t.diaDoSetor), els[t.diaDoSetor - 1]);
+        if (els && els[t.diaDoSetor - 1]) {
+            selecionarDia(anoAtual, setorAtual, t.diaDoSetor, obterDataGregoriana(anoAtual, setorAtual, t.diaDoSetor), els[t.diaDoSetor - 1]);
+        }
     } else {
         document.querySelectorAll(".day.selected").forEach(el => el.classList.remove("selected"));
+        diaSelecionadoInfo = null;
     }
 }
 
@@ -554,6 +588,8 @@ function irParaHoje() {
     if (els && els[t.diaDoSetor - 1]) {
         els[t.diaDoSetor - 1].classList.add("today");
         selecionarDia(anoAtual, setorAtual, t.diaDoSetor, obterDataGregoriana(anoAtual, setorAtual, t.diaDoSetor), els[t.diaDoSetor - 1]);
+    } else {
+        selecionarDia(anoAtual, setorAtual, t.diaDoSetor, obterDataGregoriana(anoAtual, setorAtual, t.diaDoSetor), null);
     }
 }
 
@@ -566,4 +602,4 @@ document.getElementById("todayButton")?.addEventListener("click", irParaHoje);
 
 criarSegmentosTimelineCircular();
 renderizarCalendario();
-requestAnimationFrame(irParaHoje);
+irParaHoje();
