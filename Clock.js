@@ -140,43 +140,68 @@ function renderizarIconeOuImagem(elementoDOM, dados, maxDim = "45px") {
 }
 
 // =========================================================
-// CÁLCULOS CORRIGIDOS DOS SIGNOS (SOL E LUA)
+// CÁLCULO SOLAR CORRIGIDO (ZODÍACO TROPICAL EXATO)
 // =========================================================
 
 function calcularSignoSolar(data) {
-    const ano = data.getFullYear();
-    const inicioAries = new Date(ano, 2, 21); // ~21 de março (Equinócio)
-    let diffDias = (data - inicioAries) / 86400000;
-    
-    while (diffDias < 0) diffDias += 365.25;
-    while (diffDias >= 365.25) diffDias -= 365.25;
+    const mes = data.getMonth() + 1;
+    const dia = data.getDate();
 
-    const grausTotais = (diffDias / 365.25) * 360;
+    let nomeSigno = "Capricórnio";
+    let grau = 0;
+
+    if ((mes === 3 && dia >= 21) || (mes === 4 && dia <= 19)) { nomeSigno = "Áries"; }
+    else if ((mes === 4 && dia >= 20) || (mes === 5 && dia <= 20)) { nomeSigno = "Touro"; }
+    else if ((mes === 5 && dia >= 21) || (mes === 6 && dia <= 20)) { nomeSigno = "Gêmeos"; }
+    else if ((mes === 6 && dia >= 21) || (mes === 7 && dia <= 22)) { nomeSigno = "Câncer"; }
+    else if ((mes === 7 && dia >= 23) || (mes === 8 && dia <= 22)) { nomeSigno = "Leão"; }
+    else if ((mes === 8 && dia >= 23) || (mes === 9 && dia <= 22)) { nomeSigno = "Virgem"; }
+    else if ((mes === 9 && dia >= 23) || (mes === 10 && dia <= 22)) { nomeSigno = "Libra"; }
+    else if ((mes === 10 && dia >= 23) || (mes === 11 && dia <= 21)) { nomeSigno = "Escorpião"; }
+    else if ((mes === 11 && dia >= 22) || (mes === 12 && dia <= 21)) { nomeSigno = "Sagitário"; }
+    else if ((mes === 12 && dia >= 22) || (mes === 1 && dia <= 19)) { nomeSigno = "Capricórnio"; }
+    else if ((mes === 1 && dia >= 20) || (mes === 2 && dia <= 18)) { nomeSigno = "Aquário"; }
+    else if ((mes === 2 && dia >= 19) || (mes === 3 && dia <= 20)) { nomeSigno = "Peixes"; }
+
+    const inicioSignoMap = {
+        "Áries": new Date(data.getFullYear(), 2, 21),
+        "Touro": new Date(data.getFullYear(), 3, 20),
+        "Gêmeos": new Date(data.getFullYear(), 4, 21),
+        "Câncer": new Date(data.getFullYear(), 5, 21),
+        "Leão": new Date(data.getFullYear(), 6, 23),
+        "Virgem": new Date(data.getFullYear(), 7, 23),
+        "Libra": new Date(data.getFullYear(), 8, 23),
+        "Escorpião": new Date(data.getFullYear(), 9, 23),
+        "Sagitário": new Date(data.getFullYear(), 10, 22),
+        "Capricórnio": mes === 1 ? new Date(data.getFullYear() - 1, 11, 22) : new Date(data.getFullYear(), 11, 22),
+        "Aquário": new Date(data.getFullYear(), 0, 20),
+        "Peixes": new Date(data.getFullYear(), 1, 19)
+    };
+
+    const dataInicio = inicioSignoMap[nomeSigno];
+    if (dataInicio) {
+        const diffDias = Math.floor((data - dataInicio) / 86400000);
+        grau = Math.max(0, Math.min(29, diffDias));
+    }
+
+    const objetoSigno = LISTA_SIGNOS.find(s => s.nome === nomeSigno) || LISTA_SIGNOS[0];
+    return { ...objetoSigno, grau };
+}
+
+function calcularSignoLunar(data) {
+    const EPOCH_LUNAR_BASE = new Date(2026, 0, 1).getTime();
+    const diasDecorridos = (data.getTime() - EPOCH_LUNAR_BASE) / 86400000;
+    
+    const cicloZodiacalLua = 27.321661;
+    let progressoCiclo = (diasDecorridos % cicloZodiacalLua) / cicloZodiacalLua;
+    if (progressoCiclo < 0) progressoCiclo += 1;
+
+    const grausTotais = progressoCiclo * 360;
     const indiceSigno = Math.floor(grausTotais / 30) % 12;
     const grau = Math.floor(grausTotais % 30);
 
     const objetoSigno = LISTA_SIGNOS[indiceSigno] || LISTA_SIGNOS[0];
-    const elemento = objetoSigno.elemen || objetoSigno.elemento || "Fogo";
-    return { ...objetoSigno, grau, elemento };
-}
-
-function calcularSignoLunar(data) {
-    const EPOCH = new Date(2000, 0, 1, 12, 0, 0).getTime(); // J2000.0
-    const diasDesdeEpoch = (data.getTime() - EPOCH) / 86400000;
-
-    let L = 218.316 + 13.176396 * diasDesdeEpoch;
-    L = L % 360;
-    if (L < 0) L += 360;
-
-    const M = (134.963 + 13.064993 * diasDesdeEpoch) % 360;
-    const longitudeEclipticaLua = L + 6.289 * Math.sin(M * (Math.PI / 180));
-
-    const grausNormalizados = (longitudeEclipticaLua + 360) % 360;
-    const indiceSigno = Math.floor(grausNormalizados / 30) % 12;
-    const grau = Math.floor(grausNormalizados % 30);
-
-    const signoObj = LISTA_SIGNOS[indiceSigno] || LISTA_SIGNOS[0];
-    return { ...signoObj, grau };
+    return { ...objetoSigno, grau };
 }
 
 const FASES_LUNARES = [
@@ -425,7 +450,7 @@ function selecionarDia(ano, setor, dia, data, elemento) {
 
     const sol = calcularSignoSolar(data);
     const lua = calcularFaseLua(data);
-    const luaSigno = calcularSignoLunar(data); // Agora passa a data diretamente para precisão real
+    const luaSigno = calcularSignoLunar(data);
     const estacao = calcularEstacaoLocal(data);
     const planeta = calcularRegenciaPlanetaria(setor, dia);
 
