@@ -66,11 +66,12 @@ const DOM = {
     timelineContainer: document.getElementById("timelineSegmentsContainer"),
     timelineProgressFill: document.getElementById("timelineProgressFill"),
 
-    minuteSegmentsContainer: document.getElementById("minuteSegmentsContainer"),
-    minuteProgressFill: document.getElementById("minuteProgressFill"),
-
-    secondSegmentsContainer: document.getElementById("secondSegmentsContainer"),
-    secondProgressFill: document.getElementById("secondProgressFill"),
+    pNum1: document.getElementById("pNum1"),
+    pNum2: document.getElementById("pNum2"),
+    pNum3: document.getElementById("pNum3"),
+    pDigit1: document.getElementById("pDigit1"),
+    pDigit2: document.getElementById("pDigit2"),
+    pDigit3: document.getElementById("pDigit3"),
     
     miniClockTime: document.getElementById("miniClockTime"),
     miniClockDate: document.getElementById("miniClockDate"),
@@ -104,8 +105,6 @@ const DOM = {
 };
 
 let timelineSegmentsCache = [];
-let minuteSegmentsCache = [];
-let secondSegmentsCache = [];
 
 const obterSemanaDoSetor = (dia) => Math.floor((dia - 1) / DIAS_POR_SEMANA) + 1;
 const obterDiaDaSemana = (dia) => ((dia - 1) % DIAS_POR_SEMANA) + 1;
@@ -291,34 +290,6 @@ function criarSegmentosTimelineCircular() {
         }
         DOM.timelineContainer.appendChild(fragment);
     }
-
-    if (DOM.minuteSegmentsContainer) {
-        DOM.minuteSegmentsContainer.innerHTML = "";
-        minuteSegmentsCache = [];
-        const fragMin = document.createDocumentFragment();
-        for (let i = 0; i < 9; i++) {
-            const segment = document.createElement("div");
-            segment.className = "timeline-arc-segment";
-            segment.textContent = regenciasDiariasDoRelogio[i].icone;
-            fragMin.appendChild(segment);
-            minuteSegmentsCache.push(segment);
-        }
-        DOM.minuteSegmentsContainer.appendChild(fragMin);
-    }
-
-    if (DOM.secondSegmentsContainer) {
-        DOM.secondSegmentsContainer.innerHTML = "";
-        secondSegmentsCache = [];
-        const fragSec = document.createDocumentFragment();
-        for (let i = 0; i < 9; i++) {
-            const segment = document.createElement("div");
-            segment.className = "timeline-arc-segment";
-            segment.textContent = regenciasDiariasDoRelogio[i].icone;
-            fragSec.appendChild(segment);
-            secondSegmentsCache.push(segment);
-        }
-        DOM.secondSegmentsContainer.appendChild(fragSec);
-    }
 }
 
 function atualizarMiniRelogioContinuo() {
@@ -349,25 +320,33 @@ function atualizarMiniRelogioContinuo() {
         else seg.className = "timeline-arc-segment";
     });
 
-    const percentualMin = (tempo.parte2 / 99) * 100;
-    if (DOM.minuteProgressFill) DOM.minuteProgressFill.style.width = `${percentualMin}%`;
+    // Sincronização e ativação dinâmica dos símbolos planetários
+    const idxP1 = Math.min(8, Math.floor((tempo.parte1 / 100) * 9));
+    const idxP2 = Math.min(8, Math.floor((tempo.parte2 / 100) * 9));
+    const idxP3 = Math.min(8, Math.floor((tempo.parte3 / 100) * 9));
+
+    if (DOM.pNum1) DOM.pNum1.textContent = p1;
+    if (DOM.pNum2) DOM.pNum2.textContent = p2;
+    if (DOM.pNum3) DOM.pNum3.textContent = p3;
+
+    // Atualização com gatilho visual animado (ativação ao passar a barra)
+    if (DOM.pDigit1 && DOM.pDigit1.textContent !== regenciasDiariasDoRelogio[idxP1].icone) {
+        DOM.pDigit1.textContent = regenciasDiariasDoRelogio[idxP1].icone;
+        DOM.pDigit1.classList.add("activated");
+        setTimeout(() => DOM.pDigit1.classList.remove("activated"), 600);
+    }
     
-    const indiceMinutoBarra = Math.min(8, Math.floor((tempo.parte2 / 100) * 9));
-    minuteSegmentsCache.forEach((seg, idx) => {
-        if (idx < indiceMinutoBarra) seg.className = "timeline-arc-segment passed";
-        else if (idx === indiceMinutoBarra) seg.className = "timeline-arc-segment active";
-        else seg.className = "timeline-arc-segment";
-    });
+    if (DOM.pDigit2 && DOM.pDigit2.textContent !== regenciasDiariasDoRelogio[idxP2].icone) {
+        DOM.pDigit2.textContent = regenciasDiariasDoRelogio[idxP2].icone;
+        DOM.pDigit2.classList.add("activated");
+        setTimeout(() => DOM.pDigit2.classList.remove("activated"), 600);
+    }
 
-    const percentualSeg = (tempo.parte3 / 99) * 100;
-    if (DOM.secondProgressFill) DOM.secondProgressFill.style.width = `${percentualSeg}%`;
-
-    const indiceSegundoBarra = Math.min(8, Math.floor((tempo.parte3 / 100) * 9));
-    secondSegmentsCache.forEach((seg, idx) => {
-        if (idx < indiceSegundoBarra) seg.className = "timeline-arc-segment passed";
-        else if (idx === indiceSegundoBarra) seg.className = "timeline-arc-segment active";
-        else seg.className = "timeline-arc-segment";
-    });
+    if (DOM.pDigit3 && DOM.pDigit3.textContent !== regenciasDiariasDoRelogio[idxP3].icone) {
+        DOM.pDigit3.textContent = regenciasDiariasDoRelogio[idxP3].icone;
+        DOM.pDigit3.classList.add("activated");
+        setTimeout(() => DOM.pDigit3.classList.remove("activated"), 600);
+    }
 
     if (diaSelecionadoInfo && ehHoje(diaSelecionadoInfo.data)) {
         atualizarPainelAstronomia(new Date());
@@ -403,7 +382,7 @@ function atualizarRelogioDeSegundosTotais() {
     DOM.totalSecondsCounter.textContent = `${segundosTotais.toLocaleString("pt-BR")} s`;
 }
 
-requestAnimationFrame(function loop(t) {
+requestAnimationFrame(function loop() {
     atualizarMiniRelogioContinuo();
     atualizarRelogioDeResets();
     atualizarRelogioDeSegundosTotais();

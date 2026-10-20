@@ -73,28 +73,48 @@ body {
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.2);
 }
 
-/* Primeiro Relógio: Tempo Fluido */
-#miniClockIcon {
-    font-size: 1.1rem;
-    color: #ffd700;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+/* ================================
+   PRIMEIRO RELÓGIO: PLANETÁRIO INTEGRADO NO TOPO
+================================ */
+.dashboard-clocks-row .mini-clock.planet-clock-integrated {
+    justify-content: space-between;
+    padding: 6px 16px;
 }
 
-#miniClockTime {
-    font-weight: 700;
-    letter-spacing: 1px;
-    font-size: 0.9rem;
-    color: #ffffff;
+.planet-mini-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.planet-number {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #a0a5b5;
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     font-variant-numeric: tabular-nums;
 }
 
-#miniClockDate {
-    font-size: 0.72rem;
-    color: #a0a5b5;
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
-    padding-left: 10px;
-    white-space: nowrap;
+.planet-digit {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: none;
+    min-width: 24px;
+    text-align: center;
+    display: inline-block;
+    /* Adiciona uma leve espessura artificial para igualar Vênus e Marte aos outros */
+    -webkit-text-stroke: 0.4px #ffffff;
+    transition: transform 0.2s ease;
+}
+
+.planet-colon-mini {
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 10px;
+    animation: colonPulse 2s infinite ease-in-out;
 }
 
 /* Segundo Relógio: Resets e Ciclos */
@@ -285,14 +305,14 @@ body {
 }
 
 /* ================================
-   TIMELINE DE PERÍODOS (BARRA ESTILO LOGIN ELEGANTE)
+   TIMELINE DE PERÍODOS
 ================================ */
 .planet-timeline-bar {
     position: relative;
     width: 100%;
-    max-width: 350px; /* Alinhado com a largura do calendário */
+    max-width: 350px;
     height: 32px;
-    margin: 0 auto 15px auto; /* Espaçamento ideal entre o cabeçalho do mês e o círculo */
+    margin: 0 auto 15px auto;
     background: linear-gradient(180deg, rgba(12, 14, 19, 0.9) 0%, rgba(20, 23, 30, 0.95) 100%);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 16px;
@@ -303,7 +323,6 @@ body {
     backdrop-filter: blur(12px);
 }
 
-/* Preenchimento Dinâmico com Gradiente Cósmico e Brilho Dinâmico */
 .timeline-progress-fill {
     position: absolute;
     top: 0;
@@ -322,7 +341,6 @@ body {
     z-index: 1;
 }
 
-/* Efeito de brilho animado (Luz percorrendo a barra) */
 .timeline-progress-fill::after {
     content: "";
     position: absolute;
@@ -334,7 +352,6 @@ body {
     filter: blur(4px);
 }
 
-/* Container de Marcadores dos 9 Períodos */
 .timeline-segments-container {
     position: absolute;
     inset: 0;
@@ -344,7 +361,6 @@ body {
     z-index: 2;
 }
 
-/* Marcadores / Divisores da Barra */
 .timeline-arc-segment {
     flex: 1;
     display: flex;
@@ -363,19 +379,16 @@ body {
     border-right: none;
 }
 
-/* Efeito ao passar o mouse em um segmento específico */
 .timeline-arc-segment:hover {
     color: rgba(255, 255, 255, 0.85);
     background: rgba(255, 255, 255, 0.04);
 }
 
-/* Períodos já concluídos */
 .timeline-arc-segment.passed {
     color: #f5f5f7;
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
-/* Período Ativo (Destaque Principal) */
 .timeline-arc-segment.active {
     color: #ffffff;
     font-weight: 700;
@@ -383,23 +396,9 @@ body {
     text-shadow: 0 0 12px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 255, 255, 0.8);
 }
 
-/* ================================
-   AJUSTE DAS SUB-BARRAS DE MINUTOS E SEGUNDOS
-================================ */
-.sub-clocks-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    max-width: 1028px;
-    margin-top: 5px;
-}
-
-.planet-timeline-bar.sub-bar {
-    height: 18px !important;
-    max-width: 1028px;
-    margin: 0;
-    border-radius: 9px;
+@keyframes colonPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.9; }
 }
 
 /* ================================
@@ -477,7 +476,6 @@ body {
     transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Centro do Calendário (Ano e Mês Atual) */
 .calendar-center {
     position: absolute;
     left: 50%;
@@ -509,7 +507,6 @@ body {
     color: #8a90a0;
 }
 
-/* Rótulos das Semanas */
 .weekdays {
     position: absolute;
     inset: 0;
@@ -541,7 +538,6 @@ body {
     z-index: 6;
 }
 
-/* Dias do Mês */
 .days {
     position: absolute;
     inset: 0;
@@ -584,7 +580,6 @@ body {
     box-shadow: 0 0 0 2px #ffffff;
 }
 
-/* Cores das Semanas */
 .day.semana-1 { border-color: #333333; background: rgba(30, 30, 30, 0.6); }
 .day.semana-2 { border-color: #d94307; background: rgba(217, 67, 7, 0.25); }
 .day.semana-3 { border-color: #f28500; background: rgba(242, 133, 0, 0.25); }
@@ -596,7 +591,7 @@ body {
 .day.semana-9 { border-color: #e0e0e0; background: rgba(240, 240, 240, 0.25); }
 
 /* ================================
-   RODAPÉ DO PAINEL: TABELA DE INFORMAÇÕES DETALHADAS
+   RODAPÉ DO PAINEL
 ================================ */
 .cosmic-dashboard .info {
     margin-top: 0;
@@ -666,7 +661,6 @@ body {
         flex: none;
     }
 
-    /* Container principal ajustado para alinhar o calendário em cima e os 4 ícones em fila abaixo */
     .dashboard-grid-main {
         display: flex;
         flex-direction: row;
@@ -702,7 +696,6 @@ body {
         background: rgba(18, 20, 26, 0.85);
     }
 
-    /* Esconde os textos descritivos nos 4 cards compactos */
     .sun-panel .moon-phase-name,
     .sun-panel .panel-text,
     .moon-panel .moon-phase-name,
@@ -714,7 +707,6 @@ body {
         display: none !important;
     }
 
-    /* Ajusta perfeitamente os ícones e imagens dentro dos cards redimensionados */
     .sun-icon, .moon-icon, .season-icon {
         font-size: 1.8rem;
         margin: 0;

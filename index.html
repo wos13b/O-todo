@@ -51,13 +51,28 @@
         
             <div class="cosmic-dashboard">
                 
-                <!-- TOPO: Relógios e Contadores Unidos -->
                 <div class="dashboard-clocks-row">
-                    <!-- Primeiro Relógio (Fluido) -->
-                    <div class="mini-clock">
-                        <span id="miniClockIcon" title="Regente do Período">☉</span>
-                        <span id="miniClockTime">00:00:00</span>
-                        <span id="miniClockDate">--/--/----</span>
+                    <div class="mini-clock planet-clock-integrated" style="justify-content: space-between; padding: 6px 16px;">
+                        <!-- Elemento oculto ou de suporte para o script ler o tempo contínuo sem quebrar -->
+                        <span id="miniClockTime" style="display: none;">00:00:00</span>
+                        
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div class="planet-mini-display">
+                                <span id="pNum1" class="planet-number">00</span>
+                                <span id="pDigit1" class="planet-digit" title="Regente da Parte 1">☉</span>
+                            </div>
+                            <span class="planet-colon-mini">:</span>
+                            <div class="planet-mini-display">
+                                <span id="pNum2" class="planet-number">00</span>
+                                <span id="pDigit2" class="planet-digit" title="Regente da Parte 2">☿</span>
+                            </div>
+                            <span class="planet-colon-mini">:</span>
+                            <div class="planet-mini-display">
+                                <span id="pNum3" class="planet-number">00</span>
+                                <span id="pDigit3" class="planet-digit" title="Regente da Parte 3">♀</span>
+                            </div>
+                        </div>
+                        <span id="miniClockDate" style="border-left: 1px solid rgba(255,255,255,0.15); padding-left: 10px; font-size: 0.72rem; color: #a0a5b5; white-space: nowrap;">--/--/----</span>
                     </div>
 
                     <!-- Segundo Relógio (Resets) -->
@@ -71,19 +86,6 @@
                     <div class="mini-clock total-seconds-clock">
                         <span id="totalSecondsIcon" title="Total de Segundos Decorridos">⏱️</span>
                         <span id="totalSecondsCounter">0 s</span>
-                    </div>
-                </div>
-
-                <!-- NOVAS BARRAS DE MINUTOS E SEGUNDOS -->
-                <div class="sub-clocks-container">
-                    <div class="planet-timeline-bar sub-bar" id="minuteTimelineBar">
-                        <div class="timeline-progress-fill" id="minuteProgressFill"></div>
-                        <div class="timeline-segments-container" id="minuteSegmentsContainer"></div>
-                    </div>
-                    
-                    <div class="planet-timeline-bar sub-bar" id="secondTimelineBar">
-                        <div class="timeline-progress-fill" id="secondProgressFill"></div>
-                        <div class="timeline-segments-container" id="secondSegmentsContainer"></div>
                     </div>
                 </div>
 
