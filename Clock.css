@@ -104,9 +104,6 @@ body {
     min-width: 24px;
     text-align: center;
     display: inline-block;
-    /* Adiciona uma leve espessura artificial para igualar Vênus e Marte aos outros */
-    -webkit-text-stroke: 0.4px #ffffff;
-    transition: transform 0.2s ease;
 }
 
 .planet-colon-mini {
