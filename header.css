@@ -1,3 +1,7 @@
+/* =========================================================
+   RESET BÁSICO & CONFIGURAÇÕES GLOBAIS
+   ========================================================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +9,7 @@
 }
 
 @font-face {
-    font-family: Movie;
+    font-family: 'Movie';
     src: url('Font/Steudel.ttf') format('truetype');
     font-weight: 900;
     font-style: normal;
@@ -23,18 +27,21 @@
 
     width: 100%;
     height: 10vh;
+    min-height: 65px;
 
     display: flex;
     align-items: center;
 
-    background-color: #1a1a1ad8;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(26, 26, 26, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 
-    font-family: Movie, sans-serif;
-    font-size: 20px;
+    border-bottom: 1px solid rgba(255, 111, 0, 0.15);
 
-    z-index: 10;
+    font-family: 'Movie', sans-serif;
+    font-size: 18px;
+
+    z-index: 100;
 }
 
 
@@ -43,63 +50,69 @@
    ========================================================= */
 
 .menu-toggle {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
 
-    margin-left: 20px;
+    margin-left: 24px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    background: linear-gradient(145deg, #222, #111);
+    background: linear-gradient(145deg, #222222, #111111);
     color: #ff6f00;
 
-    font-size: 20px;
+    font-size: 18px;
 
-    border: none;
+    border: 1px solid rgba(255, 111, 0, 0.3);
     border-radius: 12px;
 
     cursor: pointer;
 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 
-    transition:
-        transform 0.3s ease,
-        background 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.3s ease,
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
 }
 
 .menu-toggle:hover {
-    transform: scale(1.05);
-    background: linear-gradient(145deg, #333, #000);
+    transform: scale(1.06);
+    background: linear-gradient(145deg, #2a2a2a, #0a0a0a);
+    border-color: #ff6f00;
+    box-shadow: 0 6px 16px rgba(255, 111, 0, 0.25);
+}
+
+.menu-toggle:active {
+    transform: scale(0.98);
 }
 
 
 /* =========================================================
-   MENU TOGGLE (.kalk) - PADRONIZADO
+   MENUS SUSPENSOS (.kalk e .nav_2) - PADRONIZADOS
    ========================================================= */
 
-.kalk {
+.kalk,
+.nav_2 {
     position: absolute;
-
-    top: calc(100% + 5px);
-    left: 20px;
+    top: calc(100% + 8px);
 
     display: flex;
     flex-direction: column;
+    gap: 6px;
 
-    gap: 5px;
+    min-width: 200px;
+    padding: 12px;
 
-    min-width: 190px;
-    padding: 10px;
+    background-color: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 
-    background-color: #1a1a1a;
-    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 111, 0, 0.2);
+    border-radius: 12px;
 
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
-
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 
     z-index: 1000;
 
@@ -107,21 +120,30 @@
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transform: translateY(-10px);
+    transform: translateY(-12px);
 
-    transition:
-        max-height 0.3s ease,
-        opacity 0.3s ease,
-        transform 0.3s ease;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease,
+                transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.kalk li {
+.kalk {
+    left: 20px;
+}
+
+.nav_2 {
+    right: 20px;
+}
+
+.kalk li,
+.nav_2 li {
     list-style: none;
 }
 
 /* Estado aberto (.ativo adicionado via JS) */
-.kalk.ativo {
-    max-height: 500px;
+.kalk.ativo,
+.nav_2.ativo {
+    max-height: 400px;
     opacity: 1;
     transform: translateY(0);
 }
@@ -134,11 +156,10 @@
 .nav {
     display: flex;
     align-items: center;
-
-    gap: 5px;
+    gap: 6px;
 
     margin-left: auto;
-    margin-right: 10px;
+    margin-right: 12px;
 }
 
 .nav li {
@@ -154,76 +175,26 @@
 .nav_2 a,
 .kalk a {
     display: block;
-
     padding: 10px 16px;
 
     color: #fffcf2;
-
     text-decoration: none;
     font-weight: bold;
+    font-size: 15px;
 
     border-radius: 8px;
 
-    transition:
-        color 0.3s ease,
-        background-color 0.3s ease;
+    transition: color 0.3s ease,
+                background-color 0.3s ease,
+                padding-left 0.3s ease;
 }
 
 .nav a:hover,
 .nav_2 a:hover,
 .kalk a:hover {
-    background-color: #2c2c2c;
+    background-color: rgba(255, 111, 0, 0.12);
     color: #ff6f00;
-}
-
-
-/* =========================================================
-   MENU SECUNDÁRIO (.nav_2)
-   ========================================================= */
-
-.nav_2 {
-    position: absolute;
-
-    top: calc(100% + 5px);
-    right: 20px;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 5px;
-
-    min-width: 190px;
-    padding: 10px;
-
-    background-color: #1a1a1a;
-
-    border-radius: 10px;
-
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-
-    z-index: 100;
-
-    /* Estado fechado (padrão) */
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transform: translateY(-10px);
-
-    transition:
-        max-height 0.3s ease,
-        opacity 0.3s ease,
-        transform 0.3s ease;
-}
-
-.nav_2 li {
-    list-style: none;
-}
-
-/* Estado aberto (.ativo adicionado via JS) */
-.nav_2.ativo {
-    max-height: 500px;
-    opacity: 1;
-    transform: translateY(0);
+    padding-left: 20px; /* Pequeno efeito de deslocamento lateral elegante */
 }
 
 
@@ -232,12 +203,11 @@
    ========================================================= */
 
 .Log_perf {
-    width: 45px;
-    height: 45px;
+    width: 44px;
+    height: 44px;
 
     flex-shrink: 0;
-
-    margin-right: 20px;
+    margin-right: 24px;
 
     border-radius: 50%;
 
@@ -246,16 +216,17 @@
     background-position: center;
 
     border: 2px solid #ff6f00;
-
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
 
     cursor: pointer;
 
-    transition: transform 0.2s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s ease;
 }
 
 .Log_perf:hover {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(255, 111, 0, 0.4);
 }
 
 
@@ -276,39 +247,36 @@ ul {
 
     .header {
         height: 8vh;
+        min-height: 55px;
     }
 
     .menu-toggle {
-        width: 32px;
-        height: 32px;
-
+        width: 36px;
+        height: 36px;
         margin-left: 15px;
-
         font-size: 16px;
     }
 
     .nav {
-        margin-right: 5px;
+        margin-right: 6px;
     }
 
     .nav a {
-        padding: 8px 10px;
+        padding: 8px 12px;
+        font-size: 14px;
     }
 
     .Log_perf {
-        width: 32px;
-        height: 32px;
-
+        width: 36px;
+        height: 36px;
         margin-right: 15px;
     }
 
     .nav_2 {
         right: 15px;
-        top: calc(100% + 5px);
     }
 
     .kalk {
         left: 15px;
-        top: calc(100% + 5px);
     }
 }
