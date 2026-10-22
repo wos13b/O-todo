@@ -305,19 +305,26 @@ function atualizarMiniRelogioContinuo() {
     const percentualDia = (tempo.segundosNoDiaAtual / SEGUNDOS_NO_DIA_CUSTOM) * 100;
     if (DOM.timelineProgressFill) DOM.timelineProgressFill.style.width = `${percentualDia}%`;
 
+    // Cálculo unificado do período atual (0 a 8) baseado no segundo exato do dia
     const duracaoPeriodo = SEGUNDOS_NO_DIA_CUSTOM / 9;
     const indicePeriodo = Math.max(0, Math.min(8, Math.floor(tempo.segundosNoDiaAtual / duracaoPeriodo)));
 
+    // Atualiza o ícone principal do primeiro relógio se necessário
     if (ultimoIndicePlaneta !== indicePeriodo) {
         ultimoIndicePlaneta = indicePeriodo;
         const regente = regenciasDiariasDoRelogio[indicePeriodo];
         if (DOM.miniClockIcon) DOM.miniClockIcon.textContent = regente.icone;
     }
 
+    // Sincroniza visualmente os segmentos da Timeline com o mesmo índice do relógio
     timelineSegmentsCache.forEach((seg, idx) => {
-        if (idx < indicePeriodo) seg.className = "timeline-arc-segment passed";
-        else if (idx === indicePeriodo) seg.className = "timeline-arc-segment active";
-        else seg.className = "timeline-arc-segment";
+        if (idx < indicePeriodo) {
+            seg.className = "timeline-arc-segment passed";
+        } else if (idx === indicePeriodo) {
+            seg.className = "timeline-arc-segment active";
+        } else {
+            seg.className = "timeline-arc-segment";
+        }
     });
 
     const idxP1 = Math.min(8, Math.floor((tempo.parte1 / 100) * 9));
