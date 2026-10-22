@@ -320,7 +320,6 @@ function atualizarMiniRelogioContinuo() {
         else seg.className = "timeline-arc-segment";
     });
 
-    // Sincronização e ativação dinâmica dos símbolos planetários
     const idxP1 = Math.min(8, Math.floor((tempo.parte1 / 100) * 9));
     const idxP2 = Math.min(8, Math.floor((tempo.parte2 / 100) * 9));
     const idxP3 = Math.min(8, Math.floor((tempo.parte3 / 100) * 9));
@@ -329,24 +328,9 @@ function atualizarMiniRelogioContinuo() {
     if (DOM.pNum2) DOM.pNum2.textContent = p2;
     if (DOM.pNum3) DOM.pNum3.textContent = p3;
 
-    // Atualização com gatilho visual animado (ativação ao passar a barra)
-    if (DOM.pDigit1 && DOM.pDigit1.textContent !== regenciasDiariasDoRelogio[idxP1].icone) {
-        DOM.pDigit1.textContent = regenciasDiariasDoRelogio[idxP1].icone;
-        DOM.pDigit1.classList.add("activated");
-        setTimeout(() => DOM.pDigit1.classList.remove("activated"), 600);
-    }
-    
-    if (DOM.pDigit2 && DOM.pDigit2.textContent !== regenciasDiariasDoRelogio[idxP2].icone) {
-        DOM.pDigit2.textContent = regenciasDiariasDoRelogio[idxP2].icone;
-        DOM.pDigit2.classList.add("activated");
-        setTimeout(() => DOM.pDigit2.classList.remove("activated"), 600);
-    }
-
-    if (DOM.pDigit3 && DOM.pDigit3.textContent !== regenciasDiariasDoRelogio[idxP3].icone) {
-        DOM.pDigit3.textContent = regenciasDiariasDoRelogio[idxP3].icone;
-        DOM.pDigit3.classList.add("activated");
-        setTimeout(() => DOM.pDigit3.classList.remove("activated"), 600);
-    }
+    if (DOM.pDigit1) DOM.pDigit1.textContent = regenciasDiariasDoRelogio[idxP1].icone;
+    if (DOM.pDigit2) DOM.pDigit2.textContent = regenciasDiariasDoRelogio[idxP2].icone;
+    if (DOM.pDigit3) DOM.pDigit3.textContent = regenciasDiariasDoRelogio[idxP3].icone;
 
     if (diaSelecionadoInfo && ehHoje(diaSelecionadoInfo.data)) {
         atualizarPainelAstronomia(new Date());
