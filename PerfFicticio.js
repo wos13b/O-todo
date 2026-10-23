@@ -57,13 +57,17 @@ function renderDetails(data) {
     for (const [key, value] of Object.entries(data)) {
         if (ignoreKeys.includes(key)) continue;
 
-        // Formata a chave (ex: "historia_origem" -> "Historia Origem")
+        // Formata a chave (ex: "historia_origem" -> "HISTORIA ORIGEM")
         const formattedKey = key.replace(/_/g, ' ').toUpperCase();
 
-        if (typeof value === 'object' && value !== null) {
-            html += `<div style="margin-top: 15px;"><strong>${formattedKey}:</strong><pre style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 4px;">${JSON.stringify(value, null, 2)}</pre></div>`;
+        if (value !== null && typeof value === 'object') {
+            html += `
+                <div style="margin-top: 15px; margin-bottom: 15px;">
+                    <strong style="color: #00ffcc; display: block; margin-bottom: 5px;">${formattedKey}:</strong>
+                    <pre style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; color: #e0e0e0; white-space: pre-wrap; word-break: break-word; font-family: monospace;">${JSON.stringify(value, null, 2)}</pre>
+                </div>`;
         } else {
-            html += `<p style="margin-bottom: 10px;"><strong>${formattedKey}:</strong> ${value}</p>`;
+            html += `<p style="margin-bottom: 12px;"><strong style="color: #00ffcc;">${formattedKey}:</strong> ${value}</p>`;
         }
     }
 
