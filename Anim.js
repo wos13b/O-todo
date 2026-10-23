@@ -1,3 +1,7 @@
+/* =====================================================
+   ANIMAÇÕES E COMPONENTES INTERATIVOS
+===================================================== */
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // ===============================
@@ -38,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "img/Silhueta/Orgãos/Genero.png"
         ];
 
-        // 🔥 imagens que vão alternar
         const imagensGenero = [
             "img/Silhueta/Objetos/Escudo.png",
             "img/Silhueta/Objetos/Espada.png"
@@ -46,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const totalSetores = imagensSetores.length;
         const angulo = 360 / totalSetores;
-
         const conteudos = [];
 
         for (let i = 0; i < totalSetores; i++) {
@@ -61,31 +63,26 @@ document.addEventListener("DOMContentLoaded", () => {
             setor.style.height = "100%";
             setor.style.left = "50%";
             setor.style.top = "0";
-
             setor.style.transformOrigin = "left center";
             setor.style.transform = `rotate(${rotacaoInicial}deg)`;
             setor.style.pointerEvents = "none";
 
-
             // 🔵 BOLINHA
             const bola = document.createElement("div");
-
             bola.style.position = "absolute";
             bola.style.left = "60%";
             bola.style.top = "50%";
-
             bola.style.width = "90px";
             bola.style.height = "90px";
-
             bola.style.transform = "translate(-50%, -50%)";
             bola.style.borderRadius = "50%";
             bola.style.overflow = "hidden";
-            bola.style.background = "#fff";
-
+            bola.style.background = "rgba(255, 255, 255, 0.9)";
+            bola.style.border = "1px solid rgba(198, 166, 255, 0.3)";
+            bola.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.5)";
 
             // 🔹 CONTAINER INTERNO
             const conteudo = document.createElement("div");
-
             conteudo.style.width = "100%";
             conteudo.style.height = "100%";
             conteudo.style.display = "flex";
@@ -94,10 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
             conteudo.style.willChange = "transform";
             conteudo.style.backfaceVisibility = "hidden";
 
-
             // 🔹 IMAGEM
             const img = document.createElement("img");
-
             img.style.width = "100%";
             img.style.height = "100%";
             img.style.objectFit = "contain";
@@ -105,33 +100,24 @@ document.addEventListener("DOMContentLoaded", () => {
             img.style.transform = "scale(0.8)";
             img.style.transition = "opacity 0.3s ease";
 
-
-            // ===============================
-            // 🔥 IMAGEM NORMAL OU ANIMADA
-            // ===============================
+            // Alternância de imagens (Género)
             if (imagensSetores[i].includes("Genero")) {
-
                 let indexGenero = 0;
                 img.src = imagensGenero[indexGenero];
 
                 setInterval(() => {
-
                     img.style.opacity = 0;
-
                     setTimeout(() => {
                         indexGenero = (indexGenero + 1) % imagensGenero.length;
                         img.src = imagensGenero[indexGenero];
                         img.style.opacity = 1;
                     }, 200);
-
                 }, 4000);
 
             } else {
                 img.src = imagensSetores[i];
             }
 
-
-            // montagem
             conteudo.appendChild(img);
             bola.appendChild(conteudo);
             setor.appendChild(bola);
@@ -140,18 +126,13 @@ document.addEventListener("DOMContentLoaded", () => {
             conteudos.push(conteudo);
         }
 
-
-        // ===============================
         // 🔹 ANIMAÇÃO DA RODA
-        // ===============================
         let rotacao = 0;
 
         function animarRoda() {
             rotacao += 0.2;
-
             roda.style.transform = `rotate(${rotacao}deg)`;
 
-            // 🔥 mantém imagens retas (CORRIGIDO)
             conteudos.forEach((c, i) => {
                 const rotacaoInicial = i * angulo;
                 c.style.transform = `rotate(${-(rotacao + rotacaoInicial)}deg)`;
@@ -172,7 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (meditationDiv) {
 
         const totalImagens = 20;
-
         const imagens = Array.from({ length: totalImagens }, (_, i) => {
             const numero = String(i + 1).padStart(3, "0");
             return `img/Meditação/Meditação_${numero}.png`;
