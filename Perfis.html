@@ -6,6 +6,7 @@
     <meta name="theme-color" content="#101010">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Perfis.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
     <script src="Supa.js" defer></script>
@@ -39,16 +40,26 @@
 
     <div class="Main">
         <div class="Conteudo">
-            <h1>Perfis da Família</h1>
-            <p>Membros registrados no sistema:</p>
+            <h1 class="section-title">Perfis da Família</h1>
+            <p class="section-subtitle">Membros registrados no sistema</p>
 
             <div class="user-profiles-container" id="userProfilesContainer">
                 <p style="color: #aaa; text-align: center; width: 100%;">A carregar perfis...</p>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h2 class="section-title title-fictional">Personagens Fictícios</h2>
+            <p class="section-subtitle">Entidades e arquétipos do sistema</p>
+
+            <div class="user-profiles-container fictional-section" id="fictionalProfilesContainer">
+                <p style="color: #aaa; text-align: center; width: 100%;">A carregar personagens...</p>
             </div>
         </div>
     </div>
 
     <script>
+        // Script para carregar perfis reais
         document.addEventListener("DOMContentLoaded", async () => {
             const container = document.getElementById("userProfilesContainer");
             if (!container) return;
@@ -63,7 +74,7 @@
                 container.innerHTML = "";
 
                 if (!users || users.length === 0) {
-                    container.innerHTML = "<p>Nenhum perfil encontrado.</p>";
+                    container.innerHTML = "<p style='color:#777;'>Nenhum perfil encontrado.</p>";
                     return;
                 }
 
@@ -88,7 +99,60 @@
 
             } catch (err) {
                 console.error("Erro ao carregar os perfis:", err);
-                container.innerHTML = "<p>Erro ao carregar os perfis do banco de dados.</p>";
+                container.innerHTML = "<p style='color:#ff5555;'>Erro ao carregar os perfis do banco de dados.</p>";
+            }
+        });
+
+        // Script para carregar os personagens fictícios
+        document.addEventListener("DOMContentLoaded", async () => {
+            const fictionalContainer = document.getElementById("fictionalProfilesContainer");
+            if (!fictionalContainer) return;
+
+            try {
+                const arquivosPersonagens = [
+                    'Nv_13/Personas/Prs_001.json'
+                ];
+
+                fictionalContainer.innerHTML = "";
+
+                if (arquivosPersonagens.length === 0) {
+                    fictionalContainer.innerHTML = "<p style='color:#777;'>Nenhum personagem encontrado.</p>";
+                    return;
+                }
+
+                for (const caminho of arquivosPersonagens) {
+                    const response = await fetch(caminho);
+                    if (!response.ok) continue;
+                    const charData = await response.json();
+
+                    // Extrai o diretório base do caminho do JSON (ex: "Nv_13/Personas/")
+                    const baseDir = caminho.substring(0, caminho.lastIndexOf('/') + 1);
+                    
+                    // Junta o diretório base ao caminho da imagem definido no JSON
+                    const avatarSrc = charData.avatar ? baseDir + charData.avatar : 'ico/Logo.png';
+
+                    const card = document.createElement("a");
+                    card.href = `PerfFicticio.html?nome=${encodeURIComponent(charData.nome)}`;
+                    card.className = "user-circle-card";
+
+                    const funcaoBadge = charData.funcao 
+                        ? `<span class="char-role-badge">${charData.funcao}</span>` 
+                        : '';
+
+                    card.innerHTML = `
+                        <div class="user-avatar">
+                            <img src="${avatarSrc}" alt="${charData.nome}" onerror="this.src='ico/Logo.png'">
+                        </div>
+                        <span class="user-name">${charData.nome}</span>
+                        ${funcaoBadge}
+                    `;
+
+                    fictionalContainer.appendChild(card);
+                }
+
+            } catch (err) {
+                console.error("Erro ao carregar os personagens fictícios:", err);
+                fictionalContainer.innerHTML = "<p style='color:#ff5555;'>Erro ao carregar os arquivos de personagens.</p>";
             }
         });
     </script>
