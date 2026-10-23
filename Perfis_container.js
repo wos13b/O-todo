@@ -47,9 +47,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         const arquivosPersonagens = [
-            'Nv_13/Personas/Prs_001.json'
-            // Adicione os outros arquivos aqui:
-            // 'Nv_13/Personas/Prs_002.json',
+            'Nv_13/Personas/Prs_001.json',
+            'Nv_13/Personas/Prs_002.json'
         ];
 
         fictionalContainer.innerHTML = "";
