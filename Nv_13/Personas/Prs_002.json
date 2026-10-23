@@ -1,0 +1,28 @@
+{
+  "nome": "Nix",
+  "funcao": "Arquivar",
+  "avatar": "img/Nix.png",
+  "titulos": ["A Colecionadora de Mundos Mortos", "O Último Livro Aberto", "A Sombra da Memória"],
+  "tipo": "Entidade custodial de registos primordiais",
+  "genero_narrativo": ["Fantasia sombria", "Mistério cósmico", "Melancolia filosófica"],
+  "conceito_central": "Carrega o peso de lembrar de tudo o que foi apagado, guardando em si civilizações inteiras que o resto do cosmos já esqueceu.",
+  "origem": {
+    "estado_inicial": "Surgiu como um reflexo passivo da primeira estrela que registou a passagem do tempo.",
+    "ruptura": "Quando o cosmos começou a descartar realidades falhas, Nix foi encarregada de absorver os restos para que o tecido da realidade não colapsasse.",
+    "consequencia": "Sua mente tornou-se uma necrópole infinita de sussurros, histórias e identidades perdidas."
+  },
+  "aparencia": {
+    "manifestacao_publica": "Uma figura longilínea envolta em mantos feitos de páginas de pergaminho estáticas, cujos olhos brilham com a luz cinzenta de estrelas mortas.",
+    "forma_verdadeira": "Um vórtice de dados emocionais e históricos em constante expansão."
+  },
+  "personalidade": {
+    "exterior": ["Serena", "Silenciosa", "Inabalável", "Melancólica"],
+    "interior": ["Exausta pelo peso da história", "Profundamente empática", "Com medo do esquecimento total"],
+    "desejo_oculto": "Poder esquecer pelo menos um dia e descansar do eco dos mortos."
+  },
+  "frases": [
+    "O que é uma civilização inteira senão um sussurro que recuso deixar morrer?",
+    "Vocês temem a morte, mas o verdadeiro terror é o momento em que ninguém se lembra de que vocês existiram."
+  ],
+  "status": "Sugestão de personagem para expansão"
+}
