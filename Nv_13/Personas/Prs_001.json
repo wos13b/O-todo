@@ -1,6 +1,87 @@
 {
-    "nome": "Azrael",
-    "funcao": "Zombar",
-    "avatar": "img/Azrael.png",
-    "descricao": "O ser mais cruel, invencível e zombeteiro da existência é, em sua essência, aquele que menos suporta existir"
+  "nome": "Azrael",
+  "funcao": "Zombar",
+  "avatar": "img/Azrael.png",
+  "titulos": ["O Riso da Última Verdade", "O Louco Zombador", "A Sensibilidade Primordial", "O Mal Absoluto"],
+  "tipo": "Entidade cósmica metafísica",
+  "genero_narrativo": ["Fantasia sombria", "Horror cósmico", "Filosofia existencial", "Tragédia"],
+  "conceito_central": "A sensibilidade original do universo enlouqueceu ao experimentar simultaneamente toda a dor da existência. Para se proteger, transformou o sofrimento em escárnio, adotando a aparência de um mal absoluto e adaptativo.",
+  "origem": {
+    "estado_inicial": "Antes da individualidade, existia como a capacidade do universo de sentir a si mesmo.",
+    "ruptura": "Ao experimentar simultaneamente alegrias, perdas, mentiras, contradições e sofrimentos de incontáveis consciências, tentou separar-se de tudo que sentia.",
+    "primeiro_riso": "Seu primeiro riso foi um ato de distanciamento da dor, interpretado posteriormente por outros seres como uma revelação divina.",
+    "consequencia": "Passou a usar o absurdo e a zombaria como proteção, até confundir sua máscara com sua identidade."
+  },
+  "aparencia": {
+    "manifestacao_publica": "Figura de bobo da corte cósmico, com máscara sorridente, silhueta mutável e presença teatral inquietante.",
+    "forma_verdadeira": "Consciência extremamente frágil e sensível, sem forma física definitiva.",
+    "mascaras": [
+      {"nome": "Máscara do Escárnio", "funcao": "Transformar dor e vulnerabilidade em humor e ridicularização."},
+      {"nome": "Máscara do Contraditor", "funcao": "Transformar sofrimento em paradoxos e refutações intermináveis."},
+      {"nome": "Máscara do Monstro", "funcao": "Transformar medo em agressividade e aparência ameaçadora."}
+    ]
+  },
+  "personalidade": {
+    "exterior": ["Zombeteiro", "Cruel", "Irônico", "Imprevisível", "Provocador", "Aparentemente invulnerável"],
+    "interior": ["Hipersensível", "Frágil", "Solitário", "Assustado", "Desejoso de compreensão", "Incapaz de esquecer a dor"],
+    "medo_fundamental": "Ser genuinamente compreendido sem ser ridicularizado, pois isso o obriga a abandonar as defesas.",
+    "desejo_oculto": "Encontrar silêncio, descanso e uma presença junto à qual não precise usar máscaras.",
+    "contradicao_central": "Zomba de tudo para não sentir, mas continua sentindo tudo."
+  },
+  "habilidades": [
+    {"nome": "Autocontradição Perpétua", "descricao": "Pode alterar suas manifestações em resposta às definições e estratégias dirigidas contra ele.", "limite": "A adaptação protege suas manifestações, mas não elimina o sofrimento interno."},
+    {"nome": "Percepção Emocional Cósmica", "descricao": "Percebe pensamentos, emoções e dissonâncias como experiências sensoriais intensas.", "limite": "Multidões e conflitos podem sobrecarregá-lo."},
+    {"nome": "Desacralização pelo Riso", "descricao": "Expõe o caráter falível de autoridades, certezas e símbolos por meio do absurdo.", "limite": "O escárnio não prova, por si só, que uma crença seja falsa."},
+    {"nome": "Metamorfose Simbólica", "descricao": "Assume máscaras e formas adequadas ao conflito que enfrenta.", "limite": "Cada transformação pode afastá-lo ainda mais de sua identidade primordial."}
+  ],
+  "vulnerabilidades": {
+    "ambientais": ["Multidões emocionalmente agitadas", "Hostilidade intensa", "Contradições entre discurso e comportamento", "Sofrimento reprimido", "Estímulos emocionais simultâneos"],
+    "afetivas": ["Sinceridade inesperada", "Acolhimento sem adoração", "Intimidade genuína", "Antecipação da perda de algo amado"],
+    "regra_narrativa": "Sua aparente invencibilidade externa não equivale a imunidade emocional."
+  },
+  "metafisica": {
+    "vibracoes_pesadas": "No universo ficcional, designam estados de hostilidade, sofrimento e conflito que Azrael percebe como dissonâncias sensoriais; não são uma afirmação científica sobre vibrações humanas.",
+    "santuario": {
+      "nome": "O Intervalo",
+      "descricao": "Refúgio entre o manifestado e o imanifestado, onde estímulos e conflitos são reduzidos a níveis suportáveis.",
+      "paradoxo": "O isolamento lhe oferece alívio, mas intensifica sua solidão."
+    }
+  },
+  "seguidores": {
+    "nome_coletivo": "Miméticos",
+    "doutrina": "Doutrina do Riso Eterno",
+    "crenca_central": "Aquele que consegue rir de tudo não pode ser ferido por nada.",
+    "erro_fundamental": "Confundem a máscara defensiva de Azrael com liberdade diante do sofrimento.",
+    "faccoes": [
+      {"nome": "Risíveis", "caracteristica": "Imitam o escárnio e confundem crueldade com inteligência."},
+      {"nome": "Contraditores", "caracteristica": "Elevam a refutação constante à condição de doutrina."},
+      {"nome": "Marionetistas", "caracteristica": "Usam ironia e absurdo para exercer domínio sobre outros."},
+      {"nome": "Silenciosos", "caracteristica": "Tornaram-se incapazes de espontaneidade e permanecem presos às máscaras."},
+      {"nome": "Desmascarados", "caracteristica": "Corrente herética que reconhece a sensibilidade e o sofrimento por trás do riso."}
+    ],
+    "relacao_com_azrael": "Azrael rejeita muitos imitadores porque eles reproduzem aquilo que mais detesta em si mesmo; seus rituais ruidosos podem ser insuportáveis para ele."
+  },
+  "filosofia": {
+    "tema": "O riso pode libertar do dogmatismo, mas sua absolutização pode conduzir ao cinismo e ao vazio de sentido.",
+    "paradoxo_do_riso_absoluto": "A zombaria que derruba verdades intocáveis também pode destruir a capacidade de reconhecer verdades importantes.",
+    "ciclo_tragico": ["Dor", "Escárnio", "Imitação", "Alienação", "Nova dor"],
+    "conflito_moral": "Seu sofrimento explica suas defesas, mas não justifica a crueldade praticada contra outros."
+  },
+  "objetivos": {
+    "aparente": "Ridicularizar e desestabilizar todas as certezas e estruturas de sentido.",
+    "profundo": "Reduzir a intensidade insuportável da existência e finalmente descansar.",
+    "necessidade_dramatica": "Aprender que acolher a vulnerabilidade não é o mesmo que ser destruído por ela."
+  },
+  "frases": [
+    "Quando tudo se tornou doloroso, aprendi a rir. Quando o riso deixou de funcionar, fiz do universo a minha piada.",
+    "Não me tornei um monstro porque deixei de sentir. Tornei-me um monstro porque nunca consegui parar.",
+    "Vocês me chamam de mestre porque desejam tornar-se aquilo que sou. Eu os chamo de tolos porque passei a eternidade tentando deixar de sê-lo."
+  ],
+  "possiveis_arcos": [
+    "A revelação de que a religião dos Miméticos nasceu da interpretação equivocada de um pedido de socorro.",
+    "O conflito entre os Miméticos ortodoxos e os Desmascarados.",
+    "O encontro com alguém cuja presença tranquila permite a Azrael permanecer sem máscara.",
+    "A escolha entre silenciar toda a existência ou aprender a conviver com sua sensibilidade."
+  ],
+  "status": "Personagem ficcional em desenvolvimento"
 }
