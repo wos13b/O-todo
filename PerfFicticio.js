@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-// Função auxiliar para renderizar os campos do JSON dinamicamente
+// Função auxiliar melhorada para formatar objetos e arrays de forma limpa
 function renderDetails(data) {
     let html = '';
     
@@ -57,17 +57,39 @@ function renderDetails(data) {
     for (const [key, value] of Object.entries(data)) {
         if (ignoreKeys.includes(key)) continue;
 
-        // Formata a chave (ex: "historia_origem" -> "HISTORIA ORIGEM")
         const formattedKey = key.replace(/_/g, ' ').toUpperCase();
 
         if (value !== null && typeof value === 'object') {
-            html += `
-                <div style="margin-top: 15px; margin-bottom: 15px;">
-                    <strong style="color: #00ffcc; display: block; margin-bottom: 5px;">${formattedKey}:</strong>
-                    <pre style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; color: #e0e0e0; white-space: pre-wrap; word-break: break-word; font-family: monospace;">${JSON.stringify(value, null, 2)}</pre>
-                </div>`;
+            html += `<div style="margin-top: 20px; margin-bottom: 15px;">`;
+            html += `<strong style="color: #00ffcc; display: block; margin-bottom: 8px; font-size: 1.1rem; border-bottom: 1px solid rgba(0,255,204,0.2); padding-bottom: 4px;">${formattedKey}:</strong>`;
+            
+            if (Array.isArray(value)) {
+                // Se for um array (ex: titulos, frases, mascaras)
+                html += `<ul style="margin-left: 20px; list-style-type: disc;">`;
+                value.forEach(item => {
+                    if (typeof item === 'object') {
+                        // Objeto dentro de array (ex: máscaras com nome e função)
+                        html += `<li style="margin-bottom: 8px;">`;
+                        for (const [subKey, subVal] of Object.entries(item)) {
+                            html.forEach ? html += `<strong style="color: #d870ff;">${subKey}:</strong> ${subVal} ` : '';
+                        }
+                        html += `</li>`;
+                    } else {
+                        html += `<li style="margin-bottom: 5px;">${item}</li>`;
+                    }
+                });
+                html += `</ul>`;
+            } else {
+                // Se for um objeto aninhado (ex: origem, aparencia, metafisica)
+                html += `<div style="padding-left: 10px; border-left: 2px solid rgba(255,255,255,0.1); margin-top: 5px;">`;
+                html += renderDetails(value); // Chamada recursiva para sub-objetos
+                html += `</div>`;
+            }
+            
+            html += `</div>`;
         } else {
-            html += `<p style="margin-bottom: 12px;"><strong style="color: #00ffcc;">${formattedKey}:</strong> ${value}</p>`;
+            // Valor de texto ou número simples
+            html += `<p style="margin-bottom: 10px;"><strong style="color: #00ffcc;">${formattedKey}:</strong> ${value}</p>`;
         }
     }
 
