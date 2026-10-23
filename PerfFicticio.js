@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-// Função auxiliar melhorada para formatar objetos e arrays de forma limpa
+// Função auxiliar com estilização avançada para os detalhes do personagem
 function renderDetails(data) {
     let html = '';
     
@@ -59,38 +59,68 @@ function renderDetails(data) {
 
         const formattedKey = key.replace(/_/g, ' ').toUpperCase();
 
+        html += `
+            <div style="background: rgba(15, 15, 15, 0.7); border: 1px solid rgba(138, 43, 226, 0.25); border-radius: 12px; padding: 20px; margin-bottom: 20px; backdrop-filter: blur(6px); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+                <h3 style="color: #bc13fe; font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 12px; border-bottom: 1px solid rgba(138, 43, 226, 0.2); padding-bottom: 8px; text-transform: uppercase;">
+                    ${formattedKey}
+                </h3>
+        `;
+
         if (value !== null && typeof value === 'object') {
-            html += `<div style="margin-top: 20px; margin-bottom: 15px;">`;
-            html += `<strong style="color: #00ffcc; display: block; margin-bottom: 8px; font-size: 1.1rem; border-bottom: 1px solid rgba(0,255,204,0.2); padding-bottom: 4px;">${formattedKey}:</strong>`;
-            
             if (Array.isArray(value)) {
-                // Se for um array (ex: titulos, frases, mascaras)
-                html += `<ul style="margin-left: 20px; list-style-type: disc;">`;
+                // Se for um array de elementos (ex: títulos, frases, habilidades)
+                html += `<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">`;
                 value.forEach(item => {
                     if (typeof item === 'object') {
-                        // Objeto dentro de array (ex: máscaras com nome e função)
-                        html += `<li style="margin-bottom: 8px;">`;
+                        // Se for um objeto dentro do array (ex: máscaras ou habilidades com sub-propriedades)
+                        html += `<div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px; width: 100%; margin-top: 6px;">`;
                         for (const [subKey, subVal] of Object.entries(item)) {
-                            html.forEach ? html += `<strong style="color: #d870ff;">${subKey}:</strong> ${subVal} ` : '';
+                            const formattedSubKey = subKey.replace(/_/g, ' ').toUpperCase();
+                            html += `<p style="margin-bottom: 4px; font-size: 0.9rem;"><strong style="color: #00ffcc;">${formattedSubKey}:</strong> <span style="color: #ddd;">${subVal}</span></p>`;
                         }
-                        html += `</li>`;
+                        html += `</div>`;
                     } else {
-                        html += `<li style="margin-bottom: 5px;">${item}</li>`;
+                        // Tag ou item simples em lista (ex: géneros narrativos, títulos)
+                        html += `<span style="background: rgba(138, 43, 226, 0.15); color: #d870ff; border: 1px solid rgba(138, 43, 226, 0.3); padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 500;">${item}</span>`;
                     }
                 });
-                html += `</ul>`;
+                html += `</div>`;
             } else {
                 // Se for um objeto aninhado (ex: origem, aparencia, metafisica)
-                html += `<div style="padding-left: 10px; border-left: 2px solid rgba(255,255,255,0.1); margin-top: 5px;">`;
-                html += renderDetails(value); // Chamada recursiva para sub-objetos
+                html += `<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">`;
+                for (const [subKey, subVal] of Object.entries(value)) {
+                    const formattedSubKey = subKey.replace(/_/g, ' ').toUpperCase();
+                    if (typeof subVal === 'object' && subVal !== null) {
+                        // Caso especial para sub-listas dentro de objetos (ex: máscaras dentro de aparencia)
+                        html += `<div style="margin-top: 8px;"><strong style="color: #00ffcc; font-size: 0.95rem;">${formattedSubKey}:</strong>`;
+                        if (Array.isArray(subVal)) {
+                            html += `<ul style="margin-left: 20px; margin-top: 5px;">`;
+                            subVal.forEach(subItem => {
+                                html += `<li style="margin-bottom: 5px; color: #ccc;">`;
+                                if (typeof subItem === 'object') {
+                                    for (const [k, v] of Object.entries(subItem)) {
+                                        html += `<strong>${k}:</strong> ${v} `;
+                                    }
+                                } else {
+                                    html += subItem;
+                                }
+                                html += `</li>`;
+                            });
+                            html += `</ul>`;
+                        }
+                        html += `</div>`;
+                    } else {
+                        html += `<p style="font-size: 0.95rem; line-height: 1.5;"><strong style="color: #00ffcc; text-transform: uppercase;">${formattedSubKey}:</strong> <span style="color: #d0d0d0;">${subVal}</span></p>`;
+                    }
+                }
                 html += `</div>`;
             }
-            
-            html += `</div>`;
         } else {
-            // Valor de texto ou número simples
-            html += `<p style="margin-bottom: 10px;"><strong style="color: #00ffcc;">${formattedKey}:</strong> ${value}</p>`;
+            // Valor de texto simples
+            html += `<p style="color: #d0d0d0; font-size: 0.95rem; line-height: 1.6;">${value}</p>`;
         }
+
+        html += `</div>`;
     }
 
     return html;
