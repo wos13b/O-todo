@@ -1,233 +1,204 @@
-/* =========================
-   VARIÁVEIS (controle global)
-========================= */
+/* =========================================================
+   SISTEMA DE TABELA / PAINEL DE PROTOCOLOS
+   ========================================================= */
+
 :root {
-    --bg-main: #1e1e1e;
-    --bg-soft: #2a2a2a;
-    --border: #3a3a3a;
+    --bg-main: #0c0a12;
+    --border-soft: rgba(255, 255, 255, 0.08);
 
-    --Brc: #ffffff;
-    --Prt: #000000;
-    --Vrm: #ff4d4d;
-    --Lrj: #ffa500;
-    --Ama: #ffff00;
-    --Vrd: #008000;
-    --Azl: #0000ff;
-    --Ind: #4B0082;
-    --passiva: #4da6ff;
-    --neutra: #4dff88;
+    /* Cores Vivas com Transparência Neon */
+    --clr-prt: #1a1a1a;
+    --clr-vrm: #ff3344;
+    --clr-lrj: #ff8800;
+    --clr-ama: #ffcc00;
+    --clr-vrd: #00e676;
+    --clr-azl: #00b0ff;
+    --clr-ind: #7c4dff;
+    --clr-vio: #d500f9;
+    --clr-brc: #ffffff;
 
-    --text-main: #f2f2f2;
-    --text-soft: #cfcfcf;
+    --text-main: #eee9f8;
+    --text-soft: #a097b2;
+    --gold: #d9bd75;
 }
 
-/* =========================
-   TABELA GERAL
-========================= */
-table {
+/* Container Responsivo com Scroll Suave */
+.table-container {
     width: 100%;
-    max-width: 1100px;
+    max-width: 1180px;
     margin: 40px auto;
-
-    font-family: 'Segoe UI', sans-serif;
-
-    background: linear-gradient(180deg, #050505, #424242);
-    backdrop-filter: blur(10px);
-
-    border-radius: 16px;
-    overflow: hidden;
-
-    border: 1px solid rgba(255,255,255,0.05);
-
-    box-shadow: 
-        0 20px 40px rgba(0,0,0,0.8),
-        inset 0 0 30px rgba(255,255,255,0.02);
+    overflow-x: auto;
+    padding: 10px;
 }
 
-.table_p{
-
-    color: #5f5a5a;
-
+.table-container::-webkit-scrollbar {
+    height: 6px;
 }
 
-/* =========================
-   IMAGENS (SÍMBOLOS)
-========================= */
-table img {
-    height: 32px;
-    width: 32px;
-    filter: brightness(1.3) contrast(1.1);
-    opacity: 0.9;
+.table-container::-webkit-scrollbar-thumb {
+    background: rgba(198, 166, 255, 0.3);
+    border-radius: 10px;
 }
 
-/* =========================
-   CABEÇALHO
-========================= */
+/* Tabela Estilizada como Painel Grid */
+table {
+    margin: 10px auto;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 6px; /* Espaçamento moderno entre as células */
+    font-family: 'Greek', Georgia, "Times New Roman", serif;
+    background: rgba(18, 16, 26, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+/* =========================================================
+   CABEÇALHOS & CATEGORIAS (LINHAS SUPERIORES)
+   ========================================================= */
+
 table thead th {
-    background: linear-gradient(90deg, #0d0d0d, #1a1a1a);
-    font-size: 1.2em;
-    padding: 20px;
-
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--gold);
+    font-size: 1.1em;
+    font-weight: normal;
+    padding: 18px 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
-
-    border-bottom: 1px solid var(--border);
-
-    text-shadow: 0 0 6px rgba(255,255,255,0.2);
-
+    border-radius: 12px;
+    border: 1px solid var(--border-soft);
+    text-shadow: 0 0 12px rgba(217, 189, 117, 0.3);
 }
 
-/* =========================
-   LINHA DE CATEGORIA
-========================= */
 .categoria td {
-    background: #1a1a1a;
-    font-weight: bold;
-    text-transform: uppercase;
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--gold);
     font-size: 0.8em;
-    letter-spacing: 1.5px;
-
-}
-
-/* =========================
-   CÉLULAS BASE
-========================= */
-table td {
-    padding: 18px;
-    text-align: center;
-
-    border: 1px solid rgba(255,255,255,0.05);
-
-    transition: all 0.25s ease;
-
-    font-size: 0.95em;
-    color: var(--text-soft);
-
-    position: relative;
-    overflow: hidden;
-}
-
-/* =========================
-   EFEITO DE LUZ (SUAVE)
-========================= */
-table td::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.06), transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-table td:hover::before {
-    opacity: 1;
-}
-
-/* =========================
-   HOVER (ELEVAÇÃO SUAVE)
-========================= */
-table td:hover {
-    cursor: pointer;
-    z-index: 2;
-
-
-    transform: translateY(-2px);
-
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-}
-
-/* =========================
-   ARQUÉTIPOS
-========================= */
-.arquetipos td {
     font-weight: bold;
-    font-size: 1.1em;
-    letter-spacing: 0.5px;
-    color: var(--text-main);
+    letter-spacing: 2px;
+    padding: 12px 6px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-transform: uppercase;
 }
 
-/* =========================
-   DESCRIÇÃO
-========================= */
+/* =========================================================
+   CÉLULAS BASE E EFEITOS
+   ========================================================= */
+
+table td {
+    padding: 14px 8px;
+    text-align: center;
+    font-size: 0.88em;
+    color: var(--text-soft);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    vertical-align: middle;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+table td:hover {
+    transform: translateY(-3px);
+    color: #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+}
+
+/* Imagens / Símbolos */
+table img {
+    height: 36px;
+    width: 36px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
+    transition: transform 0.3s ease;
+}
+
+table td:hover img {
+    transform: scale(1.18);
+}
+
+/* =========================================================
+   ARQUÉTIPOS / TRONOS (CARTÕES COLORIDOS)
+   ========================================================= */
+
+.arquetipos td {
+    font-size: 1em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #ffffff;
+    padding: 18px 8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Gradientes Suaves por Cor de Protocolo */
+.Prt { background: linear-gradient(180deg, rgba(30,30,30,0.8), rgba(10,10,10,0.9)); border-bottom: 3px solid #555; }
+.Vrm { background: linear-gradient(180deg, rgba(255,51,68,0.25), rgba(40,10,15,0.8)); border-bottom: 3px solid var(--clr-vrm); }
+.Lrj { background: linear-gradient(180deg, rgba(255,136,0,0.25), rgba(40,25,10,0.8)); border-bottom: 3px solid var(--clr-lrj); }
+.Ama { background: linear-gradient(180deg, rgba(255,204,0,0.25), rgba(40,35,10,0.8)); border-bottom: 3px solid var(--clr-ama); }
+.Vrd { background: linear-gradient(180deg, rgba(0,230,118,0.25), rgba(10,40,20,0.8)); border-bottom: 3px solid var(--clr-vrd); }
+.Azl { background: linear-gradient(180deg, rgba(0,176,255,0.25), rgba(10,25,40,0.8)); border-bottom: 3px solid var(--clr-azl); }
+.Ind { background: linear-gradient(180deg, rgba(124,77,255,0.25), rgba(25,15,40,0.8)); border-bottom: 3px solid var(--clr-ind); }
+.Vio { background: linear-gradient(180deg, rgba(213,0,249,0.25), rgba(35,10,40,0.8)); border-bottom: 3px solid var(--clr-vio); }
+.Brc { background: linear-gradient(180deg, rgba(255,255,255,0.25), rgba(40,40,40,0.8)); border-bottom: 3px solid var(--clr-brc); }
+
+/* Glow Neon ao passar o mouse sobre cada protocolo */
+.Vrm:hover { box-shadow: 0 0 16px rgba(255, 51, 68, 0.4); }
+.Lrj:hover { box-shadow: 0 0 16px rgba(255, 136, 0, 0.4); }
+.Ama:hover { box-shadow: 0 0 16px rgba(255, 204, 0, 0.4); }
+.Vrd:hover { box-shadow: 0 0 16px rgba(0, 230, 118, 0.4); }
+.Azl:hover { box-shadow: 0 0 16px rgba(0, 176, 255, 0.4); }
+.Ind:hover { box-shadow: 0 0 16px rgba(124, 77, 255, 0.4); }
+.Vio:hover { box-shadow: 0 0 16px rgba(213, 0, 249, 0.4); }
+.Brc:hover { box-shadow: 0 0 16px rgba(255, 255, 255, 0.4); }
+
+/* =========================================================
+   TEXTOS DE DESCRIÇÃO E ELEMENTOS
+   ========================================================= */
+
 .descricao td {
-    font-size: 0.96em;
-    color: #b8b8b8;
+    font-size: 0.82em;
+    line-height: 1.4;
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.02);
 }
 
-/* =========================
-   CORES POR TIPO (MAIS SUAVE)
-========================= */
-.Vrm {
-    background: rgba(255, 0, 0, 0.2);
-    border-bottom: 2px solid rgb(255, 0, 0);
-}
-.Lrj {
-    background: rgba(255, 128, 0, 0.2);
-    border-bottom: 2px solid rgb(255, 127, 0);
-}
-.Ama {
-    background: rgb(255, 255, 0, 0.2);
-    border-bottom: 2px solid rgb(255, 255, 0);
-}
-.Vrd {
-    background: rgb(0, 255, 0, 0.2);
-    border-bottom: 2px solid rgb(0, 255, 0);
-}
-.Azl {
-    background: rgb(0, 0, 255, 0.2);
-    border-bottom: 2px solid rgb(0, 0, 255);
-}
-.Ind {
-    background: rgb(76, 0, 130, 0.2);
-    border-bottom: 2px solid rgb(75, 0, 130);
-}
-.Vio {
-    background: rgb(144, 0, 255, 0.2);
-    border-bottom: 2px solid rgb(143, 0, 255);
-}
-.Brc {
-    background: rgb(255, 255, 255, 0.2);
-    border-bottom: 2px solid rgb(255, 255, 255);
-}
-.Prt {
-    background: rgb(0, 0, 0, 0.2);
-    border-bottom: 2px solid rgb(0, 0, 0);
+/* Rodapé da tabela (Aspectos Primordiais) */
+table tfoot td, .aspectos-primordiais {
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--gold);
+    font-size: 0.9em;
+    letter-spacing: 2px;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border-soft);
 }
 
-/* =========================
-   GLOW MAIS CONTROLADO
-========================= */
-.ativa:hover {
-    box-shadow: 0 0 10px rgba(255,77,77,0.4);
-}
+/* =========================================================
+   RESPONSIVIDADE (ECRÃS PEQUENOS)
+   ========================================================= */
 
-.passiva:hover {
-    box-shadow: 0 0 10px rgba(77,166,255,0.4);
-}
-
-.neutra:hover {
-    box-shadow: 0 0 10px rgba(77,255,136,0.4);
-}
-
-/* =========================
-   RESPONSIVO
-========================= */
-@media (max-width: 768px) {
-
+@media (max-width: 900px) {
     table {
-        font-size: 0.75em;
+        border-spacing: 4px;
+        padding: 8px;
     }
 
     table td {
-        padding: 10px;
+        font-size: 0.78em;
+        padding: 10px 4px;
     }
 
-    table thead th {
-        font-size: 0.9em;
+    .arquetipos td {
+        font-size: 0.85em;
     }
 
     table img {
-        width: 22px;
-        height: 22px;
+        width: 28px;
+        height: 28px;
     }
 }
