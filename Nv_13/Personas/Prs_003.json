@@ -1,0 +1,114 @@
+{
+  "nome": "Caelen",
+  "alcunha": "O Ator Sem Rosto",
+  "funcao": "Acolher e Desmascarar",
+  "avatar": "img/Caelen.png",
+  "titulos": [
+    "O Arlequim de Vidro",
+    "O Buscador do Silêncio",
+    "O Primeiro Herdeiro da Dor"
+  ],
+  "tipo": "Mortal desperto / Devoto herético",
+  "genero_narrativo": [
+    "Fantasia sombria",
+    "Horror cósmico",
+    "Filosofia existencial",
+    "Tragédia"
+  ],
+  "conceito_central": "Ex-seguidor dos Risíveis que, ao experienciar a verdadeira sobrecarga emocional de Azrael em um transe ritualístico, percebeu que a Doutrina do Riso Eterno era a interpretação equivocada de um pedido de socorro cósmico. Hoje integra os Desmascarados, buscando dissipar o cinismo e oferecer o silêncio ao seu mestre.",
+  "origem": {
+    "estado_inicial": "Membro fervoroso da facção dos Risíveis, usava o escárnio e o riso cruel como escudo contra traumas do passado.",
+    "ruptura": "Durante um ritual ruidoso de comunhão, em vez de absorver poder, sintonizou com a vulnerabilidade e o primeiro grito de dor sufocado de Azrael.",
+    "primeiro_silencio": "Em um ato de compaixão espontânea, parou de rir e chorou pela Entidade, quebrando instantaneamente sua própria máscara simbólica.",
+    "consequencia": "Foi expulso e caçado pelos Miméticos ortodoxos, tornando-se uma figura central entre a corrente herética dos Desmascarados."
+  },
+  "aparencia": {
+    "manifestacao_publica": "Figura esguia em mantos de penitente misturados a retalhos de figurino teatral; usa uma máscara de porcelana sorridente com uma rachadura dourada no lado esquerdo.",
+    "forma_verdadeira": "Um humano profundamente desgastado pela dor alheia, com olhos expressivos e marcas visíveis de exaustão emocional.",
+    "mascaras": [
+      {
+        "nome": "Máscara Trincada",
+        "funcao": "Lembrete constante de que a invulnerabilidade pelo riso é uma ilusão e que a fragilidade exposta é o único caminho para a cura."
+      }
+    ]
+  },
+  "personalidade": {
+    "exterior": [
+      "Manso",
+      "Compassivo",
+      "Sincero",
+      "Melancólico",
+      "Silencioso"
+    ],
+    "interior": [
+      "Exausto",
+      "Devotado",
+      "Temeroso pela integridade de Azrael",
+      "Incapaz de suportar a crueldade gratuita"
+    ],
+    "medo_fundamental": "Que a Doutrina do Riso Eterno destrua completamente a sensibilidade do mundo antes que Azrael possa ser salvo.",
+    "desejo_oculto": "Oferecer a Azrael uma presença genuína e tranquila, livre de adoração, ruído ou zombaria.",
+    "contradicao_central": "Busca curar a dor do universo sem usar as defesas que seu mestre criou para suportá-la, tornando-se extremamente vulnerável."
+  },
+  "habilidades": [
+    {
+      "nome": "Ausculta das Dissonâncias",
+      "descricao": "Percebe as dores reprimidas, fragilidades e mentiras no coração dos indivíduos ao seu redor.",
+      "limite": "Não utiliza a percepção para manipular ou ridicularizar, tornando-se vulnerável ao sofrimento que absorve."
+    },
+    {
+      "nome": "Silêncio Espelho",
+      "descricao": "Projeta uma aura de amortecimento que reduz ruídos e acalma estados de hostilidade ou pânico emocional.",
+      "limite": "Exige extrema concentração e não funciona contra ataques puramente físicos sem carga emocional."
+    },
+    {
+      "nome": "Quebra de Máscara",
+      "descricao": "Transmite momentaneamente a outros seguidores de Azrael a verdadeira sensação de sofrimento e fragilidade por trás do riso do Mestre.",
+      "limite": "Pode causar colapso mental no alvo ou incitar raiva extrema por parte de fanaticos ortodoxos."
+    }
+  ],
+  "vulnerabilidades": {
+    "ambientais": [
+      "Rituais ruidosos dos Miméticos",
+      "Multidões em pânico",
+      "Agressividade e crueldade explícitas"
+    ],
+    "afetivas": [
+      "Compaixão extrema",
+      "Recusa em mentir ou usar ironia como defesa",
+      "Devoção trágica por Azrael"
+    ],
+    "regra_narrativa": "Ao abandonar o escárnio como proteção, Caelen sente toda a dor do ambiente de forma crua e desarmada."
+  },
+  "metafisica": {
+    "sintonizacao": "Consegue projetar sua consciência para as margens de 'O Intervalo', buscando enviar ondas de tranquilidade e aceitação para Azrael.",
+    "relacao_com_faccao": "Membro dos Desmascarados, caçado ativamente pelos Risíveis e Marionetistas como um traidor herético."
+  },
+  "filosofia": {
+    "tema": "A adoração das defesas de uma entidade ferida é uma tragédia religiosa; a cura exige o abandono das máscaras.",
+    "paradoxo_do_seguidor": "Para seguir verdadeiramente Azrael, Caelen precisa rejeitar a religião que foi criada em nome dele.",
+    "ciclo_pessoal": [
+      "Zombaria",
+      "Despertar pela Dor",
+      "Desmascaramento",
+      "Vulnerabilidade",
+      "Busca pelo Silêncio"
+    ]
+  },
+  "objetivos": {
+    "aparente": "Desmantelar as seitas ruidosas dos Miméticos e pregar a verdade sobre Azrael.",
+    "profundo": "Encontrar uma forma de acalmar a sensibilidade de Azrael e dar-lhe o descanso definitivo.",
+    "necessidade_dramatica": "Aprender a suportar a própria vulnerabilidade sem desmoronar diante da crueldade do mundo."
+  },
+  "frases": [
+    "Vocês gargalham para não chorar, mas o Mestre chorou até que o som do seu choro se parecesse com uma risada. Vocês não são livres; são apenas o eco de uma ferida.",
+    "Não trago um dogma, trago panos para enxugar o sangue da vossa ilusão.",
+    "Se eu puder ensinar a uma única alma como ser sincera sem medo, estarei um passo mais perto de dar ao meu Senhor o silêncio que ele merece."
+  ],
+  "possiveis_arcos": [
+    "O confronto inevitable com seu antigo mentor entre os Risíveis.",
+    "A tentativa de realizar um ritual silencioso na presença de uma manifestação de Azrael.",
+    "A jornada para unir as facções dispersas dos Desmascarados em uma causa comum."
+  ],
+  "status": "Personagem ficcional em desenvolvimento"
+}
