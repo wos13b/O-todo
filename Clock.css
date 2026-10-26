@@ -350,7 +350,7 @@ body {
     justify-content: center;
     border-right: 1px solid rgba(255, 255, 255, 0.06);
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.671);
     transition: all 0.3s ease;
     cursor: pointer;
     user-select: none;
@@ -366,8 +366,8 @@ body {
 }
 
 .timeline-arc-segment.active {
-    color: #00d2ff;
-    font-weight: 700;
+    color: #000000;
+    font-weight: 900;
     transform: scale(1.15);
     text-shadow: 0 0 12px rgba(0, 210, 255, 0.8);
 }
