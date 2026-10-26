@@ -222,8 +222,13 @@ supabaseClient.auth.onAuthStateChange(
 
 
 // =========================================================
-// FUNÇÃO: EFEITO DE FUNDO MATRIX (EXPANDIDO)
+// FUNÇÃO: EFEITO DE FUNDO MATRIX (EXPANDIDO COM CONTROLE)
 // =========================================================
+
+let matrixControl = {
+  toggle: null,
+  isAtivo: true
+};
 
 function iniciarFundoMatrix() {
   const canvas = document.getElementById("matrix-canvas");
@@ -235,7 +240,6 @@ function iniciarFundoMatrix() {
 
   if (!ctx) return;
 
-  // Renderiza em resolução reduzida no telemóvel/celular.
   const scale = window.innerWidth < 768 ? 0.6 : 1;
   const fontSize = 14 * scale;
 
@@ -296,14 +300,12 @@ function iniciarFundoMatrix() {
   }
 
   function tick() {
-    if (document.hidden) {
+    if (document.hidden || !matrixControl.isAtivo) {
       timer = null;
       return;
     }
 
     drawMatrix();
-
-    // Cerca de 12 atualizações por segundo.
     timer = setTimeout(tick, 38);
   }
 
@@ -312,10 +314,11 @@ function iniciarFundoMatrix() {
       clearTimeout(timer);
       timer = null;
     }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
   function start() {
-    if (timer === null && !document.hidden) {
+    if (timer === null && !document.hidden && matrixControl.isAtivo) {
       tick();
     }
   }
@@ -326,7 +329,6 @@ function iniciarFundoMatrix() {
   }
 
   resizeCanvas();
-
   window.addEventListener("resize", handleResize);
 
   document.addEventListener("visibilitychange", () => {
@@ -337,7 +339,32 @@ function iniciarFundoMatrix() {
     }
   });
 
-  start();
+  // Função global de alternância associada ao botão
+  matrixControl.toggle = function(forcarEstado) {
+    matrixControl.isAtivo = forcarEstado !== undefined ? forcarEstado : !matrixControl.isAtivo;
+    
+    const btn = document.getElementById("matrixToggleBtn");
+    if (btn) {
+      btn.textContent = matrixControl.isAtivo ? "Matrix: ON" : "Matrix: OFF";
+      btn.classList.toggle("ativo", matrixControl.isAtivo);
+      btn.classList.toggle("inativo", !matrixControl.isAtivo);
+    }
+
+    localStorage.setItem("matrixAtivo", matrixControl.isAtivo);
+
+    if (matrixControl.isAtivo) {
+      canvas.style.display = "block";
+      start();
+    } else {
+      stop();
+      canvas.style.display = "none";
+    }
+  };
+
+  // Recuperar preferência salva
+  const salvo = localStorage.getItem("matrixAtivo");
+  const estadoInicial = salvo !== null ? salvo === "true" : true;
+  matrixControl.toggle(estadoInicial);
 }
 
 

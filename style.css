@@ -761,6 +761,40 @@ button:active {
     cursor: pointer;
 }
 
+/* ================================
+   MINI BOTÃO MATRIX
+================================ */
+.matrix-toggle-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e6e8ec;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+.matrix-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.matrix-toggle-btn.ativo {
+    color: #ccffcc;
+    border-color: rgba(45, 212, 115, 0.4);
+    box-shadow: 0 0 8px rgba(45, 212, 115, 0.2);
+}
+
+.matrix-toggle-btn.inativo {
+    color: #a0a5b5;
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(20, 20, 20, 0.4);
+}
+
 /* =========================================================
    RESPONSIVIDADE GERAL & MEDIA QUERIES
    ========================================================= */

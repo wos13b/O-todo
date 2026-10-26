@@ -140,7 +140,7 @@ function renderizarIconeOuImagem(elementoDOM, dados, maxDim = "45px") {
 }
 
 // =========================================================
-// CÁLCULOS ASTRONÔMICOS (SOL E LUA)
+// CÁLCULOS ASTRONÓMICOS (SOL E LUA)
 // =========================================================
 
 function calcularSignoSolar(data) {
@@ -292,6 +292,8 @@ function criarSegmentosTimelineCircular() {
     }
 }
 
+let ultimoSegundoVerificado = -1;
+
 function atualizarMiniRelogioContinuo() {
     if (!DOM.miniClockTime || !DOM.miniClockDate) return;
     const tempo = obterTempoCosmicoAtual();
@@ -305,18 +307,15 @@ function atualizarMiniRelogioContinuo() {
     const percentualDia = (tempo.segundosNoDiaAtual / SEGUNDOS_NO_DIA_CUSTOM) * 100;
     if (DOM.timelineProgressFill) DOM.timelineProgressFill.style.width = `${percentualDia}%`;
 
-    // Cálculo unificado do período atual (0 a 8) baseado no segundo exato do dia
     const duracaoPeriodo = SEGUNDOS_NO_DIA_CUSTOM / 9;
     const indicePeriodo = Math.max(0, Math.min(8, Math.floor(tempo.segundosNoDiaAtual / duracaoPeriodo)));
 
-    // Atualiza o ícone principal do primeiro relógio se necessário
     if (ultimoIndicePlaneta !== indicePeriodo) {
         ultimoIndicePlaneta = indicePeriodo;
         const regente = regenciasDiariasDoRelogio[indicePeriodo];
         if (DOM.miniClockIcon) DOM.miniClockIcon.textContent = regente.icone;
     }
 
-    // Sincroniza visualmente os segmentos da Timeline com o mesmo índice do relógio
     timelineSegmentsCache.forEach((seg, idx) => {
         if (idx < indicePeriodo) {
             seg.className = "timeline-arc-segment passed";
@@ -339,8 +338,16 @@ function atualizarMiniRelogioContinuo() {
     if (DOM.pDigit2) DOM.pDigit2.textContent = regenciasDiariasDoRelogio[idxP2].icone;
     if (DOM.pDigit3) DOM.pDigit3.textContent = regenciasDiariasDoRelogio[idxP3].icone;
 
-    if (diaSelecionadoInfo && ehHoje(diaSelecionadoInfo.data)) {
-        atualizarPainelAstronomia(new Date());
+    // Otimização: Funções de atualização por segundo em vez de 60fps
+    const segundoAtual = Math.floor(tempo.segundosNoDiaAtual);
+    if (segundoAtual !== ultimoSegundoVerificado) {
+        ultimoSegundoVerificado = segundoAtual;
+        atualizarRelogioDeResets();
+        atualizarRelogioDeSegundosTotais();
+
+        if (diaSelecionadoInfo && ehHoje(diaSelecionadoInfo.data)) {
+            atualizarPainelAstronomia(new Date());
+        }
     }
 }
 
@@ -375,8 +382,6 @@ function atualizarRelogioDeSegundosTotais() {
 
 requestAnimationFrame(function loop() {
     atualizarMiniRelogioContinuo();
-    atualizarRelogioDeResets();
-    atualizarRelogioDeSegundosTotais();
     requestAnimationFrame(loop);
 });
 
