@@ -525,6 +525,12 @@ body {
    RESPONSIVIDADE (MOBILE)
 ================================ */
 @media (max-width: 768px) {
+    /* Oculta o relógio planetário integrado e o de segundos totais no celular */
+    .planet-clock-integrated,
+    .total-seconds-clock {
+        display: none !important;
+    }
+
     .cosmic-dashboard {
         padding: 16px 12px;
         gap: 16px;
