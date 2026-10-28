@@ -7,6 +7,30 @@ const PORT = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Rota Principal com SSR
+app.get('/', (req, res) => {
+    renderizarHome(req, res);
+});
+
+// Redirecionar /index.html ou /index para a rota principal
+app.get('/index.html', (req, res) => {
+    res.redirect('/');
+});
+
+function renderizarHome(req, res) {
+    const tempo = obterTempoCosmicoAtual();
+    const mesNome = nomesSetores[tempo.setor - 1];
+
+    const dadosSSR = {
+        ano: tempo.anoCosmico,
+        setorNome: mesNome,
+        diaDoSetor: tempo.diaDoSetor,
+        totalDiasSetor: DIAS_POR_SETOR
+    };
+
+    res.render('index', { dadosSSR });
+}
+
 // CORREÇÃO: Servir arquivos estáticos diretamente da raiz do projeto
 app.use(express.static(path.join(__dirname)));
 
