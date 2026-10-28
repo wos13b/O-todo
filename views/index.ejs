@@ -113,8 +113,10 @@
                             <button id="prevYear" class="nav-button">«</button>
                             <button id="prevMonth" class="nav-button">‹</button>
                             <div class="titulo">
-                                <h1 id="monthName" data-i18n="calendario_mes_1">Mês</h1>
-                                <span id="yearDisplay">2026</span>
+                                <!-- O Servidor injeta o mês atual aqui -->
+                                <h1 id="monthName"><%= dadosSSR.setorNome %></h1>
+                                <!-- O Servidor injeta o ano atual aqui -->
+                                <span id="yearDisplay"><%= dadosSSR.ano %></span>
                             </div>
                             <button id="nextMonth" class="nav-button">›</button>
                             <button id="nextYear" class="nav-button">»</button>
