@@ -3,14 +3,14 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configurar o EJS como motor de visualização (Template Engine)
+// Configurar o EJS como motor de visualização
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Servir arquivos estáticos (CSS, imagens, scripts do cliente)
-app.use(express.static(path.join(__dirname, 'public')));
+// CORREÇÃO: Servir arquivos estáticos diretamente da raiz do projeto
+app.use(express.static(path.join(__dirname)));
 
-// Função de cálculo cósmico adaptada para rodar no Servidor (Node.js)
+// Função de cálculo cósmico
 const TOTAL_DIAS_ANO = 729;
 const TOTAL_SETORES = 9;
 const DIAS_POR_SETOR = 81;
@@ -40,7 +40,6 @@ app.get('/', (req, res) => {
     const tempo = obterTempoCosmicoAtual();
     const mesNome = nomesSetores[tempo.setor - 1];
 
-    // Dados injetados pelo servidor no HTML inicial
     const dadosSSR = {
         ano: tempo.anoCosmico,
         setorNome: mesNome,
@@ -52,5 +51,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
