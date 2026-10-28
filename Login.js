@@ -166,7 +166,7 @@ if (formulario) {
             // =================================================
 
             window.location.href =
-                "index.html";
+                "/";
 
         }
     );
