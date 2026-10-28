@@ -204,8 +204,8 @@
    ========================================================= */
 
 .Log_perf {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
 
     flex-shrink: 0;
     margin-right: 24px;
