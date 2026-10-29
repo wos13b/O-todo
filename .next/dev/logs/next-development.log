@@ -1,0 +1,37 @@
+{"timestamp":"00:00:01.058","source":"Server","level":"LOG","message":"It looks like you're trying to use TypeScript but do not have the required package(s) installed.\nInstalling dependencies\n\nIf you are not trying to use TypeScript, please remove the tsconfig.json file from your package root (and any TypeScript files in your app and pages directories).\n"}
+{"timestamp":"00:00:01.249","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:01.249","source":"Server","level":"LOG","message":"Installing devDependencies (npm):"}
+{"timestamp":"00:00:01.249","source":"Server","level":"LOG","message":"- typescript"}
+{"timestamp":"00:00:01.249","source":"Server","level":"LOG","message":"- @types/react"}
+{"timestamp":"00:00:01.249","source":"Server","level":"LOG","message":"- @types/node"}
+{"timestamp":"00:00:01.250","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:04.597","source":"Server","level":"LOG","message":"  Turbopack has seen frequent file updates and is waiting for the filesystem to settle (0.5s elapsed so far; last modified: \"\\\\\\\\?\\\\C:\\\\Users\\\\wesle\\\\OneDrive\\\\Documentos\\\\GitHub\\\\O-todo\\\\node_modules\\\\typescript\\\\vendor\\\\vscode-jsonrpc\\\\lib\\\\common\\\\connection.js\")."}
+{"timestamp":"00:00:10.932","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:10.938","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:10.939","source":"Server","level":"LOG","message":"  We detected TypeScript in your project and created a tsconfig.json file for you."}
+{"timestamp":"00:00:11.196","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:01:12.157","source":"Server","level":"ERROR","message":"⨯ ./app/page.tsx\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\n"}
+{"timestamp":"00:01:13.714","source":"Server","level":"ERROR","message":"⨯ ./app/page.tsx\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\n"}
+{"timestamp":"00:01:14.093","source":"Browser","level":"ERROR","message":"Uncaught Error: ./app/page.tsx\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\n"}
+{"timestamp":"00:01:14.093","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught Error: ./app/page.tsx\\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\\n\\u001b[39m\""}
+{"timestamp":"00:01:14.126","source":"Browser","level":"ERROR","message":"./app/page.tsx\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout. "}
+{"timestamp":"00:01:14.126","source":"Server","level":"ERROR","message":"[browser] \"./app/page.tsx\\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\" \"\""}
+{"timestamp":"00:01:14.184","source":"Browser","level":"ERROR","message":"./app/page.tsx\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout. "}
+{"timestamp":"00:01:14.184","source":"Server","level":"ERROR","message":"[browser] \"./app/page.tsx\\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\" \"\""}
+{"timestamp":"00:01:15.067","source":"Browser","level":"ERROR","message":"./app/page.tsx\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout. "}
+{"timestamp":"00:01:15.067","source":"Server","level":"ERROR","message":"[browser] \"./app/page.tsx\\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\" \"\""}
+{"timestamp":"00:01:50.199","source":"Server","level":"ERROR","message":"⨯ ./app/page.tsx\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\n"}
+{"timestamp":"00:01:51.258","source":"Server","level":"ERROR","message":"⨯ ./app/page.tsx\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\n"}
+{"timestamp":"00:01:51.533","source":"Browser","level":"ERROR","message":"Uncaught Error: ./app/page.tsx\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\n"}
+{"timestamp":"00:01:51.534","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught Error: ./app/page.tsx\\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\\n\\u001b[39m\""}
+{"timestamp":"00:01:51.563","source":"Browser","level":"ERROR","message":"./app/page.tsx\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout. "}
+{"timestamp":"00:01:51.563","source":"Server","level":"ERROR","message":"[browser] \"./app/page.tsx\\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\" \"\""}
+{"timestamp":"00:01:51.648","source":"Browser","level":"ERROR","message":"./app/page.tsx\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout. "}
+{"timestamp":"00:01:51.648","source":"Server","level":"ERROR","message":"[browser] \"./app/page.tsx\\nError: page.tsx doesn't have a root layout. To fix this error, make sure every page has a root layout.\" \"\""}
+{"timestamp":"00:02:53.050","source":"Server","level":"LOG","message":"✓ Compiled in 258ms"}
+{"timestamp":"00:02:54.261","source":"Server","level":"ERROR","message":"⨯ Error: The default export is not a React Component in \"/layout\""}
+{"timestamp":"00:02:54.267","source":"Server","level":"ERROR","message":"⨯ Error: The default export is not a React Component in \"/layout\""}
+{"timestamp":"00:02:54.666","source":"Browser","level":"ERROR","message":"Uncaught Error: The default export is not a React Component in \"/layout\""}
+{"timestamp":"00:02:54.666","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught Error: The default export is not a React Component in \\\"/layout\\\"\\u001b[39m\""}
+{"timestamp":"00:02:55.522","source":"Server","level":"LOG","message":"✓ Compiled in 14ms"}
+{"timestamp":"00:03:17.340","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
