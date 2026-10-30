@@ -1,6 +1,6 @@
 import '/style.css';
 import '/header.css';
-import 'clock.css';
+import '/clock.css';
 
 export const metadata = {
   title: 'Meu Projeto O-todo',
