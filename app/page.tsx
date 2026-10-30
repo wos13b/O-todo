@@ -175,6 +175,7 @@ export default function Page() {
           </div>
         </div>
       </div>
+      <script src="/script.js" defer></script>
     </main>
   );
 }
