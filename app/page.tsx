@@ -175,6 +175,8 @@ export default function Page() {
           </div>
         </div>
       </div>
+      <script src="/Anim.js" defer></script>
+      <script src="/Profile.js" defer></script>
       <script src="/script.js" defer></script>
       <script src="/Clock.js" defer></script>
     </main>
