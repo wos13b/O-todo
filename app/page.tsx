@@ -20,7 +20,7 @@ export default function Page() {
           <li><a href="Elemental.html" data-i18n="menu_Fisica">Fisica/Quimica</a></li>
         </ul>
         <ul className="nav_2">
-          <li><a href="cruz/page.tsx" data-i18n="menu_fonte">Fonte Divina</a></li>
+          <li><a href="cruz" data-i18n="menu_fonte">Fonte Divina</a></li>
           <li><a href="Pl.html" data-i18n="menu_plano">Plano existencial</a></li>
           <li><a href="Idiom.html">Idiomas</a></li>
           <li><a href="Padrão.html" data-i18n="menu_padrões">Padrões universais</a></li>
