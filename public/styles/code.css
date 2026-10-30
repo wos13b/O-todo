@@ -1,0 +1,10 @@
+.Code_aouz {
+  margin: auto;
+  width: 400px;
+  cursor: pointer;
+}
+
+.Code_aouz h1 {
+  transition: color 1s, opacity 0.7s;
+  opacity: 1;
+}
