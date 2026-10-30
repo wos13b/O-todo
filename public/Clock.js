@@ -25,30 +25,30 @@ const nomesSetores = [
 ];
 
 const regenciasDiariasDoRelogio = [
-    { nome: "Sūrya (Sol)", icone: "☉", img: "img/Silhueta/Symb/Cosmo/Sol.png", atributo: "Identidade" },
-    { nome: "Budha (Mercúrio)", icone: "☿", img: "img/Silhueta/Symb/Cosmo/Mercurio.png", atributo: "Comunicação" },
-    { nome: "Śukra (Vênus)", icone: "♀", img: "img/Silhueta/Symb/Cosmo/Venus.png", atributo: "Desejo" },
-    { nome: "Chandra (Lua)", icone: "☽", img: "img/Silhueta/Symb/Cosmo/Lua.png", atributo: "Emoção" },
-    { nome: "Maṅgala (Marte)", icone: "♂", img: "img/Silhueta/Symb/Cosmo/Marte.png", atributo: "Ação" },
-    { nome: "Bṛhaspati (Júpiter)", icone: "♃", img: "img/Silhueta/Symb/Cosmo/Jupiter.png", atributo: "Expansão" },
-    { nome: "Śani (Saturno)", icone: "♄", img: "img/Silhueta/Symb/Cosmo/Saturno.png", atributo: "Disciplina" },
-    { nome: "Urano", icone: "⛢", img: "img/Silhueta/Symb/Cosmo/Urano.png", atributo: "Inovação" },
-    { nome: "Netuno", icone: "♆", img: "img/Silhueta/Symb/Cosmo/Netuno.png", atributo: "Imaginação" }
+    { nome: "Sūrya (Sol)", icone: "☉", img: "/img/Silhueta/Symb/Cosmo/Sol.png", atributo: "Identidade" },
+    { nome: "Budha (Mercúrio)", icone: "☿", img: "/img/Silhueta/Symb/Cosmo/Mercurio.png", atributo: "Comunicação" },
+    { nome: "Śukra (Vênus)", icone: "♀", img: "/img/Silhueta/Symb/Cosmo/Venus.png", atributo: "Desejo" },
+    { nome: "Chandra (Lua)", icone: "☽", img: "/img/Silhueta/Symb/Cosmo/Lua.png", atributo: "Emoção" },
+    { nome: "Maṅgala (Marte)", icone: "♂", img: "/img/Silhueta/Symb/Cosmo/Marte.png", atributo: "Ação" },
+    { nome: "Bṛhaspati (Júpiter)", icone: "♃", img: "/img/Silhueta/Symb/Cosmo/Jupiter.png", atributo: "Expansão" },
+    { nome: "Śani (Saturno)", icone: "♄", img: "/img/Silhueta/Symb/Cosmo/Saturno.png", atributo: "Disciplina" },
+    { nome: "Urano", icone: "⛢", img: "/img/Silhueta/Symb/Cosmo/Urano.png", atributo: "Inovação" },
+    { nome: "Netuno", icone: "♆", img: "/img/Silhueta/Symb/Cosmo/Netuno.png", atributo: "Imaginação" }
 ];
 
 const LISTA_SIGNOS = [
-    { nome: "Capricórnio", icone: "♑", img: "img/Silhueta/Signos/Capricornio.png", elemento: "Terra" },
-    { nome: "Aquário", icone: "♒", img: "img/Silhueta/Signos/Aquario.png", elemento: "Ar" },
-    { nome: "Peixes", icone: "♓", img: "img/Silhueta/Signos/Peixes.png", elemento: "Água" },
-    { nome: "Áries", icone: "♈", img: "img/Silhueta/Signos/Aries.png", elemento: "Fogo" },
-    { nome: "Touro", icone: "♉", img: "img/Silhueta/Signos/Touro.png", elemento: "Terra" },
-    { nome: "Gêmeos", icone: "♊", img: "img/Silhueta/Signos/Gemeos.png", elemento: "Ar" },
-    { nome: "Câncer", icone: "♋", img: "img/Silhueta/Signos/Cancer.png", elemento: "Água" },
-    { nome: "Leão", icone: "♌", img: "img/Silhueta/Signos/Leao.png", elemento: "Fogo" },
-    { nome: "Virgem", icone: "♍", img: "img/Silhueta/Signos/Virgem.png", elemento: "Terra" },
-    { nome: "Libra", icone: "♎", img: "img/Silhueta/Signos/Libra.png", elemento: "Ar" },
-    { nome: "Escorpião", icone: "♏", img: "img/Silhueta/Signos/Escorpiao.png", elemento: "Água" },
-    { nome: "Sagitário", icone: "♐", img: "img/Silhueta/Signos/Sagitario.png", elemento: "Fogo" }
+    { nome: "Capricórnio", icone: "♑", img: "/img/Silhueta/Signos/Capricornio.png", elemento: "Terra" },
+    { nome: "Aquário", icone: "♒", img: "/img/Silhueta/Signos/Aquario.png", elemento: "Ar" },
+    { nome: "Peixes", icone: "♓", img: "/img/Silhueta/Signos/Peixes.png", elemento: "Água" },
+    { nome: "Áries", icone: "♈", img: "/img/Silhueta/Signos/Aries.png", elemento: "Fogo" },
+    { nome: "Touro", icone: "♉", img: "/img/Silhueta/Signos/Touro.png", elemento: "Terra" },
+    { nome: "Gêmeos", icone: "♊", img: "/img/Silhueta/Signos/Gemeos.png", elemento: "Ar" },
+    { nome: "Câncer", icone: "♋", img: "/img/Silhueta/Signos/Cancer.png", elemento: "Água" },
+    { nome: "Leão", icone: "♌", img: "/img/Silhueta/Signos/Leao.png", elemento: "Fogo" },
+    { nome: "Virgem", icone: "♍", img: "/img/Silhueta/Signos/Virgem.png", elemento: "Terra" },
+    { nome: "Libra", icone: "♎", img: "/img/Silhueta/Signos/Libra.png", elemento: "Ar" },
+    { nome: "Escorpião", icone: "♏", img: "/img/Silhueta/Signos/Escorpiao.png", elemento: "Água" },
+    { nome: "Sagitário", icone: "♐", img: "/img/Silhueta/Signos/Sagitario.png", elemento: "Fogo" }
 ];
 
 const DOM = {
