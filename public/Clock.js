@@ -47,7 +47,7 @@ const LISTA_SIGNOS = [
     { nome: "Leão", icone: "♌", img: "/img/Silhueta/Signos/Leao.png", elemento: "Fogo" },
     { nome: "Virgem", icone: "♍", img: "/img/Silhueta/Signos/Virgem.png", elemento: "Terra" },
     { nome: "Libra", icone: "♎", img: "/img/Silhueta/Signos/Libra.png", elemento: "Ar" },
-    { nome: "Escorpião", icone: "♏", img: "/img/Silhueta/Signos/Escorpiao.png", elemento: "Água" },
+    { nome: "Escorpião", icone: "♏", img: "img/Silhueta/Signos/Escorpiao.png", elemento: "Água" },
     { nome: "Sagitário", icone: "♐", img: "/img/Silhueta/Signos/Sagitario.png", elemento: "Fogo" }
 ];
 
