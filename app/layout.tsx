@@ -1,5 +1,7 @@
 import '/style.css';
 import '/header.css';
+import '/table.css';
+import '/clock.css';
 import '/clock.css';
 
 export const metadata = {

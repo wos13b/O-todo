@@ -176,7 +176,7 @@ export default function Page() {
         </div>
       </div>
       <script src="/script.js" defer></script>
-      <script src="/clock.js" defer></script>
+      <script src="/Clock.js" defer></script>
     </main>
   );
 }
