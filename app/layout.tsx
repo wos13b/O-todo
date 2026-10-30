@@ -1,7 +1,7 @@
-import '../style.css';
-import '../header.css';
-import '../Table.css';
-import '../Clock.css';
+import '../public/styles/style.css';
+import '../public/styles/header.css';
+import '../public/styles/Table.css';
+import '../public/styles/Clock.css';
 
 export const metadata = {
   title: 'O todo',
