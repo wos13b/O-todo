@@ -1,8 +1,8 @@
-import '/style.css';
-import '/header.css';
-import '/table.css';
-import '/clock.css';
-import '/clock.css';
+import '../style.css';
+import '../header.css';
+import '../table.css';
+import '../clock.css';
+import '../clock.css';
 
 export const metadata = {
   title: 'Meu Projeto O-todo',
