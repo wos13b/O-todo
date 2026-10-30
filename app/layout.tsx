@@ -1,5 +1,5 @@
-import './style.css';
-import './header.css';
+import '/style.css';
+import '/header.css';
 
 export const metadata = {
   title: 'Meu Projeto O-todo',
