@@ -25,7 +25,7 @@ export default function Page() {
           <li><a href="Idiom.html">Idiomas</a></li>
           <li><a href="Padrão.html" data-i18n="menu_padrões">Padrões universais</a></li>
           <li id="nav-perfil"><a href="Perf.html">Perfil</a></li>
-          <li id="nav-login"><a href="log.html">Login</a></li>
+          <li id="nav-login"><a href="/log">Login</a></li>
           <li id="nav-cadastro"><a href="Cdstr.html">Cadastro</a></li>
         </ul>
         <div className="Log_perf"></div>
