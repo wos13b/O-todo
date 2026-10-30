@@ -225,6 +225,13 @@
                 box-shadow 0.3s ease;
 }
 
+.Log_perf img{
+
+    width: 36px;
+    height: 38px;
+
+}
+
 .Log_perf:hover {
     transform: scale(1.08);
     box-shadow: 0 0 15px rgba(255, 111, 0, 0.4);
