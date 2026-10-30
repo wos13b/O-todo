@@ -1,5 +1,6 @@
 import '/style.css';
 import '/header.css';
+import 'clock.css';
 import '/script.js';
 
 export const metadata = {
